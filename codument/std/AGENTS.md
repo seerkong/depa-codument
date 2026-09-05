@@ -22,6 +22,7 @@ AI 编程助手用 Codument 做行为驱动开发的**入口与路由**。本文
 | engineering/modeling 长期知识 registry 怎么写 | `std/spec/{modeling,engineering}-registry.md`、`std/spec/{modeling,engineering}-node-schema.md` |
 | modeling / engineering 长期知识怎么写（分形、路由、元数据） | `std/attractors/model-driven-docs.md` → `std/skill/docs-{modeling,engineering}-fractal/index.md` |
 | 怎么提问/确认/纠偏（协议） | `std/protocols/decision-tree.md`、`std/protocols/questioning.md`、`std/protocols/validation.md` |
+| mission 控制论循环（四要素 / 四角色） | `std/protocols/cybernetic-loop.md` |
 | 执行套路（TDD / DAG 调度 / workflow） | `std/methods/{tdd,dag-execution,workflow}.md` |
 | track 文件（track.xnl）格式 | `std/spec/track-xnl-spec.md` |
 | mission 文件（mission.xnl）格式 | `std/spec/mission-xnl-spec.md` |

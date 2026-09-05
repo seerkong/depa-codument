@@ -2,7 +2,11 @@
 
 按 `mission.xnl` 的 desired DAG 执行 mission，并通过 `MissionPlanner` / `MissionObserver` / `MissionReconciler` / `MissionApplier` 四个控制论 + DEPA actor 做反馈收敛。
 
-> mission 执行是持续的 level-triggered 控制循环：先读取 current actual state 并选择下一步；每个操作在自身范围内验证完成，验证通过且未发现计划失效信号时直接推进，只有不确定或偏差时才观察受影响范围并协调。格式规范见 `codument/std/spec/mission-xnl-spec.md`；flow notation 见 `codument/std/spec/flow-notation.md`。
+> mission 执行是持续的、看状态不看事件的控制循环：先读取 current actual state 并选择下一步；每个操作在自身范围内验证完成，验证通过且未发现计划失效信号时直接推进，只有不确定或偏差时才观察受影响范围并协调。格式规范见 `codument/std/spec/mission-xnl-spec.md`；flow notation 见 `codument/std/spec/flow-notation.md`。Actor 的 XNL 字段协议只在 spec 维护。循环形状、四要素与四角色职责见 `codument/std/protocols/cybernetic-loop.md`，本文件不复述。
+
+## 控制论循环
+
+执行本 operation 前先读 `codument/std/protocols/cybernetic-loop.md`。本文件只写执行期主循环、返回边界与 TrackLink 绑定；不要在这里再抄一份四要素或角色表。
 
 ## 0. 前置
 
@@ -13,7 +17,7 @@
 
 ## 1. ActorSet 与 session runtime
 
-标准四 actor 协议、ActorSet 继承和 canonical examples 只由 `std/spec/mission-xnl-spec.md` 定义。本 operation 根据当前 TaskGroup 选择最近的完整 ActorSet，并执行其中 `<Description>` 所声明的本 mission 工作方式；不在这里复制角色定义。
+标准四 actor 的 **XNL 字段协议**、ActorSet 继承和 canonical examples 只由 `std/spec/mission-xnl-spec.md` 定义。角色**干什么**见 `std/protocols/cybernetic-loop.md`。本 operation 根据当前 TaskGroup 选择最近的完整 ActorSet，并执行其中 `<Description>` 所声明的本 mission 工作方式；不在这里复制 XNL 骨架。
 
 执行 session 以临时 `WorkspaceBinding` 提供 `ProjectRef -> workspace root` 映射。它不是配置、XML 节点或 report 内容，绝不写入 mission、track、report、decision 或任何可提交文件：
 
@@ -36,9 +40,29 @@
 
 `QuestionSeverity=auto` 必须把保守假设写入 `decisions.xnl` 或报告后继续，不得为了确认而暂停。十条 track checkpoint 只结束本次 invocation；mission 仍保持 `active`，下一次 `codument-impl-mission` 从 `mission.xnl` 续跑。
 
+只在**需要续跑的合法返回边界**（显式确认、真实 `BLOCKED`、十条 Track checkpoint）或 runtime 真实中断/显式 handoff 时写 continuation checkpoint。内容保持紧凑，只记录：当前目标、已完成项、下一 ready operation、真实 blocker、关键证据路径。终态不需要续跑 checkpoint；task、phase、单条 Track、回退复盘或重规划完成后不得因此停下写 checkpoint。
+
+续跑时以 mission/track XNL 为状态 authority：从 `mission.xnl` 的 TaskSpace/TrackLink 重建 mission actual state，结合相关 Track 的 `codument track ready <id> --json` / status 结果和最新 checkpoint 续跑。chat history 不是 authority；不估算 token 百分比、不要求逐 phase 摘要，也不发明 `current_state` 字段。
+
 每个 logical mission operation 必须有与影响相称的完成判定，但不需要生成统一回执文件、XNL 节点或任何专用数据格式：代码改动运行相关测试或静态检查；linked track 检查叶子状态与验收证据；外部操作重新读取受影响资源；分析操作确认约定证据已写入。完成判定通过且无前提、依赖、范围或目标的失效信号时，直接继续下一个 planned ready operation；判定不确定、失败或发现失效信号时，才观察受影响范围并进入 reconcile。仅在范围无法界定时才做全量观察。
 
 子流程的返回边界不得冒充 mission 主循环返回边界：`codument-impl-track`、`codument-archive-track`、`codument-verify`、`codument-gap-loop` 或 fresh 子代理返回时，只是把局部结果交还给 `MissionApplier`。若当前操作是在 mission 中处理某个子 track，子 track 的收口只约束该子流程；mission 父层读取结果、通过 CLI 更新状态、执行当前 operation 完成判定，然后继续 mission 主循环，除非命中本节列出的返回条件。
+
+### 2.1.1 Scope drift 协调（mission 语境）
+
+每个 logical operation 从当前 ready node、Acceptance、TrackLink/MaterialBundle、目标项目事实和已有工作区变更推导**预期改动面**。它是可更新的执行假设，不是文件或命令白名单；子 Track 细项见 `impl-track.md §6.2.1`。
+
+发现预期外工作时：
+
+1. **目标内、局部且可逆**：记录必要原因，更新预期改动面，完成当前 operation 的验证后继续。
+2. **计划或 authority 假设失效**（包括依赖变化）：只观察受影响真源，进入 reconcile/replan，验证修订后继续新的 ready branch。
+3. **需要新产品决策、不可逆外部动作、缺少权限或输入**：进入显式 HumanConfirm 或真实 `BLOCKED`；有其他 ready branch 时先继续可执行分支。
+
+命令权限由 runtime 和用户授权决定，Codument 不维护另一份命令白名单。`QuestionSeverity=auto` 可以为普通假设选择保守默认，但不替代不可逆外部动作所需的授权。
+
+operation 收口时把实际变更分为 mission 所需、既有工作区变更、生成物和无法解释的变更；先查证归属，不回退其他来源的工作。前两类 drift 是 reconcile signal，不是 invocation 返回条件；本小节不增加 §2.1 之外的返回点。
+
+mission 直接执行的 logical operation 若丢弃了 agent 自己基于错误假设的实现尝试，且教训可复用，按 `impl-track.md §8.1` 处理回退复盘事件。普通 Git 流程、用户要求的恢复和生成物清理不触发；复盘完成后继续当前 operation。子 Track 内的同类事件只作为局部结果交还 MissionApplier，不构成 mission 返回点。
 
 **候选 track 激活（candidate activation）**：当 ready operation 是 candidate TrackLink 时，plan-track 产出的 Track 属于 mission 执行期产物。MissionApplier 运行 `codument track transition <track-id> in_progress` 与 `codument mission bind-track <mission-id> <task-id> <track-id>`，由 CLI 移动 authority、验证真实 Track、更新 TrackLink/leaf/revision 并写 bind report。命令成功后继续下一个 planned ready operation；显式确认 gate 仍可在激活点暂停。
 
@@ -170,7 +194,7 @@ TrackLink 是对真实 track 生命周期的承诺，不是一个普通标签：
 
 一次 invocation 最多连续完成 10 个 linked track 生命周期。只有 linked track 完成、其 mission leaf 被写为 `DONE`，并已记录实际证据时才计数；创建、绑定、分析和普通验证不计数。
 
-达到 10 时写 `reports/continuation-XXX.md`，记录已完成 track、下一 ready 节点和恢复入口，然后返回 checkpoint。不得把 mission 改为 `blocked` 或 `completed`；下一次 invocation 重新从 `mission.xnl` 观察。
+达到 10 时写 `reports/continuation-XXX.md`，只记录当前目标、已完成项、下一 ready operation、真实 blocker 和关键证据路径，然后返回 checkpoint。不得把 mission 改为 `blocked` 或 `completed`；下一次 invocation 按 §2.1 从 authority 与 CLI 投影恢复。
 
 ## 5. 受控重规划
 

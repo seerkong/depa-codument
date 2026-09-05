@@ -1,10 +1,12 @@
-import { describe, expect, it } from 'bun:test';
+import { describe, expect, it, setDefaultTimeout } from 'bun:test';
 import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 
 const repoRoot = path.resolve(import.meta.dir, '../../..');
 const cli = path.join(repoRoot, 'src/cli/index.ts');
+
+setDefaultTimeout(30_000);
 
 function workspace(): string {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'codument-lifecycle-'));

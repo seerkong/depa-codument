@@ -445,7 +445,7 @@ proposal 获批后："现在我将在 CLI 已生成的当前版本 `track.xnl` �
 > **G. 启用（`verify_round = true`）** — 首轮 `NO_GAP` 后再追一轮轻量验证
 > **H. 不启用（`verify_round = false`，默认）** — 首轮 `NO_GAP` 直接收口
 >
-> **方向审查**默认关闭。只有明确属于架构、安全或数据一致性高风险的 track，才在最后一个第一层 phase 写入 `<Hook { on = "phase:after" } (<AttractorCheck { use = "coding" }>)>`；docs 维护仅使用 `docs` profile 的显式 hook。
+> **方向审查**默认关闭。只有明确属于架构、安全或数据一致性高风险的 track，才在最后一个第一层 phase 写入 `<Hook { on = "phase:after" } (<AttractorCheck { use = "coding" }>)>`；docs 维护仅使用 `docs` profile 的显式 hook。AttractorCheck 的 reviewer contract、receipt 与 caller-owned round 统一见 `std/protocols/attractor-check.md`，**不要把审查步骤写在本文件**；本文件只负责决定“挂或不挂”。
 >
 > 你可以在同一条回复里同时给出「修改意见 + 提交模式（A/B）+ 校验模式（C/D）+ 可选粒度（E/F）+ 验证轮（G/H）+ 方向审查范围」。"（**ask-multi-question-closed**）
 

@@ -4,7 +4,11 @@
 
 > mission 是长周期控制面，不是大号 track。真实代码 / 规范 / 测试落地仍由 track 承担；mission 负责期望态 DAG、观察实际态、受控重规划和跨 track 编排。
 >
-> 文件格式见 `codument/std/spec/mission-xnl-spec.md`；流程块格式见 `codument/std/spec/flow-notation.md`。
+> 文件格式见 `codument/std/spec/mission-xnl-spec.md`；流程块格式见 `codument/std/spec/flow-notation.md`。Actor 的 XNL 字段协议只在该 spec 里维护。循环形状、四要素与四角色职责见 `codument/std/protocols/cybernetic-loop.md`，本文件不复述。
+
+## 控制论循环
+
+执行本 operation 前先读 `codument/std/protocols/cybernetic-loop.md`。规划期主要由 MissionPlanner 把期望态写入 `proposal.md` / `design.md` / `mission.xnl`；缺四要素就不要创建 mission，改用 track 或直接改代码。
 
 ## 0. 何时创建 mission
 
@@ -57,7 +61,7 @@ codument/missions/pending/<mission-id>/
 
 ## 2. Mission ActorSet
 
-四个标准 actor 的协议与完整的单/多项目示例只由 `std/spec/mission-xnl-spec.md` 定义。本 operation 不复制它们。
+四个标准 actor 的 **XNL 字段协议**与完整单/多项目示例只由 `std/spec/mission-xnl-spec.md` 定义。角色**干什么**见 `std/protocols/cybernetic-loop.md`，本 operation 不把 spec 的 XML 骨架再抄一遍。
 
 规划时必须在 `mission.xnl` materialize：
 
@@ -69,7 +73,7 @@ codument/missions/pending/<mission-id>/
 
 ## 3. 主流程
 
-正式进入 mission 规划前，直接读取相关项目 attractor、代码、行为和现有 mission/track 作为约束上下文。只有 `operation-hooks.xnl` 显式为 `plan-mission:before` 配置 hook 时才执行 fresh AttractorCheck。
+正式进入 mission 规划前，直接读取相关项目 attractor、代码、行为和现有 mission/track 作为约束上下文。只有 `operation-hooks.xnl` 显式为 `plan-mission:before` 配置 hook 时才执行 fresh AttractorCheck；执行与结果处理统一遵循 `std/protocols/attractor-check.md`。
 
 ```text
 @delimiter: --
@@ -138,6 +142,8 @@ codument/missions/pending/<mission-id>/
 
 ## 5. design.md 示例
 
+`design.md` 必须能让执行期四个角色对上四要素；不要只写散文目标。
+
 ```markdown
 # Mission Design
 
@@ -145,8 +151,17 @@ codument/missions/pending/<mission-id>/
 
 - desired state：mission.xnl 的顶层 TaskGroup DAG、组内顺序 Task、节点状态、门禁和叶子 Task 上的 `TrackLink`。
 - actual state：当前 mission 文件、track 状态、archive、测试结果、reports、用户新约束。
-- actuation：创建/续跑/归档 track，或受控修订 mission.xnl。
-- feedback / drift：reports、verify、用户介入、失败证据。
+- actuation：创建/续跑/归档 track，或受控修订 mission.xnl。幂等，只补差。
+- feedback / drift：reports、verify、用户介入、失败证据。用户改目标走 Planner；仓库/track 漂移走 Observer。
+
+## 四角色在本 mission 中的工作方式
+
+- MissionPlanner：……（何时重规划、依据什么 evidence）
+- MissionObserver：……（读哪些真源）
+- MissionReconciler：……（ready / drift / blocked / completed 的判据）
+- MissionApplier：……（叶子操作与验证）
+
+标准 actor 的 XNL 协议引用 Mission XNL spec，不在此复制定义。
 
 ## 受控重规划
 

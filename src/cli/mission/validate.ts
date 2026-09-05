@@ -20,7 +20,7 @@ const QUESTION_MODE = new Set(['decision-tree']);
 const QUESTION_SEVERITY = new Set(['auto', 'light', 'normal', 'deep']);
 /** TaskGroup/Task status vocabulary (mission-xml-spec §6, mission-specific). */
 const MISSION_NODE_STATUS = new Set([
-  'NOT_STARTED', 'ACTIVE', 'DONE', 'BLOCKED', 'ABANDONED', 'SUPERSED',
+  'NOT_STARTED', 'ACTIVE', 'DONE', 'BLOCKED', 'ABANDONED', 'SUPERSEDED',
 ]);
 /** Hook on values: track points plus the mission-specific mission:after-node (mission-xml-spec §3/§8.1). */
 const MISSION_HOOK_POINTS = new Set([
@@ -143,7 +143,7 @@ function validateMissionTaskSpace(root: SpecXmlNode, findings: MissionValidation
       findings.push({
         severity: 'error',
         rule: 'mission.taskspace.status',
-        message: `<${n.tag} id="${id}"> status="${s}" 非法（NOT_STARTED|ACTIVE|DONE|BLOCKED|ABANDONED|SUPERSED）`,
+        message: `<${n.tag} id="${id}"> status="${s}" 非法（NOT_STARTED|ACTIVE|DONE|BLOCKED|ABANDONED|SUPERSEDED）`,
       });
     }
     const cm = n.attrs['cdt:child-mode'];

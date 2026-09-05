@@ -126,4 +126,13 @@ describe('validateMissionXml ActorSet and ProjectRef contract', () => {
     expect(errors(unknownActorProject).join('\n')).toMatch(/missing-project/);
     expect(errors(unknownTrackProject).join('\n')).toMatch(/missing-project/);
   });
+
+  it('accepts canonical SUPERSEDED mission task state and rejects the legacy misspelling', () => {
+    const superseded = VALID_MISSION.replace('status="NOT_STARTED"', 'status="SUPERSEDED"');
+    const misspelled = VALID_MISSION.replace('status="NOT_STARTED"', 'status="SUPERSED"');
+
+    expect(errors(superseded)).toEqual([]);
+    expect(errors(misspelled)).toHaveLength(1);
+    expect(errors(misspelled)[0]).toContain('status="SUPERSED" 非法');
+  });
 });

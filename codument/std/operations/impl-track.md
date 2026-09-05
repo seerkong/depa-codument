@@ -260,8 +260,24 @@ local 与 delegated worker 都应：
 
 1. 读取 input MaterialBundle、前置产物、behavior_deltas、Acceptance、tdd.md、analysis/findings.md、根 `decisions.xnl` 与递归 `decisions/**/*.xnl`。
 2. 按 `tdd.md` 执行；重构/类型/迁移任务先建立 characterization 或等价行为基线。
-3. 只修改任务边界内源码、测试与 output MaterialBundle 产物，逐条收集 acceptance 验证证据。
-4. 禁止 `git restore` / `git checkout` / `git stash` 抹改动；不得越界修复，不污染环境配置。
+3. 从 Acceptance、MaterialBundle、proposal/design、目标模块与当前工作区事实推导预期改动面，逐条收集 acceptance 验证证据。
+4. 不覆盖或回退用户及其他工作流的既有变更；涉及不可逆外部动作或缺少运行时权限时，按失败边界协调。
+
+### 6.2.1 Scope drift 协调（开始与收口必做）
+
+任务开始时形成**预期改动面**：它来自当前 Acceptance、MaterialBundle、proposal/design、目标模块与已存在的工作区变更，是可随证据更新的实现假设，不是文件或命令白名单，也不要求额外创建报告。
+
+发现预期外工作时先分类，再决定控制流：
+
+1. **目标内、局部且可逆**：确认仍服务于当前 Acceptance，记录必要原因，更新预期改动面并继续任务。
+2. **计划或 authority 假设失效**：读取受影响真源，受控修订 task/plan 或把 drift 交给 MissionReconciler；验证修订后继续。
+3. **需要新产品决策、不可逆外部动作、缺少权限或输入**：按 §8 形成 HumanConfirm 或真实 `BLOCKED`；只有这一类可能成为调用方返回条件。
+
+命令权限由当前运行时和用户授权决定，Codument 不另建命令白名单。scope drift 是 reconcile signal，不是 stop signal。
+
+收口前读取 `git status` / diff，把实际变更分类为：本 Track 所需、用户或其他流程已有、构建/升级生成物、尚无法解释。前三类按归属保留并验证；最后一类先查证来源，不能解释且影响验收时才进入上述第二或第三类。不得为了恢复“干净 scope”而回退不属于当前任务的改动。
+
+若当前 Track 是 mission 子流程，前两类 drift 协调完成后继续 Track，并在子流程返回时由 MissionApplier 推进后续 ready operation；本小节不增加 `impl-mission.md §2.1` 之外的 mission 返回点。
 
 delegated worker 还必须遵守：
 
@@ -326,7 +342,7 @@ diff 审查：确认无无关运行时改动；对声称行为不变的任务，
 
 ## 7.0 生命周期 hook（含阶段门控 · step 2/6）
 
-门控**只在配置了的地方发生**。phase / task / track 的 `<Hooks>` 里挂了 `HumanConfirm`（人工确认）/ `GapLoop`（转 gap-loop skill 做 fresh 目标对比）/ `AttractorCheck`（方向审查，fresh-subagent）时才触发；没挂就**静默继续，不为提问而提问**。`<Hook { on = "..." }>` 取值：`track:before|after`、`phase:before|after`、`task:before|after`。执行顺序（phase 与 task 同配时）：phase-before → task-before → task-after → phase-after。
+门控**只在配置了的地方发生**。phase / task / track 的 `<Hooks>` 里挂了 `HumanConfirm`（人工确认）/ `GapLoop`（转 gap-loop skill 做 fresh 目标对比）/ `AttractorCheck`（方向审查，fresh-subagent）时才触发；没挂就**静默继续，不为提问而提问**。`<Hook { on = "..." }>` 取值：`track:before|after`、`phase:before|after`、`task:before|after`。执行顺序（phase 与 task 同配时）：phase-before → task-before → task-after → phase-after。AttractorCheck 的 reviewer contract 与 receipt 统一见 `std/protocols/attractor-check.md`，本文件只编排 caller 行为。
 
 ```text
 @delimiter: --
@@ -344,7 +360,7 @@ diff 审查：确认无无关运行时改动；对声称行为不变的任务，
 转 gap-loop 双角色协议：当前实现 agent 不在原上下文继续做 gap 校验/修正，只把控制权交回父层编排者。详见 §7.1
 -------- /?gaploop
 -------- #case ?attractor when="AttractorCheck"
-按 `{ use = "<profile>" }` 派 fresh-subagent 对照 attractor-profiles.xnl 的 profile 审查方向 → 裁决 PASS|GAP|BLOCKED；GAP 修复后重跑该 check 直到 PASS/BLOCKED（见 `std/protocols/validation.md`）
+按 `{ use = "<profile>" }` 和统一协议派 fresh reviewer。PASS 时继续；GAP 时由 track executor 修复、验证并启动新的 fresh reviewer；BLOCKED 时按 §8 协调。mission 子 Track 的结果先交还 MissionApplier，不直接结束 mission invocation
 -------- /?attractor
 ------ /?type
 ---- /?each
@@ -399,6 +415,19 @@ diff 审查：确认无无关运行时改动；对声称行为不变的任务，
 ---- /?dagblock
 -- /?fail
 ```
+
+### 8.1 回退复盘事件
+
+rollback review 是 executor 内部的条件事件，**不是 Operation、生命周期 hook、CLI 状态或返回条件**。只有同时满足以下条件才触发：
+
+1. 当前 agent 的实现尝试因为错误假设或错误路径被丢弃；
+2. 反证、正确路径或预防措施对当前后续任务或未来工作有复用价值。
+
+普通 rebase/branch switch、用户明确要求的恢复、生成物清理、撤销无语义试验和状态机正常恢复不触发。不要根据命令名称机械判断，也不要为没有耐久价值的回退制造报告。
+
+触发时简要记录三项：**原假设与反证、根因与正确路径、可执行的预防措施**。只有内容可复用时才写入 `<track-dir>/reports/rollback-reviews/<date>-<slug>.md`；只有进一步满足 knowledge tier 时，才在 archive transaction 前物化为现有 `memory/<type>/*.md` 候选。
+
+复盘后继续当前 task 的实现与验证。若这是 mission 子 Track，复盘结果只是子流程证据；Track 返回后仍由 MissionApplier 继续 ready operation，除非另有真实 `BLOCKED` 或 §2.1 的合法返回条件。
 
 ---
 

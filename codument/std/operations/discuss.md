@@ -34,7 +34,7 @@
 
 ## 2. 上下文搜集
 
-直接读取与讨论目标相关的项目约束和现有资料；仅当 `operation-hooks.xnl` 显式为 `discuss:before` 配置 `<AttractorCheck>` 时才执行 fresh check。
+直接读取与讨论目标相关的项目约束和现有资料；仅当 `operation-hooks.xnl` 显式为 `discuss:before` 配置 `<AttractorCheck>` 时才执行 fresh check，执行与结果处理统一遵循 `std/protocols/attractor-check.md`。
 
 按需求相关性读取：
 

@@ -23,7 +23,7 @@
 
 ## 1. 上下文加载
 
-1. 直接读取与目标相关的项目约束、代码和测试；仅当 `operation-hooks.xnl` 显式为 `impl-quick:before` 配置 `<AttractorCheck>` 时才执行 fresh check。
+1. 直接读取与目标相关的项目约束、代码和测试；仅当 `operation-hooks.xnl` 显式为 `impl-quick:before` 配置 `<AttractorCheck>` 时才执行 fresh check，执行与结果处理统一遵循 `std/protocols/attractor-check.md`。
 2. 读取与请求相关的：
    - `codument/attractors/`、`codument/std/attractors/`。
    - `codument/behaviors/`。

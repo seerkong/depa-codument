@@ -134,6 +134,8 @@ ProjectRef 的逻辑 id 可提交；本机绝对路径只放在被 Git 忽略的
 
 ## 6. 控制循环
 
+循环形状、四要素与四角色职责见 `std/protocols/cybernetic-loop.md`。XNL 里必须各有一个 Actor；本 spec 只钉字段与返回边界。
+
 MissionPlanner 维护 desired DAG；MissionObserver 读取真实 Track、测试、资源树和报告；MissionReconciler 比较实际态并选择 ready operation；MissionApplier 执行、验证、写回状态和 evidence。
 
 每个 operation 完成后继续循环。只有以下情况返回调用方：

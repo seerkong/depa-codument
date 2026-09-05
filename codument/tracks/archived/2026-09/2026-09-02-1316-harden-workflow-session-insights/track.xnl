@@ -1,0 +1,151 @@
+<Track #harden-workflow-session-insights apiVersion="codument.tech/v1alpha1" version="1" { status = "completed" goal = "加固 Codument 的实现连续性、AttractorCheck 单一协议与归档前复盘，并以完整工程验证和 workspace 狗粮证明改造有效。" description = "删除缺少事实支撑的 session-budget、伪 Operation 和额外范围；以 scope drift 分级、rollback review 事件、caller-owned AttractorCheck、pre-archive retrospective、契约测试和狗粮升级重建工作流。" question_mode = "decision-tree" question_severity = "auto" commit_mode = "manual" created_at = "2026-09-01T17:43:06.022Z" updated_at = "2026-09-02T10:16:26.287Z" modeling_base_commit = "8558c21ed17700714f7e9714c31799b736cec955" engineering_base_commit = "8558c21ed17700714f7e9714c31799b736cec955" } (
+  <Ports { scope = "track" } [
+    <MaterialBundle #std-operations { role = "output" name = "std-operations" domain = "docs" path = "vfs://@/src/templates/codument/std/operations/" }>
+    <MaterialBundle #std-protocols { role = "output" name = "std-protocols" domain = "docs" path = "vfs://@/src/templates/codument/std/protocols/" }>
+    <MaterialBundle #config { role = "output" name = "config" domain = "code" path = "vfs://@/src/templates/codument/config/" }>
+    <MaterialBundle #mission-validation { role = "output" name = "mission-validation" domain = "code" path = "vfs://@/src/cli/mission/" }>
+    <MaterialBundle #tests { role = "output" name = "tests" domain = "test" path = "vfs://@/test/" }>
+    <MaterialBundle #dogfood-workspace { role = "output" name = "dogfood-workspace" domain = "docs" path = "vfs://@/codument/" }>
+  ]>
+  <TaskSpace #space_harden-workflow-session-insights { name = "harden-workflow-session-insights" version = "1" child_mode = "dag" } (
+    <SubNodes [
+      <TaskGroup #P1 { name = "实现连续性" status = "DONE" priority = "P0" order = 0 } (
+        <Description ?01M1GNM0M4DXT03GA3KHWGHMCN>
+        移除 scope 白名单和伪 rollback Operation，以漂移协调、统一状态词汇和内部复盘事件保持 track/mission 连续执行。
+        </?01M1GNM0M4DXT03GA3KHWGHMCN>
+        <SubNodes [
+          <Task #P1-T1 { name = "重构 scope drift 协调与状态连通" status = "DONE" priority = "P0" order = 0 } (
+            <Acceptance [
+              <Criterion #P1-T1-AC1 { checked = true } ?01M1GNM0M4DXT03GA3KHWGHMCP>
+              impl-track 与 impl-mission 使用预期改动面和三级 drift 处理，不再包含命令白名单或越界即停的默认分支。
+              </?01M1GNM0M4DXT03GA3KHWGHMCP>
+              <Criterion #P1-T1-AC2 { checked = true } ?01M1GNM0M4DXT03GA3KHWGHMCQ>
+              前两类 drift 修订并验证后继续；mission 子 Track 不新增 §2.1 之外的返回点。
+              </?01M1GNM0M4DXT03GA3KHWGHMCQ>
+              <Criterion #P1-T1-AC3 { checked = true } ?01M1GNM0M4DXT03GA3KHWGHMD9>
+              Mission validator 与 lifecycle/spec 统一使用 `SUPERSEDED`，有单测证明 canonical 值合法、误拼 `SUPERSED` 非法，且 BehaviorPatch 修正已有行为真源。
+              </?01M1GNM0M4DXT03GA3KHWGHMD9>
+            ]>
+          )>
+          <Task #P1-T2 { name = "将 rollback review 改为内部事件" status = "DONE" priority = "P0" order = 1 } (
+            <Acceptance [
+              <Criterion #P1-T2-AC1 { checked = true } ?01M1GNM0M4DXT03GA3KHWGHMCR>
+              operation-hooks 不注册 rollback-review 或 impl-mission 伪 Operation，rollback 规则明确触发条件、排除项和继续语义。
+              </?01M1GNM0M4DXT03GA3KHWGHMCR>
+              <Criterion #P1-T2-AC2 { checked = true } ?01M1GNM0M4DXT03GA3KHWGHMCS>
+              只有可复用教训才写 rollback report 或 memory 候选，普通 Git/清理/用户恢复操作不触发。
+              </?01M1GNM0M4DXT03GA3KHWGHMCS>
+            ]>
+          )>
+        ]>
+      )>
+      <TaskGroup #P2 { name = "统一 AttractorCheck" status = "DONE" priority = "P0" order = 1 } (
+        <Description ?01M1GNM0M4DXT03GA3KHWGHMCT>
+        以单一 fresh 只读协议统一 verdict、调用方职责和直接调用方引用闭包。
+        </?01M1GNM0M4DXT03GA3KHWGHMCT>
+        <SubNodes [
+          <Task #P2-T1 { name = "重写 AttractorCheck 协议" status = "DONE" priority = "P0" order = 0 } (
+            <Acceptance [
+              <Criterion #P2-T1-AC1 { checked = true } ?01M1GNM0M4DXT03GA3KHWGHMCV>
+              协议只使用 PASS、GAP、BLOCKED 与 status/summary/evidence 回执，轮次和修复归调用方所有。
+              </?01M1GNM0M4DXT03GA3KHWGHMCV>
+              <Criterion #P2-T1-AC2 { checked = true } ?01M1GNM0M4DXT03GA3KHWGHMCW>
+              协议不声称替代 GapLoop verify_round，也不让 reviewer 修改文件或拥有 track/mission 控制流。
+              </?01M1GNM0M4DXT03GA3KHWGHMCW>
+            ]>
+          )>
+          <Task #P2-T2 { name = "补齐调用方引用与契约测试" status = "DONE" priority = "P0" order = 1 } (
+            <Acceptance [
+              <Criterion #P2-T2-AC1 { checked = true } ?01M1GNM0M4DXT03GA3KHWGHMCX>
+              所有直接 author/execute AttractorCheck 的 operation 显式引用统一协议，impl-track 不保留另一套 verdict。
+              </?01M1GNM0M4DXT03GA3KHWGHMCX>
+              <Criterion #P2-T2-AC2 { checked = true } ?01M1GNM0M4DXT03GA3KHWGHMCY>
+              测试动态校验引用闭包、合法 verdict 和 caller-owned repair/round 语义。
+              </?01M1GNM0M4DXT03GA3KHWGHMCY>
+            ]>
+          )>
+        ]>
+      )>
+      <TaskGroup #P3 { name = "归档前复盘" status = "DONE" priority = "P0" order = 2 } (
+        <Description ?01M1GNM0M4DXT03GA3KHWGHMCZ>
+        把 retrospective 和 durable candidate 物化移动到 archive transaction 之前。
+        </?01M1GNM0M4DXT03GA3KHWGHMCZ>
+        <SubNodes [
+          <Task #P3-T1 { name = "重排 archive-track 事务顺序" status = "DONE" priority = "P0" order = 0 } (
+            <Acceptance [
+              <Criterion #P3-T1-AC1 { checked = true } ?01M1GNM0M4DXT03GA3KHWGHMD0>
+              before hook 后先写 retrospective 并物化合格 decision/memory 候选，再 strict validate 和 CLI archive。
+              </?01M1GNM0M4DXT03GA3KHWGHMD0>
+              <Criterion #P3-T1-AC2 { checked = true } ?01M1GNM0M4DXT03GA3KHWGHMD1>
+              CLI 成功后只消费 receipt、运行受限 after hook 和报告，不修改已归档 authority。
+              </?01M1GNM0M4DXT03GA3KHWGHMD1>
+            ]>
+          )>
+        ]>
+      )>
+      <TaskGroup #P4 { name = "清理失效设计" status = "DONE" priority = "P1" order = 3 } (
+        <Description ?01M1GNM0M4DXT03GA3KHWGHMD2>
+        删除 session-budget 和失效配置的模板与文档遗留，保留合法 continuation checkpoint。
+        </?01M1GNM0M4DXT03GA3KHWGHMD2>
+        <SubNodes [
+          <Task #P4-T1 { name = "删除失效模板与口径" status = "DONE" priority = "P1" order = 0 } (
+            <Acceptance [
+              <Criterion #P4-T1-AC1 { checked = true } ?01M1GNM0M4DXT03GA3KHWGHMD3>
+              session-budget 文件和 profile 引用已删除，README 与 Track 权威不再承诺已否决的外部 session 能力。
+              </?01M1GNM0M4DXT03GA3KHWGHMD3>
+              <Criterion #P4-T1-AC2 { checked = true } ?01M1GNM0M4DXT03GA3KHWGHMD4>
+              impl-mission 仅在合法返回/handoff 写紧凑 checkpoint，且不依赖 token 百分比、chat history 或不存在的状态字段。
+              </?01M1GNM0M4DXT03GA3KHWGHMD4>
+            ]>
+          )>
+        ]>
+      )>
+      <TaskGroup #P5 { name = "验证与狗粮" status = "DONE" priority = "P0" order = 4 } (
+        <Description ?01M1GNM0M4DXT03GA3KHWGHMD5>
+        运行目标测试、全量检查、构建、本地安装、workspace upgrade 和 fresh final verification。
+        </?01M1GNM0M4DXT03GA3KHWGHMD5>
+        <SubNodes [
+          <Task #P5-T1 { name = "通过契约与全量测试" status = "DONE" priority = "P0" order = 0 } (
+            <Acceptance [
+              <Criterion #P5-T1-AC1 { checked = true } ?01M1GNM0M4DXT03GA3KHWGHMD6>
+              新增回归测试通过，lifecycle 子进程集成测试在合理的跨机器超时下稳定，bun run check、strict validate、std lint 与 git diff --check 全部成功。
+              </?01M1GNM0M4DXT03GA3KHWGHMD6>
+            ]>
+          )>
+          <Task #P5-T2 { name = "构建安装并吃狗粮" status = "DONE" priority = "P0" order = 1 } (
+            <Acceptance [
+              <Criterion #P5-T2-AC1 { checked = true } ?01M1GNM0M4DXT03GA3KHWGHMD7>
+              CLI 构建和本地安装成功，本项目运行 codument upgrade-workspace 后受管理 std/config 与模板新契约一致。
+              </?01M1GNM0M4DXT03GA3KHWGHMD7>
+            ]>
+          )>
+          <Task #P5-T3 { name = "执行最终独立验收" status = "DONE" priority = "P0" order = 2 } (
+            <Acceptance [
+              <Criterion #P5-T3-AC1 { checked = true } ?01M1GNM0M4DXT03GA3KHWGHMD8>
+              fresh verification 不复用 task receipt，重新运行关键命令并按 proposal 成功判据完成语义复核。
+              </?01M1GNM0M4DXT03GA3KHWGHMD8>
+            ]>
+          )>
+        ]>
+      )>
+    ]>
+  )>
+  <Schedule { max_concurrent = 2 spot_check = true } [
+    <Dag { for = "space_harden-workflow-session-insights" } [
+      <Node #P2 [
+        <After { ref = "P1" }>
+      ]>
+      <Node #P3 [
+        <After { ref = "P1" }>
+      ]>
+      <Node #P4 [
+        <After { ref = "P2" }>
+        <After { ref = "P3" }>
+      ]>
+      <Node #P5 [
+        <After { ref = "P4" }>
+      ]>
+    ]>
+  ]>
+  <Hooks []>
+)>
