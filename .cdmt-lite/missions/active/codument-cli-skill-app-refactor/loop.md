@@ -1,6 +1,6 @@
 # Loop: Codument CLI Skill App 与可复用 Host 重构
 
-Status: active
+Status: blocked
 Round: 47
 
 本轮模式：用户已授权检查点提交及依据E310自主优化。检查点ce0f2cb，author kongweixian <kong_weixian@163.com>。优先精确交接、只读执行上下文和前置真实行为验证；代码在原仓库，测试/构建在/tmp副本。Round45七个终态试次及限额保持，新候选使用fresh trials；不安装global或升级原dogfood。
@@ -120,6 +120,8 @@ Round: 47
 - Outcome: 用实际执行而非文档字节衡量有效交付；原失败保持可追溯。
 - Done when: 新试次有终态、真实验收及成本证据；失败据证据调和，不能重置旧预算。
 - Evidence: E313 qUXNoE为UI基础设施终态；aTb63U attempt0因缺必需测试failed，attempt1在gap_round5因原始B/C与三片段内容流测试缺口blocked。两次试次不重置；据此新增原始需求对照/等待/运行时交接源码修正，完整验证后用另一个新候选测量。
+- Latest evidence: E347最新ox1QMV首次PASS，E345旧Q按max5阻塞；成本/策略分组完整保留。E348浏览器恢复复查仍失败，缺UI覆盖不是非浏览器结果能替代。
+- Blocked on: Ego TaskSpace4/p1恢复，或用户明确允许升级Ego Lite；之后用当前冻结候选fresh Todo/Blog/Ecommerce及Todo重复，不恢复/改判旧终态。不请求增加旧检查轮数。
 
 ### 显式展开适用吸引子引用
 
@@ -522,6 +524,8 @@ Round: 47
 
 ## 尚未看清
 
+- ox1QMV的fresh子层在系统临时目录被拒后创建了多个workspace-local .gap-*/venv，最终Git仍列为untracked。尚未量化其对指纹/复制/目录读取的成本；不据此断言慢因、不自动删除验证产物或缩小完整性范围。当前优先完成被Ego阻塞的真实UI覆盖。
+
 - Round47追加观察：94Yims plan0为保存原始需求快照三次`base64 < request.md`（原生CommandExecution不同id，各输出28225字符），另一次acceptance编码输出3613字符，存在字节搬运经过模型上下文的额外成本。先前仅观察到两次，现按完整记录更正。尚未量化主导开销；现有原始快照规则要求自包含但不要求base64，未发现material导入CLI。后续按事实决定窄策略，不以此减少必要原文阅读或取消输入追溯。
 - 三个同名命令最终用户界面和组合行为：明确延期到核心重构后讨论，不在本轮替用户选择。
 - Browser/LF公共runtime边界已由E140以及后继三消费者/clone制品证明；尚未验证的是其它OS native与真实外部browser长期行为，不能扩大已有本机隔离证明。
@@ -566,29 +570,18 @@ Round: 47
 
 ## Last action
 
-- E344路径证据候选隔离完整回归及小情境验证通过；E345 Q R0Pona已BLOCKED，session31030 exit1、auth清理，不再轮询/恢复。准备提交这一窄修订，再启动i8oyvm冻结候选的一次fresh同策略Stream（dist/depa-codument-r47-contract-path），命令bun e2e/run.ts run stream-pipeline-ai-agent --bin=<i8oyvm>/dist/depa-codument-r47-contract-path --codex=/Users/kongweixian/.bun/bin/codex，日志父目录stream-contract-path.log。记录新root/session后不改候选。以下活动描述均为历史。
-
-- E343路径证据指导仅改共享context-loading；新隔离副本i8oyvm（/private/tmp/depa-codument-verification-i8oyvm/depa-codument/project），全check session60739、smoke session24570，日志父目录contract-path-{check,build,smoke}.log。native dist/depa-codument-r47-contract-path已构建156资源，Skill quick_validate通过；独立Terra contract_path_forward只读评估真实旧快照及无结构约束纯函数情境，不提供预期结论。Q R0Pona仍冻结，attempt0外评真实FAIL后implementation1原预算内修复，20tests已过、fresh验证活动。不提前标新指导或真实试次完成。
-
-- 恢复观察（2026-09-12）：唯一活动真实试次是Q R0Pona，session31030；root=/private/tmp/depa-codument-e2e-R0Pona，日志/private/tmp/depa-codument-verification-VeUfQE/stream-operation-text.log。plan0已过，implementation0的首次fresh verify发现原始需求中的端到端测试覆盖及README解释缺口，父层修复后14tests通过，正在请求新的fresh verifier；不是最终PASS。Q保持冻结。以下W/L活动叙述为历史，均已由终态覆盖：W xFEjgk首次PASS（E339），L hY83QU首次PASS（E342）。当前源码提交782d8e5，只有mission记录未提交。
-
-- 782d8e5文本读取优化提交（163 author/committer），E340完整694tests/native/smoke/前向情境过线。W xFEjgk终态首次PASS（E339）；按用户关键用例重复授权启动Q=/private/tmp/depa-codument-verification-VeUfQE/depa-codument/project冻结候选的fresh Stream：bun e2e/run.ts run stream-pipeline-ai-agent --bin=<Q>/dist/depa-codument-r47-operation-text --codex=/Users/kongweixian/.bun/bin/codex，日志父目录stream-operation-text.log。需记录首行root/session；不再改Q，保留相同workflow-policy，所有成本照计。L hY83QU仍活动，不重复启动。
-
-- 操作文本读取切片：只改global SKILL与verify子层入口指导，保留JSON完整合同；全15 native操作新增正文等价断言。Skill quick_validate/diff通过，准备isolated-project.ts round47-operation-text新副本，先global-guidance-binary定向，再全check/native/smoke及独立前向读取情境。W/L活动运行不改，后续不把静态字节差冒充完整token收益。
-
-- 最新提交5ce0cd8恢复准入保护，前一ec36bbc绑定隐私；author/committer均kongweixian <kong_weixian@163.com>。UmazDZ最新完整694tests/7993assertions/typecheck/lint通过（E336），无未提交业务源码；本次不build重复产品或启动第三试次。
-- 活动Stream root=/private/tmp/depa-codument-e2e-xFEjgk，session53952；W=/private/tmp/depa-codument-verification-i6ECNV/depa-codument/project，冻结dist/depa-codument-r47-workflow-policy，日志父目录stream-fixed-policy.log。plan0通过，implementation0进入配置GapLoop；父层报告两项修复、第三fresh复检，尚未最终验收。
-- 活动Nested root=/private/tmp/depa-codument-e2e-hY83QU，session55040；L=/private/tmp/depa-codument-verification-lK5aRy/depa-codument/project，冻结dist/depa-codument-r47-binding-privacy，日志父目录nested-binding-privacy.log。plan0及前置绑定/策略准入通过，implementation0正在inventory检查阶段。两仓绑定实际被忽略；父层进展不是最终PASS。
-- W/L活动副本不改，用户中断后保留原进程，未重复启动。旧vuM1YN首PASS但无GapLoop/AttractorCheck（E331/E332），旧4Qt0XU blocked（E333），94Yims纠偏后PASS且包含误报成本（E326–329）；全部旧结果与预算保持。
-- Ego唯一TaskSpace4/p1最新只读info仍Runtime.evaluate超时，agent ownership，0.5.0.28仍提示升级（E338）。不再重试/换space，升级仍待用户明确许可；Todo/Blog/Ecommerce浏览器支路暂停。
-- 最新复制前后原codument/指纹b631c719…与旧global bin字节05206bf0…未变；副本历史升级仍review-required，不计迁移PASS。无global安装、push或发布。
+- 最新源码d196e87（author/committer kongweixian <kong_weixian@163.com>），E344完整694tests/typecheck/lint/native/smoke及独立情境通过。其后无业务源码变化，只有mission记录。
+- ox1QMV/session36345已自然exit0，firstPass=true，35.22分钟；候选/private/tmp/depa-codument-verification-i8oyvm/depa-codument/project/dist/depa-codument-r47-contract-path冻结。E347含四轮GapLoop、独立Attractor/verify/外评、全9会话模型审计、usage和auth清理。没有活动真实试次或待等runner。
+- 旧Q R0Pona保持BLOCKED（E345），W xFEjgk与L hY83QU首次PASS（E339/E342）；历史结果/预算不resume、不改判。最新真实读取成本尚不能证明稳定净下降，分组与统计见verification/terra-e2e-round47.md。
+- E348同一Ego TaskSpace4/p1只读info再次Runtime.evaluate超时、版本0.5.0.28提示更新。此前dialog/CDP/reload安全恢复失败见E313；不finish错误态、新建space或自行upgrade。Todo/Blog/Ecommerce和新版Todo重复仍缺完整UI证据。
+- E348最终原codument/完整指纹及旧global字节/元数据均同基线；没有安装global、push、npm发布或升级原dogfood。历史副本迁移仍review-required，长期mission未完成。
 
 ## Next
 
-1. 提交E344窄修订后启动i8oyvm新候选的一次fresh Stream，核对真实契约边检出及完整成本，不重复启动。Q R0Pona已blocked，W xFEjgk与L hY83QU已首次PASS；所有终态不resume、不重置原预算。基础设施、真实业务失败及模型误报分开。
-2. 汇总当前版本的首次/最终交付结果与含排除试次的全部观测成本；版本不同不冒充受控A/B，源码check或小fixture不冒充业务PASS。
-3. 浏览器支路仍需安全恢复；等待Ego升级授权，不把工具不可用冒充业务失败或PASS。
-4. 长期兼容、历史语义review和完整gates仍以工作图为准；不自动退役旧src、切根发行、升级真实codument/、覆盖global旧bin或发布npm。
+1. 等用户明确允许升级Ego Lite，或手动恢复原TaskSpace4/p1后确认可用；只解除浏览器阻塞，不视作增加原试次预算的授权。升级后重读ego-browser并复验原空间，不保证升级能修复。
+2. 浏览器可用后，按当前源码/候选身份核对启动fresh Todo、Blog、Ecommerce及Todo重复；旧UI失败试次封存，不用API/文本评审替代UI。全过程仍在/tmp与隔离home。
+3. 依据新终态追加成本及首次/最终率；不同策略/候选不当受控A/B，无新证据不声称稳定净token下降。
+4. 长期兼容、历史语义review及完整gates仍未收口；不自动退役旧src、切根发行、升级真实codument/、覆盖global旧bin或发布npm。
 
 ## Decisions and replans
 

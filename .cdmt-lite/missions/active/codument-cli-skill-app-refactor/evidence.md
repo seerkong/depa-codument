@@ -1341,3 +1341,28 @@
 - Q R0Pona/session31030自然exit1，firstPass=false，2,581,298ms；attempt0外评发现E343真实缺口，attempt1修复且独立20tests通过，但原末phase GapLoop已用满5轮，源码变更使旧NO_GAP不能覆盖新实现，无法开启第6轮，按block终止。没有重置、扩轮、resume或控制器代修业务。
 - 全父子266responses/14sessions均有usage：input13,178,690/cached12,250,368/output106,577；top7,826,185/7,383,552/52,746不重复加。auth已删除；最终model-audit未运行，observedModels=false，不能宣称最终模型门过线。实际文本分流采用保留，但费用与时间并未低于W，且交付未过；不能宣称净优化成功，更不能归因文本格式造成业务退化。
 - 当前已有明确不同假说及通过的源码/小情境验证（E344）：新候选可进行一次fresh同策略完整Stream测量，旧Q完整保留。浏览器支路E338仍阻塞，不以增加非浏览器成功替代五用例验收。
+
+### E346 — ox1QMV新规则读取与早期结构检出（非终态）
+
+- d196e87候选i8oyvm启动fresh ox1QMV/session36345，model/effort与固定策略保持；plan0完整613行输入阅读和准入通过，原生plan会话实际含新路径证据段。保留add-rx-agent-teaching-skeleton身份进入implementation0。
+- 实现阶段自测先暴露SDK最小信封缺字段并修复。另一次task complete把整个带参数命令误作单个可执行名，CLI精确ENOENT后模型改用显式shell；这是调用形状摩擦，不是已证实CLI不支持argv，不据此改变命令合同。
+- reports/gap-P3-1.md第一轮已发现ToolExecutor扫描mainline.recorded_facts而不订阅正式stream，改为connect_mainline/observe_facts队列及回归测试；还检出终端延迟到回合结束才打印、SDK调用落在app而非批准适配边界，并修复，16tests/bridge通过。相同消费边缺口在Q是最后外评才发现，此次在尚有后续轮数时检出；这是观察信号，不是单样本因果证明或最终PASS。候选/运行预算未改，等待fresh复检。
+
+### E347 — ox1QMV完整首次通过，成本结论保持克制
+
+- i8oyvm冻结候选0c6ce11b…/harness77cdb196…，ox1QMV/session36345自然exit0，单attempt0 passed/firstPass=true，2,113,106ms。首轮消费路径/流式输出/SDK边界修复见E346；第二轮修复真实模型工具续调和普通assistant历史；第三轮修复多个工具调用因绕开正式Rx链而逆序；第四fresh实际测试17pass及bridge后NO_GAP，无第五轮或额外outer attempt。
+- 单独AttractorCheck的原生子会话01a09741…终态PASS，有实际消费者订阅/SDK边界/投影方向/依赖证据及17tests；独立verify子会话01a09743…实际17tests与bridge、fresh receipt vr-96ca2c0cfe7dac43b32b后PASS。外层只读review也实际17tests/三模式bridge并PASS。最后需求/源/Skill守卫及模型审计通过，9个会话均gpt-5.6-terra/medium，auth已移除。不能把它归因到尚未实施的其它优化。
+- 全父子201responses/9sessions均有usage：input10,236,403/cached9,541,888/output76,938；top6,069,666/5,743,360/40,140不重复加。相较Q是更早检出且首次交付完成；但输入/耗时仍高于W xFEjgk，各候选及具体任务拆分不同，不能声称稳定净token下降或严格A/B因果改善。
+- Round47十二个终态业务试次：8个可计业务分母，首次4/8、最终5/8；4个基础设施排除保留成本。全部观测input148,093,081/cached137,842,688/output1,089,891；不含Round45及独立小probe，9JWDGk一个旧会话缺usage限制仍保留。固定检查策略Stream三试次W/Q/ox首次与最终均2/3，Nested L为1/1；无hook的vuM1YN不混作等强度比较。
+
+### E348 — 浏览器恢复仍需输入，进入明确阻塞
+
+- 全部非浏览器试次终态后，同一Ego TaskSpace4/p1只读info再次exit1，Runtime.evaluate仍CdpRequestTimeoutError；ownership=agent、当前0.5.0.28且提示可升级。无新space/page、无reload/清理/upgrade/finish；原故障现场保留。不同安全恢复路径（dialog底层检查/reload）失败见E314，重观察见E338，本次不是凭旧散文推断仍阻塞。
+- 按ego-browser Skill，错误态不能finish或新space绕过，升级需用户明确许可。当前需要的输入是允许升级Ego Lite并继续原空间验证，或用户手动恢复原空间后确认可用；不保证升级必能修复。Todo/Blog/Ecommerce及新版Todo复跑尚不能完整验收，mission不能完成或归档；无运行中的真实模型试次，也不通过追加同一非浏览器样本冒充五用例覆盖。
+- 收口前重新计算原codument完整目录/模式/链接/内容指纹b631c71946ecff6cba752ee096bcec1b24b195d24b9d16fddf2deb1eab3bd11f，旧global元数据指纹0e1e11778a504fd91048841dd00a6b0914f1d0d7289c8cd693e8511283243f4d及字节05206bf05959d0b10420a6cc5b5e6d2d67a5ba5cadee5f46ec1c178d69ddc3f8全同基线。没有global安装、push或发布。源码d196e87完整验证仍有效，之后仅mission记录改变。
+- 编号更正：本条首段的不同安全恢复路径实际见E313，不是E314；E314是后继引用/infra分类源码切片。错误引用保留可追溯，以本更正及E313原文为准。
+
+### E349 — 阻塞状态投影与执行闸门
+
+- 最终loop顶层Status=blocked，目录仍active/，Blocked on/Next明确Ego恢复所需输入。最初把工作图节点也写blocked，检查器指出节点仅允许pending/active/done/superseded；已修为active并用Blocked on记录依赖，顶层阻止整体续跑，不篡改Skill检查器。
+- 最后再次执行preflight，唯一拒绝原因是“preflight requires an active/ mission with Status: active”：这是阻塞态不能开始业务写入的预期拒绝，不记为preflight通过。E344业务写入前及E346执行中的active预检/产品完整回归仍有原证据。所有模型运行终止、git diff --check通过；不运行completion/archived或冒称五用例已过。

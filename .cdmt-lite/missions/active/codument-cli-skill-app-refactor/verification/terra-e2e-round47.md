@@ -1,5 +1,7 @@
 # Round47: identity handoff and earlier behavior verification
 
+Current checkpoint: source `d196e87` is verified; latest Stream is first-pass, but the full mission is blocked on Ego browser recovery. See [latest terminal checkpoint](#latest-terminal-checkpoint-e347e348). Earlier pending descriptions below are historical observations, not current active runs.
+
 Baseline: `ce0f2cb` (author/committer `kongweixian <kong_weixian@163.com>`).
 
 ## Candidate and boundaries
@@ -127,3 +129,17 @@ Thus actual text-reading adoption is demonstrated, but **net cost reduction is n
 Including R0Pona, Round47 now has11terminal trials: seven business-eligible, first3/7 and final4/7; four infrastructure exclusions retain their cost. Observed total input137,856,678 / cached128,300,800 / output1,012,953, with the same incomplete historical-session coverage and probe exclusions noted above. Among the explicit-policy Stream samples xFEjgk/R0Pona, first/final are both1/2; Nested hY83QU is1/1. Do not pool the no-hook vuM1YN sample into equal-strength comparisons.
 
 The next candidate adds only an approved-structure path-evidence rule to shared context-loading, not extra hook rounds or a universal reactive architecture. Isolated694tests/typecheck/lint/native/smoke and independent structural counterexample/non-reactive control passed (E344), with the initial forward pytest-cache limitation explicitly preserved. Its full business effectiveness remains to be measured; it was not loaded by R0Pona.
+
+The new frozen trial is ox1QMV (candidate0c6ce11b…/same harness77cdb196…, source checkpointd196e87). Planning and declared-policy admission passed; implementation uses the retained identity `add-rx-agent-teaching-skeleton`. No terminal result is claimed yet.
+
+For context, top-level phase receipt input tokens for xFEjgk versus R0Pona are: planning1,127,580 vs1,245,386; implementation0 3,713,861 vs4,680,092; outer review0 542,885 vs423,582; R0Pona additionally consumed1,477,125 in implementation1. These phase totals exclude child sessions, already belong to each run's aggregate, and must not be added again. They show why smaller operation bodies cannot by themselves establish lower whole-run usage; they do not isolate a causal source of model variance.
+
+## Latest terminal checkpoint (E347–E348)
+
+ox1QMV passed its first outer attempt in2,113,106ms (35.22minutes). GapLoop corrected the required consumption path in round1, real continuation context in round2, and ordered multi-tool flow in round3; round4 returned NO_GAP. Separate fresh AttractorCheck, fresh verification and outer read-only review all passed, with17tests and real bridge execution. All9sessions were audited as Terra/medium; source/Skill/requirement guards passed and copied authentication was removed.
+
+Full observed usage: input10,236,403 / cached9,541,888 / output76,938 across201responses. This is better than the blocked R0Pona sample but still higher input/time than the earlier passed xFEjgk sample. **Stable net token savings have not been established.** Earlier detection and full delivery are supported observations, not a controlled causal estimate.
+
+Round47's12terminal trials now have8business-eligible outcomes: first4/8 (50%), final5/8 (62.5%). Four infrastructure exclusions remain in costs. Observed total input148,093,081 / cached137,842,688 / output1,089,891; this excludes Round45 and standalone probes, and retains9JWDGk's missing-session-usage caveat. Fixed-policy Stream W/Q/ox is first/final2/3; fixed-policy Nested L is1/1. The no-hook vuM1YN result is not an equal-strength comparison.
+
+No model runner remains active. Ego TaskSpace4/p1 was rechecked and still fails Runtime.evaluate (0.5.0.28); prior distinct dialog/CDP/reload recovery attempts failed. Under the ego-browser Skill, preserve that scene and obtain approval before upgrading, or wait for the user to restore that same space. Todo/Blog/Ecommerce and the new Todo repeat remain incomplete; this is a blocked checkpoint, **not** completion of the five-case suite or the overall refactor. Original codument/ and legacy global bin fingerprints remain unchanged.
