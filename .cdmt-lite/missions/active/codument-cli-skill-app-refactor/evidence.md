@@ -1366,3 +1366,14 @@
 
 - 最终loop顶层Status=blocked，目录仍active/，Blocked on/Next明确Ego恢复所需输入。最初把工作图节点也写blocked，检查器指出节点仅允许pending/active/done/superseded；已修为active并用Blocked on记录依赖，顶层阻止整体续跑，不篡改Skill检查器。
 - 最后再次执行preflight，唯一拒绝原因是“preflight requires an active/ mission with Status: active”：这是阻塞态不能开始业务写入的预期拒绝，不记为preflight通过。E344业务写入前及E346执行中的active预检/产品完整回归仍有原证据。所有模型运行终止、git diff --check通过；不运行completion/archived或冒称五用例已过。
+
+### E350 — 用户批准Ego升级，恢复控制循环
+
+- 用户针对升级Ego Lite并继续原空间验收的确认问题回复“同意。请继续”。仅解除升级授权阻塞，实际浏览器可用性待验证；不扩大为Codument全局安装、旧run恢复或增加预算权限。
+- 重读MissionLite循环与三吸引子、Ego安装指导；upgrade --help确认正式自升级入口，可能因活动任务弹出确认。loop恢复active，下一动作为正式upgrade及新版skill重读、原TaskSpace4/p1检查。
+
+### E351 — Ego升级成功，但原空间未保留
+
+- active preflight通过。正式ego-browser upgrade exit0，输出“Update installed. Restarting ego lite to apply it.”；随后完整重读安装后的ego-browser SKILL.md。
+- 重启期间首次原TaskSpace4/p1检查session63099无输出exit1，不能称原页面检查通过。随后改用不依赖Page的运行时/空间目录观察：ego-browser --version返回0.5.0.32、Chromium152.0.7977.54、Node24.18.1；nodejs成功打印ready，listTaskSpaces()返回空数组，exit0。
+- 因原空间重启后不可见，依Skill禁止新TaskSpace绕过错误的明确规则停止；未创建新空间、未检查profile或操作用户页面。升级许可不推定为新建替代空间许可。需用户明确允许新空间或手动恢复原空间；loop重新blocked，未启动收费模型试次、未改全局Codument或原dogfood。历史试次及预算不变。

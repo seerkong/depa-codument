@@ -570,6 +570,7 @@ Round: 47
 
 ## Last action
 
+- E351：按用户批准正式升级Ego至0.5.0.32；重启后Node runtime正常，但listTaskSpaces()返回[]，原TaskSpace4未保留。没有创建替代空间、启动收费试次或改Codument安装。需要用户明确允许创建新TaskSpace，或恢复原空间。
 - 最新源码d196e87（author/committer kongweixian <kong_weixian@163.com>），E344完整694tests/typecheck/lint/native/smoke及独立情境通过。其后无业务源码变化，只有mission记录。
 - ox1QMV/session36345已自然exit0，firstPass=true，35.22分钟；候选/private/tmp/depa-codument-verification-i8oyvm/depa-codument/project/dist/depa-codument-r47-contract-path冻结。E347含四轮GapLoop、独立Attractor/verify/外评、全9会话模型审计、usage和auth清理。没有活动真实试次或待等runner。
 - 旧Q R0Pona保持BLOCKED（E345），W xFEjgk与L hY83QU首次PASS（E339/E342）；历史结果/预算不resume、不改判。最新真实读取成本尚不能证明稳定净下降，分组与统计见verification/terra-e2e-round47.md。
@@ -578,7 +579,7 @@ Round: 47
 
 ## Next
 
-1. 等用户明确允许升级Ego Lite，或手动恢复原TaskSpace4/p1后确认可用；只解除浏览器阻塞，不视作增加原试次预算的授权。升级后重读ego-browser并复验原空间，不保证升级能修复。
+1. Ego升级已完成（E351），但重启后原TaskSpace4不在listTaskSpaces()返回列表（空列表）中。按ego-browser禁止用新空间绕过故障的规则暂停：等待用户明确允许创建新的验收TaskSpace，或恢复原空间后确认。旧run不恢复、不重置预算。
 2. 浏览器可用后，按当前源码/候选身份核对启动fresh Todo、Blog、Ecommerce及Todo重复；旧UI失败试次封存，不用API/文本评审替代UI。全过程仍在/tmp与隔离home。
 3. 依据新终态追加成本及首次/最终率；不同策略/候选不当受控A/B，无新证据不声称稳定净token下降。
 4. 长期兼容、历史语义review及完整gates仍未收口；不自动退役旧src、切根发行、升级真实codument/、覆盖global旧bin或发布npm。
