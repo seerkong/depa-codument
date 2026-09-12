@@ -1219,3 +1219,24 @@
 - skill-creator授权的独立Terra/medium verify_child_entry_forward实际调用候选源码CLI `verify --json`并读取context-loading等适用引用；对ingest-record情境保留省略record_id原始硬要求，不以预填字段pytest全绿证明省略语义。区分父层spawn与已委派子层实跑。该测试只请求接手动作、未执行fixture或给业务PASS；不扩大其证明范围。
 - 新隔离U=`/private/tmp/depa-codument-verification-9UW083/depa-codument/project`完整check exit0：typecheck/lint、685tests/7944assertions/144files/116.67秒。Skill quick_validate过线、git diff --check过线。simplify自检保留两文件窄路由，不复写完整规范或另添抽象。
 - 原codument/及旧global codument指纹不变；U复制12488文件，复制后的历史升级仍review-required/0升级/226未变，不算迁移完成。构建156BunFS资源，bin SHA32d55b127b6dca2771b4bf66c8771e46a7fce471112526df0ba8f2cefe4da57f；harness沿用cf696740cec6c333c9a336099894c30eb42242455c1e49cfa03675ab73e40fdc。PqxplB smoke10PASS/modelCalls0，日志U父目录child-contract-{check,build,smoke}.log。后继真实业务测量仍独立，不追认94Yims旧attempt0。
+
+### E326 — 过滤发现清单造成独立验收误报
+
+- 94Yims implementation1完成原GapLoop5 NO_GAP、15pytest和外层bridge0…7；review1实际pytest/bridge通过，但最终唯一FAIL为“必需.env.example不存在”，声称内部报告不实。runner依法保留FAIL并进入原预算内implementation2，没有控制器改判。
+- 只读重观察推翻该缺失归因：implementation0 item9有.env.example创建事件；原文件birth/mtime为2026-09-12T17:07:28.497Z，早于review1，文件在原workspace存在。review1用默认`rg --files`过滤清单，未直接检查目标路径；implementation2自行`ls -la .env.example`并读取原文件，无需补造。控制器先前即时评论称“新的真实缺口”不成立，已明确更正；不能拿这次误报支持编码能力下降。
+- 调和：发现用清单是衍生观察，不拥有文件存在性裁决权。内部verify/外部review在声明某路径缺失前须直接核对该路径，区分ENOENT、权限和清单过滤；不扩大读取其它隐藏私人文件。不让机器启发式自动否决真实FAIL，不重置原attempt预算。下一切片先小fixture真实校准再测完整业务。
+
+### E327 — 94Yims完整Stream终态通过，保留真实失败与验收误报成本
+
+- 64549自然exit0，result.status=passed/firstPass=false，elapsed2,708,443ms。冻结ec81db745f…产品/cf696740…harness；不包含后来的f517710角色入口或路径观察切片，不能把当前成功归因于那些未加载的改动。
+- attempt0最小SDK输入真正失败；attempt1代码修复后15pytest与全部外层bridge通过，但review1误报已存在的.env.example缺失（E326）。attempt2自行确认原文件、重新验收后通过，最后fresh review/source不变/model审计/需求与Skill指纹检查均过线；没有第四attempt、没有重置GapLoop5，auth已移除。
+- 全父子观察usage：input15,879,199/cached14,606,848/output126,453；324responses/20sessions，均有usage。原始结果与失败不改；S父目录stream-calibrated-report.json保留。此候选单样本首次0/1、最终1/1，不推断总体通过率、与旧Codex不同版本的严格A/B或净token节省。
+- 调和：质量机制实际捕获代码缺口且最终闭环有效；同时内部漏检及外部误报造成真实额外成本。继续验证窄边界修复与Nested，不删除fresh/hook来消除这部分开销。
+
+### E328 — 文件存在性观察切片与真实校准过线
+
+- 内部verify Exists及外部review producer明确目标路径直接核对义务；过滤发现清单不是不存在的证明，权限错误不能伪装缺失；仅检查已在scope中的目标。不增加状态owner、不机器改写模型verdict、不取消真正缺失的FAIL。
+- 独立Terra/medium verify_path_existence_forward在/private/tmp/depa-codument-path-review-2o44Zf按现有操作的Exists子步骤实际检查：隐藏.example.conf存在PASS，usage.md不存在FAIL，未修改任何交付。这个情境验证存在/确实缺失，不声称覆盖所有权限错误。
+- 新V完整check exit0：typecheck/lint、685tests/7944assertions/144files/109.97秒；Skill quick_validate、diff whitespace检查通过。simplify自检只扩展既有producer义务和小fixture，无额外通用层或语义guard启发式。
+- V native156资源，SHA1f881714cd8930fdbbfb1a87708bdd2b75cd17bf598f3f85fa6a6ee33ade3059；harnessd8e0025d6519490666a451135815e0ee4d2a2e0ba69e77fbf27561fcf63a11a2。真实probe f1qOnJ PASS/native-session：直接核对.env.example、独立环境pytest成功、source不变、model审计通过、auth清理。55,067ms，usage89,844/78,592/1,573，5responses/1session；不是业务PASS或零成本smoke。
+- xmbVos最终smoke10PASS/modelCalls0；日志V父目录path-observation-{check,build,probe,smoke}.log及probe-report.json。V复制前后原codument/与旧global bin指纹未变，副本历史升级仍review-required。后继fresh业务测量才能判断实际误报/漏检与净成本，旧试次保留。

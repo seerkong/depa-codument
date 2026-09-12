@@ -11,6 +11,16 @@ Round: 47
 
 ## Work graph
 
+### 缺失结论核对原始文件边界
+
+- Status: done
+- After: 验收执行协议显式交接与校准
+- Covers: 期望-4, 期望-10, 约束-4, 约束-21
+- Verify: review-probe真实隐藏示例资产及独立pytest；完整回归/Skill闭包；路径存在与确实缺失的独立只读情境，不以过滤清单代替直接检查。
+- Outcome: 缺失结论基于目标路径的原始观察，不将rg默认遗漏隐藏/ignored项误认为交付缺陷；真实缺失仍FAIL。
+- Done when: 核对义务抵达内部verify和外部review入口、真实校准与回归过线；不自动推翻模型FAIL、不扩大扫描私人文件或重置旧run。
+- Evidence: E326原误报保留；E328独立存在/缺失情境、真实review-probe、完整685tests及native smoke通过。只验证观察协议切片，不宣称已消除完整业务验收误报。
+
 ### 独立执行角色加载当前操作合同
 
 - Status: done
@@ -462,7 +472,7 @@ Round: 47
 
 ## 尚未看清
 
-- Round47追加观察：94Yims plan0为保存原始需求快照连续两次`base64 < request.md`，存在字节搬运经过模型上下文的额外成本。尚未确认完整写入链与主导开销；后续先检查现有scaffold/material/复制能力及日志，再决定是否需要确定性CLI快照入口。不以此减少必要原文阅读或取消输入追溯。
+- Round47追加观察：94Yims plan0为保存原始需求快照三次`base64 < request.md`（原生CommandExecution不同id，各输出28225字符），另一次acceptance编码输出3613字符，存在字节搬运经过模型上下文的额外成本。先前仅观察到两次，现按完整记录更正。尚未量化主导开销；现有原始快照规则要求自包含但不要求base64，未发现material导入CLI。后续按事实决定窄策略，不以此减少必要原文阅读或取消输入追溯。
 - 三个同名命令最终用户界面和组合行为：明确延期到核心重构后讨论，不在本轮替用户选择。
 - Browser/LF公共runtime边界已由E140以及后继三消费者/clone制品证明；尚未验证的是其它OS native与真实外部browser长期行为，不能扩大已有本机隔离证明。
 - modeling作者合同与迁移core已由E196–E205、E261–E267验证。真实历史App仍有全局ID冲突、缺design、完成状态/criterion矛盾与旧MaterialBundle等语义差距；不能以机械包裹或core通过声称这些历史副本升级成功。
@@ -506,6 +516,13 @@ Round: 47
 
 ## Last action
 
+- E328完整check/真实probe/smoke均过线，V冻结bin1f881714cd8930fdbbfb1a87708bdd2b75cd17bf598f3f85fa6a6ee33ade3059、harnessd8e0025d6519490666a451135815e0ee4d2a2e0ba69e77fbf27561fcf63a11a2。准备163author/committer源码检查点；随后V fresh Stream `bun e2e/run.ts run stream-pipeline-ai-agent --bin=<V>/dist/depa-codument-r47-path-observation --codex=/Users/kongweixian/.bun/bin/codex`（父目录stream-path-observation.log），验证角色/路径改动实际效果。94Yims终态不重跑；U Nested4Qt0XU仍冻结推进。
+- E327：94Yims自然exit0/最终passed/firstPass=false、2,708,443ms；全usage15,879,199/14,606,848/126,453，20sessions。attempt0真实最小输入失败、attempt1隐藏文件误报均保留；auth清理，不恢复。Nested4Qt0XU implementation0仍运行。V check1539、probe21964已PASS（f1qOnJ），等待全量check后smoke与源码检查点，再规划最新候选测量。
+- 新副本V=`/private/tmp/depa-codument-verification-sc7lME/depa-codument/project`；复制/原件指纹检查通过，副本upgrade仍review-required。准备V build `--outfile=dist/depa-codument-r47-path-observation`，随后完整check与review-probe（独立新临时fixture、Terra/medium、300秒单次上限）、smoke；日志V父目录path-observation-{build,check,probe,smoke}.log。存在性fresh情境实际直接test/stat观察隐藏.example.conf存在、usage.md确实缺失，不篡改文件。
+- 独立存在性情境fixture=`/private/tmp/depa-codument-path-review-2o44Zf`；准备fresh Terra只读按verify Exists核对request内两个目标（真实隐藏样例与确实缺失文档），不给预期结论，不扫描私人目录，不建业务Track。作为skill-creator定向前向验证，非完整业务PASS。
+- 缺失核对义务已加入内部verify/外部review producer；review-probe增加真实隐藏非秘密配置样例（非业务case）。准备 `bun .cdmt-lite/missions/active/codument-cli-skill-app-refactor/verification/isolated-project.ts round47-path-observation` 新副本；之后完整check、native构建、probe与smoke，既有S/U模型试次保持冻结。
+- 94Yims implementation1已delivered，15pytest、GapLoop5 NO_GAP及外层确定性bridge0…7通过；review1正运行。首个attempt0失败仍保留，未到最终PASS。U Nested4Qt0XU plan0并行进行，两者模型固定Terra/medium且独立home。
+- 新Nested已启动root=`/private/tmp/depa-codument-e2e-4Qt0XU`，session25003，U父目录nested-child-contract.log；冻结32d55b127b…/cf696740…，源码检查点f517710仍163author/committer、未push。94Yims session64549继续保留，不重启两者。
 - E325过线：U完整check exit0/685tests/7944assertions/116.67秒；新native32d55b127b6dca2771b4bf66c8771e46a7fce471112526df0ba8f2cefe4da57f、156资源，PqxplB smoke10PASS。准备163author/committer源码检查点，再使用U新候选运行fresh nested（原XiBVUg保持终态）；命令`bun e2e/run.ts run nested-mission-agent --bin=<U>/dist/depa-codument-r47-child-contract --codex=/Users/kongweixian/.bun/bin/codex`，日志U父目录nested-child-contract.log。94Yims仍独立冻结，不把此切片变成其中的热修。
 - 独立verify_child_entry_forward已完成：实际读取CLI verify及context-loading，未把预填字段pytest当省略字段的证明，明确父派发/子执行职责；仅情境动作非业务实测。U check session55224仍运行。过线后U `bun run build --outfile=dist/depa-codument-r47-child-contract`及`bun e2e/run.ts smoke --bin=<U>/dist/depa-codument-r47-child-contract`，日志父目录child-contract-{build,smoke}.log；保持活动S不变。
 - 新副本U=`/private/tmp/depa-codument-verification-9UW083/depa-codument/project`，12488文件，原资产指纹不变；仅副本升级review-required/0升级/226未变，不算迁移PASS。准备U `bun run check`（父目录child-contract-check.log）及skill-creator独立Terra/medium只读接手情境；之后观察记录，不重复启动。

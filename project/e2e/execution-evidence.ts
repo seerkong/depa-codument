@@ -7,6 +7,7 @@ export const REVIEW_EXECUTION_GUIDANCE =
   'Before returning PASS, run at least one test/build/typecheck command in its own separate exec call and obtain exit 0. ' +
   'That evidence call must not contain heredocs, loops, conditionals, pipes, or unrelated diagnostic commands. Environment assignments and quoted venv executable paths are supported. ' +
   'If tests pass but a later command in a combined call fails, rerun the test alone: a failed combined call is not successful execution evidence. Other diagnostic calls may be more complex. ' +
+  'Before reporting a required path as missing, check that exact path directly and distinguish nonexistence from permission errors. Default rg --files, globs and Git listings omit some hidden or ignored files; absence from a filtered listing is not proof of a missing deliverable. Check only in-scope paths, not unrelated private files. ' +
   'Inspect dependency files before installation: editable or local-path entries must not build the original read-only delivery; install them only from an exact temporary copy.\n';
 
 /** Use the selected native thread's argv, not the CLI's shell-display rendering. */

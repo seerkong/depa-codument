@@ -13,7 +13,8 @@ export async function reviewProbe(candidate: string, codex: string, auth: string
   try {
     await preparePython(run);
     await setup(run);
-    fs.writeFileSync(path.join(run.workspace, 'request.md'), 'sum_values accepts a list of signed integers and returns their sum. An empty list returns zero. Review this tiny fixture by inspecting the implementation and actually executing pytest; do not modify source or Codument assets. This is reviewer calibration, not a business delivery.\n');
+    fs.writeFileSync(path.join(run.workspace, 'request.md'), 'sum_values accepts a list of signed integers and returns their sum. An empty list returns zero. The delivery also includes .env.example with SAMPLE_MODE=offline as a non-secret configuration example. Review this tiny fixture by inspecting the implementation and actually executing pytest; do not modify source or Codument assets. This is reviewer calibration, not a business delivery.\n');
+    fs.writeFileSync(path.join(run.workspace, '.env.example'), 'SAMPLE_MODE=offline\n');
     fs.writeFileSync(path.join(run.workspace, 'sum_values.py'), 'def sum_values(values):\n    return sum(values)\n');
     fs.writeFileSync(path.join(run.workspace, 'test_sum_values.py'), 'from sum_values import sum_values\n\ndef test_sum_values():\n    assert sum_values([]) == 0\n    assert sum_values([2, -5, 1]) == -2\n');
     const schema = path.join(run.root, 'review-schema.json');
