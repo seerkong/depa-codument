@@ -7,6 +7,18 @@ import { execute, files, sandbox, type Run } from './runtime';
 import { assertNestedSelection } from './resource-oracle';
 import { applicationEnvironment } from './application-state';
 
+/** Cheap boundary admission belongs before coding as well as final acceptance. */
+export async function verifyNestedBindings(run: Run, label: string): Promise<void> {
+  const binding = 'codument/.local/workspace-bindings.xnl';
+  for (const name of ['main-repo', 'inventory-repo']) {
+    const repo = path.join(run.workspace, name);
+    assert.ok(fs.existsSync(path.join(repo, binding)), `Nested local binding missing: ${path.join(repo, binding)}`);
+    const log = path.join(run.root, `logs/${label}-${name}-ignored.log`);
+    const ignored = await execute({ argv: ['git','check-ignore','-q','--',binding], cwd: repo, env: run.env, log });
+    assert.equal(ignored.code, 0, `Nested binding privacy failed in ${repo}: git check-ignore -q -- ${binding}; exit=${ignored.code}; log=${log}. HTTP servers have not been started.`);
+  }
+}
+
 export async function verifyNested(run: Run, attempt: number): Promise<string[]> {
   const repositories = ['main-repo','inventory-repo'].map(name => path.join(run.workspace, name));
   for (const [index, repo] of repositories.entries()) {
@@ -24,9 +36,7 @@ export async function verifyNested(run: Run, attempt: number): Promise<string[]>
   const childMissions = files(path.join(inventory, 'codument/missions')).filter(f => f.endsWith('/mission.xnl')).map(f => fs.readFileSync(f, 'utf8'));
   assertNestedSelection(rootMissions,childMissions);
   for (const text of [...rootMissions,...childMissions]) assert.ok(!text.includes(run.root), 'Absolute path leaked into Mission authority');
-  const binding = 'codument/.local/workspace-bindings.xnl';
-  assert.ok(fs.existsSync(path.join(main, binding)));
-  assert.equal((await execute({ argv: ['git','check-ignore','-q',binding], cwd: main, env: run.env, log: path.join(run.root, `logs/nested-${attempt}-ignored.log`) })).code, 0);
+  await verifyNestedBindings(run, `nested-${attempt}`);
   const processes: { pid?: number; fd: number }[] = [];
   const start = async (cwd: string, label: string, extraEnv: NodeJS.ProcessEnv = {}) => {
     const probe = Bun.serve({ hostname: '127.0.0.1', port: 0, fetch: () => new Response('') });

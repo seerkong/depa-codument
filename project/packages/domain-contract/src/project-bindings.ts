@@ -8,6 +8,7 @@ export type WorkspaceBindingCommand = { readonly operation: 'bindings' }
 export interface WorkspaceBindingRuntime {
   readonly source: DomainSourceWritePort;
   readonly paths: { resolve(input: string): string };
+  readonly privacy: { ensureIgnored(): Promise<void> };
 }
 export interface WorkspaceBindingResult {
   readonly bindings: readonly WorkspaceBinding[];

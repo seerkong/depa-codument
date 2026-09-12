@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { createRun, loadRun, setup, execute, sandbox, installAuthentication, removeAuthentication, codexArgs, readEvents, files, sha, treeHash, writeJson, MODEL, EFFORT, type Run, type CommandExecution } from './runtime';
 import { verifyHttp } from './http-verifier';
 import { verifyStream, prepareStreamDependencies } from './stream-verifier';
-import { verifyNested } from './nested-verifier';
+import { verifyNested, verifyNestedBindings } from './nested-verifier';
 import { trackValidationSelection, validateArchivedKnowledge, assertPromotedKnowledge, assertPromotedBehaviors, exhaustedGapReason, resourceRoot } from './resource-oracle';
 import { assertFreshThread, checkRequirements, lockRun, sourceFingerprint, isFirstPass, isExecutedTestCommand, assertReviewerSourceUnchanged, ReviewerInfrastructureFailure } from './integrity';
 import { awaitUiGate, BrowserInfrastructureFailure } from './ui-gate';
@@ -213,7 +213,7 @@ export async function runCase(candidate: string, codex: string, auth: string, ca
     const offset = resumeRoot ? Math.max(-1,...previous)+1 : 0;
     if(resumeRoot){
       for(const name of ['result.json','progress.json']){const f=path.join(run.root,name);if(fs.existsSync(f))fs.renameSync(f,path.join(run.root,`prior-${offset}-${name}`));}
-      try { for(const repo of repositories) await verifyWorkflow({...run,workspace:repo},'plan',1000+offset*10+repositories.indexOf(repo)); checkTrackPolicies(); planPassed=true; } catch(error){ feedback='Resume observed incomplete planning: '+String(error); }
+      try { for(const repo of repositories) await verifyWorkflow({...run,workspace:repo},'plan',1000+offset*10+repositories.indexOf(repo)); checkTrackPolicies(); if(nested) await verifyNestedBindings(run, `resume-plan-${offset}`); planPassed=true; } catch(error){ feedback='Resume observed incomplete planning: '+String(error); }
     }
     if(offset >= 3) throw new Error('Three-attempt budget exhausted; resume cannot reset it');
     for (let attempt = offset; attempt < 3; attempt++) {
@@ -237,6 +237,7 @@ export async function runCase(candidate: string, codex: string, auth: string, ca
           `plan-${attempt}`, 1800_000);
           for (const repo of repositories) await verifyWorkflow({ ...run, workspace: repo }, 'plan', nested ? attempt * 10 + repositories.indexOf(repo) : attempt);
           checkTrackPolicies();
+          if (nested) await verifyNestedBindings(run, `plan-${attempt}`);
           if (planned) reconcilePlannedIdentities(planned, observePlannedIdentities(run.workspace, repositories));
           planPassed = true;
         }

@@ -13,13 +13,13 @@ Round: 47
 
 ### 嵌套绑定忽略契约与确定性错误定位
 
-- Status: pending
+- Status: done
 - After: 固定E2E规划检查策略并校验实际挂载
 - Covers: 期望-4, 期望-10
 - Verify: project bind真实新仓忽略规则、保留用户gitignore、精确失败消息；隔离完整回归及后继fresh Nested，不恢复4Qt0XU。
-- Outcome: 先让确定性失败抵达正确的纠偏目标，不让无上下文AssertionError引发无关业务修改。
+- Outcome: 确定性绑定检查在规划后、实现前及最终验收复用同一入口；先让失败抵达正确纠偏目标，不让无上下文AssertionError引发无关业务修改。
 - Done when: 找到忽略契约owner并修复真实缺口、正负测试通过；旧失败/轮数完整保留。
-- Evidence: E333：绑定git check-ignore失败被实施代理猜成尚未执行的HTTP共享数据问题。
+- Evidence: E333错误边界失配；E335显式privacy Effect、真实Git正负例/早期两仓检查、最终693tests/typecheck/lint/native/PpXqEq smoke通过。后继fresh业务仍需测量，不更改原终态。
 
 ### 固定E2E规划检查策略并校验实际挂载
 
@@ -536,15 +536,12 @@ Round: 47
 
 ## Last action
 
-- 当前覆盖下方旧进行中状态：vuM1YN自然退出PASS但无GapLoop/AttractorCheck（E332）；4Qt0XU自然退出blocked（E333），不再poll/resume。新W=/private/tmp/depa-codument-verification-i6ECNV/depa-codument/project，策略定向3tests/19assertions通过，修复tuple类型后session55664跑全check；日志父目录workflow-policy-check-final.log。策略源码未提交，下一步native/smoke/提交后推进E333绑定契约。
-
-- 新E2E固定检查策略源码已落：WORKFLOW_POLICY同源驱动planner/impl/review提示、snapshot与Track实际声明校验；不改产品默认。准备isolated-project.ts round47-workflow-policy新副本，先bun test e2e/workflow-policy.test.ts，再全check、native/smoke；活动Nested U不变，V Stream已终态passed/firstPass=true但E331检查集合不同，不据此宣称等强度节省。
-- 最新源码检查点c294342，author/committer均kongweixian <kong_weixian@163.com>，未push。E328完整typecheck/lint/685tests/7944assertions、独立路径正负情境、f1qOnJ真实probe和xmbVos smoke过线。源码现无未提交改动；仅Mission当前观察继续更新。
-- 最新Stream root=`/private/tmp/depa-codument-e2e-vuM1YN`，session59144；V=`/private/tmp/depa-codument-verification-sc7lME/depa-codument/project`，日志父目录stream-path-observation.log。bin=`dist/depa-codument-r47-path-observation` SHA1f881714cd8930fdbbfb1a87708bdd2b75cd17bf598f3f85fa6a6ee33ade3059，harnessd8e0025d6519490666a451135815e0ee4d2a2e0ba69e77fbf27561fcf63a11a2冻结。plan0已完成，implementation0进行中。
-- Nested root=`/private/tmp/depa-codument-e2e-4Qt0XU`，session25003；U=`/private/tmp/depa-codument-verification-9UW083/depa-codument/project`，日志父目录nested-child-contract.log。bin=`dist/depa-codument-r47-child-contract` SHA32d55b127b6dca2771b4bf66c8771e46a7fce471112526df0ba8f2cefe4da57f，harnesscf696740cec6c333c9a336099894c30eb42242455c1e49cfa03675ab73e40fdc冻结。两仓规划精确身份交接通过，implementation0进行中，已观测真实HTTP与fresh纠偏，未到最终验收。
-- E327 Stream94Yims终态passed/firstPass=false，2,708,443ms；全usage15,879,199/14,606,848/126,453，20sessions；auth清理。attempt0真实最小输入失败，attempt1隐藏文件误报（E326），attempt2通过；不恢复或重置。误报后续子树成本独立记录E329，不从总成本删除。
-- 已结束qUXNoE/aTb63U/9JWDGk/Jd0Vqx/nMEIGO全部保留；S=`/private/tmp/depa-codument-verification-TxnM9H/depa-codument/project`与T=`/private/tmp/depa-codument-verification-AUuuts/depa-codument/project`保留各冻结候选/旧日志，不改写其证据。真实测量和源码切片的版本对应见evidence及verification/terra-e2e-round47.md。
-- 唯一Ego TaskSpace4/p1保留dialog/CDP故障现场，升级问题尚无答复；不另开space或操作其它任务窗口。原codument/及旧global bin指纹不变；无global安装、真实dogfood升级或发布。V/U仅副本历史升级仍review-required，不计迁移PASS。
+- 最新已提交源码7b20c44，author/committer kongweixian <kong_weixian@163.com>；没有push/global安装。E334固定E2E策略688tests/typecheck/lint/native/Cv5MEC smoke过线。
+- 活动Stream root=/private/tmp/depa-codument-e2e-xFEjgk，session53952；W=/private/tmp/depa-codument-verification-i6ECNV/depa-codument/project，冻结dist/depa-codument-r47-workflow-policy，日志父目录stream-fixed-policy.log。这是固定检查策略的新试次，不改其运行中源码/限额。
+- 绑定隐私切片尚未提交：contract显式privacy Effect，support创建自有.local/.gitignore、保留已有规则/根ignore、冲突或已跟踪拒绝，不自动untrack；nested oracle明确两仓绑定检查失败。新副本L=/private/tmp/depa-codument-verification-lK5aRy/depa-codument/project，定向4tests/15assertions通过，session41127完整check运行，日志父目录binding-privacy-check.log。完成后native/smoke及新fresh Nested。
+- 已结束V Stream vuM1YN首PASS但无GapLoop/AttractorCheck，不能等强度对比（E331/E332）；U Nested4Qt0XU终态blocked，不resume，E333明确第一失败为绑定未被忽略而非HTTP共享文件。S Stream94Yims纠偏后PASS，含隐藏文件误报成本（E326–329）。全部旧run原始结果/预算保留。
+- Ego唯一TaskSpace4/p1仍工具故障，升级未获答复，不改现场/其它任务窗口；Todo/Blog/Ecommerce浏览器支路等待安全恢复。
+- L复制前后原codument/指纹b631c719…与旧global bin字节05206bf0…未变；副本历史升级仍review-required，不计迁移PASS。
 
 ## Next
 

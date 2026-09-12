@@ -1273,3 +1273,11 @@
 - 单一WORKFLOW_POLICY同时驱动planner/impl/review指导、不可漂移snapshot及实际Track AST检查；所有仓库/Track含backlog仅验证声明，挂载末一级phase，参数严格相等，保留独立fresh且不修改产品auto默认。旧run缺snapshot禁止悄然resume换政策。声明不是执行证明，报告明确不可比较不同/未知策略的成本。
 - W=i6ECNV隔离副本3定向测试通过；最初全check发现readonly数组索引联合类型，保留失败日志，改为readonly tuple后全check通过：688tests/7965assertions/145files/120.54秒，typecheck/lint过线。simplify仅简化测试fixture并持续核对snapshot，没有通用新框架。
 - native构建156资源；Cv5MEC smoke10项PASS/modelCalls0。日志W父目录workflow-policy-{check-final,build,smoke}.log。source diff检查和mission preflight通过；原codument/global指纹保持，不改任何既有运行或宣称本切片完整业务PASS。
+
+### E335 — 绑定本地隐私与早期错误边界过线
+
+- 原/新project bind都只写路径，没有落实规范所称Git忽略。领域contract新增显式privacy Effect；logic在有效写请求提出后、发布前调用，support仅为缺失的codument/.local/.gitignore建立本地规则。bindings查询不写，重复bind不重写，现存规则/根gitignore保持；冲突、已跟踪及symlink拒绝，不自动untrack/覆盖用户策略。非Git目录保留未来git init所需规则。不引入全局隐式IO到logic，也不更改公共Host包。
+- E2E复用verifyNestedBindings：规划完成即检查两仓路径与真实git check-ignore，最终再查；错误携带仓库、路径、命令、退出码和日志，明确HTTP尚未启动。不再用无上下文1 !== 0让模型猜业务原因。缺失/两仓先后失败/成功真实Git测试覆盖，旧4Qt0XU不重跑或改判。
+- L=lK5aRy定向5tests/18assertions通过；最终全check typecheck/lint、693tests/7987assertions/147files/129.45秒过线；之前692tests结果仅覆盖前一子切片，不能代替最终。simplify自检仅抽出规划/验收共享的实际检查，无空泛适配层。
+- native156资源SHA0f03db8271451f64faab68c7a82613f26ec3edbf42aec0a146f6cb86265dc2c5；harnessf749a04d80cd5595e86147e492cf7173fedced8dffabed629df4538c6a9394e9；PpXqEq smoke10项PASS/modelCalls0。日志L父目录binding-privacy-{check-final,build,smoke}.log。原codument/与旧global指纹不变；vuM1YN/4Qt0XU auth确已清理。
+- W新固定策略Stream xFEjgk plan0已过声明校验并进入implementation0，仍活动；不与未挂检查的vuM1YN做等强度比较。L后继fresh Nested尚未执行，不能以源码回归宣称跨仓业务已通过。

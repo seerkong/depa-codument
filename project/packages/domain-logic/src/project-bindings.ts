@@ -9,6 +9,7 @@ export async function applyWorkspaceBinding(runtime: WorkspaceBindingRuntime, re
   if (input.operation === 'bindings') return { bindings: bindingRows(readWorkspaceBindingSources(snapshot.source)) };
   const workspacePath = input.operation === 'bind' ? runtime.paths.resolve(input.workspacePath) : undefined;
   const proposed = proposeWorkspaceBinding(snapshot.source, input.projectRef, workspacePath);
+  await runtime.privacy.ensureIgnored();
   const receipt = proposed === snapshot.source ? undefined : await runtime.source.commit(snapshot, proposed);
   const bindings = bindingRows(readWorkspaceBindingSources(proposed));
   return { bindings, binding: bindings.find(binding => binding.projectRef === input.projectRef),
