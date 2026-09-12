@@ -1,0 +1,4 @@
+<LocalFunctionBundle #Codument.Demo.LocalFunctions envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
+  entry = "vfs://./bundle/index.js"
+  runtime = "bun"
+}>

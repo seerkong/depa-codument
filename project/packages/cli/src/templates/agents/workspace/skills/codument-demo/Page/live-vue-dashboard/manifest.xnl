@@ -1,0 +1,7 @@
+<Page #Codument.Demo.Page.LiveVueDashboard envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
+  name = "live-vue-dashboard"
+  description = "可由 AI 现场修改并快速重建的最小 Vue Skill App"
+  localFunctions = []
+} (
+  <Navigation { label = "Live Vue" group = "codument-demo" groupLabel = "codument-demo" order = 30 visible = true }>
+)>

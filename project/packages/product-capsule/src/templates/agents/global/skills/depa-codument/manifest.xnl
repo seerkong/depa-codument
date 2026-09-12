@@ -1,0 +1,4 @@
+<SkillApp #Codument.Guidance envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 (
+  <Catalogs [<FileResourceCatalog #operations { resourceKind="CommandOperation" root="vfs://./operations/" }> ]>
+)>
+

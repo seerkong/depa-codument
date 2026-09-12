@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>AI CLI Workspace</title>
+  <link rel="stylesheet" href="/page-shell.css">
+  <style>
+    .site-pages{height:42px;display:flex;align-items:center;gap:6px;padding:5px 10px;border-bottom:1px solid #dce3ea;background:#fbfcfe;overflow-x:auto}
+    .site-pages[hidden]{display:none}
+    .site-page-link{flex:0 0 auto;border:1px solid transparent;border-radius:7px;background:transparent;padding:7px 11px;color:#526170;cursor:pointer}
+    .site-page-link:hover,.site-page-link:focus-visible,.site-page-link.active{border-color:#cddbf2;background:#edf4ff;color:#2456a6}
+    .site-pages:not([hidden])~.page-frames{height:calc(100% - 42px)}
+    .site-default-content,.site-hosts,.site-host{width:100%;height:100%}
+    .site-host[hidden]{display:none}
+    .site-host>section,.site-host [data-halfcode-site-outlet]{display:block;width:100%;height:100%}
+  </style>
+</head>
+<body>
+  <header class="shell-header">
+    <button id="workspace-menu-button" class="menu-button" type="button" aria-label="打开页面菜单" aria-expanded="false" aria-controls="workspace-menu"><span></span><span></span><span></span></button>
+    <button id="workspace-tab-previous" class="icon-button" type="button" aria-label="切换到左侧标签">‹</button>
+    <nav id="workspace-tabs" class="tabs" aria-label="已打开页面"></nav>
+    <button id="workspace-tab-next" class="icon-button" type="button" aria-label="切换到右侧标签">›</button>
+    <button id="workspace-tab-overflow-button" class="icon-button" type="button" aria-label="查看全部标签" aria-expanded="false" aria-controls="workspace-tab-overflow">⌄</button>
+    <button id="workspace-session-button" class="session-button" type="button" aria-label="管理 Coding Agent 会话" aria-expanded="false" aria-controls="workspace-session" data-connected="false"><span>会话</span><i aria-hidden="true"></i></button>
+  </header>
+  <div id="workspace-menu-backdrop" class="menu-backdrop" hidden></div>
+  <aside id="workspace-menu" class="menu" aria-label="站点菜单" hidden>
+    <div class="menu-heading"><strong>工作区站点</strong><button id="workspace-menu-close" type="button" aria-label="关闭站点菜单">×</button></div>
+    <nav id="workspace-menu-groups"></nav>
+  </aside>
+  <aside id="workspace-tab-overflow" class="popover tab-overflow" aria-label="标签管理" hidden>
+    <strong>已打开标签</strong>
+    <nav id="workspace-tab-overflow-tabs"></nav>
+    <div class="tab-actions">
+      <button id="workspace-close-left" type="button">关闭左侧</button>
+      <button id="workspace-close-right" type="button">关闭右侧</button>
+      <button id="workspace-close-all" type="button">关闭全部</button>
+    </div>
+  </aside>
+  <aside id="workspace-session" class="popover session" aria-label="Coding Agent 会话" hidden>
+    <div class="popover-heading"><strong>会话连接</strong><button id="workspace-session-close" type="button" aria-label="关闭会话面板">×</button></div>
+    <p id="workspace-session-status">正在读取…</p>
+    <div id="workspace-session-targets" class="session-targets"></div>
+  </aside>
+  <main class="page-stage">
+    <section id="workspace-home" class="workspace-home" hidden>
+      <header><p>DEPA CODUMENT</p><h1>工作台首页</h1><span>从当前 workspace 的站点中选择入口。</span></header>
+      <div id="workspace-home-groups" class="home-groups"></div>
+    </section>
+    <div id="workspace-site-default-content" class="site-default-content">
+      <nav id="workspace-site-pages" class="site-pages" aria-label="站点页面" hidden></nav>
+      <div id="workspace-page-frames" class="page-frames"></div>
+    </div>
+    <div id="workspace-site-hosts" class="site-hosts"></div>
+    <section id="workspace-page-error" class="page-error" hidden><strong>页面无法打开</strong><p></p></section>
+  </main>
+  <script type="module" src="/page-shell.js"></script>
+</body>
+</html>

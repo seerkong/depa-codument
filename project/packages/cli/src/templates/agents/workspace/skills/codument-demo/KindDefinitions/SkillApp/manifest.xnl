@@ -1,0 +1,19 @@
+<KindDefinition #Halfcode.ResourceKind.SkillApp envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
+  resourceKind = "SkillApp"
+  subjectFqn = "Halfcode.ResourceKind.SkillApp"
+  sourceShapes = ["manifest"]
+  documentCardinality = "one"
+} (
+  <SpecRevisions [
+    <SpecRevision #v1 {
+      specVersion = 1
+      schemaRef = "vfs://./spec-v1.schema.json"
+      schemaFingerprint = "sha256:853dc15129b38dd573816724d399dc517017f00574c098e586655a8367233476"
+      contractFingerprint = "sha256:3afc269b546b7b4b26e45d3b4420cd49d9b00278eb24974730a4f539754d7bad"
+      semanticValidatorFingerprint = "sha256:3cf309bb0c55208560376d1cbf0beced621f8ca7487f857a710b1237cc79d4fa"
+      referenceProjectionFingerprint = "sha256:b98cd5a8d75178bcdbac46c40b9d31823d4ce50c527e4cee0c37f158cdb2977b"
+      compilerInputFingerprint = "sha256:45c1f92b34792e353ca9e23e637a42e4461d413eaa204ba370d724ddbf726c5e"
+      stability = "stable"
+    }>
+  ]>
+)>

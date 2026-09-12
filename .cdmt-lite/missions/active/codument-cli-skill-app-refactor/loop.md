@@ -1,0 +1,465 @@
+# Loop: Codument CLI Skill App 与可复用 Host 重构
+
+Status: active
+Round: 45
+
+本轮模式：Round45真实Terra E2E有界测量批次已结束；不进行global安装或原dogfood升级。七个正式试次均终态，首次1/7、最终2/7；完整业务验收仍未达成。耗尽策略禁止原试次自动续跑，下一修复候选与新测量批次需明确决策。长期mission保持active、未归档；业务验收节点保留active，阻塞原因见Blocked on（节点枚举没有blocked）。
+
+期望态：[MISSION.md](MISSION.md)。证据：[evidence.md](evidence.md)。本图是唯一执行计划/状态投影；名称为人机交接主标识。
+
+> 固定纪律（勿删）：节点完成 ≠ 回合结束。更新本文件后，同一回合继续取下一个「当前可做」节点；停点只认：验收全过 / 硬中断（工具·宿主·用户强制）/ 卡住（缺输入、不可逆选择）。不因「做了一段」而回头汇报。
+
+## Work graph
+
+### 新版真实E2E框架与无模型smoke
+
+- Status: done
+- After: 统一公共合同0.1.1与本地制品闭包
+- Covers: 期望-10, 约束-16, 约束-21
+- Verify: /tmp隔离副本bun test e2e；bun e2e/run.ts smoke --bin=<candidate>，路径、global、日志、超时及失败退出负例。
+- Outcome: 真实Terra runner与独立验收边界建立，源头旧e2e只读保留，临时环境不会覆盖旧bin/home。
+- Done when: smoke实际exit0且负例证明假通过被拒绝；当前可用认证/模型入口已观测，不以mock推断真实成功。
+- Evidence: E290–E292、E303；最终671c harness完整check 670pass/7807assertions及typecheck/lint通过，RifTBP smoke 10项exit0/modelCalls0；真实cS2ETJ probe验证Terra/medium及实际CLI调用。框架校准trial与正式模型通过率分开。
+
+### Terra真实业务E2E与重复运行
+
+- Status: active
+- After: 新版真实E2E框架与无模型smoke
+- Covers: 期望-10, 约束-4, 约束-21
+- Verify: todo→stream→blog→ecommerce→nested，各环境/流程/独立业务验收；todo与stream各第二次；聚合原始usage与首次/最终结果。
+- Outcome: 同模型执行真实工程任务，以外部判据做有界纠偏，产品问题回源码修复并作废受影响结果。
+- Done when: 各场景和重复关键用例均有真实验收过线证据，失败/成本完整报告，无验收弱化。
+- Evidence: E293–E309；七次正式试验全部终态，Todo首次1/2、最终2/2；Stream两次未过、Blog/Nested失败、Ecommerce与Stream2按配置耗尽block。测试运行与测量已完成，不等于本节点全业务验收完成。
+- Blocked on: 原试次的三次outer预算或on_exhausted=block已耗尽；禁止第四试次、重置hook或改写失败。需要确认下一批以源码改进后新candidate+fresh trials推进，保持原限额与本轮结果，而非解禁旧run。其它长期mission工作不被本节点冒称完成，本轮不扩张到发行/历史原件迁移。
+
+### 统一公共合同0.1.1与本地制品闭包
+
+- Status: done
+- After: 收敛固定根完整全局App与动态别名路由
+- Covers: 期望-2, 期望-3, 约束-3, 约束-6, 约束-7, 约束-16
+- Verify: 上游合同/依赖/准入测试，protocol保持2；/tmp源码及新制品消费者typecheck和完整回归；来源/lock一致且无2.0.0合同残留。
+- Outcome: 用户指定0.1.1为公共合同要求；包版本与协议2各自拥有明确事实源，保留精确包版本/锁/descriptor校验。旧制品和旧global不改。
+- Done when: 公共源码与已安装版本化制品同源，0.1.1成功、错误版本与协议失败，C无重复品牌类型错误；新全局安装仍经过后继完整验收。
+- Evidence: E288–E289；H 556测试与C新制品651测试及类型/lint通过，实际新global安装完成。
+
+### 明确全局聚合与 workspace 资源身份
+
+- Status: done
+- After: none
+- Covers: 期望-1, 期望-4, 期望-5, 约束-8, 约束-12, 约束-13
+- Verify: 源头库存/需要改造/最终暴露三组投影与用户决定一致；新版MissionLite preflight通过。
+- Outcome: 用户明确global指导App与workspace资产App并存；新CommandOperation提供顶层入口，不删除workspace SkillApp。设计见global-skill-app.md与command-operation.md。
+- Done when: 用户身份决定与两层所有权记录一致。业务实施前harness升级和preflight作为下一节点，不能把设计当代码证据。
+- Evidence: E272，用户直接澄清；不存在待确认workspace身份。
+
+### 设计并实现公共 CommandOperation 与顶层投影
+
+- Status: done
+- After: 明确全局聚合与 workspace 资源身份
+- Covers: 期望-1, 期望-2, 期望-3, 期望-4, 约束-3, 约束-9, 约束-10
+- Verify: 更新harness并通过preflight；Halfcode内置Kind、实际根help/dispatch一致、独立消费者与命名/来源/路径/版本负例。
+- Outcome: 公共能力回Halfcode，Codument声明操作；后续global聚合/std迁出与三命令基于此接入。不得静默覆盖既有validate/migrate。
+- Done when: 公共接口和实际打包消费者通过，不以help文本或设计文档冒充实现。
+- Evidence: E274–E275，新H不可变制品正常消费、555宽回归、C实际15命令与隔离native通过。
+
+### 全局指导聚合与标准迁出
+
+- Status: active
+- After: 设计并实现公共 CommandOperation 与顶层投影
+- Covers: 期望-1, 期望-4, 期望-5, 约束-7, 约束-13, 约束-15
+- Verify: 15旧Skill映射、真实App准入、隔离编译bin安装/全部命令、旧Skill哨兵、已知std备份退役与未知std保留review、独立前向路由与宽check。
+- Outcome: global拥有标准操作与Host指导；workspace资产App不分发std/薄Skill。原生validate/migrate不变，操作名另为validate-operation/migrate-operation。
+- Done when: 上述正负例过线，后继产品命令绑定不计作本节点完成。
+- Evidence: E275历史聚合证据保留；E284因用户新要求重开：旧PASS不覆盖固定根完整App、直接复制/整包替换和干净workspace。后续执行以新增纠偏节点为准，不能继续以旧Done when宣称关闭。
+
+### 收敛固定根完整全局App与动态别名路由
+
+- Status: done
+- After: 设计并实现公共 CommandOperation 与顶层投影
+- Covers: 期望-9, 约束-17, 约束-18, 约束-20
+- Verify: 重观察Halfcode VFS资产及Effect接口；补充固定根加载/动态资源help与dispatch/损坏缺失负例、别名按需加载与安装资产链接闭包测试；执行前重跑preflight。
+- Outcome: 完整源码App和VFS/安装同一资产；SKILL引导动态CLI，references/std/compat/operation-alias.md承载历史映射；references/std布局闭合，不再由TS拼装另一App。
+- Done when: 实際资源加载正负例、15操作及链接/URI测试通过，源码路径和多agent固定根选择有证据，不以静态文本一致代替加载。
+- Evidence: E286；59文件真实App、公共准入和动态元数据反例、15操作native、独立前向审查及路径闭包通过。完整项目回归/实际全局安装仍属后继门。
+
+### 整包替换全局Skill并清理旧项目分发资产
+
+- Status: done
+- After: 收敛固定根完整全局App与动态别名路由
+- Covers: 期望-5, 期望-9, 约束-16, 约束-19, 约束-20
+- Verify: /tmp多agent首次复制/整包替换/失败恢复和旧项目清理/定制保真/幂等/review；验证成功后实际新global bin+skill安装检查及旧codument指纹。
+- Outcome: 新global无旧目录残留；成功升级的项目codument/仅项目资产；非项目数据明确清单退役。全局内容修改留备份不混回，新安装授权不扩张为真实dogfood升级。
+- Done when: 隔离完整回归与清理负例通过、已授权新global安装实际核验；不得以仍保留项目std的review结果冒充升级完成。
+- Evidence: E286隔离正负例由E288完整回归复验；E289实际三agent整包安装，每份59文件与源码逐字节一致。真实历史dogfood仍review，不计作成功升级。
+
+### 隔离新版可执行入口
+
+- Status: done
+- After: 无（用户2026-09-07新增独立范围，不解冻三命令）
+- Covers: 约束-7, 约束-9, 约束-12
+- Verify: binary-identity及release相关测试、实际构建、隔离安装映射与旧codument sentinel保留、最宽源码回归。
+- Outcome: project默认构建、源包bin、三平台native包、lock和安装查找只用depa-codument；workspace与demo身份不变。本机旧安装与根旧src保持不动。
+- Done when: 新入口实际运行，发行元数据不含codument别名，隔离验证无覆盖旧命令；证据追加后回到原三命令USER gate。
+- Evidence: E269–E270。630/6617/typecheck/lint；实际default及三平台native build、三包npm pack清单、隔离bin安装/新help/version/旧sentinel和本机旧codument原件保留通过。完整依赖闭包未重跑，不把bin隔离测试冒充最终发行验收。
+
+### 设计跨仓公共包归属与消费协议
+
+- Status: done
+- After: 分析现状并形成可确认方案
+- Covers: 期望-2, 期望-3, 期望-7, 约束-1, 约束-3, 约束-6, 约束-7, 约束-8, 约束-10, 约束-11, 约束-12, 约束-13, 约束-14
+- Verify: 两仓独立 package/authority/incident inventory；inventory 与 recommendation 各两轮 fresh review（FIX_APPLIED→NO_GAP）；23 节点/30 边 DAG、完整期望/约束覆盖、链接及两仓 source digest 检查，见 E101–E104。仅证明设计充分，不证明迁回或发布完成。
+- Outcome: analysis/cross-repo-host；包归属/命名/公开接口、三消费者、发布闭包、兼容与回滚设计，后续工作图修订。
+- Done when: 深度分析与有界复核完成、目标/依赖/验收自洽；跨仓源码实施仍需用户确认。
+
+### 确认跨仓方案并冻结来源对照
+
+- Status: done
+- After: 设计跨仓公共包归属与消费协议
+- Covers: 期望-3, 期望-7, 约束-1, 约束-6, 约束-7, 约束-8
+- Verify: 用户确认 + 两树 HEAD/status/eligible bytes/exports/identity 快照、逐项保留 H/采用 C/组合/暂缓表检查；对应跨仓 rec-01。
+- Outcome: 可复现的当前输入、差异处置、允许编辑范围与回退材料；初始 dirty clone 不伪造普通 merge base。
+- Done when: 方案获准且实施基线重新观察完成，后续每项搬迁可追到输入与来源；尚不改真实 workspace。
+- User gate: 用户“确认、同意这种设计。请开始实施”已通过设计确认；来源冻结已验证并保留逐文件恢复材料。三命令与真实 npm 发布仍有各自独立 gate。
+
+### 归回公共契约与最小安装闭包
+
+- Status: done
+- After: 确认跨仓方案并冻结来源对照
+- Covers: 期望-2, 期望-3, 约束-3, 约束-6, 约束-10, 约束-11
+- Verify: E112–E114：H root check 424 pass/0 fail；基本5包及资源9公共+9vendor正常解析；实际两族旧tarball/完整lock/reader/损坏制品拒绝/旧code-first明确migration-required；global/Vue单实现桥接正负例；Bun 1.3.0 三组打包消费。可选包使用overrides，产品桥接采用和三消费者完整普通解析仍属后继门。
+- Outcome: Halfcode 持有 canonical public contracts 和迁回能力的源码；目标 halfcode-cli-lite-* 包，语义身份与 artifact provenance 分开；不形成长期双源码真源。
+- Done when: 基本 CLI 不安装 Skill App/Hono/browser/Vue/MCP，旧身份精确映射经过测试，未知/冲突 fail closed；产品可继续 pin 迁移前制品，临时源码副本不接受独立功能演进。
+
+### 固定已准入执行材料闭包
+
+- Status: done
+- After: 归回公共契约与最小安装闭包
+- Covers: 期望-2, 期望-3, 约束-3, 约束-5, 约束-7
+- Verify: 跨仓 rec-04 的 legacy source、metadata、dependency mutation fixtures → 固定已准入 bytes 或拒绝、cleanup；不得只重 hash entry 声称锁住全部依赖。
+- Outcome: materializer 的受限一致性合同；R04 条件竞态与 R05 未明保证得到可观测判定。
+- Done when: 正负例及相关 loader/package 回归通过；与 runtime/admission 重叠写入串行，不扩成供给链平台。
+- Evidence: E121/E124/E126/E128：legacy/package bytes与metadata/dependency mutation、隔离stage/cleanup/重试、atomic definition/material receipt、code-first与resource-first server re-admission组合均通过；最新Bun1.3.0资源消费者通过。仅关闭本受限材料合同，不涵盖任意handler IO、AppPackage/Page builder全部材料或尚未收口的runtime/产品采用。
+
+### Halfcode 通过公共包自消费
+
+- Status: done
+- After: 抽取 Skill App 与执行能力包；拆分 runtime 并收窄常驻执行；固定已准入执行材料闭包
+- Covers: 期望-2, 期望-3, 约束-3, 约束-6, 约束-7, 约束-11
+- Verify: Halfcode 产品 capsule/shell 的公开 API 消费检查、原能力回归、隔离 immutable tarball set core fixture；不得访问 Codument 私有源码。
+- Outcome: Halfcode 自身不走特殊内部旁路；product identity/templates/providers 与公共机制分开，聚合 root check 覆盖公共包测试。
+- Done when: 同一上游实现服务其自身产品；原行为/关闭/资源兼容有证据，采用可单独回退；尚不发布 npm。
+- Evidence: E160–E162、verification/halfcode-adoption-conformance.md：525项根回归、七组pack门、最低Bun1.3.0及固定release set的真实CLI/旧code-first/完整lock兼容已过线；公共机制实际服务原生入口，产品identity保持。native OS recipe/全局安装仍属后继门。
+
+### Codument 改为版本化消费与真实封装
+
+- Status: done
+- After: Halfcode 通过公共包自消费
+- Covers: 期望-1, 期望-2, 期望-3, 约束-3, 约束-6, 约束-9, 约束-10, 约束-12, 约束-13
+- Verify: 同一公共 tarball set 安装后 domain fixtures/adapter/public imports/owned-close 通过；无 workspace/source alias 跨仓旁路。
+- Outcome: 四 domain 包保留，host-adapter/product-capsule/cli-shell 承担真实职责；旧通用源副本在消费证明后退役。该节点仅迁依赖和当前已有领域接缝，不冒充所有领域功能迁完。
+- Done when: product/core fixtures 可离开两仓源码运行；基础产品注入与旧身份兼容成立，无绕道合并三命令；余下领域迁移继续后继节点。
+- Evidence: E166–E167、verification/codument-adoption-conformance.md：同一公共 set 的十一产品包普通传递安装，冻结旧身份、99领域回归、实际完整CLI/Vue/MCP/close及根444回归通过；153项旧通用副本经hash核对后可恢复退役。仅关闭本消费节点。
+
+### 跨仓三消费者与公共发行闭包验收
+
+- Status: done
+- After: Codument 改为版本化消费与真实封装
+- Covers: 期望-2, 期望-3, 约束-3, 约束-6, 约束-11, 约束-12, 约束-14
+- Verify: 同一 immutable release set 的 Halfcode/Codument/Notes core consumers + 无 transitive overrides 的受控包源解析 + public files/assets/engine/最小闭包/identity/local-live/close 负例。
+- Outcome: 库级发布就绪证明，修复已观察的 release metadata/allowlist/嵌套 workspace 问题；平台 format/native smoke 分列，未测不宣称支持。
+- Done when: 公开包可按发布名/版本独立解析，消费者不读两仓私有源；只证明 core/library 和 recipe 边界，不提前证明三命令、完整 Codument native 发行或已发布 npm。
+- Evidence: E168–E169、verification/three-consumer-conformance.md：同新set6e5bc29f…的H/C/Notes在Bun1.3.14及1.3.0过线；公共14SRI保持、原consumer入口改按制品且完整/最小/domain-core通过；nested worker recipe两产品实际构建/close通过，H529/C448及架构213过线。其它OS native/最终C发行仍未测。
+
+### 区分消费脚手架与完整源码快照
+
+- Status: done
+- After: 跨仓三消费者与公共发行闭包验收
+- Covers: 期望-3, 期望-7, 约束-3, 约束-6, 约束-7
+- Verify: scaffold/source-only/full eligible-working-tree 三种 fixture，dirty tracked（含已跟踪 ignored）+ eligible untracked + lock/provenance；变换前后分列，无静默漏文件。
+- Outcome: scaffold 引公共包不复制通用实现；source-only 保留 upstream allowlist；显式 full 模式满足用户完整 dirty snapshot 要求，rebrand 独立且不重写公共包/资源身份。
+- Done when: 两种 snapshot 范围与回执可复现；第三 CLI 脚手架可安装运行，无误复制 mission/私有实现到默认消费方；不改外部示例。
+- Evidence: E174、verification/clone-conformance.md；固定3e28f0c8候选，两生产者两代scaffold和snapshot、三产品、最低Bun五套均通过。metadata变换仍明确要求构建前review，不冒充全产品重命名。
+
+### 分析现状并形成可确认方案
+
+- Status: done
+- After: none
+- Covers: 期望-6, 期望-7, 约束-1, 约束-7, 约束-8
+- Verify: mission 章节/链接/覆盖/DAG 检查 + 内容 digest 对比 + 旧 migration 目标测试 → 规划自洽、范围内只新增 mission、25 tests pass。
+- Outcome: 三份 attractors；包级 inventory/处置；workspace/迁移/token 设计；用户评审取舍；完整验收合同。
+- Done when: 所有规划文件已落盘且通过规划结构检查；不表示产品验收完成。
+
+### 冻结基线与验收夹具
+
+- Status: done
+- After: 分析现状并形成可确认方案
+- Covers: 期望-1, 期望-3, 期望-4, 期望-5, 约束-2, 约束-6, 约束-7
+- Verify: 旧版本基线测试、project 原有 check/各包测试、command/fixture/context inventory → 测试结果与缺口均有 source fingerprint。
+- Outcome: 记录 source snapshot，安装并锁定 project 依赖；完整 command/option/output/Skill/capability matrix；历史布局夹具、六场景读取量基线。
+- Scope: project 与隔离 fixtures；不再次 clone、不修改 Halfcode。
+- Done when: 所有迁移族与成本场景有可重放来源；继承失败有归因；新旧 compiler 差异有明确 probe。
+
+### 抽取显式契约与 CLI 垂直切片
+
+- Status: done
+- After: 冻结基线与验收夹具
+- Covers: 期望-2, 期望-3, 约束-3, 约束-9
+- Verify: `cd project && bun run verify:mission -- architecture --scope cli` + `consumer --scope cli` → parser/dispatch/ports 隔离、真实 tarball 外部 consumer command 可执行；完整 architecture 仍待后续包迁移。
+- Outcome: 建立 host-contract/logic/support/capsule/shell 的最小真实闭包；product identity 和命令注册输入化；新 harness 实际执行检查。
+- Done when: 一个真实命令经新公开包完整运行，JSON/退出码正确，多 root 无 cwd 污染；无仅改包名的空壳。
+
+### 抽取 Skill App 与执行能力包
+
+- Status: done
+- After: 归回公共契约与最小安装闭包
+- Covers: 期望-1, 期望-2, 期望-3, 约束-3, 约束-6, 约束-10
+- Verify: 在 Halfcode canonical source 运行迁回后的公共包测试，并以新打包的 halfcode-cli-lite-* 制品运行独立 resource-first/code-first/custom-Kind/执行能力 fixture（新 gate 待实现）；既有 `cd project && bun run verify:mission -- consumer` 只保留为历史基线或 Codument 采用后的回归，不能单独满足此节点。
+- Outcome: resource contracts/logic/support、browser、MCP/Vue closure；通用发现/注册扩展；第二 CLI 消费方；pack 产物与显式 lifecycle。
+- Done when: 通用包不 import domain，consumer 不依赖原源码，Host 原能力未漏迁，custom Kind admission 全链路通过；新增 CLI-first consumer/生命周期合同亦过线，不以 E058 的旧证明替代。
+- Resume: 保留 E058/E099 的本仓抽取进展；新的 source owner 在 Halfcode。先按跨仓处置 T01–T14 归位再补未完合同，不在本仓继续双侧演进。
+- Evidence: E140/round-14-conformance.md：14包实际隔离tarball安装、custom Kind/readers、resource-first/code-first与材料mutation、browser/Vue/MCP执行和最低Bun1.3.0过线。产品采用仍独立后继，不将本节点done替代真实产品兼容门。
+
+### 修订 CLI-first 与暂停命令方案
+
+- Status: done
+- After: 抽取显式契约与 CLI 垂直切片
+- Covers: 期望-8, 约束-12, 约束-13, 约束-14
+- Verify: 只读 Omni 三份 mission 文件与实际 transport、本项目调用链；mission 文档链接/覆盖/DAG 与代码摘要检查，见 E090/E091。
+- Outcome: design/cli-first-runtime.md；analysis/cli-serve-placement.md；覆盖旧三命令自动合并计划，明确 core/最终集成两阶段。
+- Done when: 本轮仅设计文件落盘且自洽；不代表 placement 代码已完成。
+
+### 固定精确 placement 与无 Serve 基线
+
+- Status: done
+- After: 修订 CLI-first 与暂停命令方案
+- Covers: 期望-8, 约束-12, 约束-14
+- Verify: `cd project && bun run verify:mission -- serve-placement --scope policy`（80443）exit 0：23 pass / 268 assertions / 4 files；真实 executable 全覆盖、本地哨兵/SQLite/生产 CLI 子进程/typed loopback/source-profile-instance 负例。完整 runtime 门禁不在该 scoped PASS 范围，见 E099。
+- Outcome: Host-owned placement contract/纯 resolver、command mapping、无 Serve 哨兵测试与旧输出基线；不新增整类 resource RPC，不动三命令组合。
+- Done when: registry 完整路径无漏项/重复，非法 descriptor/profile/capability 不降级 local；现有 Page 专用 API 语义保留。
+
+### 拆分 runtime 并收窄常驻执行
+
+- Status: done
+- After: 固定精确 placement 与无 Serve 基线；归回公共契约与最小安装闭包
+- Covers: 期望-2, 期望-3, 期望-8, 约束-3, 约束-14
+- Verify: 在 Halfcode canonical source 对公共 T12/T13/T14 运行 runtime/architecture 测试，并由新打包公共制品的独立 fixture 验证 capability/backend、lazy/close、无 Serve、服务端复验与 Page/MCP（新 gate 待实现）；既有 project 的 `serve-placement --scope runtime`/`consumer`/`architecture` 只作历史或采用后回归，不能用尚未换依赖的 Codument 副本证明上游实现。
+- Outcome: Catalog/Domain/Request Execution 与 Page/live 生命周期分面；Page projection 脱离 workflow；LF pageWorkflow typed ingress；browser lifecycle policy；实例/目标/placement 服务端复验。
+- Done when: one-shot 请求不构造 Page/Agent/supervisor；常驻首次并发只创建一次，失败/关闭释放精确；CLI 无私有跨命令 workflow receipt；MCP connection 不被强改为 HTTP client。
+- Resume: E092–E100 的已实现 policy、preflight、pinned LF/close 保留；对应跨仓 rec-03，把完整接缝归公共 T12/T13/T14，在 Halfcode canonical source 完成未验收 lifecycle。
+- Evidence: E140与round-14-conformance.md五case映射；H503pass及四组pack、Bun1.3.0三组均通过。真实capability/SQLite/profile、catalog/request/Page projection、四backend CLI、Page/Codex/provider关闭与source admission已在public set验证；57叶子inventory完整。两产品实际绑定属于B01/B02，尚不能宣称Codument命令迁完。
+- Current action: Round13 public client transport、invocation-scoped host、admitted lifetime组合、通用owned cleanup与受控optional安装已过线（E135）。下一轮迁出实际capability acquisition/runtime构造接缝并补完整inventory/facet组合；不能重复将新公共primitives当作已采用的产品runtime。最终边界见verification/round-13-conformance.md，不替换两产品私有路径直至前置门满足。
+- Resume round 12: 上述T06/T07/T12以及T13/T14切片现已实际打包通过，rec-04组合完成。剩余不是重新建包，而是public client transport、完整leaf/backend placement与aggregate lifecycle，以及最新最低Bun optional安装确定性；详见verification/round-12-conformance.md与E128。
+
+### 迁入 Codument 领域与兼容命令
+
+- Status: done
+- After: Codument 改为版本化消费与真实封装
+- Covers: 期望-1, 期望-2, 期望-7, 约束-2, 约束-9, 约束-10
+- Verify: `cd project && bun run verify:mission -- capabilities --scope domain` + `architecture` + `serve-placement` 的领域矩阵 → 领域生命周期/registry/receipt/归档矩阵、domain ports、内置 Kind 和非冲突旧命令通过；三个暂停入口明确 DEFERRED，workspace installer 与新迁移桥在后继节点验收。
+- Outcome: domain-contract/logic/support/capsule + product shell，9 类既有 Kind 的新版契约，嵌套/registry/归档/receipt 规则归位。
+- Done when: 新 runtime 不 import 旧 src；正式资源只一套 transition；非冲突新旧命令委托同一本地实现，不建立领域 HTTP 通路；三命令的底层能力与最终命令组合分列。
+- Resume: 四 domain 包已有证据不清零；先换成上游 public dependency，再继续缺失的 command binding、reader/registry/归档/migration 语义。
+- Evidence: E235–E241、verification/domain-capabilities-round-30.md：32领域旧叶子逐项本地运行、完整晋升/归档恢复、11内置Kind、575根回归、339架构、204 installed及最低Bun通过。六migration叶子明确后继DEFERRED，三命令USERgate，不以此节点代替完整capabilities或App/migration验收。
+
+### 建立 resource-first workspace 与 Skill 路由
+
+- Status: done
+- After: 迁入 Codument 领域与兼容命令
+- Covers: 期望-1, 期望-7, 约束-2, 约束-9, 约束-10
+- Verify: 拟实现 `cd project && bun run verify:mission -- workspace-app --scope core` → 公开 installer API 在隔离目录创建真实 codument/ SkillApp、无 KindDefinitions、递归非空 registry 与混合资源通过；不调用或改造暂停的产品 init。
+- Outcome: 新 manifest/SKILL/source roots/templates 与独立 installer API；保留 agent 安装配置和薄 operation Skills；三个命令的最终组合移到后置讨论节点。
+- Done when: 内部新建/重复调用、未知 Kind/冲突/目录安全负例通过；正式 App 仅位于 codument/，与 `.codument/` 私有状态分开。最终 CLI init 验收仍欠。
+- Evidence: E253–E256：root589/6037、App14/365+真实编译installer、全部架构353/2989、同公共185f8d37的三产品真实安装及最低Bun/两clone通过。正式codument、递归/孤儿/混合资源/85资产/六Agent目标/重复零写/故障恢复已测；仅内部API，不替代后置三命令兼容。
+
+### 打通历史迁移与 Skill 语义兜底
+
+- Status: done
+- After: 建立 resource-first workspace 与 Skill 路由
+- Covers: 期望-5, 约束-4, 约束-5, 约束-9, 约束-10
+- Verify: 拟实现 `cd project && bun run verify:mission -- migration --scope core` + 当前 Agent 的旧 Decision 兜底演练 → 公开迁移 API/非冲突 CLI 的来源/备份/保真/重跑/恢复验证通过；新 upgrade-workspace 合并仍暂停。
+- Outcome: 旧格式 adapter、新 contract writer、事务 staging/ledger、随发行包 bootstrap migration Skill；root dogfood 副本升级。
+- Done when: 内部历史矩阵通过或未知输入明确 review/blocked 且无数据损失；真实兜底后重扫和 strict validation 通过。流程无 Serve；最终 upgrade-workspace 入口/exit 2 和新旧 installer 组合不算已验收。
+- Evidence: E261–E264。38/core、625/root、254/installed、当前与最低Bun均过；真实三历史副本完整备份/review保留，当前Agent Decision五场景演练。只完成内部core合同；历史全局ID冲突等仍需语义裁决，三命令/Agent刷新保持USERgate，不将review等同升级成功。
+
+### 精简上下文并保持检查机制
+
+- Status: done
+- After: 打通历史迁移与 Skill 语义兜底
+- Covers: 期望-4, 期望-6, 约束-2, 约束-4
+- Verify: `cd project && bun run verify:mission -- context-economy` + 受影响 Skill/operation 验证 → 成本目标与完整性/故障检出同时过线。
+- Outcome: L0/L1/L2 视图、来源/版本失效、紧凑输出、操作去重、continuation 和历史索引；不改已配置验证语义。
+- Done when: 固定场景报告可复现，必要 contract coverage 100%，fresh/round/hook trace 等价；无真实 usage 时明确代理指标。
+- Evidence: E265–E266：固定六场景entry-reading代理中位数38.05%，未省必需迁移材料；五检查协议字节不变，独立逐项比较与四负例推演PASS，46机制/763、root629/6575、installed257/2337及最低Bun通过。合同覆盖仅所列场景和适用规范闭包，不泛称模型质量100%或实际费用下降；没有新增缓存authority。
+
+### 集成发行入口与 dogfood 切换
+
+- Status: pending
+- After: 确认后三命令接入与完整兼容验证；跨仓三消费者与公共发行闭包验收
+- Covers: 期望-1, 期望-3, 期望-5, 期望-7, 约束-2, 约束-6, 约束-7, 约束-9, 约束-11
+- Verify: `cd project && bun run verify:mission -- capabilities` + `distribution` + 新 CLI 对 dogfood validate → 全部旧能力、本地发行闭包、唯一depa-codument bin、版本和完整升级可用。
+- Outcome: root 薄发行入口/project build 统一；仅/tmp项目副本dogfood受控升级；clone 自带历史归位；旧 src 实现按依赖清单退役，保留用户修改。
+- Done when: 所有旧能力迁移证据先于旧 src 退役，公共源码已归 Halfcode 且产品使用被验证的 release set；本机 smoke 通过，非本机运行声明有证据或明确限制；未授权真实 npm 发布不执行。
+
+### 核心重构验收并讨论三命令
+
+- Status: done
+- After: 抽取 Skill App 与执行能力包；拆分 runtime 并收窄常驻执行；精简上下文并保持检查机制；跨仓三消费者与公共发行闭包验收；区分消费脚手架与完整源码快照
+- Covers: 期望-1, 期望-5, 期望-8, 约束-12, 约束-13, 约束-14
+- Verify: 非冲突领域命令矩阵、完整 `serve-placement`、consumer/architecture、workspace-app/migration core 与最宽回归过线；逐项列出三个最终命令仍 DEFERRED，不改为 PASS。
+- Outcome: 汇总核心证据，按最新用户确定的global聚合后接入顺序准备产品命令合同。
+- Done when: 核心证据与global聚合验证成立，三个产品命令的参数/副作用/JSON/退出码合同固定后进入接入节点。
+- User gate: 最新用户已批准global聚合后接入三命令；不再沿用旧暂停，真实安装/发行仍独立。
+- Evidence: E275承接E267–E268核心证据及最新用户顺序；三命令实施合同继续落design/three-command-integration.md，不在本节点冒充已实现。
+- Evidence: E267–E268：当前最宽629/6587/typecheck/lint、完整serve-placement/consumer、architecture及App/migration/domain/context core均通过。命令现状及待确认组合方案已落design/three-command-integration.md；仅缺用户对三命令的明确决定，不将本节点或全mission提前标done。
+
+### 确认后三命令接入与完整兼容验证
+
+- Status: active
+- After: 核心重构验收并讨论三命令
+- Covers: 期望-1, 期望-5, 约束-9, 约束-12, 约束-13, 约束-16
+- Verify: 无 scope 的 `workspace-app`、`migration`、`capabilities` → 实际打包 CLI 的 init/status/upgrade-workspace、历史参数/JSON/exit 2、codument/ 目录合同全部通过。
+- Outcome: 仅按后续用户确认方案组装三个产品命令；如选择不合并，则先修订最终范围/兼容验收，不能擅自删验收。
+- Done when: 内部 API 证据和真实 CLI 证据闭合，未在确认前启用组合、别名或自动升级旁路。
+
+### 最终独立验收与归档
+
+- Status: pending
+- After: 集成发行入口与 dogfood 切换
+- Covers: 期望-1, 期望-2, 期望-3, 期望-4, 期望-5, 期望-6, 期望-7, 期望-8, 约束-1, 约束-2, 约束-3, 约束-4, 约束-5, 约束-6, 约束-7, 约束-8, 约束-9, 约束-10, 约束-11, 约束-12, 约束-13, 约束-14
+- Verify: `cd project && bun run check && bun run verify:mission -- all` + 最终独立 DEPA/行为/升级审查 → 所有合同有最终快照证据，无未判差距。
+- Outcome: issues-first 验收与修复复检；最终证据、交接文档和版本/限制说明。
+- Done when: 最宽相关回归过线；独立性要求达成；无 UNVERIFIED 被算完成；Status 改 completed 后整体移至 archived。
+
+## 尚未看清
+
+- 三个同名命令最终用户界面和组合行为：明确延期到核心重构后讨论，不在本轮替用户选择。
+- Browser/LF公共runtime边界已由E140以及后继三消费者/clone制品证明；尚未验证的是其它OS native与真实外部browser长期行为，不能扩大已有本机隔离证明。
+- modeling作者合同与迁移core已由E196–E205、E261–E267验证。真实历史App仍有全局ID冲突、缺design、完成状态/criterion矛盾与旧MaterialBundle等语义差距；不能以机械包裹或core通过声称这些历史副本升级成功。
+- 未覆盖的早期 legacy AST/forest 保留原件并review；不能推断为通用无损自动转换。真实旧src的最终退役依赖完整历史兼容与发行验证。
+- compiler浅Catalog的缺口已由上游递归投影与产品membership/孤儿校验关闭（E246–E256）；后续迁移仍须以完整App实际发现验收，不用浅root的零行成功替代。
+- clone三模式与两代消费者已由E174收敛；原输入快照保持，不能把snapshot变换等同完整产品metadata重命名。
+- 冻结declared-entry UTF8字节代理的中位数下降38.05%已过线；实际运行期token/费用未测，不外推。必要迁移材料增加已计入，检查协议及独立负例推演另有证据。
+- 历史各 release artifacts 在本地是否齐备；无法获取的真实版本需显式标明覆盖限制。
+- 非本机平台是否有可用运行环境；cross-build 不代替 native smoke。
+
+## Actual state
+
+- Round45：用户确认执行真实E2E六步。旧runner调用旧bin/Skill、隔离不足、score不以失败退出，不能直接复用。开始project/e2e新runner；旧源/global保护不变。
+- Round45新增观察：临时新workspace的docs profile仍引用已移走的references/std/skill/*/index.md，真实全局App只有references/std/methods/*.md。初始化宽泛替换遗漏重定位，既有migration也漏了此中间版本URI。先共享精确映射修复init/upgrade并补悬空链接负例，重建新candidate；原候选试跑只作为校准，不冒充新二进制验收。编码AttractorCheck路径正确，其停滞命令在外层187ms复现成功，暂按Codex子代理执行通道漂移观察，不删除检查。
+
+- Round44当前：公共合同及受影响依赖闭包0.1.1，资源协议仍2。新不可变制品实际消费后H/C检查通过；新global bin与三agent Skill已覆盖安装，旧codument bin和原codument/未改。E288–E289覆盖以下历史阻塞/未安装状态。
+
+- Round44：用户明确要求公共包要求改0.1.1，E287阻塞解除。按0.1.1要求更新上游合同和依赖闭包，protocolVersion保持2（不迁移业务schema），发布到新的本地不可变制品集合；不触碰旧registry集合。当前尚未业务写入。
+
+- 最终E287：sg3oN5同源测试修正后的全量为625pass/26fail/7569assertions，lint通过，typecheck仍4个公共合同brand错误；本批布局、动态操作、安装替换恢复、迁移核心、成本门均通过。global未覆盖。当前阻塞是用户另一session的0.1.1制品与上游2.0.0协议绑定不一致；需要确认公共包兼容策略，不能擅自回滚版本或改协议号。阻塞不会撤销已验证的固定根App节点。
+
+- Round43最新：20项布局/动态加载/native/多agent替换回滚定向通过；独立前向审查发现两处旧bin判断，已修。完整副本95Wv7U为625pass/26fail，主要失败为公共support仍要求contract2.0.0而应用0.1.1；另有serve错误文案及profile回归，不能称全绿。ZRXeCy成本门46/763通过，入口代理中位达25%以上，quick/mission/migration仍可能增加，不声称真实费用下降。类型错误已只剩两版contract brand冲突四处。实际CLI补测发现global/upgrade缺agent schema、migration standalone未嵌入新App，均已修源码，正在创建round-43-global-app-cli-gates新副本复验。尚未覆盖全局。
+
+- Round43：已建立product-capsule/src/templates/agents/global/skills/depa-codument完整资产目录；公共ResourceEffect固定根读取源码/嵌入字节，公共CommandOperation准入派生元数据，安装按所选agent完整替换。路径/迁移引用及英文help接续修改中，尚未经本轮验证。正在执行verification/isolated-project.ts round-43-global-app-first，之后在返回的/tmp副本跑global-app-layout/global-guidance/native安装及迁移测试，再按失败证据纠偏。
+
+- Round42最新：E284及design/global-app-layout-correction.md记录用户纠偏，布局/固定加载/整包替换尚未实施。以下Round39…41为历史观察，不是当前新目标PASS。global聚合节点已重开。
+- 会话已验证版本权威改为project/package.json的0.6.0，且已覆盖新global bin；后来英文help、agent示例、去demo只完成两仓源码和/tmp验证，尚未覆盖全局。用户现授权后续bin+skill覆盖，本轮仅记录。合同0.1.1/2.0.0并存曾导致typecheck失败，恢复前重观察，不沿用E283全绿。
+
+- Round41：用户确认已实现为legacy-declared/v1来源/内容绑定标记，原status/body保留，查询及strict validate显式not-reverified；默认list/status不变。XrSVT0宽check645/7086和成本门通过；最终缺失归档/越界负例在5n3Hrk副本check中。原codument/global指纹不变。历史其它冲突仍review，不把局部特性当整体升级成功。
+
+- E280本轮最终副本KiiTC7：check 641pass/0fail/7046assertions/132files，typecheck/lint通过；context gate 46/763通过。原codument/与旧global指纹在验证后仍完全相同。历史upgrade exit2、0提交，最终发行/归档未做。blocked仅针对历史语义政策，不是Bun缺失、环境失败或普通进度停点。
+
+- Round40进行中：验证仅在/private/tmp副本。修复upgrade receipt把计划数误报为已提交数；精确识别3份已提交历史std、备份后退休Finder元数据。副本定向测试13/154与CLI测试1/27通过。全量check首次639pass/4fail，失败为副本缺Git边界/原锁文件，正在修复准备器后重跑。dogfood语义升级仍review。实际global读取成本中位下降25.3%，quick/mission/migration存在增长；见E278。
+
+- Round39最新：15旧Skill已全部转为顶层CommandOperation；仅validate-operation/migrate-operation处理冲突，既有原生命令不覆盖。global指导App与std聚合完成，workspace codument/仍为资产App。参见E277和verification/command-operation-conformance.md。
+- 最终C源码check 639tests/7018assertions/132files、typecheck/lint通过；H此前最终check 555/5147通过。最终native测试3/198，实际dist/depa-codument构建与help通过；旧本机codument哈希不变。
+- 当前H制品为host-release-round-38-command-operation，digest15ff6913c526f4f61f6b4ddaa60eca1656c3e72e57a8f4e7f756794d45ad4824；C十一包round-39-command-operation-product-artifacts，digest4a0777c53daf778f527f1c9fe02a97df5bf48910fb3bff97d08e902679451871。C实际普通registry安装263/2556及类型/产品CLI完整演练通过；独立Notes同set新Kind实际help/dispatch通过，H旧锁精确兼容通过。无源码alias/发布npm。
+- init/status/upgrade-workspace已实际接入，source/native/packaged正例与source恢复负例有证据。未知std和改写旧Skill返回review并保留原件。三命令节点仍active：最终无scope gate和全量旧receipt/argv兼容尚未收口，不能称整个mission完成。
+- 本批新版单指导App与CommandOperation功能已完成；按用户要求给出重名处理总结。长期mission保持active，不以本批交付冒充整体归档。
+- 真实0.5.2/0.5.4/dogfood历史副本仍有未决语义，0.5.3本地tag缺失；当前候选产品版本仍0.1.0而非最终0.6.0。root发行切换、旧src退役、真实dogfood升级及最终all未做。原src中的用户修改保持，未触碰旧全局安装。
+
+## Last action
+
+Round46分析观察：按用户要求只读分析五类E2E日志与旧/新runner，产出verification/terra-e2e-coding-capability-analysis.md并追加E310。结论不是“单global SkillApp导致模型变笨”：旧新oracle/model/workload不等价；真实可归因问题是plan→fresh impl没有稳定receipt/ID，impl-track用不含pending的默认list做候选发现，CommandOperation仍为长文SOP且缺机器execution packet，真实业务oracle又在末端。没有产品代码或/tmp改动。若进入修复，先把plan receipt→explicit resolve→impl ContextView→task external oracle做成公共可复用垂直切片；须由用户授权新candidate/新批次，不能恢复Round45耗尽run。
+
+Round45最终：Todo2 Yg2OnD/exec20069 attempt2已PASS/exit0（E308），七个正式root全部终态，无活跃业务worker；不再使用下文历史session恢复指令。UI controller42470已核对命令后终止，Ego TaskSpace3已finish一次且page关闭，不再复用或再次finish。最终报告verification/terra-e2e-round45.md及-results.json已汇总；首次1/7、累计最终2/7。原codument/、旧global codument及R3指纹不变，所有正式run auth/lock均不存在。49165制品服务保持，不停止。最终报告独立审计及preflight结果见E309。
+
+Round45当前Todo2进入最后outer纠偏：Yg2OnD/exec20069 attempt1通过strict/knowledge/app HTTP和fresh review，但真实Ego UI失败（E307）：Add task后event.currentTarget.reset为null而不刷新；Filter后确认title实际DOM注入。ui-receipt-1.json已写failed并绑定cf7e4445…及ui-1数据目录；UI controller19660已精确终止（exec38762结束）。runner会进入implementation2，禁止第四试次；后续若ui-request-2出现，用同space3/p1新server/新dataDirectory完整重验。Ego提示更新，未升级，收尾需finish一次并告知。六终态报告fresh审计NO_GAP，最终Todo2仍待定。
+
+Round45当前仅Todo2仍在运行：Yg2OnD/exec20069 implementation1，原Track P4 hook复检；后续若awaiting-ui用Ego space3/p1真实验收。Stream2 dIrjAv/exec46282已exit1/blocked（E306），max_rounds5仍有同步provider创建异常未事件化，不能generic resume。两个stream正式试次均未过线；不可把第二次较低耗时当同质量节省。接下来完成Todo2、最终汇总/保护hash/浏览器收口；候选仍R3，harness671c。
+
+Round45最新：Todo2 Yg2OnD/exec20069已进入implementation1，attempt0外层因原Track implement-todo-application的status=new而失败；模型先另建并完成add-todo-application，目前纠偏承接原Track，firstPass已经false。Stream2 dIrjAv/exec46282仍implementation0，内部GapLoop发现SDK工具循环conversation缺assistant消息，修复并fresh复检后转coding AttractorCheck。二者尚无outer UI/final PASS。其余运行/基线/保护约束沿下条。
+
+Round45当前两个独立重复并行等待：Todo2 Yg2OnD/exec20069（implementation0，另建add-todo-application，原plan的implement-todo-application仍pending）；Stream2 dIrjAv/exec46282（刚启动，自动Python预检）。二者R3/671c同基线、不同run-root/数据/模型上下文，不相互传代码或反馈；仅优化墙钟等待，不增加各run三次预算。Todo若进入awaiting-ui，用Ego space3/p1真实验收并绑定ui-request.dataDirectory。完成两run后最终成本/通过率报告、保护hash及taskSpace.finish；不提前结束批次。
+
+Round45当前：Nested XiBVUg已terminal failed（exec36456 exit1/E304），不恢复；真实两仓Mission/脚本校验通过，但e2e-server descriptor写argv而runner要求command，未进入正式HTTP/fresh review。parent补充只读源码诊断用argv实际运行四类跨仓HTTP检查通过，明确不改正式FAIL。现已启动fresh Todo2=/private/tmp/depa-codument-e2e-Yg2OnD，exec20069，R3/671c基线；之后fresh Stream2。670/7807完整check与RifTBP最新无模型10项smoke通过。Ego space3/p1继续复用，当前无UI server。
+
+Round45续行：Nested XiBVUg的plan0缺modeling_deltas、plan1缺engineering_deltas；plan2已通过并进入implementation2（exec36456），这是最后outer试次，不再追加第四轮。当前worker仍4a2b基线。最新后续harness为671c554008dc9c8500a1e2902822e71fe15cc2769147b19fd41ac2ddf976ce1b：多scope耗尽证据不充分时明确unsupported而非误判业务block，fresh bounded复核完成；17tests/101assertions、type/lint通过，完整check正运行exec20601。其后执行fresh Todo2→Stream2，保留R3不变与真实成本，不重开Ecommerce阻塞试次。
+
+Round45当前：nested-mission-agent=/private/tmp/depa-codument-e2e-XiBVUg，exec36456，harness4a2b828e4070527cf382d9cdb8aebe19fa450038c64add063a3ad5f8f84a77bc/R3，plan0开始。Ecommerce lztBFk已终止（E301）：attempt0配置GapLoop5轮耗尽且FIX_APPLIED→block；旧worker自动attempt1被controller精确停止，raw infra interruption保留，terminal-policy计真实业务blocked且禁止generic resume。新harness structured implementation outcome保留block停点，17tests/96assertions+type/lint过，等待bounded复核。8957完整669/7795+fresh NO_GAP及U9xwUM无模型smoke已过。Ego space3/p1继续复用，当前无UI server。Blog/stream首轮不恢复；后续fresh Todo/stream独立重复及最终全回归/汇总。新UI gate需receipt.dataDirectory与ui-request一致。报告草稿verification/terra-e2e-round45.md。
+
+Round45最新：Blog I5ZuWb的exec68492已结束，模型实际完成、runner却因中间Reconnecting事件误报infra（E296）；已修复event解析并11/56+type/lint通过，产品R3不变，新harness66116139…。当前恢复exec13011，同root run blog --resume=/private/tmp/depa-codument-e2e-I5ZuWb执行attempt1，只补真实差及outer验收，不重置firstPass。NSaXQo新smoke已exit0/modelCalls0；Ego space3/p1继续复用，不新建space。后续剩ecommerce→nested→fresh Todo/stream重复及汇总。stream OQoacs已最终failed、预算耗尽，不恢复。
+
+Round45最新：OQoacs stream首轮三次尝试后最终failed（E295，exec20875 exit1），不是待恢复；不得第四次重置预算。bvTcgN Todo已passed。当前blog=/private/tmp/depa-codument-e2e-I5ZuWb，exec68492，plan0进行中；从同/tmp project执行bun e2e/run.ts run blog --bin=/private/tmp/depa-codument-verification-AUuuts/depa-codument-candidate-r3 --codex=/Users/kongweixian/.bun/bin/codex。Ego space3/p1保留，后续blog/ecommerce需要真实UI receipt。
+
+Round45正式Todo bvTcgN已全部通过（E293，exec46332已exit0）。当前stream-pipeline-ai-agent=/private/tmp/depa-codument-e2e-OQoacs，恢复exec20875；原exec38555已停止并exit1，attempt0完整保留。plan0通过，implementation0因隔离PATH只暴露Python3.9而卡住（本机uv管理的3.12实际存在）。external-feedback.json提供已有sandbox准入的uv/Python3.12绝对路径，只作环境恢复、不改代码/验收。使用同一R3/harness --resume该root，消耗attempt1，不重置首次结果；详见E294。Ego space3/p1继续复用，Todo UI controller92406已停止。
+
+Round45最新：R3源码完整check663/7749已过（日志/private/tmp/depa-codument-verification-AUuuts/e2e-r3-full-check.log），candidate=/private/tmp/depa-codument-verification-AUuuts/depa-codument-candidate-r3；XYxh6l smoke通过。正式fresh Todo已启动：/private/tmp/depa-codument-e2e-bvTcgN，exec session46332，plan-0进行中；从同一/tmp project运行bun e2e/run.ts run todo --bin=<R3> --codex=/Users/kongweixian/.bun/bin/codex。不要重复启动同root，读取logs/progress/result及runner-lock。OWXOhA旧校准已停止、auth删除、所有成本/实际失败保留并标harness-invalid，不再恢复它。Ego Browser suite TaskSpace=3，p1是本测试页；后续继续复用，不新建space。未来UI gate写ui-request-<attempt>.json，外层用ui-server命令启动实际隔离服务，浏览器实操后按ui-gate.ts强schema写parent-owned receipt，不凭HTML或自述签PASS。
+
+Round45执行中：隔离源码/private/tmp/depa-codument-verification-AUuuts/depa-codument/project，candidate=/private/tmp/depa-codument-verification-AUuuts/depa-codument-candidate。当前Todo /private/tmp/depa-codument-e2e-OWXOhA，恢复worker exec session38711（PID16812），plan-1已完成且严格/知识校验通过，implementation-1执行中；不要重复启动。j4zhPE因runner错把pending未列入list判失败，已停止并标harness-invalid。OWXOhA早期plan-0因同类show查询问题主动中断；此前恢复记录保留。源e2e持续加固（要求不可变、全CLI Seatbelt、私有home拒读、线程身份与并发锁、raw session成本），运行中worker不热加载，不能把新基线验收追溯当它的证据。新smoke UtEpOq session17827；后续先跑最新harness unit/type/lint及fresh审查负例，再沿用户顺序继续真实用例及独立重复。原项目codument/及两个global bin/Skill均不改。
+
+Round44：版本修正、不可变制品闭包、隔离完整验证、源项目依赖安装及已授权global覆盖均完成。长期mission尚未完成，不归档。
+
+Round43最终：所有本轮运行命令已结束，完整日志在/private/tmp/depa-codument-verification-sg3oN5。E286/E287和verification/global-app-round43.md收录证据；真正全局安装保持未执行。原codument/global旧bin不变。
+
+Round43：修正全局agent argv schema、复用生产build资源打包到compiled migration fixture。等待隔离复制脚本session81867返回；取其临时目录跑test/lint/typecheck/context/migration，实际init+upgrade多agent，再记录新证据。全局安装被完整回归门挡住；不以定向通过越过公共版本冲突。
+
+Round42：仅更新MISSION/loop、追加E284并保存完整纠偏记录。没有产品代码或global安装写入。下面Round41是此前实施的历史Last action，不是本轮动作。
+
+Round41：5n3Hrk最终副本check通过645/7089/133files及typecheck/lint，真实CLI定向6/72；来源digest587a0ddc4b5444135d2dacc7c365090efbb4613c5c658d2797ddef191acb159a。历史声明策略、查询/strict notice和负例已验证；详见E283。没有待轮询进程。原codument/global指纹不变，实际App迁移仍review。
+
+## Next
+
+Round45最终覆盖历史Next：当前六步有界测量批次已执行完且结果冻结；不要再启动Todo2/Stream2或恢复任何耗尽run。完整业务验收仍有差。下一决策是批准一个修复源码后重新冻结candidate/harness的新批次，保持现有hook和outer限额；优先计划ID交接、nested合同清晰度、实际UI/终端流式/同步异常判据及scope-bound hook receipt，详见最终报告。不能把临时业务应用手工修好算产品改进，不能为继续执行绕过block。原mission其它历史Next仍为长期待办，不是本批发布或安装授权。
+
+Round44最终覆盖以下历史Next：本次版本修正及global安装已完成，不再等待0.1.1确认、不重复安装。长期mission仍有三命令完整历史receipt兼容、无scope完整gates及历史语义review。源项目lock的本地制品服务保留于127.0.0.1:49165（PID52171）；未发布npm。下文Round43待确认和Round44实施顺序均为已执行的历史记录，不是当前待办。
+
+Round44覆盖以下阻塞：先实施公共包0.1.1要求及协议/包版本解耦，公共依赖闭包使用新patch版本；旧artifact和另一session0.1.1来源保留。/tmp源码副本→公共包/产品回归→本地打包registry→C安装新闭包→完整验证，最后按已授权范围更新新global。当前无需再次询问0.1.1决定。
+
+当前恢复所需输入：确认保持halfcode-cli-lite-skill-app-contract@0.1.1，允许在Halfcode公共包中解耦package semver与protocol版本2，并用新的本地制品版本构建一致依赖闭包（不发布npm、不覆盖既有同版本tarball）。这是公共兼容合同改变，不能仅修C锁或跳过校验。获准后先读两仓最新状态/另session变化，补公共兼容设计及负例，重跑preflight；解决版本闭包和serve/profile回归后再完整隔离验收、最后覆盖已授权的新global bin+skill。若用户选择恢复2.0.0，须明确覆盖其0.1.1决定，不能自动回滚。
+
+以下Round43进行中/历史Next已被上述明确阻塞覆盖，不要求原样复跑已结束命令。
+
+Round43覆盖下文“本次只记录”停点：当前用户已明确授权开始实施。先完成正在运行的隔离副本及定向验证；失败先诊断与修复，再完整回归、成本与实际安装，不能在中间节点结束。别名最终位置为references/std/compat/operation-alias.md。
+
+历史Round42的仅记录停点已被Round43授权覆盖。实施优先“收敛固定根完整全局App与动态别名路由”，再做整包替换/项目清理；历史兼容与最终验收仍需完成。先读本轮纠偏文档，不重新采用已否定的静态列表、拼装资产或增量保留旧global方案。
+
+历史完成政策已确认并实现，不再询问同一项。执行设计见design/historical-completion.md；后续转receipt及独立历史问题：2处ID冲突、2个缺design的Track、旧MaterialBundle词汇、add-wave-execution显式unchecked、Decision缺Reversibility和modeling悬空引用。原件保真/副本验证边界不变。
+
+0. 新验证边界优先：准备/tmp项目副本、显式CLI/home、原件指纹；通过隔离守卫后才执行后续验收。原文中“真实dogfood切换”现均指该副本，不要求改原codument/。
+1. 继续长期mission时，从三命令完整兼容节点续跑：逐字段核对原upgrade-workspace JSON/cleanup/参数，补齐或显式版本化兼容，不因实际入口已实现而标完整兼容done。
+2. 实现并运行无scope workspace-app/migration/capabilities gates，更新最终版本与分发闭包，重打最终制品并复验；当前候选包不等于最终发布。
+3. 按受控历史副本处理仍未决语义；不可推断的业务内容保留review。真实dogfood、旧src退役、根发行切换保持独立边界；真实npm发布/安装和外部写入不在本批授权中。
+4. 更新最终all及独立验收，全部验收过线后才归档。历史证据保留；新源码或目标变化后重测适用证据。
+
+## Decisions and replans
+
+- D22（E284，2026-09-11）：用户纠正global是固定位置Effect加载的真正CLI SkillApp；完整文件夹直接对应Halfcode VFS资产，安装复制/升级整包替换。当前能力动态查询；SKILL按需路由references/std/compat/operation-alias.md解决历史skill映射。references/std布局与项目std清理约束见MISSION17…20。助手手写第二份操作清单、单纯换资产目录名、保留旧global定制活动文件等建议被否定；E275–E277不作为新目标完成证明。新global安装已授权但本轮只记录，旧bin/原dogfood保护不变。
+
+- D21（E272）：用户保留每workspace的codument/ SkillApp身份，用于项目自身迭代资产；global depa-codument指导CLI及标准operation。新增CommandOperation公共Kind，直接投影顶层plan-track/impl-track等，不以SOP list/detail为前置。同树生成帮助与执行，显式暴露不等于资源发现；与validate/migrate等原生命令的碰撞不得静默覆盖。新方向覆盖D20身份待定与纯SOP入口设计。
+- D20（E271）：按最新用户方向改为global单Agent入口、旧Skill→SOP、std归全局，再接三命令。先区分Agent暴露与资源Kind身份；与此前“每workspace都是App”存在两种解释，不擅自删workspace身份或保留第二App冒称满足。待输入后更新MISSION/AT2与新预检；不把结构校验失败当不可修复问题，真正待定的是用户目标边界。
+- D19（2026-09-07，E269–E270）：用户明确以新旧session隔离覆盖原双bin兼容方案，新版本仅depa-codument；bin不再派生workspace/demo身份。新增独立可做节点优先完成，不解冻三命令、不切root发行、不改全局旧安装。后续最终发行与分发命令说明必须遵守新bin合同；旧证据作为历史保留，不改写成新身份PASS。
+- D17 E101：公共通用能力的最终源码 owner 改为 Halfcode，npm 前缀 halfcode-cli-lite-*；Codument 只保留领域和真实消费方封装，产品/包/资源版本分开。它覆盖 D7 的全 depa 前缀及旧临时不回写前提，不追溯改写已有测试结果；AT1 增加单一上游源码 owner 与资源身份不随包名机械变化的不变量。本轮仅设计，跨仓实施确认与三命令后置决定、真实 npm 发布授权互相独立。
+- D18 E102/E103：独立 inventory 与收敛支持 14 个公共目标包（11 个已有真实能力边界，加 Skill App/live/HTTP 三个安装或生命周期差异边界），四 domain 包留 C，六 native 包名保留发行兼容例外。复用原 generic/runtime 节点并将未完 source work 排在上游归位之后，原 active→pending/Resume 不抹掉已有证据；领域未完工作排在 Codument 依赖采用后。采用顺序为 H 自消费→C 真实封装→同 set 第三消费者/正常传递解析→clone 三工作流；最终完整 Codument 发行仍在三命令 checkpoint 之后。新 gate 必须测试上游新包和不可变产物，不能只测 C 旧副本。完整 dirty snapshot 明示保留全部 tracked 和 eligible untracked/lock，默认 source allowlist 不替代显式完整模式。细节唯一真源为 cross-repo-host/convergence 与 recommendations，不在本图复制接口定义。
+
+- D1 用户明确要求 Mission Lite：本目录为唯一迁移控制面，不创建产品 Track/Mission；优先于仓库自身 Codument planning 路由。
+- D2 source clone 已获授权且完成：以本地 project 内容快照继续；源 HEAD+dirty 信息仅用于 provenance，不回滚到源 commit。
+- D3 当前 contract/runtime 与 resource catalog 混合证据 → 先抽通用 ports 和垂直切片，再迁产品，避免整包平移后继续混合。
+- D4 历史升级测试与 compiler 版本差异 → 历史 migration 作为独立节点，Skill bootstrap 与事务恢复列为硬验收。
+- D5 用户保准确性要求 → 评审中降低默认验证强度的建议仅作参考，本次不启用；成本从上下文与有效证据投影减少。
+- D6 当前 DEPA DataTopology 主文优先于 Mission Lite 内旧吸引子参考；三份 mission attractors 采用开放 authority 关系、不强制事件溯源。
+- D7 方案暂定下一 minor 0.6.0，产品原名/bin 兼容；新能力包全用无 scope `depa-codument-` 前缀和 role。此项随整体规划等待用户确认。
+- D8 用户确认整体规划并授权开始实现；本目录已整体移至 active。MISSION 中“本轮只规划”指建档回合，当前执行按已确认的工作图推进，外部发布仍未授权。
+- D9 验收入口提前落地并显式区分 --scope cli 与完整 suite。首切片仅五包，不让尚未完成的 resource/domain/发行检查变成空 PASS；最终仍必须跑无 scope 的完整 gates。
+- D10 compiler 0.3.0 发现阶段没有直接 code-owned Kind 输入选项，但提供公开 read-port。使用内存源投影完成 bootstrap，authentic tree/receipt 仍由 compiler 产生；保留物理 manifest 摘要，不把生成视图当物理来源。无须改外部 compiler/Halfcode。
+- D11 E057–E059 已证明 11 个公共 Host 包与自定义 Kind 的完整 consumer 闭包，领域代码可开始依赖这些公开接口；Host 的最终产品绑定/文档门禁仍未全部收口，因此不提前标 done。将领域节点的前置改为已完成的 CLI 垂直切片，按 E058 的 resource/Kind API 继续；发行节点同时依赖 Host 收口和 context 节点，不能跳过未完成门禁。这是基于现有依赖可用性的工作图细化，不改变用户目标，也不把文档失败算成功。
+- D12 旧 modeling/schema.ts 对 entity/object 强制 fact_grade/single_writer，并把 fact_grade 封闭为七级。当前 depa-expert 的 DataTopology 已明确取代固定阶梯，且 physical write site ≠ transition entry ≠ owner。迁移时保留旧字段及历史判定的可解释性；新作者规范采用开放 role/model/relation 与显式 authority 边界，不把七级枚举再包成新“DEPA 标准”。具体兼容作者合同在 modeling 迁入前补设计，无法证明等价的转换需 review；不为此删除旧知识或弱化既有准确性机制。不激活缺乏证据的 event-sourcing/reactive profiles。
+- D13 用户新增要求覆盖 architecture 旧三命令组合方案：暂停 init/status/upgrade-workspace 合并，不以别名/host 命名空间/其它入口绕过。核心重构与最终 CLI 集成分期；保留原兼容验收作为后续用户决定门禁，不提前退役旧 src。
+- D14 codument/ 为不可变的产品正式目录名；Host 私有 .codument/ 不承载 App 或正式业务状态。内部 installer 先证目录合同，最终 CLI init/upgrade 仍需确认后实测。
+- D15 Omni 参考只取“精确 placement + 生命周期分面 + Server 复验 + 惰性释放”。本项目资源查询/校验和普通 LF 已 local；database 当前是 SQLite，仍 local。重点修聚合 runtime 与 LF pageWorkflow，不引入 Omni 特有 BaaS/通用 resource RPC。MCP stdio 允许独立长连接 owner；常驻不等于必经 HTTP Serve。
+- D16 前一轮为 design-only 并已获用户继续实施授权（E092），不再等待该规划确认。已有实施证据不自动覆盖新 serve-placement/core suites；新增叶子门禁不得占位 PASS。规划确认与核心重构后的三命令决定仍是两个独立用户 checkpoint。

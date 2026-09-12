@@ -1,0 +1,19 @@
+<KindDefinition #Halfcode.ResourceKind.DatabaseConnection envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
+  resourceKind = "DatabaseConnection"
+  subjectFqn = "Halfcode.ResourceKind.DatabaseConnection"
+  sourceShapes = ["manifest"]
+  documentCardinality = "one"
+} (
+  <SpecRevisions [
+    <SpecRevision #v1 {
+      specVersion = 1
+      schemaRef = "vfs://./spec-v1.schema.json"
+      schemaFingerprint = "sha256:0789e5a301602d73963f4ec92524f4ae28bad2c94a25debffd5a5af226f2e893"
+      contractFingerprint = "sha256:3e23dcca83adb7636d01a09ad64d24767f341ff459af1d066537d3965000b35e"
+      semanticValidatorFingerprint = "sha256:f77c46faea0a3b22ae36954079606671d3492008420cfc0b590256e7e7ed7de0"
+      referenceProjectionFingerprint = "sha256:fee2813a03f8c0de0531efeeafb75e199532ae22909494bb5da1a9d1a3539e0b"
+      compilerInputFingerprint = "sha256:8462fb575bdfdfb207705f7e3b327c87d68f073fade404e4f754c60f0548762a"
+      stability = "stable"
+    }>
+  ]>
+)>

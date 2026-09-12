@@ -1,0 +1,7 @@
+<Page #Codument.Demo.Page.OpenDataExport envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
+  name = "open-data-export"
+  description = "OWID 开放数据导出：筛选 life-expectancy 实体与年份，下载 ZIP 并展示 CSV 预览和 metadata"
+  localFunctions = []
+} (
+  <Navigation { label = "Open Data Export" group = "codument-demo" groupLabel = "codument-demo" order = 20 visible = true }>
+)>

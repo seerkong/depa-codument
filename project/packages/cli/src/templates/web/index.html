@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CLI Console</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main>
+    <p class="eyebrow" id="product">CLI</p>
+    <h1>Console</h1>
+    <p class="lede">Static files live in <code>src/templates/web/</code> and are packaged into the compiled binary. API routes stay on the Hono server.</p>
+    <form id="demo-form">
+      <label for="name">Name</label>
+      <div class="row">
+        <input id="name" name="name" type="text" value="Ada" autocomplete="off">
+        <button type="submit">Demo</button>
+      </div>
+    </form>
+    <button id="status-button" type="button">Status</button>
+    <pre id="output">Ready.</pre>
+    <p><a href="/ego.html">Ego 演示</a> · 安装 workspace skill 后访问 <code>/pages/google-search/</code> 查看完整 PageWorkflow 示例。</p>
+  </main>
+  <script src="/app.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+<DatabaseConnection #Codument.Demo.Database.Cache envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
+  description = "Profile-configured SQLite cache for the demo Skill App."
+}>

@@ -1,0 +1,48 @@
+{
+  "name": "depa-codument-skill-app-contract",
+  "version": "0.1.1",
+  "description": "DEPA-oriented Codument workflow tool for AI coding assistants Skill App authoring contracts",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    "./page-http": "./src/page-http.ts",
+    "./page-channels": "./src/page-channels.ts",
+    "./page-registry": "./src/page-registry.ts",
+    "./site-registry": "./src/site-registry.ts",
+    "./page-automation": "./src/page-automation.ts",
+    "./sqlite": "./src/sqlite.ts",
+    "./local-function": "./src/local-function.ts",
+    "./bundle": "./src/bundle.ts",
+    "./configuration": "./src/configuration.ts",
+    "./mcp-app": "./src/mcp-app.ts",
+    "./page-build": "./src/page-build.ts",
+    "./runtime-host": "./src/runtime-host.ts",
+    "./page-target": "./src/page-target.ts",
+    "./sop": "./src/sop.ts",
+    "./catalog": "./src/catalog.ts",
+    "./resource-runtime": "./src/resource-runtime.ts",
+    ".": "./src/index.ts",
+    "./app": "./src/app.ts",
+    "./host": "./src/host.ts",
+    "./page": "./src/page.ts",
+    "./resource": "./src/resource.ts",
+    "./site": "./src/site.ts",
+    "./vue": "./src/vue.ts"
+  },
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "bun test test"
+  },
+  "dependencies": {
+    "halfcode-cli-lite-skill-app-contract": "0.1.1",
+    "halfcode-compiler.xnl": "0.3.0"
+  },
+  "engines": {
+    "bun": ">=1.3.0"
+  },
+  "license": "MIT"
+}

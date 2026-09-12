@@ -1,0 +1,19 @@
+<KindDefinition #Halfcode.ResourceKind.ConfigurationProfile envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
+  resourceKind = "ConfigurationProfile"
+  subjectFqn = "Halfcode.ResourceKind.ConfigurationProfile"
+  sourceShapes = ["manifest"]
+  documentCardinality = "one"
+} (
+  <SpecRevisions [
+    <SpecRevision #v1 {
+      specVersion = 1
+      schemaRef = "vfs://./spec-v1.schema.json"
+      schemaFingerprint = "sha256:458acd5299b72083f04b2b79483a425af976509172e6721d6f1fc98c7528c2ca"
+      contractFingerprint = "sha256:335c84712b566c8acbcea29c1acf4da2d68ee3f4bdc94d3037135f49f1e665e7"
+      semanticValidatorFingerprint = "sha256:d3a83718eb0672e01d1b0290948162278899bc5e18af34279688ad0a8c2d6f68"
+      referenceProjectionFingerprint = "sha256:054a34e2ac8cca5a4058f4c21830f9d8ba5264e07bcf5e93d406dcf457e18072"
+      compilerInputFingerprint = "sha256:f5f4b9a561fe769b7928bd51f7d4a320705611d8ef0510778278a11d0036f7fd"
+      stability = "stable"
+    }>
+  ]>
+)>

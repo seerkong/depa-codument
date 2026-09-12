@@ -1,0 +1,29 @@
+{
+  "name": "depa-codument-darwin-x64",
+  "version": "0.1.0",
+  "description": "DEPA-oriented Codument workflow tool for AI coding assistants standalone executable for macOS x64",
+  "license": "MIT",
+  "os": [
+    "darwin"
+  ],
+  "cpu": [
+    "x64"
+  ],
+  "bin": {
+    "depa-codument": "bin/depa-codument"
+  },
+  "files": [
+    "bin/depa-codument",
+    "builder-vue",
+    "README.md"
+  ],
+  "dependencies": {
+    "@module-federation/runtime": "2.8.1",
+    "@module-federation/vite": "1.20.1",
+    "@vitejs/plugin-vue": "5.2.4",
+    "vite": "5.4.21",
+    "vue": "3.5.41",
+    "depa-codument-skill-app-contract": "0.1.1",
+    "halfcode-cli-lite-page-builder-vue-support": "0.1.1"
+  }
+}

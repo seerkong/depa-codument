@@ -1,0 +1,10 @@
+{
+  "name": "opencli-plugin-codument-opencli",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Generic authenticated browser fetch plugin for DEPA Codument",
+  "peerDependencies": {
+    "@jackwener/opencli": ">=1.8.6"
+  }
+}

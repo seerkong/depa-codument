@@ -1,0 +1,19 @@
+<KindDefinition #Halfcode.ResourceKind.HostBundle envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
+  resourceKind = "HostBundle"
+  subjectFqn = "Halfcode.ResourceKind.HostBundle"
+  sourceShapes = ["directory"]
+  documentCardinality = "one"
+} (
+  <SpecRevisions [
+    <SpecRevision #v1 {
+      specVersion = 1
+      schemaRef = "vfs://./spec-v1.schema.json"
+      schemaFingerprint = "sha256:bc390e6b61b9eefe8bbd2af976419b407954b3c47bcdf1925d3bceed69c75622"
+      contractFingerprint = "sha256:3db040d8f77e0075b7923a6c301b0d4e9c9803eb6fd75022bb735844fa4f8fbb"
+      semanticValidatorFingerprint = "sha256:a94ecae56385c9adc599a0b072aedc111778a05deea323d62f72979c64b46f31"
+      referenceProjectionFingerprint = "sha256:1ee4314381292710fc7ed79333b4bb7211ebb0fdc66befae1e85a1eda412796d"
+      compilerInputFingerprint = "sha256:c9abd8f24a802406c882bc233932ac68ca293841de2aa6d193a21ef73419def8"
+      stability = "stable"
+    }>
+  ]>
+)>

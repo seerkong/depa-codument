@@ -1,0 +1,17 @@
+.agents
+.claude
+.codex
+.eidolon
+.opencode
+.tmp
+
+.env
+.env.local
+dist/
+node_modules/
+packages/runtime-*/bin/
+packages/runtime-*/builder-vue/
+codument/**/analysis
+codument/**/reports
+codument/.local/
+.depa-analysis/

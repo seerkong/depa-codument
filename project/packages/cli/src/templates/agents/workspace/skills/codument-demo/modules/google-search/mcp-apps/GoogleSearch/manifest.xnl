@@ -1,0 +1,7 @@
+<McpApp #Codument.Demo.McpApp.GoogleSearch envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
+  pageFqn = "Codument.Demo.Page.GoogleSearch"
+  pageName = "google-search"
+  sopFqn = "Codument.Demo.SOP.GoogleSearch"
+  workflowFqn = "Codument.GoogleSearch.Workflow.Search"
+  viewAsset = "client/view.js"
+}>

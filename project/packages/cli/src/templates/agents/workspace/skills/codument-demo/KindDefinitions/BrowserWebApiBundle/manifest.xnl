@@ -1,0 +1,19 @@
+<KindDefinition #Halfcode.ResourceKind.BrowserWebApiBundle envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
+  resourceKind = "BrowserWebApiBundle"
+  subjectFqn = "Halfcode.ResourceKind.BrowserWebApiBundle"
+  sourceShapes = ["directory"]
+  documentCardinality = "one"
+} (
+  <SpecRevisions [
+    <SpecRevision #v1 {
+      specVersion = 1
+      schemaRef = "vfs://./spec-v1.schema.json"
+      schemaFingerprint = "sha256:770646704931fbb966416a39e4edd9239f27594210302b03e0f57f50379fe5f8"
+      contractFingerprint = "sha256:9ec22adeb013a6f3eb6b820b411a88e13a7d6f6d144f5efed220057993c640a0"
+      semanticValidatorFingerprint = "sha256:86154a22792df55422466cf5c569f2cb594696b29ed10fb4726eed9e2519c7c7"
+      referenceProjectionFingerprint = "sha256:0078f9236b1f1973b15824d8278a8ce6f3c706793bb85c700edf1a41369855bb"
+      compilerInputFingerprint = "sha256:c2e6fa0196fc1c3dea79c1505b694300863506de4c3878185d610286b0d02917"
+      stability = "stable"
+    }>
+  ]>
+)>

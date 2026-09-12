@@ -1,0 +1,19 @@
+<KindDefinition #Halfcode.ResourceKind.PageWorkflowBundle envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
+  resourceKind = "PageWorkflowBundle"
+  subjectFqn = "Halfcode.ResourceKind.PageWorkflowBundle"
+  sourceShapes = ["directory"]
+  documentCardinality = "one"
+} (
+  <SpecRevisions [
+    <SpecRevision #v1 {
+      specVersion = 1
+      schemaRef = "vfs://./spec-v1.schema.json"
+      schemaFingerprint = "sha256:770646704931fbb966416a39e4edd9239f27594210302b03e0f57f50379fe5f8"
+      contractFingerprint = "sha256:6d6bd44e47f1e6675d1b530000de6e27380aa2ed5e6e4133e3e8160d57b51cf3"
+      semanticValidatorFingerprint = "sha256:56b1531d6af7557df2a155bf9d7cc304970d4cfe0bbd6c8d23afd77e448f75d3"
+      referenceProjectionFingerprint = "sha256:a49967b9c610e05e8f5055d336d9713f3bf57d6cf6a0f156322c896693fa01fe"
+      compilerInputFingerprint = "sha256:44fc449e0d5fcc7ac1a495fe19c55631ecdb32e14de7790506d76caf04c26bb3"
+      stability = "stable"
+    }>
+  ]>
+)>

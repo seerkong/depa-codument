@@ -1,0 +1,19 @@
+<KindDefinition #Halfcode.ResourceKind.SOP envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
+  resourceKind = "SOP"
+  subjectFqn = "Halfcode.ResourceKind.SOP"
+  sourceShapes = ["single-file"]
+  documentCardinality = "one"
+} (
+  <SpecRevisions [
+    <SpecRevision #v1 {
+      specVersion = 1
+      schemaRef = "vfs://./spec-v1.schema.json"
+      schemaFingerprint = "sha256:512ae1df0018b34886738ef9b4f0c5c44b3a9c2c9c49ca619c9c751b4ce5abf8"
+      contractFingerprint = "sha256:eb34ebf97ba0407ec5eb075b604aa0243cd857512a1d35cc3e785d04605a7441"
+      semanticValidatorFingerprint = "sha256:f171d6a7af4018c64eff5d61d230cde354e6462e30d855e68fed5ee34f8a0dd8"
+      referenceProjectionFingerprint = "sha256:963eab61b2ec137aa4fa95609f2e57595b710a3a6e048000d45b65776e3b8924"
+      compilerInputFingerprint = "sha256:57760b6defa1df0795ea5fa229bd85ff92e12dcae3cdbb7cdc4e09e57aae6859"
+      stability = "stable"
+    }>
+  ]>
+)>

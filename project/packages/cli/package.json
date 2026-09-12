@@ -1,0 +1,45 @@
+{
+  "name": "depa-codument-cli",
+  "version": "0.1.0",
+  "description": "DEPA-oriented Codument workflow tool for AI coding assistants source package",
+  "private": true,
+  "type": "module",
+  "main": "src/cli/index.ts",
+  "bin": {
+    "depa-codument": "src/cli/index.ts"
+  },
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "@module-federation/runtime": "2.8.1",
+    "ajv": "8.17.1",
+    "halfcode-compiler.xnl": "0.3.0",
+    "hono": "^4.13.2",
+    "yaml": "^2.9.0",
+    "depa-codument-mcp-app-capsule": "workspace:*",
+    "depa-codument-page-builder-vue-support": "workspace:*",
+    "halfcode-cli-lite-cli-host-capsule": "0.1.0",
+    "halfcode-cli-lite-browser-support": "0.1.0",
+    "halfcode-cli-lite-skill-app-logic": "0.1.1",
+    "halfcode-cli-lite-skill-app-support": "0.1.1",
+    "halfcode-cli-lite-cli-host-contract": "0.1.0",
+    "halfcode-cli-lite-cli-host-logic": "0.1.0",
+    "halfcode-cli-lite-cli-host-support": "0.1.0",
+    "halfcode-cli-lite-cli-host-shell": "0.1.0",
+    "halfcode-cli-lite-skill-app-contract": "0.1.1",
+    "halfcode-cli-lite-skill-app-capsule": "0.1.1",
+    "halfcode-cli-lite-live-host-capsule": "0.1.1",
+    "halfcode-cli-lite-http-shell": "0.1.1",
+    "depa-codument-product-capsule": "0.6.0",
+    "depa-codument-host-adapter": "0.6.0",
+    "depa-codument-cli-shell": "0.6.0",
+    "depa-codument-skill-app-contract": "workspace:*"
+  },
+  "engines": {
+    "bun": ">=1.3.0"
+  },
+  "license": "MIT"
+}

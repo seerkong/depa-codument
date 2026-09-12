@@ -1,0 +1,11 @@
+# 历史完成声明兼容
+
+用户确认：保留旧归档原文/完成状态，显式标记未按新版重新验收，不自动重开，不作为新验收证据。
+
+源头库存：旧归档completed Track和其中缺失checked的Criterion。转换集合：只有旧envelope、archive位置、completed的Track；当前envelope、active/pending、显式false不因此放行。最终投影：仍为Track及原stable ID/status，附加版本化completion_basis及原来源指纹、内容绑定摘要；validate JSON单列historicalCompletion（currentVerification=not-reverified）。无需新公共Kind或共享包变更。
+
+领域logic拥有纯迁移/标记判定；support既有事务保留原始字节备份；shell只投影。标记不是密码学授权签名，不防具有任意workspace写权限的伪造；摘要用于检测迁移后内容漂移，不用于声称历史验收真实发生。
+
+仅缺失checked的历史条目可作为未记录事实读取；false、未完成Task、非法domain、缺必需文件、失效引用等仍报错。不按归档目录整体豁免，不修改Criterion正文或checked，不把历史声明当成功VerificationReceipt。带标记记录不能经普通写命令变成当前完成证明；重开须另行明确处理旧声明且重新验收。
+
+验收：原正文/状态保真、来源绑定、重复迁移noop；标记移到active/修改正文/伪版本/显式false仍拒绝；正常当前资源规则不变；validate结果明确历史未重验而非隐藏统计。副本actual升级仍可能因其它历史问题review，不以本功能完成冒充全migration完成。

@@ -1,0 +1,7 @@
+<Page #Codument.Demo.Page.GoogleSearch envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
+  name = "google-search"
+  description = "谷歌搜索：输入关键词，通过 Coding Agent 搜索 Google HK 并展示第一页结构化结果"
+  localFunctions = ["Codument.Demo.Action.Greet"]
+} (
+  <Navigation { label = "Google Search" group = "codument-demo" groupLabel = "codument-demo" order = 10 visible = true }>
+)>

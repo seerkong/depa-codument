@@ -1,0 +1,13 @@
+<SkillApp #Codument.Demo.App envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 (
+  <Catalogs [
+    <DirectoryResourceCatalog #kind_definitions { resourceKind = "KindDefinition" root = "vfs://./KindDefinitions/" entry = "manifest.xnl" scope = "children" }>
+    <ManifestResourceCatalog #pages { resourceKind = "Page" root = "vfs://./Page/" entry = "manifest.xnl" }>
+    <DirectoryResourceCatalog #page_bundles { resourceKind = "PageBundle" root = "vfs://./PageBundle/" entry = "manifest.xnl" scope = "children" }>
+    <ManifestResourceCatalog #sites { resourceKind = "Site" root = "vfs://./Site/" entry = "manifest.xnl" }>
+    <DirectoryResourceCatalog #local_functions { resourceKind = "LocalFunctionBundle" root = "vfs://./LocalFunction/" entry = "manifest.xnl" scope = "root" }>
+    <ManifestResourceCatalog #configuration_profiles { resourceKind = "ConfigurationProfile" root = "vfs://./config-profiles/" entry = "manifest.xnl" }>
+    <ManifestResourceCatalog #database_connections { resourceKind = "DatabaseConnection" root = "vfs://./DatabaseConnection/" entry = "manifest.xnl" }>
+    <DirectoryResourceCatalog #browser_web_apis { resourceKind = "BrowserWebApiBundle" root = "vfs://./BrowserWebApi/" entry = "manifest.xnl" scope = "root" }>
+    <ManifestResourceCatalog #modules { resourceKind = "SkillModule" root = "vfs://./modules/" entry = "manifest.xnl" }>
+  ]>
+)>

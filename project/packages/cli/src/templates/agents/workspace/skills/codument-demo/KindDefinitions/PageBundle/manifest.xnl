@@ -1,0 +1,19 @@
+<KindDefinition #Halfcode.ResourceKind.PageBundle envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
+  resourceKind = "PageBundle"
+  subjectFqn = "Halfcode.ResourceKind.PageBundle"
+  sourceShapes = ["directory"]
+  documentCardinality = "one"
+} (
+  <SpecRevisions [
+    <SpecRevision #v1 {
+      specVersion = 1
+      schemaRef = "vfs://./spec-v1.schema.json"
+      schemaFingerprint = "sha256:cd1d5f86c413d4bba735145289ad8cb427610558942188a8bf0cb4a640d796e6"
+      contractFingerprint = "sha256:25f595e4518ac47977dac765bf0bad315124ea76ffb82bb40158aa1bc83841a0"
+      semanticValidatorFingerprint = "sha256:a855a50b2039aea8997466c469bbf34e56be07d6dd56f58473d98a626063adc8"
+      referenceProjectionFingerprint = "sha256:2a45140d256e78b238e665a1c86c47a4199da7502f17d05a1d3e38bd9fc2ff5d"
+      compilerInputFingerprint = "sha256:809428595c35a98aa486d45120b1dbbb5631fa90d0b15d283574d075702f5d02"
+      stability = "stable"
+    }>
+  ]>
+)>

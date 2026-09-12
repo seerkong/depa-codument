@@ -1,0 +1,7 @@
+<OperationHooks #codument.config.operation_hooks envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 (
+  <Operations [
+    <Operation #gap-loop (
+      <GapLoopDefaults { verify_round = false }>
+    )>
+  ]>
+)>

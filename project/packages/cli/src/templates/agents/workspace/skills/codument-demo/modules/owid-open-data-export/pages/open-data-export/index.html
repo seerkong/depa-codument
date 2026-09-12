@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DEPA Codument · OWID Open Data Export</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main>
+    <section class="binding">
+      <label for="agent-target">Codex 会话</label>
+      <div class="binding-row">
+        <select id="agent-target"><option value="">正在读取当前 workspace 会话…</option></select>
+        <button id="refresh-targets" type="button" class="secondary">刷新会话列表</button>
+        <button id="bind" type="button">关联会话</button>
+      </div>
+      <p id="binding-status">尚未关联</p>
+    </section>
+    <div id="business-page"></div>
+  </main>
+  <script src="./client/view.js"></script>
+  <script type="module" src="./client/app.js"></script>
+</body>
+</html>

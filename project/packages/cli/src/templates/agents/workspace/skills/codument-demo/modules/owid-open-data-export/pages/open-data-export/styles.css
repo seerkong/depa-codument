@@ -1,0 +1,21 @@
+:root { color-scheme: light; font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: #17243a; background: #edf3f6; }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; background: radial-gradient(circle at 12% 0, #d5f4e6, transparent 38%), radial-gradient(circle at 92% 8%, #dcecff, transparent 34%), #edf3f6; }
+main { width: min(1080px, calc(100% - 32px)); margin: 0 auto; padding: 42px 0 88px; }
+.binding { padding: 18px 20px; border: 1px solid #cad9df; border-radius: 16px; background: rgba(255,255,255,.86); box-shadow: 0 18px 50px rgba(31,59,73,.08); }
+.binding label { display: block; margin-bottom: 8px; font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.binding-row { display: grid; grid-template-columns: minmax(0, 1fr) max-content max-content; gap: 10px; }
+.binding-row > * { min-width: 0; max-width: 100%; }
+.binding select, .binding button { min-height: 42px; border-radius: 10px; font: inherit; }
+.binding select { width: 100%; overflow: hidden; border: 1px solid #bdccd2; padding: 0 12px; background: #fff; text-overflow: ellipsis; white-space: nowrap; }
+.binding button { border: 0; padding: 0 18px; color: #fff; background: #135f5a; font-weight: 750; cursor: pointer; }
+.binding button.secondary { color: #135f5a; background: #dff0ed; }
+.binding button:disabled { cursor: wait; opacity: .65; }
+#binding-status { margin: 9px 0 0; color: #647783; font-size: 12px; }
+#binding-status[data-kind="error"] { color: #a33a32; }
+#binding-status[data-kind="ok"] { color: #19744f; }
+@media (max-width: 640px) {
+  .binding-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .binding-row select { grid-column: 1 / -1; }
+  .binding-row button { width: 100%; padding-inline: 12px; }
+}

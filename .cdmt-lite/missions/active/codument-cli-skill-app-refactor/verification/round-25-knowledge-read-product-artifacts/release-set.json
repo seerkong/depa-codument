@@ -1,0 +1,85 @@
+{
+  "digest": "1618f5facdd8cdc7090674e9b46d9092dee39fb7d3358f52b6b4f0f603b43f26",
+  "set": {
+    "format": "halfcode-local-release-set/v1",
+    "artifacts": [
+      {
+        "name": "depa-codument-domain-contract",
+        "version": "0.6.0",
+        "file": "1dcbcad6d76fa4c14f823192971e7498e826b81f8495803d7a636289163c42dc.tgz",
+        "integrity": "sha512-HELw08Sh39NSzmfxekW6xyHEypqiYAaEkYViyigrKwcAtvhgovn1UnqZT82xnMA3lvKgyXBdeJxF4xIVrvOiIw==",
+        "role": "product"
+      },
+      {
+        "name": "depa-codument-domain-logic",
+        "version": "0.6.0",
+        "file": "925b999a9e154e64d4f8126b7fc32fdca320ce5a8b8dc28b41430dd67fe7ab26.tgz",
+        "integrity": "sha512-LHyQsCUtsOxaVKWde3M+uXliqdCvqGYBfRCtgXlUVVmJ6r7XsKCYuxN85rfaEV2IGS1wGyj3+SriShlbFmcyeg==",
+        "role": "product"
+      },
+      {
+        "name": "depa-codument-domain-support",
+        "version": "0.6.0",
+        "file": "acef8a42cb9acc0723ee8c066c171c98a19f103dd6bf6ea3b4520d77d61afaf5.tgz",
+        "integrity": "sha512-EU3JzcK0umLToqtHTMrt3VDEiPQ0hD26GmXcm0MejK1nXatD/hN8HvwGThMx9bhuP/ubNrT9MJNpHiMGli1r9g==",
+        "role": "product"
+      },
+      {
+        "name": "depa-codument-domain-capsule",
+        "version": "0.6.0",
+        "file": "2366b62c3e20032fc73bdd0d77fbe593d62e0eb0048cae5ac293a974b911fcf8.tgz",
+        "integrity": "sha512-ta8VzpAE75lbhqrtFXSRXSOkmBYzFSGxfzrPa1sotiO2gYopEgf1YbASQtuYftCW+nuN9/McpaTg2AMEnTic+w==",
+        "role": "product"
+      },
+      {
+        "name": "depa-codument-host-adapter",
+        "version": "0.6.0",
+        "file": "fdfc5c635daa2196b2d6797912a4576f78591e408e3d23d2c9277a88a6fa2417.tgz",
+        "integrity": "sha512-8w+m0zyfH4p4F4SbK7XvFaCzBheWRWXWaJk4D6biKq3T9wNeLJduYjwyifJppniS0rhANPJ4X/d2t/27njqKXw==",
+        "role": "product"
+      },
+      {
+        "name": "depa-codument-product-capsule",
+        "version": "0.6.0",
+        "file": "2d72608715fb7bdc7c565dd1da945edb22574903f47370683bb3b77ed8dde62f.tgz",
+        "integrity": "sha512-Amk6fZRl9/+/jtgbUcBfB9dYQ6MNSw1wdbQKD25sew+REU9rYxw6jMpAMVPhWew1l+8hsCCWSmYXPXC7C94Obg==",
+        "role": "product"
+      },
+      {
+        "name": "depa-codument-cli-shell",
+        "version": "0.6.0",
+        "file": "966d4514aa3413061e99af49c4714d52574cdd59deb53f54c486d053f81febdf.tgz",
+        "integrity": "sha512-sqaCQHg2QSzg0Tg0UVK5sDD1mNMNVjcu+M5Zp61Ixgmen5J32H+bWhuYt6Euvon8KOZ+PgLNZcLeFeShmpAzVg==",
+        "role": "product"
+      },
+      {
+        "name": "depa-codument-skill-app-contract",
+        "version": "2.0.0",
+        "file": "4cdd293def14beea31fd7b1779fba28ff9779fdd54bdfcf99472895f02987d4d.tgz",
+        "integrity": "sha512-UfeSLCPylHSsiWlunJALHaHRYHZdk9U13O0CwbbdbHaADaP8qbMuKnIfK/T4r+sA0vZTwymh3V1xLb9eGNsJCg==",
+        "role": "product"
+      },
+      {
+        "name": "depa-codument-page-builder-vue-support",
+        "version": "0.6.0",
+        "file": "c02ad3531c1d51b38d4acc41bec53be552c36ec23fc005fda82169ccf84bd313.tgz",
+        "integrity": "sha512-tzc0v6bwLea7OzpOkQmD4uEsYmINk5NFzwMH4vtQwe+mrN7vH+taV9yri+9ochoSgilArGhPvzfztRUzjR8e1w==",
+        "role": "product"
+      },
+      {
+        "name": "depa-codument-mcp-app-capsule",
+        "version": "0.6.0",
+        "file": "c249bf4f70339eeccc4e5a8b36ec088470102398bdb062fca256628e8b421d08.tgz",
+        "integrity": "sha512-B+/WZBUQBZq/btyz6q51is5rsh1TGqIqpopYpinfp/YOHRDl0RFM/m1QdlTtLGwtjbu2LYkHiz0chtV9gCDXzQ==",
+        "role": "product"
+      },
+      {
+        "name": "depa-codument-cli",
+        "version": "0.1.0",
+        "file": "b1c5c42f68b042f39a863cca657a9a18c65f321aea0da8c5fd2837365a8dfdf6.tgz",
+        "integrity": "sha512-Fcnakj0cJwd49+EbBxR4D8ccEFoppxMfZ/POCjYnUhXGcXJOYU5NapuLU5JNVQYs1FdfnEU2P/u27JDvFTbchg==",
+        "role": "product"
+      }
+    ]
+  }
+}

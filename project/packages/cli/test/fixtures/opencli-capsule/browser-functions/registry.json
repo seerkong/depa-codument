@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "bundle": {
+    "format": "esm",
+    "module": "./bundle.js",
+    "exports": ["run_web_api"]
+  },
+  "functions": [
+    {
+      "category": "webApi",
+      "fqn": "Example.OpenCli.Items.List",
+      "name": "items-list",
+      "module": "./items-list.js"
+    }
+  ]
+}

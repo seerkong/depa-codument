@@ -1,0 +1,3957 @@
+{
+  "root": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite",
+  "head": "9666641bcddfcee3b1d2842a7526d01630fdaf94",
+  "status": "",
+  "digest": "74d89ec71de2e202b0b1e1be91101e29b9d510fe0f4e7ba6b23c43cdeb4f0065",
+  "archiveSha256": "c6934c037537e404e3d586c285968923ea311fe8ea428b009e53683fcff24df1",
+  "files": [
+    {
+      "path": ".depa-analysis/boundary/backwrite-risks.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a77625b86c8ce45c914a506d52cab8de9dc41d7b27cdd4081d8c43e5ca8710d8"
+    },
+    {
+      "path": ".depa-analysis/boundary/fact-roles.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "b1d6f10924307caf691692c8e3e87adce17c0addaad4e3a9de432b131b244cc5"
+    },
+    {
+      "path": ".depa-analysis/boundary/index.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "03f561874f35cee5e23976648b33cc81960af1b8c6920d7d255e7b0aded98be0"
+    },
+    {
+      "path": ".depa-analysis/boundary/single-writer.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "b6ceda58431176990e62a183118b0eb749ce965c85593f5f3a997a021221b5f9"
+    },
+    {
+      "path": ".depa-analysis/convergence/decisions.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "0e63706f6138549596968fee4861ebae3e2247d6cedaba1dfcbd2c0218395fc8"
+    },
+    {
+      "path": ".depa-analysis/convergence/index.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "0601347cc2eab5afce9624068876e2cd0fdc19c70af128ef2bcfda9b60888e2f"
+    },
+    {
+      "path": ".depa-analysis/convergence/package-disposition.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "cf6c82eb2f4b166ec534d84b3a5ddf3a136902c9190134dddc17425da1d5d485"
+    },
+    {
+      "path": ".depa-analysis/convergence/three-plane-map.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "1ec2cd8e30df83ea6a43cc8db3514681c2c2be3f6f51235cf40ed9cd192df2ab"
+    },
+    {
+      "path": ".depa-analysis/convergence/vendor-primitive-map.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "ccdef064a2bc8d353c1cc29f8ed59f53eaf4347c08e3de300f20c16b103f8e30"
+    },
+    {
+      "path": ".depa-analysis/conversation/index.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "447eb2916ca4fabd5a19cf9bca467c80c38218e02c483a6f1a1972d30e4912da"
+    },
+    {
+      "path": ".depa-analysis/conversation/naming-and-compatibility.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "128dfcc0ef1a564d698703d36beadc34f6a3f81740d95ef4c96d090011883e52"
+    },
+    {
+      "path": ".depa-analysis/inventory/fact-nodes.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "32467919a9efc5b49e86f94cb2e411a73be5bf3e61446ee53a77600dcb3491b5"
+    },
+    {
+      "path": ".depa-analysis/inventory/incidents.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "4a70cc883142df7f095d2aa7064166193f346fc174ad7dc098b783b708f175ad"
+    },
+    {
+      "path": ".depa-analysis/inventory/index.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f5992b7c0a24eed866f65a80f9d7705139e7b07307264df900653effaf60076e"
+    },
+    {
+      "path": ".depa-analysis/inventory/package-boundaries.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "1acd9fe321edb6be4269c53a1540d9102bed8f2d0d999882f0284174cba19ea4"
+    },
+    {
+      "path": ".depa-analysis/inventory/read-write-paths.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "b8e088c947788261fd9d208761c1fcfe0723a0af432bd8eb0df64cbd7d289b55"
+    },
+    {
+      "path": ".depa-analysis/manifest.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "30fa35364ac9538206ce86b4c99942ce5adc3cff4b84e01892dbef158addbba2"
+    },
+    {
+      "path": ".depa-analysis/recommendations/backlog.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "eacf04eb27af09dd5e140ca90d96610e7c9ac2a87e641b2b4a7a9c8526140f90"
+    },
+    {
+      "path": ".depa-analysis/recommendations/conflict-matrix.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "d9189a17518d91d45efbf318b40e33a65ebf77a8167d472ef15e3214c4b0549c"
+    },
+    {
+      "path": ".depa-analysis/recommendations/dependency-order.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "b24002a8a5112dad24d89aab3102f679b201c6ee8ecc8b3ecf27e8e338fc4416"
+    },
+    {
+      "path": ".depa-analysis/recommendations/index.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5a2b3ec0898a4b402b14382edfa6b6a0fe426bae90027abb2abef5634b4a7556"
+    },
+    {
+      "path": ".depa-analysis/recommendations/readiness.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "b8b5233fe005e2f868f207200c706954db9a7bef2cd9e396b27f1950c4640d2c"
+    },
+    {
+      "path": ".depa-analysis/recommendations/rec-01.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "462f910f09c3c0269cc51c5b49cca3e87ca2a9e880afae5c4bfc0013239a6520"
+    },
+    {
+      "path": ".depa-analysis/recommendations/rec-02.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "6114154672820c38b3161092e7615aab35f43f3b0414b2798bfa8a33a53520ad"
+    },
+    {
+      "path": ".depa-analysis/recommendations/rec-03.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a8216fcbfa3677382a751b77c1643a397f147d3d39e9cb80ecbe0005ca3dcd1d"
+    },
+    {
+      "path": ".depa-analysis/report/current-state.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "36f521a90558708e3a572b55fc5d9b690aa7f1f8ab5d4812f1c0bf3bbe9b3f3d"
+    },
+    {
+      "path": ".depa-analysis/report/index.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "abbe99850c12a1955f1fbb57f9a86d932d3e9c2264ca58f60d08c9fd5956c19c"
+    },
+    {
+      "path": ".depa-analysis/scope.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "bbe4290f15f66ce65088e5f31cf5e372658243bc449c01a2c28189ab174319e0"
+    },
+    {
+      "path": ".gitignore",
+      "kind": "file",
+      "mode": 420,
+      "hash": "ed7ed86c6bdadd5507b4343dcb3899f8978e9f968f153278478c6f5e2d234b9b"
+    },
+    {
+      "path": "AGENTS.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f29c2292952f1c2d2e4ec5f4f071c92fd840e87c48581cffc3cabfeb4af3390c"
+    },
+    {
+      "path": "CLAUDE.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f29c2292952f1c2d2e4ec5f4f071c92fd840e87c48581cffc3cabfeb4af3390c"
+    },
+    {
+      "path": "LICENSE",
+      "kind": "file",
+      "mode": 420,
+      "hash": "e9e5225de66716a47d7002d26c1918a7365cb7999b90637ba01e39832281edaf"
+    },
+    {
+      "path": "README.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "040bf368eb97cd43612f50acdcbd0c32061de0cb3714babec27be27b462bed46"
+    },
+    {
+      "path": "USAGE-DEMO.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "ba143b0836d6329be8172169a05d73d01f329807bdf4a0227068814183453e87"
+    },
+    {
+      "path": "bun.lock",
+      "kind": "file",
+      "mode": 420,
+      "hash": "ec0570f147113300c348b500dc1c789d7ebf75d62d7368806a0dc8bb10bf3e1f"
+    },
+    {
+      "path": "codument/README.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "96d68843847655ed76ac7045f5a583283d91a8a2f40043554e0961e305fc8aed"
+    },
+    {
+      "path": "codument/attractors/product.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "00cb9f1fb4d439d5e57a8338bc6715cc90546face984bd93130b4c67131e6a00"
+    },
+    {
+      "path": "codument/attractors/project.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "9f05bf49b5d21484acdc0bf22d5939f51d891be3735d3c869fa43d3109057cb2"
+    },
+    {
+      "path": "codument/backlog/README.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "37e695042ddf1f7bbf120f61c6121300714044720ee90bca29b07a06c3f63689"
+    },
+    {
+      "path": "codument/behaviors/bundle-materialization.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "000a988e17e15e0644a407a28ceb81d93296f4b22414f5970925d3411723f9a9"
+    },
+    {
+      "path": "codument/behaviors/claude-mcp-app.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a1d23257f2bf718e02f0af996fae61752820c67400ae29f92a372646fb634211"
+    },
+    {
+      "path": "codument/behaviors/code-first-reference-apps.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "65ebc7585126bc034b9f270f10940f7ccccca56458c6c22a8dd528cb148e0e45"
+    },
+    {
+      "path": "codument/behaviors/kind-native-resource-cli.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "45594cbd8620f50567a8e06d3acb04d7378a4f1917a39fb94a2f5aba7654b4f3"
+    },
+    {
+      "path": "codument/behaviors/open-data-export-demo.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "9cf093d8d1b05f4405af8ac6ff104f11e2ef6e193a905eaf18770b52e3dc1a03"
+    },
+    {
+      "path": "codument/behaviors/opencli-transport.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "2d0f9aff60afc640f7bf041b18751990eee354ef425180e6603dc8bf5992f4c8"
+    },
+    {
+      "path": "codument/behaviors/page-automation-runtime.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "049e099e5bd4e26bd7ea6b9038351f86385cb7d18b0aa7a2cfb315f4244516f1"
+    },
+    {
+      "path": "codument/behaviors/profiled-resource-configuration.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "c2ded42d3ffdc883d3962428f70d2153e3fc5e21b67c52b7fef85ee4e8c558ef"
+    },
+    {
+      "path": "codument/behaviors/resource-versioning.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "6b03b9ea72996eeb33bd2dd4e66fbbf2715c3fe26e20a5591cd66f3e0a0a9194"
+    },
+    {
+      "path": "codument/behaviors/runtime-release.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "7460d553fdda40134ddbf630b4a9353e1a6efd82b9c43074f281b192e2652fb5"
+    },
+    {
+      "path": "codument/behaviors/serve-lifecycle.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "e66b70ba89b61582095bb6932283a438c07619a4a9333532db7e621910e96c3d"
+    },
+    {
+      "path": "codument/behaviors/template-identity.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "8e5deaf997dfb206b089fbbeb98911f9ebdf67ae3433c4ad7644241f67bdf99c"
+    },
+    {
+      "path": "codument/behaviors/typed-sop-workflows.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "10a520d552f18ebe1afda25dbeaf06329e4d65681ff86d8c0a0debb608156e61"
+    },
+    {
+      "path": "codument/behaviors/workspace-resource-catalog.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5adb7dca21234d6f74fd319def55f4f67331dc0e2780cfef6f078a02307a1fb7"
+    },
+    {
+      "path": "codument/behaviors/xnl-resource-integration-verification.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "86dea41804925c1399b4ccc26ba24c488730c970b8dba4316c8a94b63f67aa15"
+    },
+    {
+      "path": "codument/behaviors/xnl-skill-app-resources.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "ba507fd932965d56cbd3405f8aaf7ecc98bedc388d08a429f431f135fe77d7a8"
+    },
+    {
+      "path": "codument/config/attractor-profiles.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "131bfd5c001908e2c674f06bcd2f68c18da9868bdcc0fdcf1901208c390a9d0d"
+    },
+    {
+      "path": "codument/config/cli-tools.json",
+      "kind": "file",
+      "mode": 420,
+      "hash": "931cc9bed89314a3af8b0b347daa6fef9e682ca5be0208d941a28e5ddb48fe7e"
+    },
+    {
+      "path": "codument/config/engineering.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "741ad01cdc29276339778da8ded831b3f5d9f405d9ee7cc4a8dbbc4663c235c1"
+    },
+    {
+      "path": "codument/config/modeling.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "32dbdb47a4480f64a3501f8b6c94b1314ee21c3ec86556502dac9e534062e5d6"
+    },
+    {
+      "path": "codument/config/operation-hooks.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "9b9def4a4213c4d23f953944fd79dddc8519f6c09999ab8b4964f0c5de2a4591"
+    },
+    {
+      "path": "codument/decisions/page-runtime.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "ff0cc8ba47ef258b8236ef711f1411b3a1c83e8542fbd822be4ceccb47e36232"
+    },
+    {
+      "path": "codument/decisions/resource-authority.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "089b72ff932a43e06e3b5db9a5c7f7718b12baf1152ce2ff60d80cec9407372b"
+    },
+    {
+      "path": "codument/decisions/resource-catalog-and-materialization.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "4e6d3c7ec296410bce10ccad1df607174dd7e771bb94f80cbc29aefb3adc132f"
+    },
+    {
+      "path": "codument/decisions/resource-configuration.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5b077ce3f67a7356a2273bc5273ae0d8d10a85552f0a77bfada6f03bd79fd387"
+    },
+    {
+      "path": "codument/decisions/resource-versioning.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "561a096d8c8ebb9dcf8fd9e7475a349b8bbc1f7bf5ab0784e5ab76a6f42d801f"
+    },
+    {
+      "path": "codument/decisions/sop-workflow.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "0187f83c9957b00949ad94874d359d92f1fa49c27cee394a6f4ae23680f03e19"
+    },
+    {
+      "path": "codument/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "832da4581f05ae47b017fcfd5d623bb4182a1ecb8bf72be26746103cd49795fe"
+    },
+    {
+      "path": "codument/memory/README.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "9d7bb0f80cd6bd6878873d959fcb42d3afb0d58880909b3a219fda9851d584f4"
+    },
+    {
+      "path": "codument/missions/README.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a01f0cdbd372d33d59809ac289a05bc9216895d2fc5d0aa0ff1431fa9e027966"
+    },
+    {
+      "path": "codument/missions/active/adopt-mdd-browser-robot-provider/decisions.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "1e746b66954acd7dcc5c3da8839cd21eaf6a32e904bd4da2b1c5bcadebdf4100"
+    },
+    {
+      "path": "codument/missions/active/adopt-mdd-browser-robot-provider/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "62ad7da7c80df712f44cbb691d5ce4893a56d70c70baa620706df9aa92d5fe61"
+    },
+    {
+      "path": "codument/missions/active/adopt-mdd-browser-robot-provider/mission.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a71abe65e3f2007e41804d0ca3c62d7a4b08b32b2805538c38d125a79e5f31d4"
+    },
+    {
+      "path": "codument/missions/active/adopt-mdd-browser-robot-provider/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "8cd6feaca89c0f6263ccecae7e9745e8f0ab4de675cff9504e9ac9c3154ac9da"
+    },
+    {
+      "path": "codument/missions/archived/2026-08-23-adopt-page-shell-local-functions/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5eada9f7cb3acce7508e791e601e9bb363d07f1e96945e9ca590457afaf66e69"
+    },
+    {
+      "path": "codument/missions/archived/2026-08-23-adopt-page-shell-local-functions/mission.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "6a614fde7a66fd18e5c5b2d6bae20d91dd7121c62a6647baf2afa73c737be371"
+    },
+    {
+      "path": "codument/missions/archived/2026-08-23-adopt-page-shell-local-functions/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "e005d2f1736f3ebccd08c607932bea6768626bd9db27fdb15986dd4cfb5ba55b"
+    },
+    {
+      "path": "codument/missions/archived/2026-08-31-adopt-xnl-code-package-resource-management/decisions/resource-authority.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "6e254698cc5e024541040bd2507060266c5806b3b71be7abef709abc36ce4d53"
+    },
+    {
+      "path": "codument/missions/archived/2026-08-31-adopt-xnl-code-package-resource-management/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f594c5c64ba6c7486580b1383826a2190ba24957f443882327a3e309542d5f18"
+    },
+    {
+      "path": "codument/missions/archived/2026-08-31-adopt-xnl-code-package-resource-management/mission.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "0889fcca2eb54eff3ffbb5dc69c0f55fd92bfe5326ea25c749e2d8a7ab3a23f1"
+    },
+    {
+      "path": "codument/missions/archived/2026-08-31-adopt-xnl-code-package-resource-management/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "1ec0465d1248877536e7407d44d1d78554278e5097cb357381102e8a95c09665"
+    },
+    {
+      "path": "codument/missions/archived/2026-08-31-normalize-resource-catalogs-and-bundle-materialization/decisions/resource-catalog-and-materialization.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "324c2f1cc3c485cfab946d62cf9ad896a71ee4e4e3cae71e3ac2ee0768dc99b6"
+    },
+    {
+      "path": "codument/missions/archived/2026-08-31-normalize-resource-catalogs-and-bundle-materialization/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "46755f0f1a200ecb02b98fa221a6a8854906c8f21b79f08f3b4b072d72450ca1"
+    },
+    {
+      "path": "codument/missions/archived/2026-08-31-normalize-resource-catalogs-and-bundle-materialization/mission.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "d51a9e1a8d738bd2131b17851a53fb0facc65ed31de5902fe204a5d07ecb5497"
+    },
+    {
+      "path": "codument/missions/archived/2026-08-31-normalize-resource-catalogs-and-bundle-materialization/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a2b0d07e71730804d6c2522f1154e1480b81f8eeddcee2f770a411780a2672d2"
+    },
+    {
+      "path": "codument/modeling/backend/host/index.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "86f21d40b0ad5a2e06a0d897c3deadd324b81d1308ca1bd720b9954b0cd1efce"
+    },
+    {
+      "path": "codument/modeling/backend/profiled_resource_runtime/index.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f16653b329c09c69e48ce8cf3c0a57eea9a2b2fcc6be5b3afc618130aa00b392"
+    },
+    {
+      "path": "codument/modeling/domain/host_runtime/index.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5f61991ba31c34da51a126b2339c918f68d17771da0f72bbc360976cb6d6e8b0"
+    },
+    {
+      "path": "codument/modeling/domain/local_function_runtime/index.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "20923e55081b01e28d919db40edb704ab9884435f1c8745bf1d31b17c4ea8bd5"
+    },
+    {
+      "path": "codument/modeling/domain/page_runtime/index.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "4ba03c4f55554338fac355ab18359c10874438ca267fab0d67cdbc3042789bdf"
+    },
+    {
+      "path": "codument/modeling/domain/resource_catalog/index.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "87298fee8b5cdb60812302b1d61c925f130f3df9c2464a7d6f6339f0986538f8"
+    },
+    {
+      "path": "codument/modeling/domain/resource_versioning/index.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "4efe382ae9814842e70f4269ca0e9fa738c3ecb738199693f8aaaed5cd966dfa"
+    },
+    {
+      "path": "codument/modeling/surface/cli/index.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "43d815f8f88f89d79e7ab6d6772cf958cc6e3be8622ad959dba9c9b521c6aec4"
+    },
+    {
+      "path": "codument/sop/README.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "0c9f197e986930eda593101b0a6517d19750c29f3e0120657e9623f2363f662a"
+    },
+    {
+      "path": "codument/std/AGENTS.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "e29b386fa33151f1b4ffe3a5dda7cf41ffc8bae0af91c2cdc20285e9633d4af6"
+    },
+    {
+      "path": "codument/std/attractors/depa-attractor.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "2c73b3a0e963cb9673a713bdcceb3834338cd844fa5f73f1c2c693be44562b92"
+    },
+    {
+      "path": "codument/std/attractors/knowledge-tiers.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "c7d3bf985405847d8a7f673eb73ff46f8d9341e09a2e7fd3fe652a7e13f88f13"
+    },
+    {
+      "path": "codument/std/attractors/model-driven-docs.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "687fe73f31395d578d8b88cb19300b30809d507952fe6e45af546583a4406dc2"
+    },
+    {
+      "path": "codument/std/attractors/project-memory.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "045744e2eeeea42b17e334e60c2521162c16e5427d4ac5041aa93312c456ff49"
+    },
+    {
+      "path": "codument/std/commands/archive-track.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "2feee4df1dedc8ca8117cc8dd7d8dd76fc63a08a5a8ae7fdfdcb8b398c1266fd"
+    },
+    {
+      "path": "codument/std/commands/modeling-engineering.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "c5b8c2b215d83644d77657e1b88d0c7f226d155fb9f5251968e0c8897964a02f"
+    },
+    {
+      "path": "codument/std/commands/upgrade-workspace.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "b4ded6855fafb5002d75ec13916c49bcf7904195b2e61042a41f7f27bd6f6cca"
+    },
+    {
+      "path": "codument/std/compat/README.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "91dccef87157581db439beabf5ef47482834953ecd36182b241beb6ac6f0a837"
+    },
+    {
+      "path": "codument/std/kernel-pointer.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "e102239525db0613a6987214ed05fcd3aa01d5274c86d92bda8659a7f72673a7"
+    },
+    {
+      "path": "codument/std/kinds/KindDefinitions/AttractorProfiles/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "3885f946e01b9435ddc5850e3b72169de7919cc160787d5395b07ba8f1a51823"
+    },
+    {
+      "path": "codument/std/kinds/KindDefinitions/Behavior/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "b8e985a74a58cc1ab89ab2d038cfd293dfd3014df5a9c4c01951b4c452bd83bf"
+    },
+    {
+      "path": "codument/std/kinds/KindDefinitions/BehaviorPatch/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "b29df7622a39feafcca7c1462827c061c86bb3f56502eb138785cc544799fe4b"
+    },
+    {
+      "path": "codument/std/kinds/KindDefinitions/Decision/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "20ecb1f691b3e9f22adeb1a9853e203890cc11041d1a7b51ebbbf08543967e1a"
+    },
+    {
+      "path": "codument/std/kinds/KindDefinitions/EngineeringConfig/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "995306d7335e8cf0467781461f56b33eeef43360e2fd1eb40f9a16b638c105c1"
+    },
+    {
+      "path": "codument/std/kinds/KindDefinitions/Mission/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "beaac195159645975e3b2cd2c3262a7ffe33afeab0e040463377eca7eba38a53"
+    },
+    {
+      "path": "codument/std/kinds/KindDefinitions/ModelingConfig/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "706aa044efd5f09d03c034fb2a9b01acc676ac2843b587941e154382347e3425"
+    },
+    {
+      "path": "codument/std/kinds/KindDefinitions/OperationHooks/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "9e5d6bb7aa503747366806839d6c1e0ae8bcb694824eb6f618b1fe95b394de72"
+    },
+    {
+      "path": "codument/std/kinds/KindDefinitions/Track/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "8534ddd5233ad35f6451f818c7a6598f4044eb2644cef35c0d39f75dab3d75ea"
+    },
+    {
+      "path": "codument/std/kinds/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "2965a7a1fbabdf133d856c1694e230b75a5f831bfd0b742835cd9fc097990f85"
+    },
+    {
+      "path": "codument/std/methods/dag-execution.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "7a1acaeeb2211e6906448c51f8f9bfd735383a650f66f54e237db6e4c5255c60"
+    },
+    {
+      "path": "codument/std/methods/tdd.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "611650588b5cc26acb7109c1a48c9110309d63d5d93aa738281ea8ec2921635c"
+    },
+    {
+      "path": "codument/std/methods/workflow.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "1cdd89e85fb862446cbd39e5510871131564656b84a6a58d8611b8116789987e"
+    },
+    {
+      "path": "codument/std/operations/README.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "2a074b49f9cc5559496becafa969f745f74cd12433b8c1a0e0983df95016f402"
+    },
+    {
+      "path": "codument/std/operations/_operation-spec.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a90723c2861ece9b45cd119b5fd13ba4c96fd1f4cf6a90f66f2fc7eb1caf85e8"
+    },
+    {
+      "path": "codument/std/operations/archive-mission.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "d233d905391ae6b3b3584ef3f8b0b4b9507dc55bf105048400f50e8bcec98f98"
+    },
+    {
+      "path": "codument/std/operations/archive-track.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "1ff8d02f7132f6921a1d2ffcca1515acd84fbac0bd163f82c42ee273fb55d372"
+    },
+    {
+      "path": "codument/std/operations/artifact-sync.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "4ee05c2c4f57b70fc457f7f3f1c31e4efe8311252e4a099b4b9f9e974bc35795"
+    },
+    {
+      "path": "codument/std/operations/discuss.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5784b915758aec8bff120bbd5d77f7cccc95987c5d74a90db908f717733e5fbe"
+    },
+    {
+      "path": "codument/std/operations/docs-bootstrap.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f7c62f062d900a953aca42782935e191c4fdfe347a5694bb344cddd72be04896"
+    },
+    {
+      "path": "codument/std/operations/gap-loop.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "3eebb62dc3924cf41e7b052902fc8ee499790cac690a64871ce08913c7abcfb0"
+    },
+    {
+      "path": "codument/std/operations/impl-mission.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "c1f8db119d003a5d04d3a44ed913da41364ff70c86d7e9cc0aa6b438d551523b"
+    },
+    {
+      "path": "codument/std/operations/impl-quick.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "df484ba917630405d4c752d95564fdcb10512245abd413d0ad10676c548837ba"
+    },
+    {
+      "path": "codument/std/operations/impl-track.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "40f75f21b369c2a35f2a7ae549ab3ca4d2aa48f0119686812481c6a996bb2f6d"
+    },
+    {
+      "path": "codument/std/operations/maintain-track.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "8baaae2b09d405a6c4507a51149bf96db9358e761b00486ca276345bd59d97e8"
+    },
+    {
+      "path": "codument/std/operations/migrate.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "4d2aae9940d666de18afd55eed0079e61522cd2b41364e7fe166e2bf71c2741e"
+    },
+    {
+      "path": "codument/std/operations/plan-mission.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "bd8034899b4fd897835892d642dd2260c9fb11f9b0a5e5050510cd470a3a1187"
+    },
+    {
+      "path": "codument/std/operations/plan-track.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "09659e135f01ee0eb6b2164a43d0c66e5047b7fd212323f201519e571b9f6970"
+    },
+    {
+      "path": "codument/std/operations/validate.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f979de176f6aa76e5a6938c604162708d7f3675e01b2125876a94dd5b984d43b"
+    },
+    {
+      "path": "codument/std/operations/verify.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "2def648100c298c600a7fb192180e03649b39a6f539e3d300f559701b036a9be"
+    },
+    {
+      "path": "codument/std/protocols/decision-tree.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "18737443f6a656848190273a6e2a1180939475830e69d3f486b3e15d4f9feb5c"
+    },
+    {
+      "path": "codument/std/protocols/questioning.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "0300aac5da534d0821bee1965ac9d44ec448150fbf80e05f11b9b2be9f26973d"
+    },
+    {
+      "path": "codument/std/protocols/validation.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "4d38ff041525b27000da52a4a779325e65c08080915a3eafc947af5ff163bd28"
+    },
+    {
+      "path": "codument/std/skill/docs-engineering-fractal/index.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "b9cfb6b4e349bc1a038b4e7c9086afb9de2a195699baa5abda05647a905dd3f7"
+    },
+    {
+      "path": "codument/std/skill/docs-modeling-fractal/index.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "d441023fa7bcea6b36386278b171fbde2ab330249746c6421cf25ff9542cc0b7"
+    },
+    {
+      "path": "codument/std/spec/behavior-delta.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "936584a995727e942ab5d032c0a1f9246d5ab7c6566f0133695b9998bb2974d5"
+    },
+    {
+      "path": "codument/std/spec/behavior-registry.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "6729594bc55bca493004761dc0b5731548080e0722d829852baaa017bfdefc26"
+    },
+    {
+      "path": "codument/std/spec/decision-registry.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "09de28078611035755c5e2ae9d128f84e566c85a1994f15f63e4251161a128df"
+    },
+    {
+      "path": "codument/std/spec/engineering-delta.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "d66fe3840cf903cdb6cb9ff8022b9153b036792163f21496e2b3b6ec6728451f"
+    },
+    {
+      "path": "codument/std/spec/engineering-node-schema.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "82ca6dc325cec80fe82a59e731b519529ff64544eb5fa765cc73f95013b90b9d"
+    },
+    {
+      "path": "codument/std/spec/engineering-registry.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "4084eb6b43bf6cab10d3ac105c4ab13ba2a4d1e2da665121bbb28638816144b0"
+    },
+    {
+      "path": "codument/std/spec/flow-notation.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "49d8d9e4ee0f33a0375f823874684951fafb0b2f20f93c4c25f0069aabeebf42"
+    },
+    {
+      "path": "codument/std/spec/folder-manifest.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "3c4986c2ac3cfe244900dd1a32540db90da43b1e9755ddbe141279a25e3e518f"
+    },
+    {
+      "path": "codument/std/spec/mission-xnl-spec.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "e449542feb8921c784d429485edbeec33bf49cbfb992244bd19adf692d646f4c"
+    },
+    {
+      "path": "codument/std/spec/modeling-delta.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "fe954e0bdeba23affebd80d23f22f9f3b89658395ad27a22bf8318287774f269"
+    },
+    {
+      "path": "codument/std/spec/modeling-node-schema.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5c7a6acde740009ebe9c72f946d6deb4f7d168ee508cd9d30794639bb8883de4"
+    },
+    {
+      "path": "codument/std/spec/modeling-registry.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "d3440d1e382324292d1064a768fca1f106e6fcc4dac317b3a490de4fd276d26d"
+    },
+    {
+      "path": "codument/std/spec/track-xnl-spec.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "bc0e6863e6e0d2ce7ff15f440e5e8fda6580f41b0f169451b593f4a52d119f44"
+    },
+    {
+      "path": "codument/std/spec/xnl-format.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "dde1ac3aa8f715e62d4531bee89f6762780de0e6963245a6c8965613f99487bd"
+    },
+    {
+      "path": "codument/tracks/active/README.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "9382c18b133753fd2dd160a4aa8f33d9b14e8147c724b55f9ed6b45b66ea59fc"
+    },
+    {
+      "path": "codument/tracks/active/add-package-authored-skill-apps/behavior_deltas/code-first-reference-apps/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "95e0f1a82f5d18164c24b0f62394348ed1d327af281c7fddc2936f70d8656a85"
+    },
+    {
+      "path": "codument/tracks/active/add-package-authored-skill-apps/behavior_deltas/federated-site-pages/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "2516d732fa5251e1a305280be61089c50b4333df632df4616fb6cc31c0aac0a4"
+    },
+    {
+      "path": "codument/tracks/active/add-package-authored-skill-apps/behavior_deltas/package-authored-skill-apps/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "443214bf74acd04efc2b65afe3274d091d4da55b6a7d065e79c40b83c4c7c6af"
+    },
+    {
+      "path": "codument/tracks/active/add-package-authored-skill-apps/decisions.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "ce26315ed22f8da1d069dd6f8579a7da48d203ed79a60c0e3585e7df07dc69b3"
+    },
+    {
+      "path": "codument/tracks/active/add-package-authored-skill-apps/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "68503ddcfe3e2166b00e20008adf64a09345c8c1f93dd6df5d720469107641a3"
+    },
+    {
+      "path": "codument/tracks/active/add-package-authored-skill-apps/design/code-first-demo-layout.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "fd69445f0f8e323679e3b2007025d3f95b053deb46f295b2d60c3118e76bdd7c"
+    },
+    {
+      "path": "codument/tracks/active/add-package-authored-skill-apps/design/federated-site-pages.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "84dfdd6364b589a24af51ffc0578a40888a43fdda1d35356ad4da44d9460ff4a"
+    },
+    {
+      "path": "codument/tracks/active/add-package-authored-skill-apps/design/legacy-compatibility.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "aa2e807a2a584b3e0cc3dd110b0d118724ddc5ce06259f15ae5c0eea59fba741"
+    },
+    {
+      "path": "codument/tracks/active/add-package-authored-skill-apps/design/math-learn-layout.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "14645dc99790e6593f367df4dfb2bf9921d904708ed7453792c81ffd10c6ffe1"
+    },
+    {
+      "path": "codument/tracks/active/add-package-authored-skill-apps/design/package-authority.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "c9e081876417ecdf63aa626d58b031d605823ab101ab5d02ebdfe170d4e62904"
+    },
+    {
+      "path": "codument/tracks/active/add-package-authored-skill-apps/modeling_deltas/domain/page_runtime.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "e98d2f840f27c13fcad92a5652fc63fab20859669bbb11e75ff310dfebbbcaac"
+    },
+    {
+      "path": "codument/tracks/active/add-package-authored-skill-apps/modeling_deltas/domain/resource_catalog.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f4564ef1d8afd4a7758e34254209623c7812755d77d121a36109f406effb9c5a"
+    },
+    {
+      "path": "codument/tracks/active/add-package-authored-skill-apps/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "05d07a32ef0cdcc6442886012c3516f6722efb40a166f11532b959322d18b694"
+    },
+    {
+      "path": "codument/tracks/active/add-package-authored-skill-apps/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "4a16101fbf361588a80f7ad21db1285c592004be356b988005e4509368fa7623"
+    },
+    {
+      "path": "codument/tracks/active/add-site-page-bundle-runtime/behavior_deltas/math-learn-skill-app/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "d194a23ccb4bf6b7b984ade4e1876dedfff188de036685098b9e3e2dd25287cd"
+    },
+    {
+      "path": "codument/tracks/active/add-site-page-bundle-runtime/behavior_deltas/site-page-runtime/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "fe9903f8889d5b84e2a95f481e34602880658143e0cb3165cd9b08e8e89c9923"
+    },
+    {
+      "path": "codument/tracks/active/add-site-page-bundle-runtime/behavior_deltas/xnl-skill-app-resources/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "4b5b2942ab4dbf8534aaea72853a557c54bb90d13acdac06c5a384df8c97f2ce"
+    },
+    {
+      "path": "codument/tracks/active/add-site-page-bundle-runtime/decisions.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "bf5d6cc609ead8eae126c6a06df273d8ba695e589a6acf20a3522ac9469c792e"
+    },
+    {
+      "path": "codument/tracks/active/add-site-page-bundle-runtime/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "30a22063993f0d5c110e2c227613d86ded38347d5570c02680294e7b4b98af7e"
+    },
+    {
+      "path": "codument/tracks/active/add-site-page-bundle-runtime/design/page-materialization.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5ae7c7d06c94b564d4014881d5e1706ac339712fe82ffbb904cf1e6916872f4c"
+    },
+    {
+      "path": "codument/tracks/active/add-site-page-bundle-runtime/design/resource-model.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "cf6952a29ea8445240a83392856009ef6d7c662b5354ed8ae294e2094af9bce6"
+    },
+    {
+      "path": "codument/tracks/active/add-site-page-bundle-runtime/design/runtime-routing.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "ab0ad2f2b6039e92fbc5360ca33255314b9a1978b74916e86444aa3bf60335f3"
+    },
+    {
+      "path": "codument/tracks/active/add-site-page-bundle-runtime/design/workspace-and-migration.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "c0356d735ceefdc53c33e254089a2ae941a0dcd44ddb10b8f12a156d9f7138f9"
+    },
+    {
+      "path": "codument/tracks/active/add-site-page-bundle-runtime/modeling_deltas/domain/page_runtime/index.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "4d35c6862f1c02011538908e1c9032d030481a8e0dee723c14a690a1e882af36"
+    },
+    {
+      "path": "codument/tracks/active/add-site-page-bundle-runtime/modeling_deltas/domain/resource_catalog/index.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "0fbbcf6a5033c3dac40477aa8fab3f2e1726d80243df04d073c090a8ffe6b57c"
+    },
+    {
+      "path": "codument/tracks/active/add-site-page-bundle-runtime/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "4d11383bcba24f7b715e36853977bf91b995b08f800e35d364d2a94d5e530361"
+    },
+    {
+      "path": "codument/tracks/active/add-site-page-bundle-runtime/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "e81e4183cc185d955ece6d2f719d60bfefc55a5e0443a967ee6857d746417004"
+    },
+    {
+      "path": "codument/tracks/active/refactor-demo-automation-business-modules/behavior_deltas/open-data-export-demo/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "c95721a90d258ecbf87be4a33e29a20f0a3e1ec7d1196a8f9c90f585fb0975be"
+    },
+    {
+      "path": "codument/tracks/active/refactor-demo-automation-business-modules/decisions/bundle-materialization.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5f054e234539165423009cd0533b060ef0e87af8a16810b45d515860cade4ca5"
+    },
+    {
+      "path": "codument/tracks/active/refactor-demo-automation-business-modules/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "bcb7142457f551958b088f676d2369c4ebd275c8ac8d0a8051537eb3d0f331eb"
+    },
+    {
+      "path": "codument/tracks/active/refactor-demo-automation-business-modules/modeling_deltas/domain/resource_catalog.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f2c15dc3877f816d337d2c4a0ea3f0cad929f47c97ffe72d373e14c3268041ef"
+    },
+    {
+      "path": "codument/tracks/active/refactor-demo-automation-business-modules/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5f100100160f86dbd3430f9835135cffa532b1afd8f74f94a5c0ee2999df9ad4"
+    },
+    {
+      "path": "codument/tracks/active/refactor-demo-automation-business-modules/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "e632d243450621e385e6a2d7015850684f340cb5ddf73b17635f224158a5febc"
+    },
+    {
+      "path": "codument/tracks/active/verify-mdd-browser-robot-cross-platform/behavior_deltas/opencli-transport/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "e99655aacacef18bba760eb1cbe2e223b33bde28c27c2aaf749c46385b950b52"
+    },
+    {
+      "path": "codument/tracks/active/verify-mdd-browser-robot-cross-platform/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f4d84cf0d000d7dd8475ffe62fdb0d33d84a5d2ef26ebb939ee3ec63b8314503"
+    },
+    {
+      "path": "codument/tracks/active/verify-mdd-browser-robot-cross-platform/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f54fe88cb2a4fccce6a35e2e97eb4e3ae4de4bd5f8e3669908aba300977fe170"
+    },
+    {
+      "path": "codument/tracks/active/verify-mdd-browser-robot-cross-platform/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "0e7c2656ae8fb9903b92de26260a4dd025c0fe6fcba3b9e9501588f67f3a2334"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-21-2344-add-claude-mcp-app/behavior_deltas/claude-mcp-app/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "0040b64890e35eae758d5e2d093c12954c33598dd8a60f53d554b794f215d7a2"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-21-2344-add-claude-mcp-app/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "7860edb94f481f6d92f3174aa7f68ebe21bf26205f77a4f7edd1614481d3a06d"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-21-2344-add-claude-mcp-app/modeling_deltas/backend/host.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "38c28463736492c5869c07d5c5704fc78c98f60bc51494045d0dfa181e60ff24"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-21-2344-add-claude-mcp-app/modeling_deltas/domain/page_runtime.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "61a4fb961a3a426d8e6051232a2b4593e1e34d27df72e17761be15865cebd013"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-21-2344-add-claude-mcp-app/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "49c71b17af623c647a327c9c9a01adfdab5e9f1580e74f1cc58cdd8daa1813b6"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-21-2344-add-claude-mcp-app/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "0a5923a1c8861a48e9b283620fc7e2d79723c72675ced956c8d4767c98119402"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-22-1011-add-owid-advanced-workflow-and-serve-lifecycle/behavior_deltas/open-data-export-demo/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "8dd32e582ced468eec0422a7c782c2e39d3cd4bd36907c823dfb66847d9fb5fd"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-22-1011-add-owid-advanced-workflow-and-serve-lifecycle/behavior_deltas/page-automation-runtime/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "1d4d0ce405e0227f0fc98a34b4046a79c437495013783a25b0f8c781f9f62fd3"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-22-1011-add-owid-advanced-workflow-and-serve-lifecycle/behavior_deltas/serve-lifecycle/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "65dfdd1bbd2cc58c12b7953479485ad630fdf67cfd9ba5834920a007205c448c"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-22-1011-add-owid-advanced-workflow-and-serve-lifecycle/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "207922bc51e289671ad3256e12956e289b87b8be4323ab1e82ece933cb144142"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-22-1011-add-owid-advanced-workflow-and-serve-lifecycle/modeling_deltas/domain/host_runtime.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "25de91be10ba8ee92dd75753b79ebd74d518a27aeaf9f6645d6e49d069f4558f"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-22-1011-add-owid-advanced-workflow-and-serve-lifecycle/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a408cd062ef514e5c4100e0149ae484dd68e5e65bd91cd3b199b4e56786757b9"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-22-1011-add-owid-advanced-workflow-and-serve-lifecycle/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "29d58287b60e43f075512a582105529ef9e440764a99720e81d1041cc5ba7fc1"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-22-2039-complete-opencli-transport/behavior_deltas/opencli-transport/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "6d663257d12f6952503aece76b0d39691a7a2489bff2e3bd1e5161e55911b0cd"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-22-2039-complete-opencli-transport/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "3c408058298b25778a12b28fa5a4fbd1f19d6619c21e8357933bf501323e96b8"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-22-2039-complete-opencli-transport/modeling_deltas/domain/host_runtime.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "c636265e09db0f1a17bc1c0fddd48d8eb35c81ef4d15eb21fe5d86234c14800d"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-22-2039-complete-opencli-transport/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "3b53559fe898c5b64b4afa3d6c283e8e1fa661d022d9e91ed4ea4d9792431334"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-22-2039-complete-opencli-transport/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "6eae2fd625ddcc42fece33591ecb333e0c7e43d69888ca219b74f4497628207b"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-22-2245-refactor-browser-provider-runtime/behavior_deltas/opencli-transport/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "3b60231e058e40f20c04dee03d1402559b11b7cbd56ca5f713d2c6ae2e3319e1"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-22-2245-refactor-browser-provider-runtime/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "6cc1e3fdf99f93bf44180a18486dad6bd40b10ddc938d3334ea2aed52ca5971f"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-22-2245-refactor-browser-provider-runtime/modeling_deltas/domain/host_runtime.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "8cbfae03be523183450e6b53e801dfb4a7d920fa13392cc42e6feeb39ef3fbd3"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-22-2245-refactor-browser-provider-runtime/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "41c6321282cf09400c0a65b3833f6dba2c740fa29a0741da80a0cc75de7bc36f"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-22-2245-refactor-browser-provider-runtime/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5c045b740fb5f748339afa3cf1f6c03e64f1178288cc3afab56f3738a603965c"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-22-2300-add-mdd-browser-robot-transport/behavior_deltas/opencli-transport/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a81c4d8c41f02b625c8edf3f99e3850f0ad8a05a1a2814ac661e0cf9e4e1d2c9"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-22-2300-add-mdd-browser-robot-transport/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "506ecd3db18f4f8350eaba4265b46d8f2e449ace791001b1d50d28f8bab3a1c3"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-22-2300-add-mdd-browser-robot-transport/modeling_deltas/domain/host_runtime.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "31be13894e4889919200c06b4aa638978d3f5a852cc4deb5439030d887f93fa1"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-22-2300-add-mdd-browser-robot-transport/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "0c844ed07c078a39904e41db2b3f9f58ed8b61c9601e2bed94bdb3dce95abab0"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-22-2300-add-mdd-browser-robot-transport/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "dd4a85f33aa38bc8bdc6aa18323e7983201042186005f7df0642d888e659ccdb"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-22-2315-add-windows-runtime-release/behavior_deltas/runtime-release/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "c20aca46fcdb6564ffb6857bc31c50fa6061795971780b3bf160c3951fe5dc4a"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-22-2315-add-windows-runtime-release/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "b20aa41ce110ed40fbb11bf36865b7ed35712ad3475e66a1bec7468ab1c51c05"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-22-2315-add-windows-runtime-release/modeling_deltas/domain/host_runtime.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a63c4b95f25904985ed4ae51a2155db663aaebff8147ed7ec150d9172038ad0c"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-22-2315-add-windows-runtime-release/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "c7021e3cd8de7d2e7692794b7cecedab49b1cbeeed6dcf2477cac243be970657"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-22-2315-add-windows-runtime-release/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "d6dca96ac05d9eba9483adf4334c707627662327783b887243189460699fbbc2"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-23-0025-add-unified-workspace-page-shell-controls/behavior_deltas/page-automation-runtime/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "8d8d807587ae24ec8aec5795163effe7340cef5b6e293b9708712989f642b831"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-23-0025-add-unified-workspace-page-shell-controls/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "76b34026fd0ae2fc53f965892f19f950c5c2d279e43a95b4862bc52b7a6f9760"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-23-0025-add-unified-workspace-page-shell-controls/modeling_deltas/backend/host.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "e5820f81f7046198a422d4cb4f59f42151521cc6206396086ec3459b1c4a5ebb"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-23-0025-add-unified-workspace-page-shell-controls/modeling_deltas/domain/page_runtime.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "297110464bcbf3c0be00010dff68b3128bc1a5eba5d2b194349f244ffafe22d6"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-23-0025-add-unified-workspace-page-shell-controls/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "29bef6ec56e14ea12c00ecf4bc2b9f53f719d10a9f06dd0025bc28f4dceb0935"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-23-0025-add-unified-workspace-page-shell-controls/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "e13e00693b71533bdaf6a3d801705c95f50cb5221b4a2c13f69579980a9168b7"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-23-0037-add-local-function-runtime/behavior_deltas/page-automation-runtime/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "ead047780c900dc63d8e4d9b338a4d68ec4b3a64c1e1173ee11ad4f699255c1c"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-23-0037-add-local-function-runtime/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "cca52527dd34e4e2bd067d57fda1175612a6f674b585d189c035a1a15da2d812"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-23-0037-add-local-function-runtime/modeling_deltas/domain/local_function_runtime.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "519825a9a00c17600039458f72888969c8ea3b3055ae083ce738b030b32b61c4"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-23-0037-add-local-function-runtime/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "d90584b2f10f7a73701c4a9e35ceec7a02ef8df5fa94f222af2d4444f6929d40"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-23-0037-add-local-function-runtime/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "cf666c083efb0dbabf5d08795660867648382570a3a436f8b68ee7ce116b89a7"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-23-1051-add-live-vue-module-federation-skill-apps/behavior_deltas/page-automation-runtime/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "4c2d225e14abafe91e353d98db7dcd7af8c0a2ec06358a46c8099d90a4dd98f2"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-23-1051-add-live-vue-module-federation-skill-apps/behavior_deltas/runtime-release/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "ae323893e6e98afa3f861c4e6e05a7fbf8868aa8fd2c1664e055b263f8961856"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-23-1051-add-live-vue-module-federation-skill-apps/decisions/page-runtime.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "2780cdfe19b425eeab48a640bb9d6b706d83821a2c5616c09857dbad3f7ffee7"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-23-1051-add-live-vue-module-federation-skill-apps/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "580aaa754dc392892ea6819633cf59f711ef0af733517836fc1a7cf3ad460c2d"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-23-1051-add-live-vue-module-federation-skill-apps/modeling_deltas/domain/host_runtime.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "2169b51a895823a5983a34e245fdb0554975ee13262f40a93a148aaa0581645f"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-23-1051-add-live-vue-module-federation-skill-apps/modeling_deltas/domain/page_runtime.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "683c69bcf859c228c03b961b14aba6b0cda7cabf0561b41951f1dd33a4c8e573"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-23-1051-add-live-vue-module-federation-skill-apps/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "8cdd80144bc5c6cb007758099a880a9ca982ff6432ef0834ed2de9c440f7680d"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-23-1051-add-live-vue-module-federation-skill-apps/summary.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "33149d9c25caa623bcc922c51b062def9e6a04200331d024f038ac96f9101afe"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-23-1051-add-live-vue-module-federation-skill-apps/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "57788c96006f359f0ef7bc0c168e1e9eaac42102d319c19bfa5cdba6a006be28"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2113-add-halfcode-workspace-resource-catalog/behavior_deltas/workspace-resource-catalog/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "c24835cd354c23e9f1f9666815b29e3ca7c64d4a92f096a05c0b36abf400d88e"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2113-add-halfcode-workspace-resource-catalog/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "3cad61471ee6e1779830412111dd3f09fec9b39027f23e7ffe1d8ec5db53ce41"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2113-add-halfcode-workspace-resource-catalog/modeling_deltas/domain/resource_catalog.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "95930deb115ca9380d9b020ce9a1e9bca46ae7f63835ea10726461f3636c0494"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2113-add-halfcode-workspace-resource-catalog/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f7d24ce98d8020eaef919a6e5fd819a4e59a8ce5c40c15246259ea1eddad5b8a"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2113-add-halfcode-workspace-resource-catalog/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "fc633d5098d55f27ad7bad8500fe7259b2deb2d4a5585160cbd37a1d4036665c"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2124-adopt-halfcode-code-package-runtime/behavior_deltas/code-package-runtime/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "43af9c006d524ff8110083657394cbbaf2edd75ef1a86a805dec0deb68f2feef"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2124-adopt-halfcode-code-package-runtime/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "cff7336a52504e0c95ae49733ea8378eb107be227dd9d8f3a723c19282326dcd"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2124-adopt-halfcode-code-package-runtime/modeling_deltas/domain/resource_catalog.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "75544f421094c3971273b2dca11a432575a31a673352dcce8531387a4f6132dc"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2124-adopt-halfcode-code-package-runtime/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "033cd89741eaa00625c79cceebac22c39681ba0c7a1698d5f3ad8f08a727a18e"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2124-adopt-halfcode-code-package-runtime/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f9ae716f1f0090f0d5a85a7213148067213088b8a9305d6f469328070590366b"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2213-migrate-skill-app-resources-to-xnl/behavior_deltas/workspace-resource-catalog/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "9c5275a29c3d77c0a9e28cce3471087804020d724d578f340ed153423a8ef0d7"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2213-migrate-skill-app-resources-to-xnl/behavior_deltas/xnl-skill-app-resources/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "688dbc3faee6032c3321d07dd3c06ac6d4650a61a9d4cd89a41193b0691a5ae1"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2213-migrate-skill-app-resources-to-xnl/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "eea1e09a52e6163e016728eb9b449e652b83c7112ab9ed54412a456fc8ba9a4e"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2213-migrate-skill-app-resources-to-xnl/modeling_deltas/domain/resource_catalog.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "810f307c5833374889a8f185263870f94e345708a4d1815caed8420f392db4d5"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2213-migrate-skill-app-resources-to-xnl/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "1189954ec4a6137fe1f7eaf78854fb09af35bb49f25128fc23ec5f97e7bc4b9a"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2213-migrate-skill-app-resources-to-xnl/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "98e11938fef26ed28231778a4cc4d8b92224077b1048e1d479ab4582cf73868b"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2227-replace-resource-cli-with-kind-native-commands/behavior_deltas/kind-native-resource-cli/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a02f1bdca9e73e44e97ea69188a18286780c2a82e4e7041b19565152dad1a0d7"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2227-replace-resource-cli-with-kind-native-commands/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "55a213d26f9b444fb34379e48c148562ebabd8f3c1298b029ad3584f0cd5b3e8"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2227-replace-resource-cli-with-kind-native-commands/modeling_deltas/domain/resource_catalog.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "846c9dfce11de0cf303aafc2cad505d2f847c1061c100fed5a58991c9173e91a"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2227-replace-resource-cli-with-kind-native-commands/modeling_deltas/surface/cli.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "3a37be57f8ba4177bd4e4dcd4dfe430fe7d7c31c198fc35bbc4be7930d6b16d7"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2227-replace-resource-cli-with-kind-native-commands/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "d4066e0546cb896852f9d835a480a31a460a77df6687218426f70c51886459fb"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2227-replace-resource-cli-with-kind-native-commands/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "35c106cef732cc53de3018e2857a28d1255bee939bc7ed3944b8f0fe20f61893"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2237-close-xnl-resource-release-and-clone/behavior_deltas/runtime-release/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "132c567b58e0d7e9c8a6544672fe71bc2a8a957c22c0d47f3645898d9f2950dd"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2237-close-xnl-resource-release-and-clone/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "7d59745f4a78fa497fc84e28808cdee8a25da452b3ae52cecafb7fcfe497b5f8"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2237-close-xnl-resource-release-and-clone/modeling_deltas/domain/host_runtime.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "16f525ca606fa6d14a4662565e9ac3a1c2d7df57e4a0a2ff602f0c222c18ea78"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2237-close-xnl-resource-release-and-clone/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "7ab6d0d76e6b86fdb17e6644ec4a15383ec053335c1c919254a696c785f198e1"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2237-close-xnl-resource-release-and-clone/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "3a555f5261cf46939d690891bd01fbfdf4f354d90aba16f80d87c9baed5fa026"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2246-verify-xnl-code-package-resource-management/behavior_deltas/xnl-resource-integration-verification/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "86028fae6c21d9e381243b6cf05d0506f5f0b6b440401a90270bea52ba2f1993"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2246-verify-xnl-code-package-resource-management/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "825e9db5e288de72272dc3b7dfeb9acf89d84a236d7a6051a39af6671c39fd75"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2246-verify-xnl-code-package-resource-management/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "71673a2763cd128618eda433d653a46308d93d199f1b170e1f09932892966ffa"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-24-2246-verify-xnl-code-package-resource-management/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "3ea8584c8ab323418e5b06f7551b4694104cd3b9323ec836af923a0254159aa9"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-0755-realign-skill-resource-authorities/behavior_deltas/page-automation-runtime/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "2a749f08db00532705d76d1e4927e390d189b95374fc1331136ca59a257e7571"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-0755-realign-skill-resource-authorities/behavior_deltas/workspace-resource-catalog/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f4207a96aa40731adbc133405d47e86cf8c0ea4d79af3c0c3cbbb82ccb604d55"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-0755-realign-skill-resource-authorities/behavior_deltas/xnl-skill-app-resources/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "7ac1d12379ae487c94d1f25b3e809d70969addae951a17e49a5d6600c0f147aa"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-0755-realign-skill-resource-authorities/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "fa3aa5e2152d3af79d2794e72fdbf8deb7e3692f002a4abe3c7daab7a77d06bc"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-0755-realign-skill-resource-authorities/modeling_deltas/domain/resource_catalog.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "9b10d7183f25d7e11d7520899b5f40523cfd4aecb2ab5618c3aca7bf48cf4d6e"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-0755-realign-skill-resource-authorities/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "1c5d405d053de3bc63c11153497cea52cbb36a5cbc9de4fdd238bc9d9c73a7a0"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-0755-realign-skill-resource-authorities/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "95d5a26ab45ebff5a3e52a2fe1be29e7b554e11c11edf843d11b7f01529abded"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-1136-adopt-skill-app-and-bundle-resource-authorities/behavior_deltas/xnl-skill-app-resources/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "2df9ad28458cfcf7c656ad350cfe6686e2fcb31c1e862d7645d769bbf5379c24"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-1136-adopt-skill-app-and-bundle-resource-authorities/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5aa1fd29ab6c5a112dd2f79b4b79b8d9d2e0530b6da03606c2de40368fd317ba"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-1136-adopt-skill-app-and-bundle-resource-authorities/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "0e91a35b74c340a131a09174ae1f4f66b602e948b868f7639f15418cdc320997"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-1136-adopt-skill-app-and-bundle-resource-authorities/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "3c4f74519c29b386a4b5ccbdff59facb1524639fe0552028858a601f0d983516"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-1151-add-host-bundle-materializers/behavior_deltas/code-package-runtime/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "36a97e82e4d46a8968cef20758cfaffd1c28f6085ae50b0dd5ce6c5f731d7020"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-1151-add-host-bundle-materializers/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "b3df66018d3e7da422d5ce94a9ec1136747c1e46da91d8b00d8cbbcdf8b09da2"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-1151-add-host-bundle-materializers/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "0ff58d5b9b26d10b5b543a768c9b5fdd83f11c28299b15aa66a274d3a30e72cb"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-1151-add-host-bundle-materializers/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "d7e26ef3a293e15b4a8ec461d17726e3f18b7be5277b507b33aed14460289eb3"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-1153-project-leaf-kinds-to-dynamic-cli/behavior_deltas/kind-native-resource-cli/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "1d5a1ec9bc635d29630a01161acdff382224edff1fda7e0672a181cf548250e6"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-1153-project-leaf-kinds-to-dynamic-cli/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "c23b6a8763a94a5cad9f22ddcad2d4c4dfa8908f4e81a221a108d30ce7904191"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-1153-project-leaf-kinds-to-dynamic-cli/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "68f974f2b10ab593d7dbd2c5399c896a1007968000206438df3526a1c43c93eb"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-1153-project-leaf-kinds-to-dynamic-cli/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "e238639fb527e3c4917816ac198f9e73c7b120165a426a9cf1d6275a79709259"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-1205-close-bundle-resource-release-and-clone/behavior_deltas/runtime-release.patch.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "6228c6103fb669f2395de658688af02c931710cb209be602824bbfff6a97c23c"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-1205-close-bundle-resource-release-and-clone/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "427495d3a45ab738c74dabf0f42924f11da6a4f7d60a6fab88775d18bb55ec73"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-1205-close-bundle-resource-release-and-clone/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "971850f6318f1742658ee4a3a35020ecd37938406c8581997f7d286a920bf30b"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-1205-close-bundle-resource-release-and-clone/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "917e73c5b9ebccc3d13350bbcfe1e5001d56dead29c4b623cea7a739842643f3"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-1210-verify-normalized-resource-catalog-migration/behavior_deltas/xnl-resource-integration-verification.patch.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "33343e7ea5e180cb8e5bbe73c9c2f6112b7c89fd1f29fb9e9e9de4bf0d953ec7"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-1210-verify-normalized-resource-catalog-migration/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5494910d07b5c20af8ab56c4586a7f1b29fe7b44bef380255357e7e94554eea0"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-1210-verify-normalized-resource-catalog-migration/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "d4a7694861be749fb75dca58bcaf372a647d66789397afd9386741062a61213f"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-1210-verify-normalized-resource-catalog-migration/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "4c5b226a0d0731c0bd3572384ce93f2e7eeb461769a59278097e410158c5062e"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-2101-refactor-leaf-handlers-to-depa-runtime-selector/behavior_deltas/page-automation-runtime/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a3608a0e0db36f8b875edb033655bf7bc7783563e42e3f72e587e4cc2fb8ca6f"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-2101-refactor-leaf-handlers-to-depa-runtime-selector/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "72371ba1f191c9db49281e910e8e531e9b82c11786b9acf0f4e697cd8b987ffe"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-2101-refactor-leaf-handlers-to-depa-runtime-selector/modeling_deltas/domain/local_function_runtime.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "04270416c9b9933a89965d38d15975e2864e46e2aec50391ec88fb43400e17c5"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-2101-refactor-leaf-handlers-to-depa-runtime-selector/modeling_deltas/domain/resource_catalog.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "0ddc078db67af582f93c820bd182786fe5e3a552d8e4179c6a8a4b7b10809702"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-2101-refactor-leaf-handlers-to-depa-runtime-selector/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "047895ae49844a5901ce4c44e115c784de44a816c02ade28fbe1022550797240"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-25-2101-refactor-leaf-handlers-to-depa-runtime-selector/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5e5ba556d515d0d79237f780e4e72ae26b1330965389639f66da1ec3fc930c67"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-27-0001-add-typed-sop-workflows/behavior_deltas/claude-mcp-app/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "468480b0a5661f90ecdb625c3d6cfe6cecab3f44ca037d3cbd3b7051894eca2f"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-27-0001-add-typed-sop-workflows/behavior_deltas/kind-native-resource-cli/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "92412eff5751a5176d3344e44c62277ff61fe19b76a34bd874bd4366881de6df"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-27-0001-add-typed-sop-workflows/behavior_deltas/open-data-export-demo/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "06d2aa7b134b4180dc397dd6cda38087c4f2419130ca76fe435966f68e13e5de"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-27-0001-add-typed-sop-workflows/behavior_deltas/typed-sop-workflows/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "ec8c77efc9b705fc934d9bff38cda63dec4aada6a8516e9b5cf2344f5deae82e"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-27-0001-add-typed-sop-workflows/behavior_deltas/xnl-skill-app-resources/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "cf1ff722a68a03dc4dab669ff7812496edd9d784ad86bf808aa502206df2a513"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-27-0001-add-typed-sop-workflows/decisions/sop-workflow.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f43406feafab76064b6244eb13fb5fccd48989801f98f8cd257925ff99203c45"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-27-0001-add-typed-sop-workflows/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a8d9398920619518c6aa6b599a18c69de5c50669822db7ef24e3e481c52d66ed"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-27-0001-add-typed-sop-workflows/modeling_deltas/backend/host.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "2332be6520133e3c745fae0b433f1dc51ca5b8a09b0e2d8108d5b655f688083b"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-27-0001-add-typed-sop-workflows/modeling_deltas/domain/page_runtime.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5f115c7d1095b63a3b64655f0c5ca5d7a847da9704226ede1ae3eb018563dfba"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-27-0001-add-typed-sop-workflows/modeling_deltas/domain/resource_catalog.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "bb8e18dce191883ef7aff8fb4fb94711f5175552741e87862e18d03bc4820e22"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-27-0001-add-typed-sop-workflows/modeling_deltas/surface/cli.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "2c7d87f56906746c9d5cfd32060307d9b7a6b7add44172ebde36980339c04bbd"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-27-0001-add-typed-sop-workflows/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "7aea8cc7b40008c6fd06fae8ea1a9cfb075f8a4735a61ab2c599bcc9e18bd6ba"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-27-0001-add-typed-sop-workflows/summary.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f8b7568e99262afdbca635e4156de121d16f589b2bc7ebc95325901aa6d2fc02"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-27-0001-add-typed-sop-workflows/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "b466f932e84a7166f3cb8dcb0127610a62968e725bb4b0ac44098f84ce0dd7b0"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-27-0747-add-profiled-resource-configuration/behavior_deltas/profiled-resource-configuration/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "2a6c7f1a6949a38d289a51522702f6a610f8a2889002a59b6bcbd2ad89db5f78"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-27-0747-add-profiled-resource-configuration/decisions/resource-configuration.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "bc45e058ecaa09accc3c3a33d548fa5ed5f0a6e9c582c5df24792eba8836ee6f"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-27-0747-add-profiled-resource-configuration/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "acc65672c436c4736527dd5ba201ea822752413e5ab90a9018c0fd4ffb11d5ac"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-27-0747-add-profiled-resource-configuration/modeling_deltas/backend/profiled_resource_runtime.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "0fc881f62ff31aa33692029e19b198107d2b6c4d454e6ea6a830e4328bccd4e7"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-27-0747-add-profiled-resource-configuration/modeling_deltas/domain/resource_catalog.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5bb66da9668098a1a7449c6a8ef0d32f26673471425d0a4f4fd00d3841ef8fae"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-27-0747-add-profiled-resource-configuration/modeling_deltas/surface/cli.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "28058a6bb93aa9b37b6957ac399e121d82a1ca41031d545b08f27757ae795146"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-27-0747-add-profiled-resource-configuration/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "92764e7adc3d64530d9b8705761121e6a989898ba7b7f4cf63c03b38156fee5d"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-27-0747-add-profiled-resource-configuration/summary.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "b375d18d90a8f40133d08e9ac307aaba178ab079b929c56ceb2c2b6208117d96"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-27-0747-add-profiled-resource-configuration/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "476baccbc38cae5057b26f6c2d2a13dcc7bb4008c62bfd9fd2d95b83df045438"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-27-1644-rename-template-to-halfcode-cli-lite/behavior_deltas/template-identity/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "7f5c0837999738e947385aee0b709b7f94f67f2ba3d3fb4b8335bf5d9800d97b"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-27-1644-rename-template-to-halfcode-cli-lite/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "8411df481ff97b8880868f6382519b2e00bcd5db8979478347e1c6773f4d8d1a"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-27-1644-rename-template-to-halfcode-cli-lite/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "e7f00979eb32376dac77618cccabfcd367b4dff67146c3da6d97f58d45b6d6fd"
+    },
+    {
+      "path": "codument/tracks/archived/2026-08/2026-08-27-1644-rename-template-to-halfcode-cli-lite/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "17ca5c0144c8b0aa349be4b404df8f1f33bd122cb328b0188f04892329dee887"
+    },
+    {
+      "path": "codument/tracks/archived/2026-09/2026-09-03-0731-restore-code-first-demo-equivalence/behavior_deltas/code-first-reference-apps/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "08f9baa19662c661eb6875d6d38d6e8d444d5c99f2c69d2aacfda151369cdaaa"
+    },
+    {
+      "path": "codument/tracks/archived/2026-09/2026-09-03-0731-restore-code-first-demo-equivalence/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "3801b60796697d52ff06073eab779b04ac3e05b3f4ed5bf835ee789910736ea0"
+    },
+    {
+      "path": "codument/tracks/archived/2026-09/2026-09-03-0731-restore-code-first-demo-equivalence/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "c10e2bd8c83011fd3f149a7e5e5b91b3f4e61879e60ad41ce5e9f16c85209431"
+    },
+    {
+      "path": "codument/tracks/archived/2026-09/2026-09-03-0731-restore-code-first-demo-equivalence/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "777a3bef93e2a67f104b79784e43e1f2c7cc19079b204e163479c1e51b4ef099"
+    },
+    {
+      "path": "codument/tracks/archived/2026-09/2026-09-04-0145-replace-resource-version-model/behavior_deltas/resource-versioning/delta.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "e3b1630b4ed9743d23ea43d8bea84e158f2406488438056f040caa4989f1ee95"
+    },
+    {
+      "path": "codument/tracks/archived/2026-09/2026-09-04-0145-replace-resource-version-model/decisions/resource-versioning.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "429752151c842b5e0203c1a9e501108fd8aeade2ac2cad6c4a6ae640530c5b60"
+    },
+    {
+      "path": "codument/tracks/archived/2026-09/2026-09-04-0145-replace-resource-version-model/design.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a31e27d7559f9e67fedd626b0a84e6701e247e02a8977d9e9eef9a3b1a9b5530"
+    },
+    {
+      "path": "codument/tracks/archived/2026-09/2026-09-04-0145-replace-resource-version-model/modeling_deltas/domain/resource_versioning.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "333b47bfc57e8cc0a06164245af40efd4329ccc064488e4a458767a5552ba7d3"
+    },
+    {
+      "path": "codument/tracks/archived/2026-09/2026-09-04-0145-replace-resource-version-model/proposal.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "b39ca15f2bb0438efe91914a3e42e7cab9adad1e8c36070f3a78ec8202070784"
+    },
+    {
+      "path": "codument/tracks/archived/2026-09/2026-09-04-0145-replace-resource-version-model/summary.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "506178e944dd3f859de80b748e36ee430c54f43d60c57cfad9221686775ba704"
+    },
+    {
+      "path": "codument/tracks/archived/2026-09/2026-09-04-0145-replace-resource-version-model/track.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "4df444e45ed410be5828af27e619f18be1664bdbcece2b8d9ae537794f1d5585"
+    },
+    {
+      "path": "codument/tracks/archived/README.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "7270c8ed30cb7ac1f58b1e9f30e61df99cb92e55b0a95d7cab158c7cd3b045a7"
+    },
+    {
+      "path": "codument/tracks/pending/README.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "1912a029bcb9c5d74e5cd72070d559ea3016aac2c080e5ce9fbb3ffca8b2e9d7"
+    },
+    {
+      "path": "codument/workflows/README.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "de55b24e0ddad82903e6d0b73d58316c93a6defdb5360256bfbdff629618a2e7"
+    },
+    {
+      "path": "docs/index.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "6a18bc1518dcbc706fc8e346f83dce50ad83b4be117b7bebbcac5ad09404d065"
+    },
+    {
+      "path": "docs/markdown-step-graph-v1.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "1f57629a9acce4a979ec23a95c4ae88bb219381f07e493f70240def1a4166506"
+    },
+    {
+      "path": "docs/package-authored-skill-apps.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "7e3add150fb153e5e549ff046d73ef29c0a2e620d6019c1359f0017cad6c8107"
+    },
+    {
+      "path": "eslint.config.js",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5dfdb1559114291ad311814e3bc074ce4927ebe81585e80df04049be17370085"
+    },
+    {
+      "path": "package.json",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f1564fe44d3e846ad9af9a303e6f6d115086c3d300b3bd667cc30b942a1d5c81"
+    },
+    {
+      "path": "packages/cli/README.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "7b08fe3818cb237f1cbba03694fdccffe33bd61331bea275fa2734a6945e557e"
+    },
+    {
+      "path": "packages/cli/package.json",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a2f2ae38419a2fa733cebd74adc0232fd32d79a705729331b92866cbcaf5288b"
+    },
+    {
+      "path": "packages/cli/src/cli/app/invoke.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "8986aa586c45b8a3a6f706ededdf71c461d1d8ab5ace3673fa22daf324589b96"
+    },
+    {
+      "path": "packages/cli/src/cli/command-registry.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "d17d435a05a64b3a38985a97e6c9a34278db25f5d1ed949648adba3509aa155b"
+    },
+    {
+      "path": "packages/cli/src/cli/commands/browser-web-api.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "731ff8f8e55abf542623631952691e9930ffbed6fa6d899a4ad5c519198097e7"
+    },
+    {
+      "path": "packages/cli/src/cli/commands/demo.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f75de0d8770a0e3b4fdcc6e5a96e00639827e855f4c4071e394531e5fd3f0cc3"
+    },
+    {
+      "path": "packages/cli/src/cli/commands/exec-code.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "bd2326b768a43dbf75c0c64b0234e5f736470300d1a22f93aab3115d7b68958d"
+    },
+    {
+      "path": "packages/cli/src/cli/commands/init-global.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5dca3ba1b3a0a51221f61e164c296026a2b5694513480100780d73e49206b420"
+    },
+    {
+      "path": "packages/cli/src/cli/commands/init-workspace.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "e61e804f3e061d27525d320e0136ccc65924fb40e6b57e4381b3fe9a165dc177"
+    },
+    {
+      "path": "packages/cli/src/cli/commands/init.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f9146612bc54abe0174c2505877d6725f37406c04002e3c4a0b857ca3d1d7574"
+    },
+    {
+      "path": "packages/cli/src/cli/commands/invoke.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "974e959fc844053428d558730b9f556d394f77ea4fa05c5b89d946d52973322a"
+    },
+    {
+      "path": "packages/cli/src/cli/commands/local-function.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "7205225c6df0d2e39c802cbfe7235061256b17d3713e63ddc6fc4d7ce4de9af2"
+    },
+    {
+      "path": "packages/cli/src/cli/commands/mcp-app.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "e2ad65f845016d2afd0aa8f35ffa7584a934af5b25cb1d53d94c4d100b86a7f1"
+    },
+    {
+      "path": "packages/cli/src/cli/commands/page-workflow.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "e9458bf5794e67d9b094784adc530394fa7446daaac1cc3447883aa364988a3b"
+    },
+    {
+      "path": "packages/cli/src/cli/commands/page.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "dba60871bf86f00acbd86a58a662e55288652ed91379d1025018acf40aeca7fb"
+    },
+    {
+      "path": "packages/cli/src/cli/commands/resource.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "128582c89766ff0aec1c75b592b338c787b5ea873a50da2f35277016895976f6"
+    },
+    {
+      "path": "packages/cli/src/cli/commands/run-web-api.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5f7f6e47a76247715ed2a1a78e8dab8cc07dd248a3eaff282e330d2057f57e95"
+    },
+    {
+      "path": "packages/cli/src/cli/commands/runtime-flags.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "48e74714bf84daa44fc595ea41c7eaa73f0f35ac8e1ac067f3e863349d526cb0"
+    },
+    {
+      "path": "packages/cli/src/cli/commands/serve.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "e815d7dd1752c765481db3330e6db5578892209e4b77e7030e2f2eb7701129d7"
+    },
+    {
+      "path": "packages/cli/src/cli/commands/sop-notebook.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "ea05b5c7ca678ea4c7fd254ddb5967e0b9a04d1757033fd10b31c33610489742"
+    },
+    {
+      "path": "packages/cli/src/cli/commands/sop.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "8b22b4810a6feeae3d880a3d9d488a503b22b84b2c2c4127df5c2510c125a072"
+    },
+    {
+      "path": "packages/cli/src/cli/commands/status.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "4a03cd2433287878c5b0ad92a69bf736a2f1bc35d80e62495bf4d68890afb424"
+    },
+    {
+      "path": "packages/cli/src/cli/commands/upgrade-global.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "4a917c1c9789f88f1c36ae8793a6554b39b448a8db0beeee777562ce5a8b4fc9"
+    },
+    {
+      "path": "packages/cli/src/cli/commands/upgrade-workspace.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "dcbc8db7d2b3d85d83c7387be582d17ee24c616e2b37fba66e1d1b7dbc73984b"
+    },
+    {
+      "path": "packages/cli/src/cli/commands/upgrade.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "04e510251d37d7262e4f41fc218c3bdfdd8216df1191c09f3ce0ab318b390260"
+    },
+    {
+      "path": "packages/cli/src/cli/contracts/command.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "c31cfe720c32667bf2014adcada896f38ac7bb2b5f83f6b276da6d97cb0ea498"
+    },
+    {
+      "path": "packages/cli/src/cli/effects/browser-provider.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "76c810fcc00195d9d82b0c9f7feef513a0528f2bd8d5235cb1257c683f5e25af"
+    },
+    {
+      "path": "packages/cli/src/cli/effects/codex-desktop.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "b6112d381b833ff10e5f6533a27fd207c9cbda33c467b1a2321986e83f70e8cc"
+    },
+    {
+      "path": "packages/cli/src/cli/effects/codex.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "b3378129e9a4a65661e5e39802133c9f3b0ed744f51f12d1e792ca2667720615"
+    },
+    {
+      "path": "packages/cli/src/cli/effects/ego-browser.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "b88d22b5992b002ddcb65aad21ac8553f30b0f20a296bce63410679943b232b3"
+    },
+    {
+      "path": "packages/cli/src/cli/effects/ego-bundle.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "222302b42b9133ece82d417112d5310c973e016a614d3e0c15e4947aafa59e43"
+    },
+    {
+      "path": "packages/cli/src/cli/effects/ego.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "baa52472f303f8492ce7528531eb0bd298f873f2e173ef8f2e7adfd57d9e59b0"
+    },
+    {
+      "path": "packages/cli/src/cli/effects/mdd-browser-robot.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "6b523e0f62e74b5bb9ca72a51ba259fe056646258c9e8dceb95eff6ff1e4f24d"
+    },
+    {
+      "path": "packages/cli/src/cli/effects/opencli-plugin.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "7778eb1a3ad44e5d620dc1f571ded559907f12f84b8d5745b2ee3fe7184de166"
+    },
+    {
+      "path": "packages/cli/src/cli/effects/opencli.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "230d79e1e0dbd545b8804df8112f6ae454910a963f0d079bcbdfef1ca99fd7b3"
+    },
+    {
+      "path": "packages/cli/src/cli/effects/profiled-browser-web-api.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5bb993c2841d5c6e49d346d387297b58a0210fe3de2d89a0daeac7c0e339787c"
+    },
+    {
+      "path": "packages/cli/src/cli/effects/resource.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "77a97724f8ca5e4fdaa3ac5de012c95a8dd28c74ca3ca5fbbdd3570def9d7545"
+    },
+    {
+      "path": "packages/cli/src/cli/effects/workspace.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "21a6f0c070b258c4c17efb5ea7876e5aa2b92d764856465318ac27c7fd1cb886"
+    },
+    {
+      "path": "packages/cli/src/cli/global-install.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a6d4af008d1978ddde3a022c4b43c010c56117f0f1be4e1a7ac7c498408ec69f"
+    },
+    {
+      "path": "packages/cli/src/cli/http/app.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "e699b021aded81759dd99a3fedfecb249f21d7951d909ee6f547170646c73fd5"
+    },
+    {
+      "path": "packages/cli/src/cli/http/federation-browser-runtime.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "1adf66363401b4c829eabe9f0d7ef7dbbcfd3e1315ea8068b8da7f11211904f4"
+    },
+    {
+      "path": "packages/cli/src/cli/http/page-control.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "bb997afacfd299bc768983232a2834c1ec19836b433d6cd4d0df6dabe3e03b0b"
+    },
+    {
+      "path": "packages/cli/src/cli/http/page-instances.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "6962ea7279a845a59cb3839242d0e9361d492805855a63c89588727c4bcc9997"
+    },
+    {
+      "path": "packages/cli/src/cli/http/serve-effect.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "ba8c506c7a3ad975f14727a595c573449c90fb1de67b89d394242f3419cf0a4c"
+    },
+    {
+      "path": "packages/cli/src/cli/http/static.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "0b482a7bae415a8688ca61307df033abf2a094b7d5044ce58fe4c11e3c11c1f8"
+    },
+    {
+      "path": "packages/cli/src/cli/index.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "b123e8cb019753440836771a476b4bc418a484134f47e8d0df3bc6dd86625021"
+    },
+    {
+      "path": "packages/cli/src/cli/install.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a6aaaf830659473c4dc7984e0b8ddd0cbb861a8463f1f5bde426ab830f8f7d65"
+    },
+    {
+      "path": "packages/cli/src/cli/lifecycle.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "801bfb2b5f8f675a4718e1bab77f311d25f8d0ae1a6160bfdc9cd8ddf0061cd7"
+    },
+    {
+      "path": "packages/cli/src/cli/output.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "ec868b1e9e58c1ee3f67890e3e0232d315577a3a1bf2d5809d6c542dfc141a62"
+    },
+    {
+      "path": "packages/cli/src/cli/resources/app-package-materializer.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a4ab87c02e04b2703ae230e1f3d4514da9286b1b9ce558cd83821c0fbffb7b72"
+    },
+    {
+      "path": "packages/cli/src/cli/resources/authoring-package-materializer.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "c85c167cc9c24d26d0dbcbf6ad0a3b4878fcceb9c7ebf622ed163af608c52c91"
+    },
+    {
+      "path": "packages/cli/src/cli/resources/bundle-materializer.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "1c935563961c237e6441d28c9d197c90d22c7c76f28ba11a5cd5a8213e9fe9e0"
+    },
+    {
+      "path": "packages/cli/src/cli/resources/bundle-source-closure.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "4d9d08c4314388012c3f1fa835a34bab6e48c350e8e98a43fc153f3c3beb6988"
+    },
+    {
+      "path": "packages/cli/src/cli/resources/confined-resource-file.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "65fe76afb427f92a990ca36157857c1ac79cde787154b0a1fcf48e902e87af4e"
+    },
+    {
+      "path": "packages/cli/src/cli/resources/definitions.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "32ac14020759ccca57f17f8e8651d1ddaf42989d34bc2f1018797affcde9f7d1"
+    },
+    {
+      "path": "packages/cli/src/cli/resources/host-kind-projectors.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "4fdabfa2d5d573bb15d217868756b11bd3f015e340318f403e18d08617136d03"
+    },
+    {
+      "path": "packages/cli/src/cli/resources/host-package-materializer.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "04fc533b94ac604ac033a4bd4599dba57246c59083f8ad69f73da6551c8c609d"
+    },
+    {
+      "path": "packages/cli/src/cli/resources/host-resource-contracts.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "07e06d87ddb7a8b98de041257219d7f4f1ff26b0ccbef65a0da658cf7d8f9f39"
+    },
+    {
+      "path": "packages/cli/src/cli/resources/kinds.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "6bdad564b8e1bc684dde8c7c2750db39e4af961410dc92d7d5636ea83a0077cd"
+    },
+    {
+      "path": "packages/cli/src/cli/resources/package-protocol.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "61b83b494b7974fafefb8680ce5eb8e73299d521606335f6b778d4b753362a7b"
+    },
+    {
+      "path": "packages/cli/src/cli/resources/page-bundle-materializer.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "509b896fbe2232198ea457a049fe4d4be4ed1de3367238eca39b4593e3d2209f"
+    },
+    {
+      "path": "packages/cli/src/cli/resources/profile-configuration.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "82fe1f1ab650abe651c346de72798cf7645758a890db6ee43403d7f142ac7f7b"
+    },
+    {
+      "path": "packages/cli/src/cli/resources/schema-validator.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "85f1400cff0b7e7181c84f2b731a4b5a8b053202152df1d3fc653f0b4b8a61f1"
+    },
+    {
+      "path": "packages/cli/src/cli/resources/workspace-resource-catalog.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "22b9300931009db48d1c81cbdd1cc83198eb2994ded440e7157655f27adf3de2"
+    },
+    {
+      "path": "packages/cli/src/cli/runtime.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "ae02da3e178ecf3b877e9e288855b490b7fd25c30fd8f74e44ed6c0841f73983"
+    },
+    {
+      "path": "packages/cli/src/cli/runtime/browser-web-api.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "cd580781c75b83a8a081564478e2a9695d4be2eb0188ab6766023885e9ee5f68"
+    },
+    {
+      "path": "packages/cli/src/cli/runtime/ego-scope.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "8a40c652079a3e0eed781c8f55bdb0dbc479aec624ca755a3e5cd61f2e8a608f"
+    },
+    {
+      "path": "packages/cli/src/cli/runtime/ego-supervisor.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "c59c6b6f2b9a31b01ddd974aaac1b5e2ecf56c9231f323ee55e09e13a368d02d"
+    },
+    {
+      "path": "packages/cli/src/cli/runtime/exec-code.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "85c370e49542359af1bda6532fe67a3efa3e9df4f6cb1e15cc4391a56f321bf6"
+    },
+    {
+      "path": "packages/cli/src/cli/runtime/invoke.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "ffeee23053d553d15cfad90f01c2add0ea562fb5461bca145201db7c717c06d9"
+    },
+    {
+      "path": "packages/cli/src/cli/runtime/json-schema.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "8c45228a3ba3a1ce93f493817062b02e2b43d6c88541d7cdf43bc270168d4488"
+    },
+    {
+      "path": "packages/cli/src/cli/runtime/local-functions.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5da10081e7e4098b86faac70336d0ce45a406964eb12331e219a0739013102b1"
+    },
+    {
+      "path": "packages/cli/src/cli/runtime/mcp-app.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "bed5f3e27567eb06db43c4237fb99d011bc97df4e64e5d03b1daa70b7ad4f0c0"
+    },
+    {
+      "path": "packages/cli/src/cli/runtime/page-build.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "ed7679ffb2f5d8f02f493ad87396ca95b9665b236d41e57e8ad150c9ca0c2bad"
+    },
+    {
+      "path": "packages/cli/src/cli/runtime/page-registry.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "1ae099a86f2a73ac870c3d3ab1a2af3eeadf43d5fd4667eaa0d92781e6903062"
+    },
+    {
+      "path": "packages/cli/src/cli/runtime/page-target.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "dbc09c7034aefaf3c97716748dc27d324625be0c9005a6d1777f9f142a94db55"
+    },
+    {
+      "path": "packages/cli/src/cli/runtime/page-workflow.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "469e000a3c071ed88260e427c7588af82c7c15d1d3f6934607bef2856da3cc80"
+    },
+    {
+      "path": "packages/cli/src/cli/runtime/profiled-database.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "4ef76e2000250ccab935d58a1fa4d593c3a280a11776e22270a71d1b7adb474c"
+    },
+    {
+      "path": "packages/cli/src/cli/runtime/registry.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5c6cb3a634b38546105c2d3a25b4ae66220789f018e585c6fc642431a72489a5"
+    },
+    {
+      "path": "packages/cli/src/cli/runtime/serve-process.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "2a296c3112d9af1982362b7da71f0cfdeddcfcfff25bb6009e854d05abc152d4"
+    },
+    {
+      "path": "packages/cli/src/cli/runtime/site-registry.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "3cc3400e317c208d9bb045a8aeea9432236a7acc2c80b50a1eed3e5a4c136309"
+    },
+    {
+      "path": "packages/cli/src/cli/runtime/target-runtime.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "03510f9f0f65fdc45afb4590f2bc5fea63ea0c479177942cb36607ef9e697cdd"
+    },
+    {
+      "path": "packages/cli/src/cli/runtime/vue-page-builder.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "2de1ab53e5eb69eb6279db78e560764a2aeb97ef853c7f5a093404bcb91ce590"
+    },
+    {
+      "path": "packages/cli/src/cli/runtime/web-api.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "4d0ec4eeaae162093185df77594c56d75413f2fc584509d8feef26a15d054f31"
+    },
+    {
+      "path": "packages/cli/src/cli/runtime/workspace-root.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "117942f7d222d1416791337e95a6029abd3c1ef51c8eda232417e17f146bf4f5"
+    },
+    {
+      "path": "packages/cli/src/cli/sop/catalog.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "c014d3ec02c249eadc4c51b30bfb412dcadf57c9a8a132a22c1423f321d613ae"
+    },
+    {
+      "path": "packages/cli/src/cli/sop/contracts.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "baa4864c56fef719581c2def5de9d66d7175bab8019cb7ec2caaccacfb5132a7"
+    },
+    {
+      "path": "packages/cli/src/cli/sop/fqn.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "e3c6517fd3867704f11c0fd2b7492b99b1bbd66b10b833c47591473cd86d15e1"
+    },
+    {
+      "path": "packages/cli/src/cli/sop/index.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "48c8ec16a147b52db58827a85a348443cce5ffcf86746000fce43d5374888bff"
+    },
+    {
+      "path": "packages/cli/src/cli/sop/mermaid.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "b9e7c4e0ff17a84377a91120ce8689b41750c5437f7495c78f4becf0d9bcaa30"
+    },
+    {
+      "path": "packages/cli/src/cli/sop/notebook-store.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a63bdb0874db3a7d4ab4a5202e48925251667cd9a81c793ef6808c055bc760cd"
+    },
+    {
+      "path": "packages/cli/src/cli/sop/protocol.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "4ec1b1364dfae8673b6e7ac1d6df589709a96b3de175ba033c989b1fe59a15de"
+    },
+    {
+      "path": "packages/cli/src/identity.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "7ec468411410d21ffaa1c88aaf05be8a44aaa80bcf0408046b36c70a808c9c19"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/global/skills/halfcode-cli-lite-authoring/SKILL.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "e8a8fb0d533cb1f12595a58663626ecb0e8e79e37ef5917ae9f9d1d878e85272"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/global/skills/halfcode-cli-lite/SKILL.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "6285f6efdef81f1863c0df52e142e0551cb094a58a1395ca4e3bf72f595f38cc"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/global/skills/halfcode-cli-lite/references/freeform-sop.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "e1785ac536ac2484e2a4cb9fd846767dd1bedabc2009b13e5053bf199bd66277"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/global/skills/halfcode-cli-lite/references/typed-leaf-sop.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "02d727a80fe502de272fd03df2bd6d40c06ed94def3fe2e664a414c3c67bcfa1"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/global/skills/halfcode-cli-lite/references/typed-pipeline-sop.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a70814f5d829cd3cc3feef2094ba41352c33b4390eac38360975620a0e02c388"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/global/skills/halfcode-cli-lite/references/update-sop.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "3e04dbd5aec5c430a7934857b434bf35804edd8afb5b85cfc2d333ee2801acfa"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/BrowserWebApi/bundle/index.js",
+      "kind": "file",
+      "mode": 420,
+      "hash": "bf93382d2c8401a9df97a2542113dd2b00315766c8a7a6c727ac4690bcf0c5bb"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/BrowserWebApi/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "1ae8cdd6061cd29ac3b6d3eaab40afdd3ebe95c0877de98c7ede77b043697f0c"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/DatabaseConnection/demo-cache/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "8752b6619b7466ea9694dfce60ed028c9a05f75bb5c0e30d319d2901d02333e0"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/KindDefinitions/BrowserWebApiBundle/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "62d7ab4099677051d0ac17f544a50311120af2d2286e54a62b9d11439760d042"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/KindDefinitions/ConfigurationProfile/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "3d8df8f192bde7ca0f80abb807424525f3b5511fb905b9686fb219f46ccc6dc7"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/KindDefinitions/DatabaseConnection/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "633dab8061a45a5e2cb775c1de377b2be7e2b35764f88d16dcd39c8f3260c7fc"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/KindDefinitions/HostBundle/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "3ac83d43af969ea36465515292752122ee8739cd90ab74bcf1feeea0aa1aab16"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/KindDefinitions/LocalFunctionBundle/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "45f349fcdcc4156ce2c8f5f19dfce579f971b929983874362ffa9e5288ba83b6"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/KindDefinitions/McpApp/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "0afbcaaefa04b044053f28aeed162b4ab87b3919ed47376afa50553dd34395a7"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/KindDefinitions/Page/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "2975d43b5b3820f027ebd15d181adbfd47aac08ab9b5ce2ea086f652c65cee2e"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/KindDefinitions/PageBundle/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "11bc7ed57f344b48105fa625f4abe54e22f567fc12f4df76a822c2f71e87f1f7"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/KindDefinitions/PageObjectBundle/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "2e735078701bd3fa8541481d844556337f1efd8852c4b983db31ba46f13740d1"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/KindDefinitions/PageWorkflowBundle/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "dbeac89441885a54dd3d3b0a44aabdef20f23dac30983fdddf547660e57fbb3a"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/KindDefinitions/SOP/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "d38e9625f28d14a0e4ee1e455bf2c6d20e254596868bccf24af3b12b757bbeb7"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/KindDefinitions/Site/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a9ca34aff9fa2dda2358536ace89884c73d45f9cca38113cfacbbec2997c4ae9"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/KindDefinitions/SkillApp/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "219d5af84065b2060b3ad5a3d482803a7cbf76296a8126fcae438710b740a29f"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/KindDefinitions/SkillModule/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "3697addb14673a50801e55a700f4bdaea7d13f102e321696986c807676ad54ef"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/LocalFunction/bundle/index.js",
+      "kind": "file",
+      "mode": 420,
+      "hash": "c3a7ec29dc00cd98afcc510a5656c7216baf042c8831140df23023e0d4f17ef6"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/LocalFunction/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "83eb443e6b5f391f6cebef5f5957f87e3ab365653eaaef53c907807f689c557e"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/Page/live-vue-dashboard/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "8cb974c028d1472d65673490393d6d4c64363cd522386d4eddb6448052792c99"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/Page/live-vue-dashboard/src/App.vue",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a7dc3bf59b12551e517551d638ad91d1b274d79fa3ddfd9c522b4478f65fc6d9"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/PageBundle/html-guide/introduction.html",
+      "kind": "file",
+      "mode": 420,
+      "hash": "dc7d215df894baf8ea3f0c3ca02c79a40d01b3f029dcc55af7433a23062d4318"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/PageBundle/html-guide/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f9a9f18b2c7eef9a6ddcf0100ca04695b3aa4d7d9ff10bf7a371a94c1732feb0"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/PageBundle/html-guide/reference.html",
+      "kind": "file",
+      "mode": 420,
+      "hash": "97678ae58a3279c40e444d408596d8818c2ded7a87b74f4a9baf994327006917"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/PageBundle/vue-workbench/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a0b5d6aa3be5ff23de1d71a79e36c03ccf1d3cfc38db83bc84ce873b2c1fae1d"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/PageBundle/vue-workbench/src/App.vue",
+      "kind": "file",
+      "mode": 420,
+      "hash": "ca2e723e191e3b31e2aece63c29c7175df39c7ddd79aeaf986b5c6e45f0f022c"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/PageBundle/vue-workbench/src/components/RouteCard.vue",
+      "kind": "file",
+      "mode": 420,
+      "hash": "41e98aab36d67ca73f081f3422accce3776da81519d93c779b5f63229c0aa174"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/PageBundle/vue-workbench/src/views/DetailView.vue",
+      "kind": "file",
+      "mode": 420,
+      "hash": "d0cb8d9c1c418e87fc1d43ad31919f6a6ba754f43c5102ba3aec23a2318a4665"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/PageBundle/vue-workbench/src/views/OverviewView.vue",
+      "kind": "file",
+      "mode": 420,
+      "hash": "9f8ac855c08481e71ccadc341e6f13ec74ccc4ff641e9745d73fc39ca1563213"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/PageObject/bundle/index.js",
+      "kind": "file",
+      "mode": 420,
+      "hash": "b9ae1d9a147f6747c5777d88934cc00ab3d541e1715a3724bbba2d01ab823ab6"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/PageWorkflow/bundle/index.d.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "66a01f6c8ff10e7203ee6610c027ea4cc374af665d363022f7c3d8d549408c57"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/PageWorkflow/bundle/index.js",
+      "kind": "file",
+      "mode": 420,
+      "hash": "895982820869887683348262f04c0096354e437c4937be857f2efe931886531a"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/SKILL.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "e93533c91d9130f4255d5bda38b57c1149454081dd2a95abbfd90640d450405e"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/Site/halfcode-demo/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "d7a256fdc40602d7a0620fe12645a05d5fe62455f7db744aa631f29a42151955"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/config-profiles/personal/app/web-api-endpoints.yaml",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5f2260f8d88d971582a5692a27c1d2f2dab559a6267844b4cbe3cc278d6756f3"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/config-profiles/personal/kinds/DatabaseConnection/demo-cache/connection.yaml",
+      "kind": "file",
+      "mode": 420,
+      "hash": "faa68350822483df2cda01fbbbda828ab91ff5f5b33d2409de3bfd56eeeb510d"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/config-profiles/personal/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "d5b4f9e4331f3879a4f2da7d311031d44ed0f10b61e2ee01e22a6e51534c4929"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/config-profiles/sandbox/app/web-api-endpoints.yaml",
+      "kind": "file",
+      "mode": 420,
+      "hash": "50171fd3595379d329ffea7f7dbbd2a035bc3288013517741487eb2c2d923867"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/config-profiles/sandbox/kinds/DatabaseConnection/demo-cache/connection.yaml",
+      "kind": "file",
+      "mode": 420,
+      "hash": "2bec27ce6c25fe927e988a04675c7868b60a808b427fdc2687ce3350b31c7a4f"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/config-profiles/sandbox/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "147c29cf3eaa20e5175830a3764ee7e84342c5ec47f90e8b377d79205892eb13"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "9a710a95d4d8718999f0f48e5fd6e6e893aa7acda2c3e2290992fcc792254c1a"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/modules/google-search/host/adapters/page-object.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "8dddf3a281429387e3b58a3ac2c17092aef90f33b1ee434fcbaf050a6a7df9b3"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/modules/google-search/host/adapters/page-workflow.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "74d42f8f14d38cbe9e0c713b3e8751f0fc416c3697a8950fded25ba4881c6c73"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/modules/google-search/host/entry.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "6613b431824f49ce2ab3a0956290766e3f10325610a0746a255c16a6c8493b6d"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/modules/google-search/host/logic/contracts.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "3ef536d4f0cadc0b7c93aa970a15f943732a70b5112396b97100748abae6cc30"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/modules/google-search/host/logic/search.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "6ec5cd485255042e6b5c0471da6dc60cbaa183424fa34c55775afb96257ed1ed"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/modules/google-search/host/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "ea6cdee8e0de368110b54162c9d683ae2c2cc067943e95994247d2bd79f1f6bf"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/modules/google-search/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "04d72bb7d00ce3de9883baf972ca6edc470b7362c5f4b8ff2f7b61c9231430fc"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/modules/google-search/mcp-apps/GoogleSearch/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f452e0d08318d4a3733f44748e3d5bcebd84b6ced983e9ca03e5a3adf5e67d41"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/modules/google-search/pages/google-search/client/app.js",
+      "kind": "file",
+      "mode": 420,
+      "hash": "432a0b1e15de9ed907115e66e2b66446773d755569a3b78ed2b0bda713265c50"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/modules/google-search/pages/google-search/client/view.js",
+      "kind": "file",
+      "mode": 420,
+      "hash": "4997c22efd5c712e30ea825a1bb140e6d4b72ba8f116c097ef6824cb4f6f5562"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/modules/google-search/pages/google-search/index.html",
+      "kind": "file",
+      "mode": 420,
+      "hash": "4105b026dd7d10f448ddd24864ea6500912623c7e219bb8c35bd13994a140e46"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/modules/google-search/pages/google-search/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "c9ace3f6752425d97bf9be679f9df55e0bb13da002d335835d64bbe85e13cec6"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/modules/google-search/pages/google-search/styles.css",
+      "kind": "file",
+      "mode": 420,
+      "hash": "3ff22affab40eabf3d4b87924a23bc39eefde72565a7aabd9f6619cc451bb4af"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/modules/google-search/sops/halfcode-cli-lite-demo--sop--google-search.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "00165c3251bab1a2317c3da30969c8e1ada0e793c20ff30df54b4d6c38aa9754"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/modules/owid-open-data-export/host/adapters/page-object.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "874ed0f7bb839693f8c1cf84f42a4ff1331c46f62e25e2b1ee0ebbc246902b8c"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/modules/owid-open-data-export/host/adapters/page-workflow.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "8d37ea84e1cbdb9132af765463da19c70687c89639374b1a58c2fb2a3c621eec"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/modules/owid-open-data-export/host/entry.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "42723988b379b6da33602b2fe4d155347aa9f3417364212ad199c71e47266624"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/modules/owid-open-data-export/host/logic/contracts.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "6918ebb07bac135905e949a0304f28515a09f5f3d2f3010a64926c1bf1f2b65b"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/modules/owid-open-data-export/host/logic/owid.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f333ba5a7f93b167c05386ba4e5575f9f76d6148f91ea645fcfeed774ef6589f"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/modules/owid-open-data-export/host/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5736026e8f673a9e63ca75b598c3a24eb37dec5d5cfb6a27dc1545f25dfac9b3"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/modules/owid-open-data-export/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "433bcf0e8f99c9d751b47e1868a6bfbd215238cdd36b65ca74007f4c9d37c279"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/modules/owid-open-data-export/mcp-apps/OpenDataExport/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "d885c444c7ebb9fae30a0966ab5fe3b898ea0140dd5612a4e8960bae2b1430d2"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/modules/owid-open-data-export/pages/open-data-export/client/app.js",
+      "kind": "file",
+      "mode": 420,
+      "hash": "d6618a423a5b41ed222188a9e4ad9a7f6395ccc72cffbd5b24bb6a4bdfa7b943"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/modules/owid-open-data-export/pages/open-data-export/client/view.js",
+      "kind": "file",
+      "mode": 420,
+      "hash": "8f8c9bed16f50753ddecadad3c7116acac30f3a0fb1e5bc30025ed80120b530b"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/modules/owid-open-data-export/pages/open-data-export/index.html",
+      "kind": "file",
+      "mode": 420,
+      "hash": "9e2c49125aabf8b320172030c58248391b3f92c52fca3528348a1701c9fb4374"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/modules/owid-open-data-export/pages/open-data-export/manifest.xnl",
+      "kind": "file",
+      "mode": 420,
+      "hash": "0b936759c6e2f091d92708fd5b95c0068336946c4f5f51bcc4a610c12342a171"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/modules/owid-open-data-export/pages/open-data-export/styles.css",
+      "kind": "file",
+      "mode": 420,
+      "hash": "e623fd4d6d640e85be17f14beba2c40a18d04212330c99def9c993157ced0455"
+    },
+    {
+      "path": "packages/cli/src/templates/agents/workspace/skills/halfcode-cli-lite-demo/modules/owid-open-data-export/sops/halfcode-cli-lite-demo--sop--owid-open-data-export.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "dfc14ef557d02e1fa34fadbe04b2fc29620ece036896408a681f8e7524caa074"
+    },
+    {
+      "path": "packages/cli/src/templates/private/global/opencli-browser-fetch/browser-fetch.js",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f2d09748078cc4f15b758ab7993169ee6fcd177e6abb25053a61821d7baba76b"
+    },
+    {
+      "path": "packages/cli/src/templates/private/global/opencli-browser-fetch/opencli-plugin.json",
+      "kind": "file",
+      "mode": 420,
+      "hash": "129bd01e2e8e2462a4ea0404b95c73e32f25f40d5fc6d5706c71dc47f8fa6def"
+    },
+    {
+      "path": "packages/cli/src/templates/private/global/opencli-browser-fetch/package.json",
+      "kind": "file",
+      "mode": 420,
+      "hash": "65a3c05d3cf3b06fb602859fcbe937e71c9188f1f2a2b2a5512966e07a28a5b6"
+    },
+    {
+      "path": "packages/cli/src/templates/private/global/opencli-browser-fetch/request.d.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "60f9dd62af0cd03c1d91069af44bc97c01dbf18f7028ecf053b45013a428b653"
+    },
+    {
+      "path": "packages/cli/src/templates/private/global/opencli-browser-fetch/request.js",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f6bad9c31bcd9ac3785479fabf2422d50fed03a1ddaeb4fa9494d0e93d3074a2"
+    },
+    {
+      "path": "packages/cli/src/templates/private/workspace/README.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "0892d8f128d7305f7261ea44fed23278eccf1d79de371e3a31cf9123672e243b"
+    },
+    {
+      "path": "packages/cli/src/templates/private/workspace/workflows/.gitignore",
+      "kind": "file",
+      "mode": 420,
+      "hash": "240a3e0d37d2e86b614063f5347eb02d4f99ca6c254de6b82871ff8d95532a7d"
+    },
+    {
+      "path": "packages/cli/src/templates/web/app.js",
+      "kind": "file",
+      "mode": 420,
+      "hash": "d96145fc952adba9f630ac3b7b9f0f3aa52fd0a4b32cd1d4a9c36e952e0425ed"
+    },
+    {
+      "path": "packages/cli/src/templates/web/bundles/ego-skill-api.js",
+      "kind": "file",
+      "mode": 420,
+      "hash": "ac52cbe2470ab2914bf0c7a4a7437f3b96df9364d7e596b4729f1e472c99e449"
+    },
+    {
+      "path": "packages/cli/src/templates/web/ego.html",
+      "kind": "file",
+      "mode": 420,
+      "hash": "3e25e2f21c20551701fc70da2d8401e102daea88e61e9a928046e83fb3e068b8"
+    },
+    {
+      "path": "packages/cli/src/templates/web/ego.js",
+      "kind": "file",
+      "mode": 420,
+      "hash": "72e37e780fe502b28a7a5afc00f1895811fb4c79af55fd05357f42017e8d7a72"
+    },
+    {
+      "path": "packages/cli/src/templates/web/index.html",
+      "kind": "file",
+      "mode": 420,
+      "hash": "e406de8c0d2299b3d36ecaecde4f576bc2ba9b6e038df3d25b78b361f8fe7771"
+    },
+    {
+      "path": "packages/cli/src/templates/web/page-runner.js",
+      "kind": "file",
+      "mode": 420,
+      "hash": "75da488b2bf3a9728f8753fbc42bf6b41d1c4ebcc5433a64a6c120f02dc5f80e"
+    },
+    {
+      "path": "packages/cli/src/templates/web/page-shell-state.js",
+      "kind": "file",
+      "mode": 420,
+      "hash": "625350fd7137b279c6f14c81b8f1aa9256fbcfd529adf815e1ceb64864bae850"
+    },
+    {
+      "path": "packages/cli/src/templates/web/page-shell.css",
+      "kind": "file",
+      "mode": 420,
+      "hash": "7cb494e7153fb57924d9543ca607724e0a81cd113547fe3cf8bd6164b24ae304"
+    },
+    {
+      "path": "packages/cli/src/templates/web/page-shell.html",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a68a32074047d213d348b38314cea56ae4d5466e8e0ee4970cc27cfa7f11bf77"
+    },
+    {
+      "path": "packages/cli/src/templates/web/page-shell.js",
+      "kind": "file",
+      "mode": 420,
+      "hash": "e86176e92d8129a6c94326f99fbacfa47574c4f1ec11ff52dba4aca1b0507d05"
+    },
+    {
+      "path": "packages/cli/src/templates/web/pending-records.html",
+      "kind": "file",
+      "mode": 420,
+      "hash": "8d069e04d127a5d7cfcca5dc87b4b8fd9e0fc502570ea95e15d3562bc6481dd5"
+    },
+    {
+      "path": "packages/cli/src/templates/web/site-host.js",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5900babe6885d4ccf2c9f460e4ead80061f9301a1e1f721cea0c99c2ca5453aa"
+    },
+    {
+      "path": "packages/cli/src/templates/web/styles.css",
+      "kind": "file",
+      "mode": 420,
+      "hash": "0beff5cc01a5abecb982373362207e2d8484134913a93be40500bde2e5b1cfc4"
+    },
+    {
+      "path": "packages/cli/src/templates/web/vue-mf-runner.js",
+      "kind": "file",
+      "mode": 420,
+      "hash": "7957fe605d85bddd9d167e9b2b32e28bb32cff4a451141c5351aa7f7e8907b0f"
+    },
+    {
+      "path": "packages/cli/src/templates/web/vue-page-frame.js",
+      "kind": "file",
+      "mode": 420,
+      "hash": "7dd4c81ab0c6d747602948c02f139b3bd850e2ae12b0a4a1c513c857208f99e0"
+    },
+    {
+      "path": "packages/cli/src/version.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "dee03ba31d1a7bbf947a7548308e01f7978a0eea2fc8507317f2d692ac500c19"
+    },
+    {
+      "path": "packages/cli/test/cli/browser-provider.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "0d2a5dee8c55f35ee6118f79a05f5a912bdbfcd59951ab44e3a049de57752e1c"
+    },
+    {
+      "path": "packages/cli/test/cli/bundle-materializer.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "9567d17aa661a1c5edcd071a4283e4928c57f140bc4f853b6176321d2664416f"
+    },
+    {
+      "path": "packages/cli/test/cli/codex.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "8bd5e11e3b0d0b06a73a1bec308710235dfd02a1a4efa79e9fa084355283a341"
+    },
+    {
+      "path": "packages/cli/test/cli/command-registry.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "31fcca52c1312991dca6dbbd70f0d824b3c9ae076026832a4ffdac60b44656c1"
+    },
+    {
+      "path": "packages/cli/test/cli/contract-admission.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "ecb4da14ede6976026de29878c583be48e8bd7a7609b036dae5dc7710baf8a21"
+    },
+    {
+      "path": "packages/cli/test/cli/demo-resource-contracts.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f03c76ef89202c2ebacd3aa1ca9ee5de7a302ba8763118d56cfdb89de7f08938"
+    },
+    {
+      "path": "packages/cli/test/cli/ego-supervisor.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "ae7e2ec8749471917ee9ee0984f309b0b35bf3bda51119c76ee04bff93f9441b"
+    },
+    {
+      "path": "packages/cli/test/cli/google-demo.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "2bc6ee7d243292c8f95abb2a40917a7f722391e5c34fd5b85a37e65be3857b37"
+    },
+    {
+      "path": "packages/cli/test/cli/host-resource-contracts.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "2103ac736508022fdedf223667e97bd9373b250ca6fb71034d91b23766cad4a0"
+    },
+    {
+      "path": "packages/cli/test/cli/kind-native-resource-cli.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "469331383a714c0085c7c6739100dae5c951d41ef80b7475c18230cca5da9308"
+    },
+    {
+      "path": "packages/cli/test/cli/local-function-runtime.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "730b2e8beee6f6dce699b5d4c881d71582bf519ee4c56f0e565d3e89eacec3e9"
+    },
+    {
+      "path": "packages/cli/test/cli/mcp-app-runtime.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "7d150a1db1b039475a80ac72f79fa15bb0ab5477cda8383750eef8f10baa5e17"
+    },
+    {
+      "path": "packages/cli/test/cli/mdd-browser-robot.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "83b0b21a0855aff8bef3758d345fa112c61aa29b702e1e71c9dfa04d005ba52a"
+    },
+    {
+      "path": "packages/cli/test/cli/opencli-command-integration.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "d602b329453738185fea1f4665878d401bcd04f4cf298135ecf1ad62b233fc1f"
+    },
+    {
+      "path": "packages/cli/test/cli/opencli-plugin-resource.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "bb06164308ae1b213286dc80a74ad34bd50b3a0949b663cc3cfb2707f2ad7e10"
+    },
+    {
+      "path": "packages/cli/test/cli/opencli-plugin.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "abc88503605a05da8abbb080dcdd49e29fd1f49f1fb35ac64f04cd91eb2c8e2c"
+    },
+    {
+      "path": "packages/cli/test/cli/opencli.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a2b3c5d1254bc65b38de106a213e2484e9ceca6c6f0b11ad619cee0acb029c9f"
+    },
+    {
+      "path": "packages/cli/test/cli/owid-demo.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "41547440261da9dd5fe905bdd94179b0c72681b3882abd992743c53132f1c310"
+    },
+    {
+      "path": "packages/cli/test/cli/package-app-module.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f1d8f25313d6bef583c6226b958ae2d104fc08a077dc6bbe080543fc22a50860"
+    },
+    {
+      "path": "packages/cli/test/cli/package-host-bundle.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "52f34b10f6d6d2c0aaad91e704606d286d8b8d654d24f39cfb2ee31b518e446f"
+    },
+    {
+      "path": "packages/cli/test/cli/package-page-site.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "aaa9d20fabf8f2d8fbdead31f3c326d67c9071c7c6ac6f12e0539e2a9400306e"
+    },
+    {
+      "path": "packages/cli/test/cli/package-protocol.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f78edcd79d46bd7c1e22355afe84c4eb596a0d9d7b3565cd1a6c93a33ba05a7c"
+    },
+    {
+      "path": "packages/cli/test/cli/page-build.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "935fd2eafa337e6dc9e148e6fa00c374723f2edc03e6bc68d45f9666f613e3ec"
+    },
+    {
+      "path": "packages/cli/test/cli/page-bundle.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "72bfdf90c3000c34eb6d3a614de0f1deb2579922958dde488bae73ae565db3d8"
+    },
+    {
+      "path": "packages/cli/test/cli/page-runner.test.js",
+      "kind": "file",
+      "mode": 420,
+      "hash": "c1f3e946b495c7800708d590b2a03a00a7bf85667c98f54754f02380e21f7a21"
+    },
+    {
+      "path": "packages/cli/test/cli/page-runtime.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "885f9ee423d8d203bd3f85420cf20c9c9b8339b955d98d486ba1ce9b21342a64"
+    },
+    {
+      "path": "packages/cli/test/cli/page-shell-dom.test.js",
+      "kind": "file",
+      "mode": 420,
+      "hash": "de4a01b6a537f96520067386bed362e0d261b50dffc716933aab29a57ba345d2"
+    },
+    {
+      "path": "packages/cli/test/cli/page-shell-state.test.js",
+      "kind": "file",
+      "mode": 420,
+      "hash": "72121acc578942ce8b4798db7a843db94ff2581939f1d79d0722bf75e5b9f663"
+    },
+    {
+      "path": "packages/cli/test/cli/page-shell.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "c0ea88e8540e9bba768fa9e3cb80574040a2cc7179bac30c6f96e190c1a072e2"
+    },
+    {
+      "path": "packages/cli/test/cli/page-workflow.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5498273ce03a2d68efb246756aa49e02a4b590a3a729e5bfc7f58ef1c8c08084"
+    },
+    {
+      "path": "packages/cli/test/cli/profile-configuration.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "0de2edde7b06e0b3e3668751b9ad1be61793a4ac74e57479717f281a6ad72305"
+    },
+    {
+      "path": "packages/cli/test/cli/release.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "ca26a49bcc83166b5eba0e506fb49eee91ea0fda26f8982a595a57451570b8a3"
+    },
+    {
+      "path": "packages/cli/test/cli/resources-install.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "0ba803c647e9c887aa7cd2b56e4a6f3bad7664d7c14aab01e0161670c8748e0d"
+    },
+    {
+      "path": "packages/cli/test/cli/serve-lifecycle.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "db9100a26052f6aad5d1e1ebcfd55c200fb85f29f0aade49d749277330821d14"
+    },
+    {
+      "path": "packages/cli/test/cli/site-host.test.js",
+      "kind": "file",
+      "mode": 420,
+      "hash": "acc59327d45cbf972e53d71a191f9fe3fc1f6f0147f606bf602b74da833d72c7"
+    },
+    {
+      "path": "packages/cli/test/cli/site-runtime.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "98277b1ace09566abd44d1b5783d6855815495dff0aa2b6b3b26757293b8edd4"
+    },
+    {
+      "path": "packages/cli/test/cli/sop-capsule.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "ecae5de11ab7318ebee2223b0113d010d68f92d4b29e5629e5f261d74bb5c69c"
+    },
+    {
+      "path": "packages/cli/test/cli/sop-catalog.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "8276a265b9d3f429970a17587d2eca3e849583951efcf6bec37cc6d3b84d9834"
+    },
+    {
+      "path": "packages/cli/test/cli/sop-command.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "77db4361598784ea8e13245723081e840a0c9a12064a2d04a033d70050366a4a"
+    },
+    {
+      "path": "packages/cli/test/cli/sop-notebook.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "2b279fbf2725ea31e884c0b3b511869593ade73cba50ba6918befe6d861fefc7"
+    },
+    {
+      "path": "packages/cli/test/cli/sop-protocol.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "23abff0e1e27ec4826135681edbc2d8fdb7082f6ff300d685faebfa07904c805"
+    },
+    {
+      "path": "packages/cli/test/cli/vue-demo-template.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "01fe98c5723f830d2e68fb0e9848faf673e8fc282d4e36ac1c78bdeb77aa7f12"
+    },
+    {
+      "path": "packages/cli/test/cli/vue-mf-runner.test.js",
+      "kind": "file",
+      "mode": 420,
+      "hash": "db032022c7b52626ce70f7663d9bb292c01b6bcba90b291b544246f3abe4f498"
+    },
+    {
+      "path": "packages/cli/test/cli/vue-page-builder.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "fff51a926cd254ab41c3bc79f38a3361a87bec7798ae4baed86679b98d2d606f"
+    },
+    {
+      "path": "packages/cli/test/cli/vue-page-integration.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "e42879002f890ee8e8ff3fb80bd0f42361c31a6ebeaf247bb4846cf8339c865c"
+    },
+    {
+      "path": "packages/cli/test/cli/workspace-browser-config.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "4f6851fb0a2f384c6be006c31a83387fe6b4d4104cda9300e48366cf8d4a7911"
+    },
+    {
+      "path": "packages/cli/test/cli/workspace-resource-catalog.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "dff5f871a376e89b49fa9a8355ca1528541223d8b7c24988bac82cc634831dcd"
+    },
+    {
+      "path": "packages/cli/test/fixtures/opencli-capsule/SKILL.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5b21a266323ad03589d2f904476f25fcb619da12e052e1de905517524434f045"
+    },
+    {
+      "path": "packages/cli/test/fixtures/opencli-capsule/browser-functions/bundle.js",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a5b8129bff3962a2757285d75ad037a6cd2e20678414532c0c433ae4a4ff0c48"
+    },
+    {
+      "path": "packages/cli/test/fixtures/opencli-capsule/browser-functions/items-list.js",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5a0636399d028a9450aae04c3a6d25706d1b9231a5cda133051fd2b6d13a3b71"
+    },
+    {
+      "path": "packages/cli/test/fixtures/opencli-capsule/browser-functions/registry.json",
+      "kind": "file",
+      "mode": 420,
+      "hash": "0fd69120d335c69868000063c7e2e660b68bb86785fee73403e2b9e64a64e3e2"
+    },
+    {
+      "path": "packages/cli/test/fixtures/xnl-skill-app.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "9a249aefdd112c61726e62d10efea6b189d878a8cc41639e25545b3b0d23c154"
+    },
+    {
+      "path": "packages/cli/test/scripts/clone-safety.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "366c51207b5af3079923af53f102bc92e3cd5fb5320240f01ede3acdd0b710f1"
+    },
+    {
+      "path": "packages/cli/test/scripts/clone.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5d8de610b7323ec352ad5cee551607887d60b40db8aae931c8f191af983c64e5"
+    },
+    {
+      "path": "packages/cli/test/scripts/sop-residual.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "1321bcbc0ef221c5e94fda345e958ccf8608b2da6f8be3abda295ae65b5b762e"
+    },
+    {
+      "path": "packages/cli/test/scripts/verify-mdd-browser-robot-provider.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f9f636b9b2868557810986f116e3acebc0ec945529bb1d4e4750c1656efb63dd"
+    },
+    {
+      "path": "packages/cli/test/scripts/verify-xnl-bundle-integration.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "46d7750b133f1aa60ba92890c54020508f19e155a1c7dd207826d94f00dbecb5"
+    },
+    {
+      "path": "packages/mcp-app/README.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "db12c1f5978549f556f0c217fac0024837f513c4e2a833aa105e0b86983682d2"
+    },
+    {
+      "path": "packages/mcp-app/package.json",
+      "kind": "file",
+      "mode": 420,
+      "hash": "bada5f71ba09e92c31f100ca402ad2805786f39468861b2d3384ea8f211fb077"
+    },
+    {
+      "path": "packages/mcp-app/src/contracts/json-schema.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "34c4e1b7a572a0833f968734bcf3d26fe9f1143de6bf1cbb8969c05550a731af"
+    },
+    {
+      "path": "packages/mcp-app/src/contracts/mcp-app-runtime.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "34b59c52e8b946bb161e07a29ccb25bbe624a23e52ef62acee33db8e3beee9c6"
+    },
+    {
+      "path": "packages/mcp-app/src/contracts/page-target.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "3fc9f2b54820e7d5008833e0a5e5de1c2f1cdb12d2490453e288fc7b55975e45"
+    },
+    {
+      "path": "packages/mcp-app/src/contracts/sop.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "10a1740cbf862ba37bc7f8eb6456f1dc0fe448da36ca368cb0526e6f2524e8c4"
+    },
+    {
+      "path": "packages/mcp-app/src/index.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "b463e40e81577f783cc56759cd37ff8e1903833b06bbb811ddad9fba27e579c1"
+    },
+    {
+      "path": "packages/mcp-app/src/logic/build-agent-message.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "0a681f2e6f7b0fb5882397ed998d342593afd198efdcc402f40b64b7f73224e5"
+    },
+    {
+      "path": "packages/mcp-app/src/logic/build-ui-resource.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a47ec19ddec92010e398ad13b61e061ce743f83e7afb030b57a20d6904e7ee42"
+    },
+    {
+      "path": "packages/mcp-app/src/logic/create-tool-catalog.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "92c400ca7c58bae5763527d00d01f5e6005730f850d7703266b47f23b7b4a7d3"
+    },
+    {
+      "path": "packages/mcp-app/src/logic/json-schema.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "929bf149a8b97e64ecca413df3c9bbd7d168baee33b93c0cb2dd8b9e4cd21eeb"
+    },
+    {
+      "path": "packages/mcp-app/src/ports/render-config.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "4cdca2ead6012e785e884bc09ee5ce233f5c82a9a9d032c8b9fa74c71bbc2038"
+    },
+    {
+      "path": "packages/mcp-app/src/support/create-mcp-server.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "86901f4aa13506443f1ab06cd771aaf8f36ab4c857ccbb1958916ffea9c14127"
+    },
+    {
+      "path": "packages/mcp-app/src/support/page-target-store.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a97ae047f79897e2a3d39914c0b3968e6d787e110fbc9e9a830faba467691fba"
+    },
+    {
+      "path": "packages/mcp-app/src/support/stdio-server.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "6e2009822e07874e6aa3fa9ff37c9251359f123bc65bb9464c54d3b90dfeda5f"
+    },
+    {
+      "path": "packages/mcp-app/test/google-workflow-integration.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f79387e0767d12dbb16af550b15e2ba00023374b9a5e2c3b1a7b30efc923b361"
+    },
+    {
+      "path": "packages/mcp-app/test/page-target-store.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "71c191cc86f4ce70b079a3eaa906aa7a41f31ba52b659a8a9af72ce9f78dbd11"
+    },
+    {
+      "path": "packages/mcp-app/test/protocol.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5fc488e7cb3dfc9efe4007ee151415dbd2dc669935aa33ca72b15438356c6b1b"
+    },
+    {
+      "path": "packages/mcp-app/test/view.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "57e68eec76a1b2c26fbf91bb286b0e995355f66a0d7d0845c425756d1179c8c4"
+    },
+    {
+      "path": "packages/page-builder-vue/README.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "219e99739af51d5b66f52b8e37afb8df10c77bb88db1b3973245917169d921e3"
+    },
+    {
+      "path": "packages/page-builder-vue/package.json",
+      "kind": "file",
+      "mode": 420,
+      "hash": "cd3f390a61f9aeaccf9f11f8fa2c4df52df5dc53692fc2ac4c3a2c5e2f7ed17a"
+    },
+    {
+      "path": "packages/page-builder-vue/src/index.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "ce6a74d3a35840f59fda1c209bcbb7e88fbbcf81eed4778b849b4c55d6d2ff43"
+    },
+    {
+      "path": "packages/page-builder-vue/src/page-sdk-vue.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "ba4379b3d8249a281ada340c3950a0ccd84589f0cefdae9169dfd0aaed0438f0"
+    },
+    {
+      "path": "packages/page-builder-vue/src/worker.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "9004b7b2d7dce3f3408151603b1c0b45419df097f6223d067a0724be106b2662"
+    },
+    {
+      "path": "packages/page-builder-vue/test/builder.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "bd6e7a7325f2f3cae360ab6594c8d1eb2e505eef3e6145f6faf223eb1092c11a"
+    },
+    {
+      "path": "packages/runtime-darwin-arm64/README.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "54c2a50c9ca943f6d5d34858696782d404a2b9be82dddb65d15d2272acccb633"
+    },
+    {
+      "path": "packages/runtime-darwin-arm64/package.json",
+      "kind": "file",
+      "mode": 420,
+      "hash": "1e7182adbafb050799e5ae2874872a0db1d89e1fb50d0a2ac6642379bf99b296"
+    },
+    {
+      "path": "packages/runtime-darwin-x64/README.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "43adf4277fac9c034f559b15b1df9b6e693cdcf8d4153cf961efc34765835a2d"
+    },
+    {
+      "path": "packages/runtime-darwin-x64/package.json",
+      "kind": "file",
+      "mode": 420,
+      "hash": "50442cd6f30c79f7fc80b35438d26eece945ae23da1ee6ca9a57e95082089172"
+    },
+    {
+      "path": "packages/runtime-windows-x64/README.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "cc563e2893050af38ea58e48d8a661bd27b30bcb942f01565ef7d82bf21b0411"
+    },
+    {
+      "path": "packages/runtime-windows-x64/package.json",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f89010d04f00fcec887273095bd6e548695596649b086a3f2b8fda4e3f14e9e5"
+    },
+    {
+      "path": "packages/skill-app-contract/README.md",
+      "kind": "file",
+      "mode": 420,
+      "hash": "6c9b9200e99924b1bd149e7ae3977ce92d6ba0b2cd7cb9922b4356d7469b2f8e"
+    },
+    {
+      "path": "packages/skill-app-contract/package.json",
+      "kind": "file",
+      "mode": 420,
+      "hash": "7a04a22ba39b7463e6a7ab65ecb408c7b1910605e7244efc7ffb91babc4e011a"
+    },
+    {
+      "path": "packages/skill-app-contract/src/app.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "441967e4524bf369ab2301d97c3dbdd51f4f57916e8802874c137dd7eb12966d"
+    },
+    {
+      "path": "packages/skill-app-contract/src/host.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "2cd2c20645e719e27a66749e378c8ee53d955c40053921881ce0002149d96be8"
+    },
+    {
+      "path": "packages/skill-app-contract/src/index.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "dbf11d8d7466d26ce97b944e953308918820367792d01d4d68dde3c7947f39de"
+    },
+    {
+      "path": "packages/skill-app-contract/src/page.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "ba3b15ca5b918961cc7d83ad85c06c8cde3f4ced69b2cc690de210e17ec23102"
+    },
+    {
+      "path": "packages/skill-app-contract/src/resource.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "d82def8065dbcb0028043275c28690cb2a5d345ecdf15a6904422f3c1b9c8fcb"
+    },
+    {
+      "path": "packages/skill-app-contract/src/shared.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "2c89d68a65c44787e587213ac137d4500db0cd11a6e6c9811caa8be8532ce1f0"
+    },
+    {
+      "path": "packages/skill-app-contract/src/site.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "2369ed33345601da9deefd08454c333d40c699b5ba03ad1afa2531352af38e66"
+    },
+    {
+      "path": "packages/skill-app-contract/src/vue.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f89b833f6b0366d1da9dedff3e2b812d10d26d60e16181ae04f4a8a23785bdab"
+    },
+    {
+      "path": "packages/skill-app-contract/test/contract.test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "b41aef7367c0a355a8664a20782ced1b11a9eb2f8fb02a299de37ded9a2b7bca"
+    },
+    {
+      "path": "packages/skill-app-contract/test/typecheck.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "5be2dea0cfcdb1e6df81ba06ffbfe7cace489828f08eabf7ede440dded8a2b36"
+    },
+    {
+      "path": "packages/skill-app-contract/tsconfig.json",
+      "kind": "file",
+      "mode": 420,
+      "hash": "b466a9786b47456b59527071079e82f4e9a7445c391b0d4f333b0053c15c17c5"
+    },
+    {
+      "path": "scripts/benchmark-browser-backends.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "16b2c897ad1b78e5cc3625f680059ef8472adcf1ad0c4075301c2f29c53de45a"
+    },
+    {
+      "path": "scripts/benchmark-vue-pages.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "23a7c92c03b6581f3528104445af791ca401e26a0a543d9ad65c3d399f30e439"
+    },
+    {
+      "path": "scripts/build-release.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "eaea063ab0f066d4aaef376aac1d75f11b4df945d3bbc548125b3584948089c4"
+    },
+    {
+      "path": "scripts/build.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "a0443f9e89b0bb45fa2fa2c11b5ddd39262ec737c3840a95ac849da4385264c3"
+    },
+    {
+      "path": "scripts/check-release.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "f7555700072166e85ac032412e0981e75d58a08dfe127268349645d4f9ea41aa"
+    },
+    {
+      "path": "scripts/clone.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "9c5130971c0ae67d90af23daffee147af31ead9e844bf5133dd8e11ff5df1b40"
+    },
+    {
+      "path": "scripts/install-local-release.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "0a2f209876db3c9b2434be258664547f16c7eb90f3552c57dbe2afa73b1ba64c"
+    },
+    {
+      "path": "scripts/release-targets.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "d685c36a213a39928aa3ed9c782fd5fee8f84d1336b2201bb058d3adfe11d322"
+    },
+    {
+      "path": "scripts/stage-workspace-page.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "840bbe0bdf07116ff664b9b702f7552bbc8159df707ba25e774af4938e277da5"
+    },
+    {
+      "path": "scripts/test.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "062a7d64b7d9ef831cd8466016ded414bf0654333421c40f4ad0658446d09b66"
+    },
+    {
+      "path": "scripts/verify-mdd-browser-robot-provider.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "204f0602237a6c8ee7be1da93f30b5b2b7968215856853b390b59f0ac1524809"
+    },
+    {
+      "path": "scripts/verify-xnl-bundle-integration.ts",
+      "kind": "file",
+      "mode": 420,
+      "hash": "93466d2c3ff3c59f318a738f5289a2da69ccd9c75b05bb12dc6cf5b9cda0e601"
+    },
+    {
+      "path": "tsconfig.json",
+      "kind": "file",
+      "mode": 420,
+      "hash": "039e9e8f33e3d7d6ac50983d1feb9486028b7b1a83f3c45d1d1c473cf5089555"
+    }
+  ]
+}

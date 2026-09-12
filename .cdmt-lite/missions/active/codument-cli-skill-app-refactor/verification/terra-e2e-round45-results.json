@@ -1,0 +1,695 @@
+{
+  "runs": [
+    {
+      "root": "/private/tmp/depa-codument-e2e-bvTcgN",
+      "caseId": "todo",
+      "status": "passed",
+      "rawStatus": "passed",
+      "terminalPolicy": null,
+      "resumed": false,
+      "firstPass": true,
+      "elapsedMs": 1555865,
+      "harness": {
+        "initialSha256": "06b0e66ba2672a9dd576125732c552ca8b7bb33ad49727c5495b5b4708f0cc2b",
+        "resumes": []
+      },
+      "gateCoverage": {
+        "immutableRequirements": true,
+        "observedModels": true,
+        "uiReceipts": [
+          "ui-receipt-0.json"
+        ],
+        "baseline": "recorded"
+      },
+      "usage": {
+        "input": 7189494,
+        "cached": 6728960,
+        "output": 59941
+      },
+      "sessionAccounting": {
+        "usage": {
+          "input": 7189494,
+          "cached": 6728960,
+          "output": 59941
+        },
+        "responseCount": 160,
+        "sessionCount": 9,
+        "sessionsWithUsage": 9,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; not an account bill"
+      },
+      "topLevelUsage": {
+        "input": 5226476,
+        "cached": 4984576,
+        "output": 37484
+      },
+      "topLevelUsageComplete": true,
+      "moneyCost": null
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-OQoacs",
+      "caseId": "stream-pipeline-ai-agent",
+      "status": "failed",
+      "rawStatus": "failed",
+      "terminalPolicy": null,
+      "resumed": true,
+      "firstPass": false,
+      "elapsedMs": 3951273,
+      "harness": {
+        "initialSha256": "06b0e66ba2672a9dd576125732c552ca8b7bb33ad49727c5495b5b4708f0cc2b",
+        "resumes": [
+          {
+            "harnessSha256": "06b0e66ba2672a9dd576125732c552ca8b7bb33ad49727c5495b5b4708f0cc2b",
+            "resumedAt": "2026-09-12T05:05:36.828Z"
+          }
+        ]
+      },
+      "gateCoverage": {
+        "immutableRequirements": true,
+        "observedModels": true,
+        "uiReceipts": [],
+        "baseline": "recorded"
+      },
+      "usage": {
+        "input": 12952296,
+        "cached": 12166656,
+        "output": 96196
+      },
+      "sessionAccounting": {
+        "usage": {
+          "input": 12952296,
+          "cached": 12166656,
+          "output": 96196
+        },
+        "responseCount": 259,
+        "sessionCount": 12,
+        "sessionsWithUsage": 12,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; not an account bill"
+      },
+      "topLevelUsage": {
+        "input": 8270628,
+        "cached": 7826176,
+        "output": 55267
+      },
+      "topLevelUsageComplete": false,
+      "moneyCost": null
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-I5ZuWb",
+      "caseId": "blog",
+      "status": "failed",
+      "rawStatus": "failed",
+      "terminalPolicy": null,
+      "resumed": true,
+      "firstPass": false,
+      "elapsedMs": 4321832,
+      "harness": {
+        "initialSha256": "06b0e66ba2672a9dd576125732c552ca8b7bb33ad49727c5495b5b4708f0cc2b",
+        "resumes": [
+          {
+            "harnessSha256": "66116139579a4577f4e3189693b3de7da387c401e1ba15a6a124f5873ce546f6",
+            "resumedAt": "2026-09-12T06:44:11.032Z"
+          }
+        ]
+      },
+      "gateCoverage": {
+        "immutableRequirements": true,
+        "observedModels": true,
+        "uiReceipts": [],
+        "baseline": "recorded"
+      },
+      "usage": {
+        "input": 18039875,
+        "cached": 16867328,
+        "output": 129504
+      },
+      "sessionAccounting": {
+        "usage": {
+          "input": 18039875,
+          "cached": 16867328,
+          "output": 129504
+        },
+        "responseCount": 394,
+        "sessionCount": 20,
+        "sessionsWithUsage": 20,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; not an account bill"
+      },
+      "topLevelUsage": {
+        "input": 12119663,
+        "cached": 11595776,
+        "output": 62110
+      },
+      "topLevelUsageComplete": true,
+      "moneyCost": null
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-lztBFk",
+      "caseId": "ecommerce",
+      "status": "blocked",
+      "rawStatus": "infrastructure-failed",
+      "terminalPolicy": {
+        "kind": "configured-workflow-block",
+        "caseId": "ecommerce",
+        "attempt": 0,
+        "reason": "Configured phase-after GapLoop exhausted max_rounds=5 with final verdict FIX_APPLIED and on_exhausted=block. Implementation 0 correctly left the Track in_progress. The generic outer retry began implementation 1; the controller stops it because a new outer attempt must not bypass this configured block.",
+        "sources": [
+          "workspace/codument/tracks/active/add-storefront-ordering/track.xnl",
+          "workspace/codument/tracks/active/add-storefront-ordering/reports/gap-track-5.md",
+          "workspace/.e2e-implementation-0-last.md"
+        ],
+        "rawResultPreserved": true,
+        "resumeAllowed": false,
+        "next": "Continue independent cases. Do not increase the configured round budget, fabricate NO_GAP, or reopen this run without a new explicit policy decision."
+      },
+      "resumed": false,
+      "firstPass": false,
+      "elapsedMs": 2688950,
+      "harness": {
+        "initialSha256": "141bb423db9aaa7eeae43fe8197e29f0a0b5916276673a14b42921c66db46120",
+        "resumes": []
+      },
+      "gateCoverage": {
+        "immutableRequirements": true,
+        "observedModels": true,
+        "uiReceipts": [],
+        "baseline": "recorded"
+      },
+      "usage": {
+        "input": 9890833,
+        "cached": 9248000,
+        "output": 95660
+      },
+      "sessionAccounting": {
+        "usage": {
+          "input": 9890833,
+          "cached": 9248000,
+          "output": 95660
+        },
+        "responseCount": 231,
+        "sessionCount": 14,
+        "sessionsWithUsage": 14,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; not an account bill"
+      },
+      "topLevelUsage": {
+        "input": 5639525,
+        "cached": 5452032,
+        "output": 45426
+      },
+      "topLevelUsageComplete": false,
+      "moneyCost": null
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-XiBVUg",
+      "caseId": "nested-mission-agent",
+      "status": "failed",
+      "rawStatus": "failed",
+      "terminalPolicy": null,
+      "resumed": false,
+      "firstPass": false,
+      "elapsedMs": 1923797,
+      "harness": {
+        "initialSha256": "4a2b828e4070527cf382d9cdb8aebe19fa450038c64add063a3ad5f8f84a77bc",
+        "resumes": []
+      },
+      "gateCoverage": {
+        "immutableRequirements": true,
+        "observedModels": true,
+        "uiReceipts": [],
+        "baseline": "recorded"
+      },
+      "usage": {
+        "input": 12699385,
+        "cached": 11953152,
+        "output": 99408
+      },
+      "sessionAccounting": {
+        "usage": {
+          "input": 12699385,
+          "cached": 11953152,
+          "output": 99408
+        },
+        "responseCount": 274,
+        "sessionCount": 14,
+        "sessionsWithUsage": 14,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; not an account bill"
+      },
+      "topLevelUsage": {
+        "input": 9704484,
+        "cached": 9269248,
+        "output": 61432
+      },
+      "topLevelUsageComplete": true,
+      "moneyCost": null
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-Yg2OnD",
+      "caseId": "todo",
+      "status": "passed",
+      "rawStatus": "passed",
+      "terminalPolicy": null,
+      "resumed": false,
+      "firstPass": false,
+      "elapsedMs": 4534898,
+      "harness": {
+        "initialSha256": "671c554008dc9c8500a1e2902822e71fe15cc2769147b19fd41ac2ddf976ce1b",
+        "resumes": []
+      },
+      "gateCoverage": {
+        "immutableRequirements": true,
+        "observedModels": true,
+        "uiReceipts": [
+          "ui-receipt-2.json",
+          "ui-receipt-1.json"
+        ],
+        "baseline": "recorded"
+      },
+      "usage": {
+        "input": 16643342,
+        "cached": 15419136,
+        "output": 169763
+      },
+      "sessionAccounting": {
+        "usage": {
+          "input": 16643342,
+          "cached": 15419136,
+          "output": 169763
+        },
+        "responseCount": 389,
+        "sessionCount": 21,
+        "sessionsWithUsage": 21,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; not an account bill"
+      },
+      "topLevelUsage": {
+        "input": 10039494,
+        "cached": 9469952,
+        "output": 79186
+      },
+      "topLevelUsageComplete": true,
+      "moneyCost": null
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-dIrjAv",
+      "caseId": "stream-pipeline-ai-agent",
+      "status": "blocked",
+      "rawStatus": "blocked",
+      "terminalPolicy": {
+        "kind": "configured-workflow-block",
+        "caseId": "stream-pipeline-ai-agent",
+        "attempt": 0,
+        "reason": "GapLoop exhausted (max_rounds=5, on_exhausted=block): synchronous provider stream-creation errors escape AgentLoop instead of becoming layered semantic error facts. Report: codument/tracks/active/add-reactive-agent-tutorial/reports/gap-P4-5.md",
+        "rawResultPreserved": true,
+        "resumeAllowed": false
+      },
+      "resumed": false,
+      "firstPass": false,
+      "elapsedMs": 1680473,
+      "harness": {
+        "initialSha256": "671c554008dc9c8500a1e2902822e71fe15cc2769147b19fd41ac2ddf976ce1b",
+        "resumes": []
+      },
+      "gateCoverage": {
+        "immutableRequirements": true,
+        "observedModels": true,
+        "uiReceipts": [],
+        "baseline": "recorded"
+      },
+      "usage": {
+        "input": 7801775,
+        "cached": 7321088,
+        "output": 64658
+      },
+      "sessionAccounting": {
+        "usage": {
+          "input": 7801775,
+          "cached": 7321088,
+          "output": 64658
+        },
+        "responseCount": 166,
+        "sessionCount": 8,
+        "sessionsWithUsage": 8,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; not an account bill"
+      },
+      "topLevelUsage": {
+        "input": 4670894,
+        "cached": 4497152,
+        "output": 35088
+      },
+      "topLevelUsageComplete": true,
+      "moneyCost": null
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-j4zhPE",
+      "caseId": "todo",
+      "status": "harness-invalid",
+      "rawStatus": "infrastructure-failed",
+      "terminalPolicy": null,
+      "resumed": false,
+      "firstPass": false,
+      "elapsedMs": 600955,
+      "harness": {
+        "initialSha256": null,
+        "resumes": []
+      },
+      "gateCoverage": {
+        "immutableRequirements": false,
+        "observedModels": false,
+        "uiReceipts": [],
+        "baseline": "legacy-baseline (do not infer current gates)"
+      },
+      "usage": {
+        "input": 1491897,
+        "cached": 1387008,
+        "output": 21047
+      },
+      "sessionAccounting": {
+        "usage": {
+          "input": 1491897,
+          "cached": 1387008,
+          "output": 21047
+        },
+        "responseCount": 38,
+        "sessionCount": 2,
+        "sessionsWithUsage": 2,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; not an account bill"
+      },
+      "topLevelUsage": {
+        "input": 1217375,
+        "cached": 1145856,
+        "output": 18080
+      },
+      "topLevelUsageComplete": false,
+      "moneyCost": null
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-OWXOhA",
+      "caseId": "todo",
+      "status": "harness-invalid",
+      "rawStatus": "infrastructure-failed",
+      "terminalPolicy": null,
+      "resumed": true,
+      "firstPass": null,
+      "elapsedMs": 3273962,
+      "harness": {
+        "initialSha256": null,
+        "resumes": []
+      },
+      "gateCoverage": {
+        "immutableRequirements": false,
+        "observedModels": false,
+        "uiReceipts": [],
+        "baseline": "legacy-baseline (do not infer current gates)"
+      },
+      "usage": {
+        "input": 11587757,
+        "cached": 10954240,
+        "output": 79733
+      },
+      "sessionAccounting": {
+        "usage": {
+          "input": 11587757,
+          "cached": 10954240,
+          "output": 79733
+        },
+        "responseCount": 243,
+        "sessionCount": 14,
+        "sessionsWithUsage": 13,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; not an account bill"
+      },
+      "topLevelUsage": {
+        "input": 8027687,
+        "cached": 7759616,
+        "output": 37369
+      },
+      "topLevelUsageComplete": false,
+      "moneyCost": null
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-DqsSjg",
+      "caseId": "model-probe",
+      "status": "harness-invalid",
+      "rawStatus": "passed",
+      "terminalPolicy": null,
+      "resumed": false,
+      "firstPass": null,
+      "elapsedMs": null,
+      "harness": {
+        "initialSha256": null,
+        "resumes": []
+      },
+      "gateCoverage": {
+        "immutableRequirements": false,
+        "observedModels": false,
+        "uiReceipts": [],
+        "baseline": "legacy-baseline (do not infer current gates)"
+      },
+      "usage": {
+        "input": 45153,
+        "cached": 39168,
+        "output": 614
+      },
+      "sessionAccounting": {
+        "usage": {
+          "input": 45153,
+          "cached": 39168,
+          "output": 614
+        },
+        "responseCount": 3,
+        "sessionCount": 1,
+        "sessionsWithUsage": 1,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; not an account bill"
+      },
+      "topLevelUsage": null,
+      "topLevelUsageComplete": false,
+      "moneyCost": null
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-eazEEK",
+      "caseId": "model-probe",
+      "status": "infrastructure-failed",
+      "rawStatus": "infrastructure-failed",
+      "terminalPolicy": null,
+      "resumed": false,
+      "firstPass": null,
+      "elapsedMs": null,
+      "harness": {
+        "initialSha256": null,
+        "resumes": []
+      },
+      "gateCoverage": {
+        "immutableRequirements": false,
+        "observedModels": false,
+        "uiReceipts": [],
+        "baseline": "legacy-baseline (do not infer current gates)"
+      },
+      "usage": null,
+      "sessionAccounting": {
+        "usage": null,
+        "responseCount": 0,
+        "sessionCount": 0,
+        "sessionsWithUsage": 0,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; not an account bill"
+      },
+      "topLevelUsage": null,
+      "topLevelUsageComplete": false,
+      "moneyCost": null
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-cS2ETJ",
+      "caseId": "model-probe",
+      "status": "passed",
+      "rawStatus": "passed",
+      "terminalPolicy": null,
+      "resumed": false,
+      "firstPass": null,
+      "elapsedMs": null,
+      "harness": {
+        "initialSha256": null,
+        "resumes": []
+      },
+      "gateCoverage": {
+        "immutableRequirements": false,
+        "observedModels": true,
+        "uiReceipts": [],
+        "baseline": "legacy-baseline (do not infer current gates)"
+      },
+      "usage": {
+        "input": 47888,
+        "cached": 40192,
+        "output": 475
+      },
+      "sessionAccounting": {
+        "usage": {
+          "input": 47888,
+          "cached": 40192,
+          "output": 475
+        },
+        "responseCount": 3,
+        "sessionCount": 1,
+        "sessionsWithUsage": 1,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; not an account bill"
+      },
+      "topLevelUsage": null,
+      "topLevelUsageComplete": false,
+      "moneyCost": null
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-GF9rEg",
+      "caseId": "model-probe",
+      "status": "passed",
+      "rawStatus": "passed",
+      "terminalPolicy": null,
+      "resumed": false,
+      "firstPass": null,
+      "elapsedMs": null,
+      "harness": {
+        "initialSha256": null,
+        "resumes": []
+      },
+      "gateCoverage": {
+        "immutableRequirements": false,
+        "observedModels": false,
+        "uiReceipts": [],
+        "baseline": "legacy-baseline (do not infer current gates)"
+      },
+      "usage": {
+        "input": 28906,
+        "cached": 17920,
+        "output": 367
+      },
+      "sessionAccounting": {
+        "usage": {
+          "input": 28906,
+          "cached": 17920,
+          "output": 367
+        },
+        "responseCount": 2,
+        "sessionCount": 1,
+        "sessionsWithUsage": 1,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; not an account bill"
+      },
+      "topLevelUsage": null,
+      "topLevelUsageComplete": false,
+      "moneyCost": null
+    }
+  ],
+  "denominator": 7,
+  "excludedInfrastructureOrIncomplete": 6,
+  "byCase": [
+    {
+      "caseId": "todo",
+      "runs": 4,
+      "denominator": 2,
+      "firstPassRate": 0.5,
+      "correctedPassRate": 1,
+      "knownUsage": {
+        "input": 36912490,
+        "cached": 34489344,
+        "output": 330484
+      },
+      "unknownUsageRuns": 0,
+      "includesExcludedTrialCosts": true
+    },
+    {
+      "caseId": "stream-pipeline-ai-agent",
+      "runs": 2,
+      "denominator": 2,
+      "firstPassRate": 0,
+      "correctedPassRate": 0,
+      "knownUsage": {
+        "input": 20754071,
+        "cached": 19487744,
+        "output": 160854
+      },
+      "unknownUsageRuns": 0,
+      "includesExcludedTrialCosts": true
+    },
+    {
+      "caseId": "blog",
+      "runs": 1,
+      "denominator": 1,
+      "firstPassRate": 0,
+      "correctedPassRate": 0,
+      "knownUsage": {
+        "input": 18039875,
+        "cached": 16867328,
+        "output": 129504
+      },
+      "unknownUsageRuns": 0,
+      "includesExcludedTrialCosts": true
+    },
+    {
+      "caseId": "ecommerce",
+      "runs": 1,
+      "denominator": 1,
+      "firstPassRate": 0,
+      "correctedPassRate": 0,
+      "knownUsage": {
+        "input": 9890833,
+        "cached": 9248000,
+        "output": 95660
+      },
+      "unknownUsageRuns": 0,
+      "includesExcludedTrialCosts": true
+    },
+    {
+      "caseId": "nested-mission-agent",
+      "runs": 1,
+      "denominator": 1,
+      "firstPassRate": 0,
+      "correctedPassRate": 0,
+      "knownUsage": {
+        "input": 12699385,
+        "cached": 11953152,
+        "output": 99408
+      },
+      "unknownUsageRuns": 0,
+      "includesExcludedTrialCosts": true
+    },
+    {
+      "caseId": "model-probe",
+      "runs": 4,
+      "denominator": 0,
+      "firstPassRate": null,
+      "correctedPassRate": null,
+      "knownUsage": {
+        "input": 121947,
+        "cached": 97280,
+        "output": 1456
+      },
+      "unknownUsageRuns": 1,
+      "includesExcludedTrialCosts": true
+    }
+  ],
+  "firstPassRate": 0.14285714285714285,
+  "correctedPassRate": 0.2857142857142857,
+  "warning": "Small-sample observed rates, not population guarantees. Null is unknown, never zero. No API-price estimate is presented as a ChatGPT account bill.",
+  "formalTotals": {
+    "input": 85217000,
+    "cached": 79704320,
+    "output": 715130,
+    "unknownUsageRuns": 0,
+    "elapsedMsSum": 20657088,
+    "unknownElapsedRuns": 0
+  },
+  "calibrationProbeTotals": {
+    "input": 13201601,
+    "cached": 12438528,
+    "output": 102236,
+    "unknownUsageRuns": 1,
+    "elapsedMsSum": 3874917,
+    "unknownElapsedRuns": 4
+  },
+  "observedTotal": {
+    "input": 98418601,
+    "cached": 92142848,
+    "output": 817366,
+    "unknownUsageRuns": 1,
+    "elapsedMsSum": 24532005,
+    "unknownElapsedRuns": 4
+  },
+  "accountingNotes": [
+    "elapsedMsSum is a sum of run durations, not batch wall time (repetitions overlapped).",
+    "Controller and AT3 audit-agent usage is not part of these native workload counters.",
+    "Excluded count includes calibration and successful non-business probes; smoke modelCalls=0 is reported separately.",
+    "All status outcomes are frozen; diagnostic checks do not promote acceptance."
+  ]
+}

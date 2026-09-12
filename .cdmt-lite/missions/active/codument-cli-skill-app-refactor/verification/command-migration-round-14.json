@@ -1,0 +1,468 @@
+{
+  "scope": "observed product command inventory, not handler migration acceptance",
+  "executableCount": 57,
+  "source": "H current product registry; C frozen CLI-first policy input",
+  "paths": [
+    {
+      "path": "demo",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "basic"
+      }
+    },
+    {
+      "path": "status",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "basic"
+      }
+    },
+    {
+      "path": "init-global",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "basic"
+      }
+    },
+    {
+      "path": "init-workspace",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "basic"
+      }
+    },
+    {
+      "path": "init",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "basic"
+      }
+    },
+    {
+      "path": "upgrade-global",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "basic"
+      }
+    },
+    {
+      "path": "upgrade-workspace",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "basic"
+      }
+    },
+    {
+      "path": "upgrade",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "basic"
+      }
+    },
+    {
+      "path": "serve",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "entrypoint",
+        "runtimeProfile": "serve-manager"
+      }
+    },
+    {
+      "path": "serve start",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "entrypoint",
+        "runtimeProfile": "serve-manager"
+      }
+    },
+    {
+      "path": "serve stop",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "entrypoint",
+        "runtimeProfile": "serve-manager"
+      }
+    },
+    {
+      "path": "serve restart",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "entrypoint",
+        "runtimeProfile": "serve-manager"
+      }
+    },
+    {
+      "path": "serve status",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "entrypoint",
+        "runtimeProfile": "serve-manager"
+      }
+    },
+    {
+      "path": "Resource tree",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "Resource validate",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "SOP list",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "SOP detail",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "SOP validate",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "SOP graph",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "SOP notebook init",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "Site list",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "Site detail",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "Site validate",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "PageBundle list",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "PageBundle detail",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "PageBundle validate",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "Page list",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "page-catalog"
+      }
+    },
+    {
+      "path": "Page detail",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "Page validate",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "mcp-app serve",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "entrypoint",
+        "runtimeProfile": "mcp-connection"
+      }
+    },
+    {
+      "path": "mcp-app config",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "basic"
+      }
+    },
+    {
+      "path": "LocalFunction list",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "LocalFunction detail",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "LocalFunction validate",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "LocalFunction invoke",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "dynamic",
+        "runtimeProfile": "local-function"
+      }
+    },
+    {
+      "path": "ConfigurationProfile list",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "ConfigurationProfile detail",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "ConfigurationProfile validate",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "DatabaseConnection list",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "DatabaseConnection detail",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "DatabaseConnection validate",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "BrowserWebApi list",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "BrowserWebApi detail",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "BrowserWebApi validate",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "BrowserWebApi invoke",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "dynamic",
+        "runtimeProfile": "browser"
+      }
+    },
+    {
+      "path": "PageWorkflow list",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "PageWorkflow detail",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "PageWorkflow validate",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "PageWorkflow start",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "serve-required",
+        "runtimeProfile": "serve-client"
+      }
+    },
+    {
+      "path": "PageWorkflow get",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "serve-required",
+        "runtimeProfile": "serve-client"
+      }
+    },
+    {
+      "path": "PageObject list",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "PageObject detail",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "PageObject validate",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "local",
+        "runtimeProfile": "catalog"
+      }
+    },
+    {
+      "path": "PageObject invoke",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "serve-required",
+        "runtimeProfile": "serve-client"
+      }
+    },
+    {
+      "path": "run-web-api",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "dynamic",
+        "runtimeProfile": "browser"
+      }
+    },
+    {
+      "path": "invoke",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "dynamic",
+        "runtimeProfile": "browser"
+      }
+    },
+    {
+      "path": "exec",
+      "upstreamPolicy": null,
+      "approvedPolicy": {
+        "placement": "dynamic",
+        "runtimeProfile": "browser"
+      }
+    }
+  ],
+  "frozenCodumentMerge": [
+    "init",
+    "status",
+    "upgrade-workspace"
+  ]
+}

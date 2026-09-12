@@ -1,0 +1,18 @@
+{
+  "name": "depa-codument-product-capsule", "version": "0.6.0", "type": "module", "sideEffects": false,
+  "description": "Codument product identity and explicitly owned domain/resource composition",
+  "exports": { ".": "./src/index.ts", "./resources": "./src/resources.ts", "./global-guidance": "./src/global-guidance.ts",
+    "./authoring-policy": "./src/authoring-policy.ts", "./definition-globals": "./src/definition-globals.ts",
+    "./live-client": "./src/live-client.ts", "./workspace-app": "./src/workspace-app.ts", "./workspace-install": "./src/workspace-install.ts", "./migration": "./src/migration.ts", "./workspace-migration": "./src/workspace-migration.ts" },
+  "files": ["src", "README.md"],
+  "dependencies": {
+    "halfcode-cli-lite-cli-host-support": "0.1.0",
+    "depa-codument-domain-contract": "workspace:*", "depa-codument-domain-logic": "workspace:*",
+    "depa-codument-domain-support": "workspace:*", "depa-codument-domain-capsule": "workspace:*",
+    "depa-codument-host-adapter": "0.6.0",
+    "halfcode-cli-lite-cli-host-capsule": "0.1.0", "halfcode-cli-lite-skill-app-capsule": "0.1.1",
+    "halfcode-cli-lite-skill-app-contract": "0.1.1", "halfcode-cli-lite-skill-app-support": "0.1.1",
+    "halfcode-cli-lite-skill-app-logic": "0.1.1"
+  },
+  "engines": { "bun": ">=1.3.0" }, "license": "MIT"
+}

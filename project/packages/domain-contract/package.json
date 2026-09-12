@@ -1,0 +1,12 @@
+{
+  "name": "depa-codument-domain-contract",
+  "version": "0.6.0",
+  "description": "Codument domain data and operation ports",
+  "type": "module",
+  "sideEffects": false,
+  "exports": { ".": "./src/index.ts", "./lifecycle": "./src/lifecycle.ts", "./operations": "./src/operations.ts", "./registry": "./src/registry.ts", "./resources": "./src/resources.ts" },
+  "files": ["src", "README.md"],
+  "dependencies": { "xnl-core": "0.1.12", "halfcode-cli-lite-skill-app-contract": "0.1.1" },
+  "engines": { "bun": ">=1.3.0" },
+  "license": "MIT"
+}

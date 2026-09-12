@@ -1,0 +1,19 @@
+<KindDefinition #Halfcode.ResourceKind.SkillModule envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
+  resourceKind = "SkillModule"
+  subjectFqn = "Halfcode.ResourceKind.SkillModule"
+  sourceShapes = ["manifest"]
+  documentCardinality = "one"
+} (
+  <SpecRevisions [
+    <SpecRevision #v1 {
+      specVersion = 1
+      schemaRef = "vfs://./spec-v1.schema.json"
+      schemaFingerprint = "sha256:49392cf2b8a7f42f17fece6ab1273962cff51ceeecf9445fefdc51a85cd046bf"
+      contractFingerprint = "sha256:4b78557edb5e1ad4fbb65ced454a3ff53ba98dcb594404b898abac1b7e162226"
+      semanticValidatorFingerprint = "sha256:30ffb3bac0ad0bdf15299275edd7b7875a7e752010d77c40b21601bc6d64ef98"
+      referenceProjectionFingerprint = "sha256:76cc799a390d3efc33d4ab672c863282638c701de2c68a727d8158de936ae75a"
+      compilerInputFingerprint = "sha256:942aac23a6e845db4753f86a18f1dbb74a1c128336115f03bd1a3e882b796dde"
+      stability = "stable"
+    }>
+  ]>
+)>

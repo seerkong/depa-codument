@@ -1,0 +1,19 @@
+<KindDefinition #Halfcode.ResourceKind.LocalFunctionBundle envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
+  resourceKind = "LocalFunctionBundle"
+  subjectFqn = "Halfcode.ResourceKind.LocalFunctionBundle"
+  sourceShapes = ["directory"]
+  documentCardinality = "one"
+} (
+  <SpecRevisions [
+    <SpecRevision #v1 {
+      specVersion = 1
+      schemaRef = "vfs://./spec-v1.schema.json"
+      schemaFingerprint = "sha256:770646704931fbb966416a39e4edd9239f27594210302b03e0f57f50379fe5f8"
+      contractFingerprint = "sha256:12f304315a95d5080985cbfa5f723537d778e9ddcd3e683d739bee96368d219e"
+      semanticValidatorFingerprint = "sha256:ca99105c6cd9bb5f260931268559bad65ff9e8e2ddc8b394bd6a5f2ba70abe11"
+      referenceProjectionFingerprint = "sha256:5315ca52d28e3feb498b97fa1a901a157ce83d5983323fc9d0bf15a6bb8a21cc"
+      compilerInputFingerprint = "sha256:93d458f177894293f5041d244bd431012827b99077fd2706818379fc0eb88543"
+      stability = "stable"
+    }>
+  ]>
+)>

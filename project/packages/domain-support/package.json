@@ -1,0 +1,13 @@
+{
+  "name": "depa-codument-domain-support",
+  "version": "0.6.0",
+  "description": "Workspace filesystem and process effects for Codument domain ports",
+  "type": "module",
+  "sideEffects": false,
+  "exports": { ".": "./src/index.ts", "./verification": "./src/verification.ts", "./registry": "./src/registry.ts", "./lifecycle-repository": "./src/lifecycle-repository.ts" },
+  "files": ["src", "README.md"],
+  "dependencies": { "depa-codument-domain-contract": "workspace:*", "halfcode-cli-lite-skill-app-support": "0.1.1" },
+  "devDependencies": { "depa-codument-domain-logic": "workspace:*" },
+  "engines": { "bun": ">=1.3.0" },
+  "license": "MIT"
+}

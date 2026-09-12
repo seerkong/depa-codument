@@ -1,0 +1,2284 @@
+{
+  "capturedAt": "2026-09-05T06:56:52.490Z",
+  "legacyVersion": "0.5.4",
+  "legacyCompiler": "0.2.8",
+  "hostCompiler": "0.3.0",
+  "commands": {
+    "legacy": [
+      {
+        "path": "init",
+        "usage": [
+          "codument init [path] [options]"
+        ],
+        "options": [
+          "--agent <names>       Comma-separated target agent skills dirs",
+          "--skills-dir <path>   Explicit skills destination",
+          "--force               Overwrite existing codument/** files"
+        ],
+        "schemaOptions": [
+          "--agent <names>       Comma-separated target agent skills dirs",
+          "--skills-dir <path>   Explicit skills destination",
+          "--force               Overwrite existing codument/** files"
+        ]
+      },
+      {
+        "path": "upgrade-workspace",
+        "usage": [
+          "codument upgrade-workspace [options]"
+        ],
+        "options": [
+          "--agent <names>       Comma-separated target agent skills dirs",
+          "--skills-dir <path>   Explicit skills destination",
+          "--json                Print machine-readable migration receipt"
+        ],
+        "schemaOptions": [
+          "--agent <names>       Comma-separated target agent skills dirs",
+          "--skills-dir <path>   Explicit skills destination",
+          "--json                Print machine-readable migration receipt"
+        ]
+      },
+      {
+        "path": "upgrade-resource",
+        "usage": [
+          "codument upgrade-resource <path> [--json]"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          "--json                Print machine-readable JSON"
+        ]
+      },
+      {
+        "path": "upgrade-track",
+        "usage": [
+          "codument upgrade-track <track-id|archive-id> [options]"
+        ],
+        "options": [
+          "--mode <mode>         wave|sequential",
+          "--backup-dir <path>   Explicit backup destination",
+          "--no-backup           Do not create a backup"
+        ],
+        "schemaOptions": [
+          "--mode <mode>         wave|sequential",
+          "--backup-dir <path>   Explicit backup destination",
+          "--no-backup           Do not create a backup"
+        ]
+      },
+      {
+        "path": "list",
+        "usage": [
+          "codument list [--behaviors] [--json]"
+        ],
+        "options": [
+          "--behaviors           List behavior registry capabilities",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          "--behaviors           List behavior registry capabilities",
+          "--json                Print machine-readable JSON"
+        ]
+      },
+      {
+        "path": "show",
+        "usage": [
+          "codument show [item] [--type track|spec|decision] [--json] [--include-content]"
+        ],
+        "options": [
+          "--type <type>         Disambiguate track, spec, or decision",
+          "--json                Print machine-readable JSON",
+          "--include-content     Include Track file contents in JSON"
+        ],
+        "schemaOptions": [
+          "--type <type>         Disambiguate track, spec, or decision",
+          "--json                Print machine-readable JSON",
+          "--include-content     Include Track file contents in JSON"
+        ]
+      },
+      {
+        "path": "validate",
+        "usage": [
+          "codument validate [item] [--strict]"
+        ],
+        "options": [
+          "--strict              Treat warnings as failures where supported"
+        ],
+        "schemaOptions": [
+          "--strict              Treat warnings as failures where supported"
+        ]
+      },
+      {
+        "path": "archive",
+        "usage": [
+          "codument archive <track-id> [options]"
+        ],
+        "options": [
+          "--skip-specs         Skip BehaviorPatch application",
+          "--yes, -y             Confirm archiving a non-completed track"
+        ],
+        "schemaOptions": [
+          "--skip-specs         Skip BehaviorPatch application",
+          "--yes, -y             Confirm archiving a non-completed track"
+        ]
+      },
+      {
+        "path": "status",
+        "usage": [
+          "codument status"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "project",
+        "usage": [
+          "codument project <command>"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "project bind",
+        "usage": [
+          "codument project bind <project-ref> <workspace-path>"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "project bindings",
+        "usage": [
+          "codument project bindings"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "project unbind",
+        "usage": [
+          "codument project unbind <project-ref>"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "modeling",
+        "usage": [
+          "codument modeling <command>"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "modeling lint",
+        "usage": [
+          "codument modeling lint [dir] [--max-lines N] [--max-nodes N]"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "modeling validate",
+        "usage": [
+          "codument modeling validate [dir] [--deltas <track>]"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "modeling scaffold",
+        "usage": [
+          "codument modeling scaffold <kind> <name> --plane <plane> --context <ctx> [--track <track>] [--fields a:string,b:int] [--states a,b]"
+        ],
+        "options": [
+          "--plane <plane>        Path plane (domain/backend/surface)",
+          "--context <ctx>       Path context",
+          "--track <id>          Write into this track's modeling_deltas",
+          "--fields <a:t,b:t>    Entity/object fields",
+          "--states <a,b>        State-machine states or enum values"
+        ],
+        "schemaOptions": [
+          "--plane <plane>        Path plane (domain/backend/surface)",
+          "--context <ctx>       Path context",
+          "--track <id>          Write into this track's modeling_deltas",
+          "--fields <a:t,b:t>    Entity/object fields",
+          "--states <a,b>        State-machine states or enum values"
+        ]
+      },
+      {
+        "path": "engineering",
+        "usage": [
+          "codument engineering <command>"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "engineering lint",
+        "usage": [
+          "codument engineering lint [dir] [--max-lines N] [--max-nodes N]"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "engineering validate",
+        "usage": [
+          "codument engineering validate [dir] [--deltas <track>]"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "engineering scaffold",
+        "usage": [
+          "codument engineering scaffold <kind> <name> --plane <plane> --category <cat> --topic <topic> [--track <track>]"
+        ],
+        "options": [
+          "--plane <plane>        Path plane (global/backend/surface)",
+          "--category <cat>      Knowledge category (howto/rules/reference/code-map)",
+          "--topic <topic>       Path topic",
+          "--track <id>          Write into this track's engineering_deltas"
+        ],
+        "schemaOptions": [
+          "--plane <plane>        Path plane (global/backend/surface)",
+          "--category <cat>      Knowledge category (howto/rules/reference/code-map)",
+          "--topic <topic>       Path topic",
+          "--track <id>          Write into this track's engineering_deltas"
+        ]
+      },
+      {
+        "path": "decisions",
+        "usage": [
+          "codument decisions <command>"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "decisions create",
+        "usage": [
+          "codument decisions create <file> <decision-id> [--parent <decision-id>]"
+        ],
+        "options": [
+          "--parent <id>         Append as a child Decision"
+        ],
+        "schemaOptions": [
+          "--parent <id>         Append as a child Decision"
+        ]
+      },
+      {
+        "path": "decisions validate",
+        "usage": [
+          "codument decisions validate [file|track-id]"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "decisions frontier",
+        "usage": [
+          "codument decisions frontier [file|track-id] [--json]"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          "--json                Print machine-readable JSON"
+        ]
+      },
+      {
+        "path": "track",
+        "usage": [
+          "codument track <command>"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "track create",
+        "usage": [
+          "codument track create <id> --stage pending|active"
+        ],
+        "options": [
+          "--stage <stage>     pending|active"
+        ],
+        "schemaOptions": [
+          "--stage <stage>     pending|active"
+        ]
+      },
+      {
+        "path": "track transition",
+        "usage": [
+          "codument track transition <id> <status> [--json]"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          "--json                Print machine-readable JSON"
+        ]
+      },
+      {
+        "path": "track gap-round",
+        "usage": [
+          "codument track gap-round <id> <round> [--json]"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          "--json                Print machine-readable JSON"
+        ]
+      },
+      {
+        "path": "track ready",
+        "usage": [
+          "codument track ready <id> [--json]"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          "--json                Print machine-readable JSON"
+        ]
+      },
+      {
+        "path": "track verify",
+        "usage": [
+          "codument track verify <id> [--fresh] [--json] -- <verification-command> [args...]"
+        ],
+        "options": [
+          "--fresh               Ignore reusable evidence and run the command",
+          "--json                Print machine-readable JSON",
+          "--                    End Codument options and start the verification command"
+        ],
+        "schemaOptions": [
+          "--fresh               Ignore reusable evidence and run the command",
+          "--json                Print machine-readable JSON",
+          "--                    End Codument options and start the verification command"
+        ]
+      },
+      {
+        "path": "track task",
+        "usage": [
+          "codument track task <command>"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "track task transition",
+        "usage": [
+          "codument track task transition <id> <task-id> <status> [--json]"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          "--json                Print machine-readable JSON"
+        ]
+      },
+      {
+        "path": "track task complete",
+        "usage": [
+          "codument track task complete <id> <task-id> [--fresh] [--json] -- <verification-command> [args...]"
+        ],
+        "options": [
+          "--fresh               Ignore reusable evidence and run the command",
+          "--json                Print machine-readable JSON",
+          "--                    End Codument options and start the verification command"
+        ],
+        "schemaOptions": [
+          "--fresh               Ignore reusable evidence and run the command",
+          "--json                Print machine-readable JSON",
+          "--                    End Codument options and start the verification command"
+        ]
+      },
+      {
+        "path": "mission",
+        "usage": [
+          "codument mission <command>"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "mission create",
+        "usage": [
+          "codument mission create <id> --stage pending|active"
+        ],
+        "options": [
+          "--stage <stage>     pending|active"
+        ],
+        "schemaOptions": [
+          "--stage <stage>     pending|active"
+        ]
+      },
+      {
+        "path": "mission transition",
+        "usage": [
+          "codument mission transition <id> <status> [--json]"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          "--json                Print machine-readable JSON"
+        ]
+      },
+      {
+        "path": "mission gap-round",
+        "usage": [
+          "codument mission gap-round <id> <round> [--json]"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          "--json                Print machine-readable JSON"
+        ]
+      },
+      {
+        "path": "mission bind-track",
+        "usage": [
+          "codument mission bind-track <mission-id> <task-id> <track-id> [--json]"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          "--json                Print machine-readable JSON"
+        ]
+      },
+      {
+        "path": "mission archive",
+        "usage": [
+          "codument mission archive <id> [--yes]"
+        ],
+        "options": [
+          "--yes, -y             Confirm non-terminal or unresolved linked Track state"
+        ],
+        "schemaOptions": [
+          "--yes, -y             Confirm non-terminal or unresolved linked Track state"
+        ]
+      },
+      {
+        "path": "mission task",
+        "usage": [
+          "codument mission task <command>"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "mission task transition",
+        "usage": [
+          "codument mission task transition <id> <task-id> <status> [--json]"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          "--json                Print machine-readable JSON"
+        ]
+      },
+      {
+        "path": "artifact",
+        "usage": [
+          "codument artifact <command>"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "artifact sync",
+        "usage": [
+          "codument artifact sync --source <dir> --target <dir> [options]"
+        ],
+        "options": [
+          "--dry-run             Report changes without writing",
+          "--force               Replace conflicting target files",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          "--dry-run             Report changes without writing",
+          "--force               Replace conflicting target files",
+          "--json                Print machine-readable JSON"
+        ]
+      },
+      {
+        "path": "std",
+        "usage": [
+          "codument std <command>"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "std lint",
+        "usage": [
+          "codument std lint [dir] [--json]"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          "--json                Print machine-readable JSON"
+        ]
+      },
+      {
+        "path": "behavior-patch",
+        "usage": [
+          "codument behavior-patch <command>"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "behavior-patch create",
+        "usage": [
+          "codument behavior-patch create <track-id> <capability>"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "migrate",
+        "usage": [
+          "codument migrate <command>"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "migrate inspect",
+        "usage": [
+          "codument migrate inspect <path> [--json]"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          "--json                Print machine-readable JSON"
+        ]
+      },
+      {
+        "path": "migrate plan",
+        "usage": [
+          "codument migrate plan <path> [--json]"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          "--json                Print machine-readable JSON"
+        ]
+      },
+      {
+        "path": "migrate apply",
+        "usage": [
+          "codument migrate apply <path> [--json]"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          "--json                Print machine-readable JSON"
+        ]
+      },
+      {
+        "path": "migrate verify",
+        "usage": [
+          "codument migrate verify <path> [--json]"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          "--json                Print machine-readable JSON"
+        ]
+      }
+    ],
+    "host": [
+      {
+        "path": "demo",
+        "usage": [
+          "codument demo [name]"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "status",
+        "usage": [
+          "codument status"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "init-global",
+        "usage": [
+          "codument init-global"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "init-workspace",
+        "usage": [
+          "codument init-workspace"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "init",
+        "usage": [
+          "codument init"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "upgrade-global",
+        "usage": [
+          "codument upgrade-global"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "upgrade-workspace",
+        "usage": [
+          "codument upgrade-workspace"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "upgrade",
+        "usage": [
+          "codument upgrade"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "serve",
+        "usage": [
+          "codument serve <command> [options]"
+        ],
+        "options": [],
+        "schemaOptions": [
+          {
+            "name": "port",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "host",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "codex-thread-id",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "serve start",
+        "usage": [
+          "codument serve start [options]"
+        ],
+        "options": [
+          "--port <n>                Listen port (0 chooses a free port, default 8787)",
+          "--host <addr>             Bind address (default 127.0.0.1)",
+          "--codex-thread-id <id>    Lock this Serve to the current Codex task at startup",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "port",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "host",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "codex-thread-id",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "serve stop",
+        "usage": [
+          "codument serve stop"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "serve restart",
+        "usage": [
+          "codument serve restart [options]"
+        ],
+        "options": [
+          "--port <n>                Listen port (0 chooses a free port, default 8787)",
+          "--host <addr>             Bind address (default 127.0.0.1)",
+          "--codex-thread-id <id>    Lock this Serve to the current Codex task at startup",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "port",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "host",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "codex-thread-id",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "serve status",
+        "usage": [
+          "codument serve status"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "Resource",
+        "usage": [
+          "codument Resource <command>"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "Resource tree",
+        "usage": [
+          "codument Resource tree"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "Resource validate",
+        "usage": [
+          "codument Resource validate"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "SOP",
+        "usage": [
+          "codument SOP <command>"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "SOP list",
+        "usage": [
+          "codument SOP list"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "SOP detail",
+        "usage": [
+          "codument SOP detail --fqn <FQN>"
+        ],
+        "options": [
+          "--fqn <FQN>               Exact SOP FQN",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "fqn",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "SOP validate",
+        "usage": [
+          "codument SOP validate [--fqn <FQN>]"
+        ],
+        "options": [
+          "--fqn <FQN>               Optional exact SOP FQN",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "fqn",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "SOP graph",
+        "usage": [
+          "codument SOP graph --fqn <FQN>"
+        ],
+        "options": [
+          "--fqn <FQN>               Exact typed-pipeline SOP FQN",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "fqn",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "SOP notebook",
+        "usage": [
+          "codument SOP notebook <command>"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "SOP notebook init",
+        "usage": [
+          "codument SOP notebook init --fqn <FQN> [--reset]"
+        ],
+        "options": [
+          "--fqn <FQN>               Exact typed-pipeline SOP FQN",
+          "--reset               Atomically replace an existing Notebook",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "fqn",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "reset",
+            "kind": "boolean"
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "Site",
+        "usage": [
+          "codument Site <command>"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "Site list",
+        "usage": [
+          "codument Site list"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "Site detail",
+        "usage": [
+          "codument Site detail --fqn <FQN>"
+        ],
+        "options": [
+          "--fqn <FQN>               Exact Site FQN",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "fqn",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "Site validate",
+        "usage": [
+          "codument Site validate [--fqn <FQN>]"
+        ],
+        "options": [
+          "--fqn <FQN>               Optional exact Site FQN",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "fqn",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "PageBundle",
+        "usage": [
+          "codument PageBundle <command>"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "PageBundle list",
+        "usage": [
+          "codument PageBundle list"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "PageBundle detail",
+        "usage": [
+          "codument PageBundle detail --fqn <FQN>"
+        ],
+        "options": [
+          "--fqn <FQN>               Exact PageBundle FQN",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "fqn",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "PageBundle validate",
+        "usage": [
+          "codument PageBundle validate [--fqn <FQN>]"
+        ],
+        "options": [
+          "--fqn <FQN>               Optional exact PageBundle FQN",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "fqn",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "Page",
+        "usage": [
+          "codument Page <command>"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "Page list",
+        "usage": [
+          "codument Page list"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "Page detail",
+        "usage": [
+          "codument Page detail --fqn <FQN>"
+        ],
+        "options": [
+          "--fqn <FQN>               Exact Page FQN",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "fqn",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "Page validate",
+        "usage": [
+          "codument Page validate [--fqn <FQN>]"
+        ],
+        "options": [
+          "--fqn <FQN>               Optional exact Page FQN",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "fqn",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "mcp-app",
+        "usage": [
+          "codument mcp-app <command>"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "mcp-app serve",
+        "usage": [
+          "codument mcp-app serve [options]"
+        ],
+        "options": [
+          "--transport <name>        MCP transport (stdio only)",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "transport",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "mcp-app config",
+        "usage": [
+          "codument mcp-app config"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "LocalFunction",
+        "usage": [
+          "codument LocalFunction <command>"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "LocalFunction list",
+        "usage": [
+          "codument LocalFunction list [--operation <kind>]"
+        ],
+        "options": [
+          "--operation <query|detail|action>Filter by operation kind",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "operation",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "LocalFunction detail",
+        "usage": [
+          "codument LocalFunction detail --fqn <FQN>"
+        ],
+        "options": [
+          "--fqn <FQN>               Exact Local Function FQN",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "fqn",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "LocalFunction validate",
+        "usage": [
+          "codument LocalFunction validate [--fqn <FQN>]"
+        ],
+        "options": [
+          "--fqn <FQN>               Optional exact LocalFunction FQN",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "fqn",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "LocalFunction invoke",
+        "usage": [
+          "codument LocalFunction invoke --fqn <FQN> [--input <json>] [--config <json>] [--profile <name>]"
+        ],
+        "options": [
+          "--fqn <FQN>               Exact Local Function FQN",
+          "--input <json>            Typed JSON input (default {})",
+          "--config <json>           Per-call JSON config (default null)",
+          "--profile <name>          ConfigurationProfile selector; never enters business input/config",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "fqn",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "input",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "config",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "profile",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "ConfigurationProfile",
+        "usage": [
+          "codument ConfigurationProfile <command>"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "ConfigurationProfile list",
+        "usage": [
+          "codument ConfigurationProfile list"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "ConfigurationProfile detail",
+        "usage": [
+          "codument ConfigurationProfile detail --fqn <FQN>"
+        ],
+        "options": [
+          "--fqn <FQN>               Exact ConfigurationProfile FQN",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "fqn",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "ConfigurationProfile validate",
+        "usage": [
+          "codument ConfigurationProfile validate [--fqn <FQN>]"
+        ],
+        "options": [
+          "--fqn <FQN>               Optional exact ConfigurationProfile FQN",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "fqn",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "DatabaseConnection",
+        "usage": [
+          "codument DatabaseConnection <command>"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "DatabaseConnection list",
+        "usage": [
+          "codument DatabaseConnection list"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "DatabaseConnection detail",
+        "usage": [
+          "codument DatabaseConnection detail --fqn <FQN>"
+        ],
+        "options": [
+          "--fqn <FQN>               Exact DatabaseConnection FQN",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "fqn",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "DatabaseConnection validate",
+        "usage": [
+          "codument DatabaseConnection validate [--fqn <FQN>]"
+        ],
+        "options": [
+          "--fqn <FQN>               Optional exact DatabaseConnection FQN",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "fqn",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "BrowserWebApi",
+        "usage": [
+          "codument BrowserWebApi <command>"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "BrowserWebApi list",
+        "usage": [
+          "codument BrowserWebApi list"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "BrowserWebApi detail",
+        "usage": [
+          "codument BrowserWebApi detail --fqn <FQN>"
+        ],
+        "options": [
+          "--fqn <FQN>               Exact BrowserWebApi FQN",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "fqn",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "BrowserWebApi validate",
+        "usage": [
+          "codument BrowserWebApi validate [--fqn <FQN>]"
+        ],
+        "options": [
+          "--fqn <FQN>               Optional exact BrowserWebApi FQN",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "fqn",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "BrowserWebApi invoke",
+        "usage": [
+          "codument BrowserWebApi invoke --fqn <FQN> [--input <json>] [--profile <name>]"
+        ],
+        "options": [
+          "--fqn <FQN>               Exact BrowserWebApi FQN",
+          "--input <json>            Typed JSON input (default {})",
+          "--profile <name>          ConfigurationProfile selector",
+          "--session <name>          Browser provider session name",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "fqn",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "input",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "profile",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "session",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "PageWorkflow",
+        "usage": [
+          "codument PageWorkflow <command>"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "PageWorkflow list",
+        "usage": [
+          "codument PageWorkflow list"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "PageWorkflow detail",
+        "usage": [
+          "codument PageWorkflow detail --fqn <FQN>"
+        ],
+        "options": [
+          "--fqn <FQN>               Exact PageWorkflow FQN",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "fqn",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "PageWorkflow validate",
+        "usage": [
+          "codument PageWorkflow validate [--fqn <FQN>]"
+        ],
+        "options": [
+          "--fqn <FQN>               Optional exact PageWorkflow FQN",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "fqn",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "PageWorkflow start",
+        "usage": [
+          "codument PageWorkflow start --fqn <FQN> [options]"
+        ],
+        "options": [
+          "--fqn <FQN>               Installed PageWorkflow FQN",
+          "--selector <json>         Closed PageWorkflow selector (definition default when omitted)",
+          "--input <json>            JSON object passed to the PageWorkflow (default {})",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "fqn",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "selector",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "input",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "PageWorkflow get",
+        "usage": [
+          "codument PageWorkflow get --run-id <runId>"
+        ],
+        "options": [
+          "--run-id <id>             Run id returned by PageWorkflow start",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "run-id",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "PageObject",
+        "usage": [
+          "codument PageObject <command>"
+        ],
+        "options": [],
+        "schemaOptions": []
+      },
+      {
+        "path": "PageObject list",
+        "usage": [
+          "codument PageObject list"
+        ],
+        "options": [
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "PageObject detail",
+        "usage": [
+          "codument PageObject detail --fqn <FQN>"
+        ],
+        "options": [
+          "--fqn <FQN>               Exact PageObject FQN",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "fqn",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "PageObject validate",
+        "usage": [
+          "codument PageObject validate [--fqn <FQN>]"
+        ],
+        "options": [
+          "--fqn <FQN>               Optional exact PageObject FQN",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "fqn",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "PageObject invoke",
+        "usage": [
+          "codument PageObject invoke --fqn <Action-FQN> [--input <json>]"
+        ],
+        "options": [
+          "--fqn <Action-FQN>        Exact PageObject action FQN",
+          "--selector <json>         Closed PageObject selector (definition default when omitted)",
+          "--input <json>            JSON object passed to the PageObject action (default {})",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "fqn",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "selector",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "input",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "run-web-api",
+        "usage": [
+          "codument run-web-api <module> [options]"
+        ],
+        "options": [
+          "--input <json>            JSON object passed to the module default export",
+          "--transport <name>        Browser provider override: ego-browser, opencli, or mdd-browser-robot",
+          "--opencli-transport <name>OpenCLI subtransport: plugin or browser-eval",
+          "--session <name>          Selected browser provider session name",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "input",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "transport",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "opencli-transport",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "session",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "invoke",
+        "usage": [
+          "codument invoke --fqn <FQN> [options]"
+        ],
+        "options": [
+          "--fqn <FQN>               Capability FQN from browser-functions/registry.json",
+          "--input <json>            JSON object passed to the module default export",
+          "--skills-dir <path>       Agent-supplied scan root (repeatable; skill dir or skills root). Not the init destination",
+          "--registry <file>         Debug: explicit registry.json path",
+          "--capsule <dir>           Debug: skill or dist directory that contains browser-functions/",
+          "--transport <name>        Browser provider override: ego-browser, opencli, or mdd-browser-robot",
+          "--opencli-transport <name>OpenCLI subtransport: plugin or browser-eval",
+          "--session <name>          Selected browser provider session name",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "fqn",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "input",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "skills-dir",
+            "kind": "value",
+            "repeatable": true
+          },
+          {
+            "name": "registry",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "capsule",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "transport",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "opencli-transport",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "session",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      },
+      {
+        "path": "exec",
+        "usage": [
+          "codument exec --code <expression> [options]"
+        ],
+        "options": [
+          "--code <expression>       JavaScript expression; typically an async IIFE using run_web_api",
+          "--skills-dir <path>       Agent-supplied scan root (repeatable; skill dir or skills root). Not the init destination",
+          "--registry <file>         Debug: explicit registry.json path",
+          "--capsule <dir>           Debug: skill or dist directory that contains browser-functions/",
+          "--transport <name>        Browser provider override: ego-browser, opencli, or mdd-browser-robot",
+          "--opencli-transport <name>OpenCLI subtransport: plugin or browser-eval",
+          "--session <name>          Selected browser provider session name",
+          "--json                Print machine-readable JSON"
+        ],
+        "schemaOptions": [
+          {
+            "name": "code",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "skills-dir",
+            "kind": "value",
+            "repeatable": true
+          },
+          {
+            "name": "registry",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "capsule",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "transport",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "opencli-transport",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "session",
+            "kind": "value",
+            "repeatable": false
+          },
+          {
+            "name": "json",
+            "kind": "boolean"
+          }
+        ]
+      }
+    ]
+  },
+  "skills": [
+    {
+      "path": "src/templates/skills/codument-validate/SKILL.md",
+      "bytes": 914,
+      "sha256": "6f75914039ec0ca4b97e0afc57f9d0ded388887feefb34f552e547b006849a20"
+    },
+    {
+      "path": "src/templates/skills/codument-impl-quick/SKILL.md",
+      "bytes": 912,
+      "sha256": "fe9ac14802d34c0b6b4b039bd60e6cb0572254924ed4756c3f8a382cbc926b51"
+    },
+    {
+      "path": "src/templates/skills/codument-impl-mission/SKILL.md",
+      "bytes": 924,
+      "sha256": "e81ae2e1fe76f9f54e19161911d66537c2ec07c3de9a596bf6d85de3c4cd3cda"
+    },
+    {
+      "path": "src/templates/skills/codument-verify/SKILL.md",
+      "bytes": 930,
+      "sha256": "5e31a37d6def2b0a72dc96f5f6eb2965efdb474c35f5f455315d13344dc12bcf"
+    },
+    {
+      "path": "src/templates/skills/codument-impl-track/SKILL.md",
+      "bytes": 1084,
+      "sha256": "171d879590accfa70e2f0231dea2dc174d8bfe916253d65e266e85f5b6582736"
+    },
+    {
+      "path": "src/templates/skills/codument-docs-bootstrap/SKILL.md",
+      "bytes": 914,
+      "sha256": "b6db926affd19b300f1eb44a90c2b3c5882335484f4dfb7463145aa865518ba4"
+    },
+    {
+      "path": "src/templates/skills/codument-artifact-sync/SKILL.md",
+      "bytes": 1031,
+      "sha256": "55b6b015a1ec69e6c1b4ecf305d12abdce0b585f66a95a9cb44845b2243a293f"
+    },
+    {
+      "path": "src/templates/skills/README.md",
+      "bytes": 2402,
+      "sha256": "18997c0241488614ea5af717a078db191731184dac24e1c8f9af59dfa06ca444"
+    },
+    {
+      "path": "src/templates/skills/codument-maintain-track/SKILL.md",
+      "bytes": 222,
+      "sha256": "ff091afcde46b82e514b131777f962ca1cf0a36128f18993aa05cee095fc7b97"
+    },
+    {
+      "path": "src/templates/skills/codument-archive-mission/SKILL.md",
+      "bytes": 870,
+      "sha256": "3398586650d2e1243f430a5e7f4ee9d524d925df142652a30529f45ce6b255fe"
+    },
+    {
+      "path": "src/templates/skills/codument-archive-track/SKILL.md",
+      "bytes": 989,
+      "sha256": "e65ed2fc0b097ea8322fcdfdb56a77c4c0c219fab4e6417b93e49370c29c22bd"
+    },
+    {
+      "path": "src/templates/skills/codument-plan-mission/SKILL.md",
+      "bytes": 835,
+      "sha256": "4be56493df3b5a6e6aafe95715907dc12396a3f5361a2c031c1e10b87975d73d"
+    },
+    {
+      "path": "src/templates/skills/codument-migrate/references/decision-migration.md",
+      "bytes": 2439,
+      "sha256": "8324c39636c39a13f6ae51b96f1135aae4cf202c838340c29f6ffbd9ddf4c19d"
+    },
+    {
+      "path": "src/templates/skills/codument-migrate/SKILL.md",
+      "bytes": 1023,
+      "sha256": "b9b9378c81f745982d56659d7259f1eca2f72ce729d37af1cc9df43fd33325d3"
+    },
+    {
+      "path": "src/templates/skills/codument-discuss/SKILL.md",
+      "bytes": 869,
+      "sha256": "702731fe99a439313f8060dd2b677652d493cd20635786967bd1647930851212"
+    },
+    {
+      "path": "src/templates/skills/codument-plan-track/SKILL.md",
+      "bytes": 1052,
+      "sha256": "780cfa4f69221b2112e4a6ebfe24802412e3ed728bcc8e93a90fb6aa44beab00"
+    },
+    {
+      "path": "src/templates/skills/codument-gap-loop/SKILL.md",
+      "bytes": 981,
+      "sha256": "6e5aa6ed5e5beb4046de5bc4d2b4129fb6c66dc7ae579e6889d07a9155348835"
+    }
+  ],
+  "testFiles": [
+    "test/cli/behavior/resource.test.ts",
+    "test/cli/behavior/patch-resource.test.ts",
+    "test/cli/track/resource.test.ts",
+    "test/cli/kinds/registry.test.ts",
+    "test/cli/workspace/root.test.ts",
+    "test/cli/xnl/merge.test.ts",
+    "test/cli/xnl/registry.test.ts",
+    "test/cli/utils/index.test.ts",
+    "test/cli/utils/vfs.test.ts",
+    "test/cli/utils/spec-xml.test.ts",
+    "test/cli/utils/track-time.test.ts",
+    "test/cli/modeling/showcase.test.ts",
+    "test/cli/modeling/schema.test.ts",
+    "test/cli/modeling/merge.test.ts",
+    "test/cli/modeling/validate.test.ts",
+    "test/cli/modeling/merge-resources.test.ts",
+    "test/cli/modeling/lint.test.ts",
+    "test/cli/modeling/registry.test.ts",
+    "test/cli/modeling/config.test.ts",
+    "test/cli/mission/validate.test.ts",
+    "test/cli/mission/resource.test.ts",
+    "test/cli/command-contract.test.ts",
+    "test/cli/commands/migrate.test.ts",
+    "test/cli/commands/decision-migration-fixtures.test.ts",
+    "test/cli/commands/artifact.test.ts",
+    "test/cli/commands/archive.test.ts",
+    "test/cli/commands/std-lint.test.ts",
+    "test/cli/commands/scaffold.test.ts",
+    "test/cli/commands/decisions.test.ts",
+    "test/cli/commands/upgrade-workspace.test.ts",
+    "test/cli/commands/init.test.ts",
+    "test/cli/commands/validate.test.ts",
+    "test/cli/commands/upgrade-resource.test.ts",
+    "test/cli/commands/spec-xml-cli.test.ts",
+    "test/cli/commands/upgrade-track.test.ts",
+    "test/cli/commands/show.test.ts",
+    "test/cli/commands/help.test.ts",
+    "test/cli/commands/lifecycle.test.ts",
+    "test/cli/commands/symlink-workspace.test.ts",
+    "test/cli/engineering/showcase.test.ts",
+    "test/cli/engineering/schema.test.ts",
+    "test/cli/engineering/validate.test.ts",
+    "test/cli/engineering/merge-resources.test.ts",
+    "test/cli/engineering/lint.test.ts",
+    "test/cli/engineering/registry.test.ts",
+    "test/scripts/codument-timeline.test.ts",
+    "test/scripts/packaged-resources-build.test.ts",
+    "test/scripts/e2e-scripts.test.ts",
+    "test/templates/cli-first-operations.test.ts",
+    "test/templates/topological-decision-questioning.test.ts",
+    "test/templates/autonomous-delegation.test.ts",
+    "test/templates/decision-registry-authoring.test.ts",
+    "test/templates/mission-actor-sets.test.ts",
+    "test/templates/mission-continuity.test.ts",
+    "test/templates/mission-execution-stop-points.test.ts",
+    "test/templates/xnl-authoring.test.ts",
+    "test/templates/skills.test.ts",
+    "test/templates/planning-defaults.test.ts",
+    "test/templates/workspace-symlink-guidance.test.ts",
+    "test/templates/operation-hooks.test.ts",
+    "test/templates/autonomous-migration.test.ts",
+    "test/templates/resource-effect.test.ts",
+    "test/templates/workflow-session-hardening.test.ts"
+  ],
+  "historicalFixtures": [
+    {
+      "path": "test/cli/utils/fixtures",
+      "files": 2,
+      "sha256": "fd7636aa75732508030368ff233601f3a48e28068ac84f5b4f0caa5eddbcd6fd"
+    },
+    {
+      "path": "test/resources/archive-decision-registry",
+      "files": 2,
+      "sha256": "290bcb051d53d9219858852c10b3da4a91ae613d1389c108361d39443a9ac8b5"
+    },
+    {
+      "path": "test/resources/modeling-merge",
+      "files": 16,
+      "sha256": "c42135d283dce184c752a51ec0e6a079eb510509253f6ef13ecc09e5cc53b833"
+    },
+    {
+      "path": "test/resources/engineering-merge",
+      "files": 16,
+      "sha256": "8bb387604cf7eef9541e997e5928dd0026e20fea5dedf52b37f750c728f369c6"
+    }
+  ],
+  "contextScenarios": [
+    {
+      "id": "quick",
+      "method": "declared-entry-reading-proxy; runtime-selected business sources excluded equally",
+      "reads": [
+        {
+          "path": "src/templates/codument/std/AGENTS.md",
+          "bytes": 6866,
+          "sha256": "3f9571f426e3f4c1ce7e1a0f32476c101fef054917b5e19dfd352b2cad734787"
+        },
+        {
+          "path": "src/templates/codument/std/operations/impl-quick.md",
+          "bytes": 2905,
+          "sha256": "ab651887db875c4b81aa45d4d66f5196418eb9fb804f1aa8ed3ca2f43f35c7a7"
+        },
+        {
+          "path": "src/templates/codument/std/methods/tdd.md",
+          "bytes": 1487,
+          "sha256": "611650588b5cc26acb7109c1a48c9110309d63d5d93aa738281ea8ec2921635c"
+        }
+      ]
+    },
+    {
+      "id": "track",
+      "method": "declared-entry-reading-proxy; runtime-selected business sources excluded equally",
+      "reads": [
+        {
+          "path": "src/templates/codument/std/AGENTS.md",
+          "bytes": 6866,
+          "sha256": "3f9571f426e3f4c1ce7e1a0f32476c101fef054917b5e19dfd352b2cad734787"
+        },
+        {
+          "path": "src/templates/codument/std/operations/impl-track.md",
+          "bytes": 32002,
+          "sha256": "05207096f65167dde3154f51bced9c72a3f7e00d2945ef900bdb389249e30e34"
+        },
+        {
+          "path": "src/templates/codument/std/methods/tdd.md",
+          "bytes": 1487,
+          "sha256": "611650588b5cc26acb7109c1a48c9110309d63d5d93aa738281ea8ec2921635c"
+        },
+        {
+          "path": "src/templates/codument/std/methods/dag-execution.md",
+          "bytes": 3408,
+          "sha256": "7a1acaeeb2211e6906448c51f8f9bfd735383a650f66f54e237db6e4c5255c60"
+        }
+      ]
+    },
+    {
+      "id": "resume",
+      "method": "declared-entry-reading-proxy; runtime-selected business sources excluded equally",
+      "reads": [
+        {
+          "path": "src/templates/codument/std/AGENTS.md",
+          "bytes": 6866,
+          "sha256": "3f9571f426e3f4c1ce7e1a0f32476c101fef054917b5e19dfd352b2cad734787"
+        },
+        {
+          "path": "src/templates/codument/std/operations/impl-track.md",
+          "bytes": 32002,
+          "sha256": "05207096f65167dde3154f51bced9c72a3f7e00d2945ef900bdb389249e30e34"
+        },
+        {
+          "path": "src/templates/codument/std/methods/tdd.md",
+          "bytes": 1487,
+          "sha256": "611650588b5cc26acb7109c1a48c9110309d63d5d93aa738281ea8ec2921635c"
+        },
+        {
+          "path": "src/templates/codument/std/methods/dag-execution.md",
+          "bytes": 3408,
+          "sha256": "7a1acaeeb2211e6906448c51f8f9bfd735383a650f66f54e237db6e4c5255c60"
+        }
+      ]
+    },
+    {
+      "id": "mission",
+      "method": "declared-entry-reading-proxy; runtime-selected business sources excluded equally",
+      "reads": [
+        {
+          "path": "src/templates/codument/std/AGENTS.md",
+          "bytes": 6866,
+          "sha256": "3f9571f426e3f4c1ce7e1a0f32476c101fef054917b5e19dfd352b2cad734787"
+        },
+        {
+          "path": "src/templates/codument/std/operations/impl-mission.md",
+          "bytes": 19972,
+          "sha256": "960eb0dc4f32ba507bb813691a766662baeee605975497d7d5d9cef61f197469"
+        },
+        {
+          "path": "src/templates/codument/std/protocols/cybernetic-loop.md",
+          "bytes": 3229,
+          "sha256": "88ec4157de8f53b26360aeaed2eff3a618c36b672b9dce3da6bc8ef2842da210"
+        }
+      ]
+    },
+    {
+      "id": "strict",
+      "method": "declared-entry-reading-proxy; runtime-selected business sources excluded equally",
+      "reads": [
+        {
+          "path": "src/templates/codument/std/AGENTS.md",
+          "bytes": 6866,
+          "sha256": "3f9571f426e3f4c1ce7e1a0f32476c101fef054917b5e19dfd352b2cad734787"
+        },
+        {
+          "path": "src/templates/codument/std/operations/impl-track.md",
+          "bytes": 32002,
+          "sha256": "05207096f65167dde3154f51bced9c72a3f7e00d2945ef900bdb389249e30e34"
+        },
+        {
+          "path": "src/templates/codument/std/operations/gap-loop.md",
+          "bytes": 3379,
+          "sha256": "3eebb62dc3924cf41e7b052902fc8ee499790cac690a64871ce08913c7abcfb0"
+        },
+        {
+          "path": "src/templates/codument/std/protocols/attractor-check.md",
+          "bytes": 2571,
+          "sha256": "73f3a1fddf5b6fb463b38b904d68b4b806dfad72e1b0b8967ec3f943767f53b8"
+        }
+      ]
+    },
+    {
+      "id": "migration",
+      "method": "declared-entry-reading-proxy; runtime-selected business sources excluded equally",
+      "reads": [
+        {
+          "path": "src/templates/codument/std/AGENTS.md",
+          "bytes": 6866,
+          "sha256": "3f9571f426e3f4c1ce7e1a0f32476c101fef054917b5e19dfd352b2cad734787"
+        },
+        {
+          "path": "src/templates/codument/std/operations/migrate.md",
+          "bytes": 4946,
+          "sha256": "4d2aae9940d666de18afd55eed0079e61522cd2b41364e7fe166e2bf71c2741e"
+        },
+        {
+          "path": "src/templates/codument/std/spec/decision-registry.md",
+          "bytes": 4943,
+          "sha256": "09de28078611035755c5e2ae9d128f84e566c85a1994f15f63e4251161a128df"
+        }
+      ]
+    }
+  ]
+}

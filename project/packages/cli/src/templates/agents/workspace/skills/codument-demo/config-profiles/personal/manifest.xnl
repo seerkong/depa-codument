@@ -1,0 +1,3 @@
+<ConfigurationProfile #Codument.Demo.ConfigurationProfile.Personal envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
+  profile = "personal"
+}>

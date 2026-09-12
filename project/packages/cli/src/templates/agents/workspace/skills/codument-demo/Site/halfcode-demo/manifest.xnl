@@ -1,0 +1,18 @@
+<Site #Codument.Demo.Site.Main envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
+  name = "halfcode-demo"
+  description = "DEPA Codument 多前端系统示例站点"
+  defaultMount = "google-search"
+  label = "Halfcode Demo"
+  order = 10
+  visible = true
+} (
+  <PageMounts [
+    <PageMount #google-search { path = "/" pageFqn = "Codument.Demo.Page.GoogleSearch" label = "Google Search" order = 10 visible = true }>
+    <PageMount #open-data { path = "/open-data" pageFqn = "Codument.Demo.Page.OpenDataExport" label = "Open Data Export" order = 20 visible = true }>
+    <PageMount #live-vue { path = "/live-vue" pageFqn = "Codument.Demo.Page.LiveVueDashboard" label = "Live Vue" order = 30 visible = true }>
+    <PageMount #html-intro { path = "/guide" pageFqn = "Codument.Demo.Page.GuideIntroduction" label = "HTML Guide" order = 40 visible = true }>
+    <PageMount #html-reference { path = "/guide/reference" pageFqn = "Codument.Demo.Page.GuideReference" label = "Resource Reference" order = 50 visible = true }>
+    <PageMount #vue-overview { path = "/workbench" pageFqn = "Codument.Demo.Page.VueWorkbenchOverview" label = "Vue Workbench" order = 60 visible = true }>
+    <PageMount #vue-detail { path = "/workbench/detail" pageFqn = "Codument.Demo.Page.VueWorkbenchDetail" label = "Vue Route Page" order = 70 visible = true }>
+  ]>
+)>

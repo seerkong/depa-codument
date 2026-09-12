@@ -1,0 +1,1 @@
+export { createMcpAppServer } from '../index';

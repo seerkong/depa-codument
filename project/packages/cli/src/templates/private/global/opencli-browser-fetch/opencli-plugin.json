@@ -1,0 +1,6 @@
+{
+  "name": "codument-opencli",
+  "version": "0.1.0",
+  "description": "Generic authenticated browser fetch plugin for DEPA Codument",
+  "opencli": ">=1.8.6"
+}

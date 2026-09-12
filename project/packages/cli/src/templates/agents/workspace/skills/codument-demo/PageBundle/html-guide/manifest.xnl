@@ -1,0 +1,20 @@
+<PageBundle #Codument.Demo.PageBundle.HtmlGuide envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
+  profile = "html"
+  name = "html-guide"
+  description = "一个目录内多个显式 HTML Page entry 的示例"
+} (
+  <Entries [
+    <HtmlPage #introduction {
+      fqn = "Codument.Demo.Page.GuideIntroduction"
+      name = "guide-introduction"
+      entry = "introduction.html"
+      description = "PageBundle HTML 多入口介绍"
+    }>
+    <HtmlPage #reference {
+      fqn = "Codument.Demo.Page.GuideReference"
+      name = "guide-reference"
+      entry = "reference.html"
+      description = "PageBundle 与 Site 资源速查"
+    }>
+  ]>
+)>

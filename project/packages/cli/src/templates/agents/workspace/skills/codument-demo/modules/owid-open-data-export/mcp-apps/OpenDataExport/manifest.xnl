@@ -1,0 +1,8 @@
+<McpApp #Codument.Demo.McpApp.OpenDataExport envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
+  pageFqn = "Codument.Demo.Page.OpenDataExport"
+  pageName = "open-data-export"
+  sopFqn = "Codument.Demo.SOP.OwidOpenDataExport"
+  workflowFqn = "Codument.Owid.OpenDataExport.Workflow.Run"
+  viewAsset = "client/view.js"
+  inputMode = "workflow"
+}>

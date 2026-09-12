@@ -1,0 +1,6 @@
+<HostBundle #Codument.Demo.Module.GoogleSearch.Host envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
+  entry = "vfs://./entry.ts"
+  runtime = "bun"
+  sources = ["vfs://./entry.ts" "vfs://./logic" "vfs://./adapters"]
+  exports = ["PageWorkflow" "PageObject"]
+}>

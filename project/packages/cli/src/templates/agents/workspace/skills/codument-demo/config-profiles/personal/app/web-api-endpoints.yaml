@@ -1,0 +1,14 @@
+envelopeVersion: halfcode.resource-envelope/v1
+specVersion: 1
+kind: ConfigBinding
+fqn: Codument.Demo.Configuration.Personal.WebApiEndpoints
+spec:
+  targetRef:
+    kind: AppConfiguration
+    name: web-api-endpoints
+  value:
+    endpoints:
+      public-echo:
+        baseUrl: https://postman-echo.com
+      public-httpbin:
+        baseUrl: https://httpbin.org

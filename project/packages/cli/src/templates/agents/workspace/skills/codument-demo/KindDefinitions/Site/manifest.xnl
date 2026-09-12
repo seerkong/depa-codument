@@ -1,0 +1,19 @@
+<KindDefinition #Halfcode.ResourceKind.Site envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
+  resourceKind = "Site"
+  subjectFqn = "Halfcode.ResourceKind.Site"
+  sourceShapes = ["manifest"]
+  documentCardinality = "one"
+} (
+  <SpecRevisions [
+    <SpecRevision #v1 {
+      specVersion = 1
+      schemaRef = "vfs://./spec-v1.schema.json"
+      schemaFingerprint = "sha256:6af63c78e9663ee5b2704212bf68adbba36da5bfc1aca3f96fba15f9c30709c9"
+      contractFingerprint = "sha256:6c899cbaaf50544c85f099c7429006f5764715366b1d45053b2e3e4a4b423da1"
+      semanticValidatorFingerprint = "sha256:872d3c4682755eb31e1cca4fb46be5380050fe987208b8f6ccd23a75029ccc2b"
+      referenceProjectionFingerprint = "sha256:e3334c0a52cccb710b3935aa771b82ee8bb36803854da8893c3ee98be1b45c8d"
+      compilerInputFingerprint = "sha256:b2c6a7b69c7caf158d4ef67b00034f2ee1cdab220ff3a49c81c92d93a5fe23b0"
+      stability = "stable"
+    }>
+  ]>
+)>

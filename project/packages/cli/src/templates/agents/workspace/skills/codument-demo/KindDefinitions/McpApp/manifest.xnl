@@ -1,0 +1,19 @@
+<KindDefinition #Halfcode.ResourceKind.McpApp envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
+  resourceKind = "McpApp"
+  subjectFqn = "Halfcode.ResourceKind.McpApp"
+  sourceShapes = ["manifest"]
+  documentCardinality = "one"
+} (
+  <SpecRevisions [
+    <SpecRevision #v1 {
+      specVersion = 1
+      schemaRef = "vfs://./spec-v1.schema.json"
+      schemaFingerprint = "sha256:b3e0331eac7c55f92c0a0b32fea03fc85f2b44a676ea3767f9a7f3ac8aca5387"
+      contractFingerprint = "sha256:6faeff6604182a06b9b032dd58112abf27d32f003c71a38b7dfc417eb7c378d0"
+      semanticValidatorFingerprint = "sha256:5f725c012d6ddddb12ac0ad3af8cff37339316830aeebb0d30af7387828449f6"
+      referenceProjectionFingerprint = "sha256:7aa2467eae2dfe4bc475b99160e8a012526e00c4cc3cc99426c664120302f9ed"
+      compilerInputFingerprint = "sha256:5be649007b163cfd044e8d9a9e2dd9a04e4d22d0b1fee98a594c528272bb2590"
+      stability = "stable"
+    }>
+  ]>
+)>

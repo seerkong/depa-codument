@@ -1,0 +1,148 @@
+{
+  "source": "mission analysis/baseline.json",
+  "capturedAt": "2026-09-05T06:56:52.490Z",
+  "method": "declared-entry-reading-proxy; runtime-selected business sources excluded equally",
+  "scenarios": [
+    {
+      "id": "quick",
+      "method": "declared-entry-reading-proxy; runtime-selected business sources excluded equally",
+      "reads": [
+        {
+          "path": "src/templates/codument/std/AGENTS.md",
+          "bytes": 6866,
+          "sha256": "3f9571f426e3f4c1ce7e1a0f32476c101fef054917b5e19dfd352b2cad734787"
+        },
+        {
+          "path": "src/templates/codument/std/operations/impl-quick.md",
+          "bytes": 2905,
+          "sha256": "ab651887db875c4b81aa45d4d66f5196418eb9fb804f1aa8ed3ca2f43f35c7a7"
+        },
+        {
+          "path": "src/templates/codument/std/methods/tdd.md",
+          "bytes": 1487,
+          "sha256": "611650588b5cc26acb7109c1a48c9110309d63d5d93aa738281ea8ec2921635c"
+        }
+      ]
+    },
+    {
+      "id": "track",
+      "method": "declared-entry-reading-proxy; runtime-selected business sources excluded equally",
+      "reads": [
+        {
+          "path": "src/templates/codument/std/AGENTS.md",
+          "bytes": 6866,
+          "sha256": "3f9571f426e3f4c1ce7e1a0f32476c101fef054917b5e19dfd352b2cad734787"
+        },
+        {
+          "path": "src/templates/codument/std/operations/impl-track.md",
+          "bytes": 32002,
+          "sha256": "05207096f65167dde3154f51bced9c72a3f7e00d2945ef900bdb389249e30e34"
+        },
+        {
+          "path": "src/templates/codument/std/methods/tdd.md",
+          "bytes": 1487,
+          "sha256": "611650588b5cc26acb7109c1a48c9110309d63d5d93aa738281ea8ec2921635c"
+        },
+        {
+          "path": "src/templates/codument/std/methods/dag-execution.md",
+          "bytes": 3408,
+          "sha256": "7a1acaeeb2211e6906448c51f8f9bfd735383a650f66f54e237db6e4c5255c60"
+        }
+      ]
+    },
+    {
+      "id": "resume",
+      "method": "declared-entry-reading-proxy; runtime-selected business sources excluded equally",
+      "reads": [
+        {
+          "path": "src/templates/codument/std/AGENTS.md",
+          "bytes": 6866,
+          "sha256": "3f9571f426e3f4c1ce7e1a0f32476c101fef054917b5e19dfd352b2cad734787"
+        },
+        {
+          "path": "src/templates/codument/std/operations/impl-track.md",
+          "bytes": 32002,
+          "sha256": "05207096f65167dde3154f51bced9c72a3f7e00d2945ef900bdb389249e30e34"
+        },
+        {
+          "path": "src/templates/codument/std/methods/tdd.md",
+          "bytes": 1487,
+          "sha256": "611650588b5cc26acb7109c1a48c9110309d63d5d93aa738281ea8ec2921635c"
+        },
+        {
+          "path": "src/templates/codument/std/methods/dag-execution.md",
+          "bytes": 3408,
+          "sha256": "7a1acaeeb2211e6906448c51f8f9bfd735383a650f66f54e237db6e4c5255c60"
+        }
+      ]
+    },
+    {
+      "id": "mission",
+      "method": "declared-entry-reading-proxy; runtime-selected business sources excluded equally",
+      "reads": [
+        {
+          "path": "src/templates/codument/std/AGENTS.md",
+          "bytes": 6866,
+          "sha256": "3f9571f426e3f4c1ce7e1a0f32476c101fef054917b5e19dfd352b2cad734787"
+        },
+        {
+          "path": "src/templates/codument/std/operations/impl-mission.md",
+          "bytes": 19972,
+          "sha256": "960eb0dc4f32ba507bb813691a766662baeee605975497d7d5d9cef61f197469"
+        },
+        {
+          "path": "src/templates/codument/std/protocols/cybernetic-loop.md",
+          "bytes": 3229,
+          "sha256": "88ec4157de8f53b26360aeaed2eff3a618c36b672b9dce3da6bc8ef2842da210"
+        }
+      ]
+    },
+    {
+      "id": "strict",
+      "method": "declared-entry-reading-proxy; runtime-selected business sources excluded equally",
+      "reads": [
+        {
+          "path": "src/templates/codument/std/AGENTS.md",
+          "bytes": 6866,
+          "sha256": "3f9571f426e3f4c1ce7e1a0f32476c101fef054917b5e19dfd352b2cad734787"
+        },
+        {
+          "path": "src/templates/codument/std/operations/impl-track.md",
+          "bytes": 32002,
+          "sha256": "05207096f65167dde3154f51bced9c72a3f7e00d2945ef900bdb389249e30e34"
+        },
+        {
+          "path": "src/templates/codument/std/operations/gap-loop.md",
+          "bytes": 3379,
+          "sha256": "3eebb62dc3924cf41e7b052902fc8ee499790cac690a64871ce08913c7abcfb0"
+        },
+        {
+          "path": "src/templates/codument/std/protocols/attractor-check.md",
+          "bytes": 2571,
+          "sha256": "73f3a1fddf5b6fb463b38b904d68b4b806dfad72e1b0b8967ec3f943767f53b8"
+        }
+      ]
+    },
+    {
+      "id": "migration",
+      "method": "declared-entry-reading-proxy; runtime-selected business sources excluded equally",
+      "reads": [
+        {
+          "path": "src/templates/codument/std/AGENTS.md",
+          "bytes": 6866,
+          "sha256": "3f9571f426e3f4c1ce7e1a0f32476c101fef054917b5e19dfd352b2cad734787"
+        },
+        {
+          "path": "src/templates/codument/std/operations/migrate.md",
+          "bytes": 4946,
+          "sha256": "4d2aae9940d666de18afd55eed0079e61522cd2b41364e7fe166e2bf71c2741e"
+        },
+        {
+          "path": "src/templates/codument/std/spec/decision-registry.md",
+          "bytes": 4943,
+          "sha256": "09de28078611035755c5e2ae9d128f84e566c85a1994f15f63e4251161a128df"
+        }
+      ]
+    }
+  ]
+}

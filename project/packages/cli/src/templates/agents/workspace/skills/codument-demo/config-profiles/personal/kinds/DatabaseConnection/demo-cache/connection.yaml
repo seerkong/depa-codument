@@ -1,0 +1,13 @@
+envelopeVersion: halfcode.resource-envelope/v1
+specVersion: 1
+kind: ConfigBinding
+fqn: Codument.Demo.Configuration.Personal.Database.Cache
+spec:
+  targetRef:
+    kind: DatabaseConnection
+    name: demo-cache
+    fqn: Codument.Demo.Database.Cache
+  value:
+    driver: sqlite
+    sqlite:
+      path: workspace://.codument/data/demo-cache.sqlite

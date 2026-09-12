@@ -1,0 +1,29 @@
+<PageBundle #Codument.Demo.PageBundle.VueWorkbench envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
+  profile = "vue"
+  name = "vue-workbench"
+  description = "一个 Vue App 的多个显式 route Pages，共享构建与运行实例"
+  entry = "src/App.vue"
+  expose = "./app"
+  sources = ["src/App.vue" "src/views/OverviewView.vue" "src/views/DetailView.vue" "src/components/RouteCard.vue"]
+} (
+  <Routes [
+    <RouteGroup #workbench { path = "/workbench" }>
+    <VuePage #overview {
+      fqn = "Codument.Demo.Page.VueWorkbenchOverview"
+      name = "vue-workbench-overview"
+      path = "/"
+      component = "OverviewView"
+      description = "Vue Workbench 总览"
+    }>
+    <VuePage #detail {
+      fqn = "Codument.Demo.Page.VueWorkbenchDetail"
+      name = "vue-workbench-detail"
+      path = "/detail/:topic"
+      component = "DetailView"
+      description = "Vue Workbench 动态详情"
+      aliases = ["/d/:topic"]
+      views = ["default" "aside"]
+    }>
+    <Redirect #legacy { path = "/old-workbench" to = "/" }>
+  ]>
+)>

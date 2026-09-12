@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ego 演示</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main>
+    <p class="eyebrow">Page control</p>
+    <h1>Ego 演示</h1>
+    <p class="lede">此页只向 serve 发 HTTP。ego-browser 由 serve 在本机拉起，页面自己不会启动本地进程。</p>
+    <label for="target-url">目标地址</label>
+    <div class="row">
+      <input id="target-url" type="url" value="/pending-records.html">
+      <button id="open-session" type="button">打开会话</button>
+      <button id="find-records" type="button" disabled>查询 pending</button>
+    </div>
+    <pre id="output">尚未打开会话</pre>
+    <p><a href="/">返回控制台</a> · <a href="/duplex-codex.html">双向演示 · Codex</a></p>
+  </main>
+  <script src="/ego.js" type="module"></script>
+</body>
+</html>

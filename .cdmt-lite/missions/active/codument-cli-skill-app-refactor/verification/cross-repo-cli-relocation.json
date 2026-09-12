@@ -1,0 +1,349 @@
+{
+  "baselineH": "74d89ec71de2e202b0b1e1be91101e29b9d510fe0f4e7ba6b23c43cdeb4f0065",
+  "baselineC": "607bcf383a027dce766b4a78057a92fe8b5e5a610e21dd78b6a0cfc1c57bc5c8",
+  "transforms": [
+    "Exact five CLI npm specifier renames only",
+    "Independent local library version 0.1.0",
+    "Capsule exports limited to index/shutdown/service/codex",
+    "Shell only argv: no Skill App or Hono dependency",
+    "Public README rewritten for CLI-only scope"
+  ],
+  "files": [
+    {
+      "source": "project/packages/cli-host-capsule/README.md",
+      "inputSha256": "111f95ed693c9ce3a1e5d2c410ec0bdf12122ae6c20f9605ef92a35c0b3dd9fa",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-capsule/README.md",
+      "outputSha256": "e4441a351f7f278cf0cfb9865f106fce1f6b505b7ffb58741cbe842c619a40a6"
+    },
+    {
+      "source": "project/packages/cli-host-capsule/package.json",
+      "inputSha256": "b60de167aaf5ff405a07f6a383bba82d33b2fa2535176073a6bb8f20976e07b4",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-capsule/package.json",
+      "outputSha256": "8051e614633ab66e8d115492262ca1ab0e7ed21414297275ac06a3c653e570ea"
+    },
+    {
+      "source": "project/packages/cli-host-capsule/src/codex.ts",
+      "inputSha256": "0c7fc94e127043f58783b3584618c1ec5f8d3f195fe6775dd1dea1b0413f5dff",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-capsule/src/codex.ts",
+      "outputSha256": "2ce0d28a70dcf67557c6d1a212115a89229dfc59e7f9ee733d51953f844b8df1"
+    },
+    {
+      "source": "project/packages/cli-host-capsule/src/index.ts",
+      "inputSha256": "7178bdb8c3e943615a1420d0d46ee64b31d22641ece99fbabf2b25b1f05ccdc3",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-capsule/src/index.ts",
+      "outputSha256": "5ab3fcfe7b24499ab2fa00f89ac1ec4fa83d93e152eaa98f13b92342975e88bd"
+    },
+    {
+      "source": "project/packages/cli-host-capsule/src/service.ts",
+      "inputSha256": "4b1645d0e6d11ed0228bcbf7401ea10ed52a84e1a40c10d3bd5690f0b9bf11b6",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-capsule/src/service.ts",
+      "outputSha256": "b9cb1abda3049842d1aa18b60888ccbd0d8976b048a12e2b1c7de48291984bab"
+    },
+    {
+      "source": "project/packages/cli-host-capsule/src/shutdown.ts",
+      "inputSha256": "7b65a4a8e8c7d800575d44b1127f08371aca4f016b06764f97ef8a8c756f417e",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-capsule/src/shutdown.ts",
+      "outputSha256": "711f5f66fccb30cbed07895d559c8f75956997efd7435cc3a121464f7f3ddd3d"
+    },
+    {
+      "source": "project/packages/cli-host-capsule/test/codex.test.ts",
+      "inputSha256": "ea894bbedc8a84bd330385aafb9e013804ed63aab9d835040651d7754cd8d12b",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-capsule/test/codex.test.ts",
+      "outputSha256": "ea894bbedc8a84bd330385aafb9e013804ed63aab9d835040651d7754cd8d12b"
+    },
+    {
+      "source": "project/packages/cli-host-capsule/test/host.test.ts",
+      "inputSha256": "6407be304534ba93fe8725cd16de1fb85cbf8c7c31a85eeb38c217db88ebf094",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-capsule/test/host.test.ts",
+      "outputSha256": "e872de84d2a4002eb375a3e5d95c2d37533a0d757f20ce26b803418ec911bb5e"
+    },
+    {
+      "source": "project/packages/cli-host-capsule/test/service.test.ts",
+      "inputSha256": "2c56f0b3ca7e8dc94d7889c48a93f85b52fb3c18d97d84f9005e599f2a295257",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-capsule/test/service.test.ts",
+      "outputSha256": "e6e430cb1caf7be4c75ded2e29b247e6dc4969d2f22aefce28e0d7e59e4ec851"
+    },
+    {
+      "source": "project/packages/cli-host-capsule/test/shutdown.test.ts",
+      "inputSha256": "684e6e72078da8632af81cf8c4e105ece96b16a54c40ee3c44770d0073b3769f",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-capsule/test/shutdown.test.ts",
+      "outputSha256": "684e6e72078da8632af81cf8c4e105ece96b16a54c40ee3c44770d0073b3769f"
+    },
+    {
+      "source": "project/packages/cli-host-contract/README.md",
+      "inputSha256": "e67cb367263d6b233d79f506a510c0c0adea30b465199b7a3715e2adfe3230de",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-contract/README.md",
+      "outputSha256": "83e8a2ceb233b50966efbbae92b59a412b443007ab50e567877ea6522641ca8b"
+    },
+    {
+      "source": "project/packages/cli-host-contract/package.json",
+      "inputSha256": "c425ba5cbb73339b3ced5014a266ca9a9deb0b6df22665c21eb4013924102f76",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-contract/package.json",
+      "outputSha256": "f11b14c735208ee479ac9ce121e4a4cdace803c07faba674fcbaa88f3edd984f"
+    },
+    {
+      "source": "project/packages/cli-host-contract/src/browser.ts",
+      "inputSha256": "089f877ffd7c5e6391d3404dd9b42eb0b5a1b95eec5bd24e4bafc244ef63f299",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-contract/src/browser.ts",
+      "outputSha256": "089f877ffd7c5e6391d3404dd9b42eb0b5a1b95eec5bd24e4bafc244ef63f299"
+    },
+    {
+      "source": "project/packages/cli-host-contract/src/codex.ts",
+      "inputSha256": "e56725c6191fe98212732dade2ccbe96aa0348afd1576f2368737acfe8086538",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-contract/src/codex.ts",
+      "outputSha256": "e56725c6191fe98212732dade2ccbe96aa0348afd1576f2368737acfe8086538"
+    },
+    {
+      "source": "project/packages/cli-host-contract/src/http.ts",
+      "inputSha256": "46ed6a11a1ad4227be73b7bc28f9a5045f60cc3bd6964bdfce10eed1f7cdc752",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-contract/src/http.ts",
+      "outputSha256": "46ed6a11a1ad4227be73b7bc28f9a5045f60cc3bd6964bdfce10eed1f7cdc752"
+    },
+    {
+      "source": "project/packages/cli-host-contract/src/index.ts",
+      "inputSha256": "0ffb9066171ac6d175d57883a7a892fcddd47ac5cb47b826f98e79c943de0c48",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-contract/src/index.ts",
+      "outputSha256": "0ffb9066171ac6d175d57883a7a892fcddd47ac5cb47b826f98e79c943de0c48"
+    },
+    {
+      "source": "project/packages/cli-host-contract/src/install.ts",
+      "inputSha256": "44a370f95fa5d46b7cda8b21dba4cc8f7bbc0040689a4a16b59e9024cf9fccb4",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-contract/src/install.ts",
+      "outputSha256": "44a370f95fa5d46b7cda8b21dba4cc8f7bbc0040689a4a16b59e9024cf9fccb4"
+    },
+    {
+      "source": "project/packages/cli-host-contract/src/process.ts",
+      "inputSha256": "c355649bdfd038683876edc57def0539d74e73ba7474e5613401bb98c72acf95",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-contract/src/process.ts",
+      "outputSha256": "c355649bdfd038683876edc57def0539d74e73ba7474e5613401bb98c72acf95"
+    },
+    {
+      "source": "project/packages/cli-host-contract/src/registry.ts",
+      "inputSha256": "b1d58866def610ec290f5e602aabab7e85c75ec4dbe9120bd047681cad57dcf5",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-contract/src/registry.ts",
+      "outputSha256": "b1d58866def610ec290f5e602aabab7e85c75ec4dbe9120bd047681cad57dcf5"
+    },
+    {
+      "source": "project/packages/cli-host-contract/src/resource.ts",
+      "inputSha256": "2e3f163ec52bdb46950ee9b944771f634315a7a227c42bdbb375625e001bf2d2",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-contract/src/resource.ts",
+      "outputSha256": "2e3f163ec52bdb46950ee9b944771f634315a7a227c42bdbb375625e001bf2d2"
+    },
+    {
+      "source": "project/packages/cli-host-contract/src/service.ts",
+      "inputSha256": "46fefe371666e40a2dbe485d46ab2404cfe44cc7c1fe3f1d6c70ee68252f080b",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-contract/src/service.ts",
+      "outputSha256": "46fefe371666e40a2dbe485d46ab2404cfe44cc7c1fe3f1d6c70ee68252f080b"
+    },
+    {
+      "source": "project/packages/cli-host-contract/src/shutdown.ts",
+      "inputSha256": "7af10bb6ce17a1e2ad547d3e2ac4b74bd74b4c5d61a485a60541be1f92b1323d",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-contract/src/shutdown.ts",
+      "outputSha256": "7af10bb6ce17a1e2ad547d3e2ac4b74bd74b4c5d61a485a60541be1f92b1323d"
+    },
+    {
+      "source": "project/packages/cli-host-contract/src/web-api.ts",
+      "inputSha256": "ecb25e31c700dd930d38e3b7c6219fc81156aa8124c0cc825a122489895bd235",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-contract/src/web-api.ts",
+      "outputSha256": "ecb25e31c700dd930d38e3b7c6219fc81156aa8124c0cc825a122489895bd235"
+    },
+    {
+      "source": "project/packages/cli-host-logic/README.md",
+      "inputSha256": "14c9d1ffbe115162db93855d0a1d88e4118a36b3277cc4d1a068ac487fdb04ed",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-logic/README.md",
+      "outputSha256": "60857f89f6ec900244a25c035f3507626c18a51a5e42b40a55db5952bc94ef3b"
+    },
+    {
+      "source": "project/packages/cli-host-logic/package.json",
+      "inputSha256": "cb4b198396ea6aefa9486541d0044c36612ccae45910991540672fe996b6a409",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-logic/package.json",
+      "outputSha256": "d99f75af557e272cce5d6499e85959be05fe5fd13c79a88e06c9bca0c8a36d65"
+    },
+    {
+      "source": "project/packages/cli-host-logic/src/argv.ts",
+      "inputSha256": "a4b27531bc68f35228bfaae428f091b091760f5ffec2ab92ce97e3a617a070b5",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-logic/src/argv.ts",
+      "outputSha256": "e3aac514971b066c0036a6bf342444016ecc7fd730457bd66c7207e2892c795a"
+    },
+    {
+      "source": "project/packages/cli-host-logic/src/browser.ts",
+      "inputSha256": "9e7397cb2607b2edef661fe40613b634bc05752b058bf976bf8ade557305f3d5",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-logic/src/browser.ts",
+      "outputSha256": "ad02b63ef6a9d0575bb05b3a488dae1dc38e10ce97cba5bd46f5d1b6ac8117aa"
+    },
+    {
+      "source": "project/packages/cli-host-logic/src/codex.ts",
+      "inputSha256": "8182ae4a03c7016b706496b7ab62d0a8af58bd43f01786b071c46fa4b97cc010",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-logic/src/codex.ts",
+      "outputSha256": "d467a1b1f245a5410e6fe7b37f8485b3e358f9c4bb65b21dd681ca894e1288a5"
+    },
+    {
+      "source": "project/packages/cli-host-logic/src/commands.ts",
+      "inputSha256": "d59253e54474d29051770f25442266825afc0ab7619a3be067a14fb7fd568f6b",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-logic/src/commands.ts",
+      "outputSha256": "9f8f88d864324da6521336c20a26fe02fdc1f352c8e727e02dda0aa0a3cf57f8"
+    },
+    {
+      "source": "project/packages/cli-host-logic/src/index.ts",
+      "inputSha256": "6d0f0df5563b64270213ede65cc38f989fd5511a44604fb5c5022e0d6333d728",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-logic/src/index.ts",
+      "outputSha256": "6d0f0df5563b64270213ede65cc38f989fd5511a44604fb5c5022e0d6333d728"
+    },
+    {
+      "source": "project/packages/cli-host-logic/src/install.ts",
+      "inputSha256": "0d999c922a206c792a26fcb76f6bcb1d21d7bcfbc059034d98657e248bab142f",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-logic/src/install.ts",
+      "outputSha256": "35baddae41a467dd4febfdf7a6613bb2b5603c5e8b20a58630efc1c744d2be94"
+    },
+    {
+      "source": "project/packages/cli-host-logic/src/output.ts",
+      "inputSha256": "df0f24354a04a4dc4e57f5d7fa4af52dd9e811a4247d115b6ef2b58f8f42f492",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-logic/src/output.ts",
+      "outputSha256": "3cb954ed651171d7290bd029d5e21b398025e06c1e622e106b4de09bcf5022d8"
+    },
+    {
+      "source": "project/packages/cli-host-logic/src/registry.ts",
+      "inputSha256": "6e64fb4fde27ded593f8ad533d05bb58510428f12a5a9d8592d904efa98ee6c3",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-logic/src/registry.ts",
+      "outputSha256": "68bf52090ef2e0cf0f6f16562f77a6f67c412f80af5924ce67e222bc18cc7d6a"
+    },
+    {
+      "source": "project/packages/cli-host-logic/src/service.ts",
+      "inputSha256": "dea9b89dfaf01a60c8334c099ae7f443df5a46685ef9107c5141c6f44e1374ae",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-logic/src/service.ts",
+      "outputSha256": "dea9b89dfaf01a60c8334c099ae7f443df5a46685ef9107c5141c6f44e1374ae"
+    },
+    {
+      "source": "project/packages/cli-host-logic/src/web-api.ts",
+      "inputSha256": "a0076d1f83204093e415de12e56c24aa2302236f7c7dc22df4120b8ca92dbeed",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-logic/src/web-api.ts",
+      "outputSha256": "a0076d1f83204093e415de12e56c24aa2302236f7c7dc22df4120b8ca92dbeed"
+    },
+    {
+      "source": "project/packages/cli-host-logic/test/command-execution.test.ts",
+      "inputSha256": "304f8e1bdd4b8bcdd5e50912431c68b8fcad8fd7fc64cb88cb3f328bc5a58bdd",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-logic/test/command-execution.test.ts",
+      "outputSha256": "6c00387de6485a9782ffc9f05b329bff4cc6bc0f3dff70ecbcb09b31534a81d8"
+    },
+    {
+      "source": "project/packages/cli-host-logic/test/commands.test.ts",
+      "inputSha256": "0cf991d6623acf3d092ba27cc02025aa65414dce58c0cd19d65e5fbbc6793df7",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-logic/test/commands.test.ts",
+      "outputSha256": "fe0c3616cf070b4c1413f47dbbbbcfcdecfee9f078136b9b094b1640e9654e7a"
+    },
+    {
+      "source": "project/packages/cli-host-logic/test/install.test.ts",
+      "inputSha256": "b8f06f56281e38282d0eb2be84e0d79d592d3a1e5702611e8de694c2c06f1ecc",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-logic/test/install.test.ts",
+      "outputSha256": "158adb511da4ddad9d5b0b5ad8441b72dc6adb7ca53777d679295d2d03efff83"
+    },
+    {
+      "source": "project/packages/cli-host-shell/README.md",
+      "inputSha256": "7a7f5f1701392dadb88b7efd5c93bf6eb82387f6c0109cfddcdaba78a6fa5f04",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-shell/README.md",
+      "outputSha256": "3f7f12532cdcef35074d7d46372304e3afe5f521aa2de5ca101d198cc69f6370"
+    },
+    {
+      "source": "project/packages/cli-host-shell/package.json",
+      "inputSha256": "08b7b8d45cbd5d0cb2758455fb4b885b99da9f01b4e77e3f9eaf9f2469e220ea",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-shell/package.json",
+      "outputSha256": "da9599b15166411cd2fc717bc52966500956c62a820c2f9755d386dfa67db5bb"
+    },
+    {
+      "source": "project/packages/cli-host-shell/src/index.ts",
+      "inputSha256": "484e9022e7ed80586e487d7447b7d667eb31e04abe4eb93dd28a62cfef680c31",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-shell/src/index.ts",
+      "outputSha256": "ced9b3e07e3a6ef682754df19b2dc53a2f9b7a18b239b9c1a1b8fe77877aadff"
+    },
+    {
+      "source": "project/packages/cli-host-support/README.md",
+      "inputSha256": "5680a7bd34ac366b389b7d1801848378a2bcca67dc4e968a4b29b402e57408cb",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-support/README.md",
+      "outputSha256": "f9a36d6b748e28d814b0978f34793cd64849faeaff4fef86e6c3dc47f5c7fdfe"
+    },
+    {
+      "source": "project/packages/cli-host-support/package.json",
+      "inputSha256": "7fb607319fd08693ae2154cbdeb35accc0cf88cbaf9183f2dd82946c56cafedc",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-support/package.json",
+      "outputSha256": "3c8b035c4231f38653cb77c4de88aa37c7eb63ab087566ca1ffed6ea16a5a59a"
+    },
+    {
+      "source": "project/packages/cli-host-support/src/codex-desktop.ts",
+      "inputSha256": "6f5f05b33e1286e01b0cf1426f4069391699d871b5490b15044048df6f97e39b",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-support/src/codex-desktop.ts",
+      "outputSha256": "d8cf5b739b59b9c854e6783eceaa51718e33e7e146733306a0678e63f393ef98"
+    },
+    {
+      "source": "project/packages/cli-host-support/src/codex.ts",
+      "inputSha256": "a93dea31111fcb624221eba3a9c96396b060e7e54dbdf8c23f7f91b96e43335f",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-support/src/codex.ts",
+      "outputSha256": "561bfa81689dc52ae313508fc979a1b9db46ffa6777ba11585fa608f3f93dcbe"
+    },
+    {
+      "source": "project/packages/cli-host-support/src/file-backup.ts",
+      "inputSha256": "34fc57cfe74316e5db14c339a3b55be8f3d8ab2f8a26bf458408ae22d0156190",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-support/src/file-backup.ts",
+      "outputSha256": "ea08cb5be1f15c7b566c09a1fd32625bfaf528c5b98a60b45f68c1ec74516760"
+    },
+    {
+      "source": "project/packages/cli-host-support/src/http.ts",
+      "inputSha256": "2261db4465e43c9af882843c33ef50e1b56aa5be3c8a637813dcc00d20c77a8a",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-support/src/http.ts",
+      "outputSha256": "954ca92017fa378f07a79857ca3ab8ed2c7f2bb9d9f086466438713bce508947"
+    },
+    {
+      "source": "project/packages/cli-host-support/src/index.ts",
+      "inputSha256": "bd082dabdc3ed2307c692cff061c88cfd11af4e5b843c045cf19cef09c217286",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-support/src/index.ts",
+      "outputSha256": "e044d94b7ddc005f0ecdb5195ce61b4b9fbb4c52f3368f60de41d1a1edf07505"
+    },
+    {
+      "source": "project/packages/cli-host-support/src/process.ts",
+      "inputSha256": "b00f69c889b0d24df94107c20a6b5c3b8f45ebfd383180313b35437568eedd26",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-support/src/process.ts",
+      "outputSha256": "7fbe1d2fe5e451e81818895bc3b4c01008657d616bac819e199088d93ee23f15"
+    },
+    {
+      "source": "project/packages/cli-host-support/src/resource.ts",
+      "inputSha256": "eb728013a4e559014d0bfb8635305f990d549012474ec19f2d1131c58e306914",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-support/src/resource.ts",
+      "outputSha256": "c9b3a567c696a904edbc608a6f6e45aefd68f9c963c88f99804f86fe6e8aed84"
+    },
+    {
+      "source": "project/packages/cli-host-support/src/shutdown.ts",
+      "inputSha256": "a731478a3000ab05721e276259df7e254a3fb022a10c031edff5ea3a0762fec5",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-support/src/shutdown.ts",
+      "outputSha256": "af83c9111680803f5d6c2b7d118582417787c540fb93a9289d58dd0225d547b9"
+    },
+    {
+      "source": "project/packages/cli-host-support/test/codex.test.ts",
+      "inputSha256": "6c6de19d0359ddcd28833d2596585d75416dded1aa4f72fb89c8a07195a5b9cb",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-support/test/codex.test.ts",
+      "outputSha256": "6c6de19d0359ddcd28833d2596585d75416dded1aa4f72fb89c8a07195a5b9cb"
+    },
+    {
+      "source": "project/packages/cli-host-support/test/file-backup.test.ts",
+      "inputSha256": "de13bce65d0afbdbdcd63b2f18749623af691593f0f163889715bb68a80934d9",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-support/test/file-backup.test.ts",
+      "outputSha256": "24b2868012869096eb3163ffa5196f2fa6f8590295da4ac71311b4b17efaa247"
+    },
+    {
+      "source": "project/packages/cli-host-support/test/http.test.ts",
+      "inputSha256": "b0bad95b6197a29934b844bfa725d70936d151099f55ae5ce62bff858169923c",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-support/test/http.test.ts",
+      "outputSha256": "b0bad95b6197a29934b844bfa725d70936d151099f55ae5ce62bff858169923c"
+    },
+    {
+      "source": "project/packages/cli-host-support/test/process.test.ts",
+      "inputSha256": "9be80a614b9ee06dfb60e734a40e619ae84fdadec83cba5a91c07e99d47952a7",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-support/test/process.test.ts",
+      "outputSha256": "9be80a614b9ee06dfb60e734a40e619ae84fdadec83cba5a91c07e99d47952a7"
+    },
+    {
+      "source": "project/packages/cli-host-support/test/resource.test.ts",
+      "inputSha256": "92f93d75a935ff2bf380072f3c052bd06f816a65a28e6af811f4185b1cec8323",
+      "target": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/cli-host-support/test/resource.test.ts",
+      "outputSha256": "e2c639b9b99cf17a1355f44f50383f79f4d4b5b41a2fe36cde142ef8cf790233"
+    }
+  ]
+}

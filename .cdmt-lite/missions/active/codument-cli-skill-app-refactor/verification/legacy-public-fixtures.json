@@ -1,0 +1,1110 @@
+[
+  {
+    "id": "halfcode-legacy",
+    "packageRoot": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite/packages/skill-app-contract",
+    "semanticIdentity": {
+      "resource": {
+        "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+        "contractAuthority": "@halfcode-cli-lite/skill-app-contract/resource-contracts/v1"
+      },
+      "readerIdPrefix": "halfcode-cli-lite.host",
+      "profileId": "halfcode-cli-lite.host/resource-readers/v1",
+      "contractAuthority": "halfcode-cli-lite.host-resource-contracts/v1",
+      "adapterVersion": "halfcode-cli-lite.host/typed-resource-reader/v1"
+    },
+    "expectedLock": {
+      "envelopeVersion": "halfcode.resource-envelope/v1",
+      "envelopeFingerprint": "sha256:e221d3b6fc7a951572b693acc1a002f8d148b3b4d6e895f5ca2ca0de34869c79",
+      "owners": [
+        {
+          "kind": "BrowserWebApiBundle",
+          "subjectFqn": "Halfcode.ResourceKind.BrowserWebApiBundle",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContract": {
+            "sourceShapes": [
+              "directory"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:d0bccdceb7efccf90d72586745d9a7ab2783ae4486d8a8e09470c392629d21d2"
+          }
+        },
+        {
+          "kind": "ConfigBinding",
+          "subjectFqn": "Halfcode.ResourceKind.ConfigBinding",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContract": {
+            "sourceShapes": [
+              "single-file"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:a1a54a1c1626cfed2a83ebd04252002d7e8243b6539b1bda3fe79f03729b1711"
+          }
+        },
+        {
+          "kind": "ConfigurationProfile",
+          "subjectFqn": "Halfcode.ResourceKind.ConfigurationProfile",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContract": {
+            "sourceShapes": [
+              "manifest"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+          }
+        },
+        {
+          "kind": "DatabaseConnection",
+          "subjectFqn": "Halfcode.ResourceKind.DatabaseConnection",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContract": {
+            "sourceShapes": [
+              "manifest"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+          }
+        },
+        {
+          "kind": "HostBundle",
+          "subjectFqn": "Halfcode.ResourceKind.HostBundle",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContract": {
+            "sourceShapes": [
+              "directory"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:d0bccdceb7efccf90d72586745d9a7ab2783ae4486d8a8e09470c392629d21d2"
+          }
+        },
+        {
+          "kind": "KindDefinition",
+          "subjectFqn": "Halfcode.ResourceKind.KindDefinition",
+          "ownerPackageId": "halfcode-compiler.xnl",
+          "ownerPackageFingerprint": "sha256:5ba2a01c09784dff38bccf05d16751ddd7b95cfced15ba1aa2634a454c7cf4d6",
+          "sourceContract": {
+            "sourceShapes": [
+              "directory",
+              "single-file"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:1af6d917626470d829efa0dfae2dd712ffcbe549902c371b288de347250813e4"
+          }
+        },
+        {
+          "kind": "LocalFunctionBundle",
+          "subjectFqn": "Halfcode.ResourceKind.LocalFunctionBundle",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContract": {
+            "sourceShapes": [
+              "directory"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:d0bccdceb7efccf90d72586745d9a7ab2783ae4486d8a8e09470c392629d21d2"
+          }
+        },
+        {
+          "kind": "McpApp",
+          "subjectFqn": "Halfcode.ResourceKind.McpApp",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContract": {
+            "sourceShapes": [
+              "manifest"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+          }
+        },
+        {
+          "kind": "Page",
+          "subjectFqn": "Halfcode.ResourceKind.Page",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContract": {
+            "sourceShapes": [
+              "manifest"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+          }
+        },
+        {
+          "kind": "PageBundle",
+          "subjectFqn": "Halfcode.ResourceKind.PageBundle",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContract": {
+            "sourceShapes": [
+              "directory"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:d0bccdceb7efccf90d72586745d9a7ab2783ae4486d8a8e09470c392629d21d2"
+          }
+        },
+        {
+          "kind": "PageObjectBundle",
+          "subjectFqn": "Halfcode.ResourceKind.PageObjectBundle",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContract": {
+            "sourceShapes": [
+              "directory"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:d0bccdceb7efccf90d72586745d9a7ab2783ae4486d8a8e09470c392629d21d2"
+          }
+        },
+        {
+          "kind": "PageWorkflowBundle",
+          "subjectFqn": "Halfcode.ResourceKind.PageWorkflowBundle",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContract": {
+            "sourceShapes": [
+              "directory"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:d0bccdceb7efccf90d72586745d9a7ab2783ae4486d8a8e09470c392629d21d2"
+          }
+        },
+        {
+          "kind": "ResourcePackage",
+          "subjectFqn": "Halfcode.ResourceKind.ResourcePackage",
+          "ownerPackageId": "halfcode-compiler.xnl",
+          "ownerPackageFingerprint": "sha256:5ba2a01c09784dff38bccf05d16751ddd7b95cfced15ba1aa2634a454c7cf4d6",
+          "sourceContract": {
+            "sourceShapes": [
+              "manifest"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+          }
+        },
+        {
+          "kind": "SOP",
+          "subjectFqn": "Halfcode.ResourceKind.SOP",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContract": {
+            "sourceShapes": [
+              "single-file"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:a1a54a1c1626cfed2a83ebd04252002d7e8243b6539b1bda3fe79f03729b1711"
+          }
+        },
+        {
+          "kind": "Site",
+          "subjectFqn": "Halfcode.ResourceKind.Site",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContract": {
+            "sourceShapes": [
+              "manifest"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+          }
+        },
+        {
+          "kind": "SkillApp",
+          "subjectFqn": "Halfcode.ResourceKind.SkillApp",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContract": {
+            "sourceShapes": [
+              "manifest"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+          }
+        },
+        {
+          "kind": "SkillModule",
+          "subjectFqn": "Halfcode.ResourceKind.SkillModule",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContract": {
+            "sourceShapes": [
+              "manifest"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+          }
+        }
+      ],
+      "readers": [
+        {
+          "readerId": "halfcode-cli-lite.host.BrowserWebApiBundle.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.BrowserWebApiBundle",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:a796f7609b2ba07f84c3fafa25aae88cf35d0172d40ba13970747e9b884cb5bc",
+          "readerImplementationFingerprint": "sha256:1a9f3589c9be169640ca0677633d336380c863a8e5d4b69c2c2debdb6914344b",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "halfcode-cli-lite.host.ConfigBinding.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.ConfigBinding",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:01ace4ba3b6f5309e3e391e7130e79540880ae72c4820fe9fedfe4d29236372b",
+          "readerImplementationFingerprint": "sha256:e735abf1e23d9e68f889e45464efb949ee56eef87d8dbd2f9f686446a8965495",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "halfcode-cli-lite.host.ConfigurationProfile.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.ConfigurationProfile",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:42e3c509cfbddc9ec00cdb7f84e4bd982725b74a812637d58e15c795b1d86e60",
+          "readerImplementationFingerprint": "sha256:1a8a78fd42d542519e7194f7b47550ead8df15f3e93fd59d4491ac88edb0b264",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "halfcode-cli-lite.host.DatabaseConnection.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.DatabaseConnection",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:e6a52323cb3c87a09f3a56ffc6cbbc0077a77f3abea5494ba9a26602f5b6dc82",
+          "readerImplementationFingerprint": "sha256:73f5a46ec8132dc9abb73e55c6fcba563b459901bb87548164bf35d464106797",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "halfcode-cli-lite.host.HostBundle.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.HostBundle",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:009ea2fc98b872dfaf079eddb21d922f2e707e5880b087f645e7fbd4bdb1b52b",
+          "readerImplementationFingerprint": "sha256:cad7e92a6b87da514413d298cd5e0fcfab4c7574df8850ab38a0b0e4d50a2033",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "halfcode.compiler.kind-definition.reader.v1",
+          "subjectFqn": "Halfcode.ResourceKind.KindDefinition",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:b2cf691047722eb7bd67eca9e4864dcbe51756e21e5779b7757ecc1e2ffa3975",
+          "readerImplementationFingerprint": "sha256:4f23d54283e0daafab41d37fad6b94ae4affb41a5280b7f968b835629c8e8258",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "halfcode-cli-lite.host.LocalFunctionBundle.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.LocalFunctionBundle",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:f41aa90aec007ecef2cb80bdfaf5e9098ac64c05d9ac29e6ad0bc79465ec1e51",
+          "readerImplementationFingerprint": "sha256:f6f092b9473a7999b5c5a32691731806ac3fb945f4700af623fcfabeb601f40d",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "halfcode-cli-lite.host.McpApp.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.McpApp",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:a171cca3af1ba5d04016947f5f7ed3e2e837e676a619f6f105a567fec392f959",
+          "readerImplementationFingerprint": "sha256:d90483370e31ce58ef28260f6b34f806dbb83d05aff40861fca83baf1844cb54",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "halfcode-cli-lite.host.Page.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.Page",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:f96c6c80d6d210cc3b84cb4201337fdba5e6714814cbb6a3ca2b293359c3fc58",
+          "readerImplementationFingerprint": "sha256:2a3bfc4a8962fce045522eab9dcfa082301c604cf3136f82c1419e36a756d9f4",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "halfcode-cli-lite.host.PageBundle.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.PageBundle",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:ad9de4aa9100ef01b95860b2def1ab5274a9719caf524d553cc831fbe124b645",
+          "readerImplementationFingerprint": "sha256:75fb80b9c7bee7d84a1fd522106c57e26293f7367215d4f3de2c0a449ce3b610",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "halfcode-cli-lite.host.PageObjectBundle.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.PageObjectBundle",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:4e026a3c8bfe4ae0fa9e487e7a16f8613245111ea3216082d6f1c28c786fa93c",
+          "readerImplementationFingerprint": "sha256:2db92673b68f95da6dfee72dc307b553147785c1ab21a9a0c437614ab76bd09d",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "halfcode-cli-lite.host.PageWorkflowBundle.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.PageWorkflowBundle",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:60bb1a0c982ea034e1f378a68bfcfb7fdffcb3f11ff68da8267cbf89d89cd905",
+          "readerImplementationFingerprint": "sha256:d6288395e64af033390767fb2756fe3a6ef5ea5426c0ce0e123254384b555446",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "halfcode.compiler.resource-package.reader.v1",
+          "subjectFqn": "Halfcode.ResourceKind.ResourcePackage",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:2d4742c79fd79b6849bb1db0e558a9f042b196ab34d147643669c4e0b3541d69",
+          "readerImplementationFingerprint": "sha256:5fab92386d2ae39c68e88fb0887fefa9b0d710b3eb6546774498ac01e2cbc4c2",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "halfcode-cli-lite.host.SOP.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.SOP",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:8f55a955119f19f37a39aedd804e61685a7819d4372a06800e90d82084b1171c",
+          "readerImplementationFingerprint": "sha256:487abc1b1c3070052496dfc2e999f7007e4a3dab98507d87d99283d845d6ef65",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "halfcode-cli-lite.host.Site.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.Site",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:49245df7d1613608dcb9a9de5906f8324343bbf52f7c722f9c0a9438d8c04e14",
+          "readerImplementationFingerprint": "sha256:39b17a55cc1a99b20134da8cc65a7d859f06bcc9c9cba035deb07fc77f59529f",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "halfcode-cli-lite.host.SkillApp.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.SkillApp",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:98d4b2011ef9f2be2e1d38d2d8a46f1012e4b834ca219a99ac547b75c7370183",
+          "readerImplementationFingerprint": "sha256:68ff866e9ad09a878a08c218f291a2b36f7c35b6144468eb35bdd4d650794006",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "halfcode-cli-lite.host.SkillModule.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.SkillModule",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:9f5d39ac0bab2652e19f8baae120f02f155d18d5ceaf82634147a378acd6c028",
+          "readerImplementationFingerprint": "sha256:b9a6162b4b947b06712b5a762fbb31ce1f9b84d84d6f1e80b18ab435c68d1c21",
+          "compatibilityPolicy": "exact"
+        }
+      ],
+      "revisions": [
+        {
+          "subjectFqn": "Halfcode.ResourceKind.BrowserWebApiBundle",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:770646704931fbb966416a39e4edd9239f27594210302b03e0f57f50379fe5f8",
+          "contractFingerprint": "sha256:a796f7609b2ba07f84c3fafa25aae88cf35d0172d40ba13970747e9b884cb5bc",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContractFingerprint": "sha256:d0bccdceb7efccf90d72586745d9a7ab2783ae4486d8a8e09470c392629d21d2"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.ConfigBinding",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:4e1e9d05321fa0099dd357d43e6c2f7435f5575cce02545ca622325d0e0a95ad",
+          "contractFingerprint": "sha256:01ace4ba3b6f5309e3e391e7130e79540880ae72c4820fe9fedfe4d29236372b",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContractFingerprint": "sha256:a1a54a1c1626cfed2a83ebd04252002d7e8243b6539b1bda3fe79f03729b1711"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.ConfigurationProfile",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:458acd5299b72083f04b2b79483a425af976509172e6721d6f1fc98c7528c2ca",
+          "contractFingerprint": "sha256:42e3c509cfbddc9ec00cdb7f84e4bd982725b74a812637d58e15c795b1d86e60",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.DatabaseConnection",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:0789e5a301602d73963f4ec92524f4ae28bad2c94a25debffd5a5af226f2e893",
+          "contractFingerprint": "sha256:e6a52323cb3c87a09f3a56ffc6cbbc0077a77f3abea5494ba9a26602f5b6dc82",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.HostBundle",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:bc390e6b61b9eefe8bbd2af976419b407954b3c47bcdf1925d3bceed69c75622",
+          "contractFingerprint": "sha256:009ea2fc98b872dfaf079eddb21d922f2e707e5880b087f645e7fbd4bdb1b52b",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContractFingerprint": "sha256:d0bccdceb7efccf90d72586745d9a7ab2783ae4486d8a8e09470c392629d21d2"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.KindDefinition",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:11681d8de29970bee24566bf9c7621b287e6f2c67b12dadd045651e62fe94df7",
+          "contractFingerprint": "sha256:b2cf691047722eb7bd67eca9e4864dcbe51756e21e5779b7757ecc1e2ffa3975",
+          "ownerPackageId": "halfcode-compiler.xnl",
+          "ownerPackageFingerprint": "sha256:5ba2a01c09784dff38bccf05d16751ddd7b95cfced15ba1aa2634a454c7cf4d6",
+          "sourceContractFingerprint": "sha256:1af6d917626470d829efa0dfae2dd712ffcbe549902c371b288de347250813e4"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.LocalFunctionBundle",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:770646704931fbb966416a39e4edd9239f27594210302b03e0f57f50379fe5f8",
+          "contractFingerprint": "sha256:f41aa90aec007ecef2cb80bdfaf5e9098ac64c05d9ac29e6ad0bc79465ec1e51",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContractFingerprint": "sha256:d0bccdceb7efccf90d72586745d9a7ab2783ae4486d8a8e09470c392629d21d2"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.McpApp",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:b3e0331eac7c55f92c0a0b32fea03fc85f2b44a676ea3767f9a7f3ac8aca5387",
+          "contractFingerprint": "sha256:a171cca3af1ba5d04016947f5f7ed3e2e837e676a619f6f105a567fec392f959",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.Page",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:b1e32d5c1dd64652791c1011c37f540c8f2e3f4355dfb05e886cb7f371cbdb3b",
+          "contractFingerprint": "sha256:f96c6c80d6d210cc3b84cb4201337fdba5e6714814cbb6a3ca2b293359c3fc58",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.PageBundle",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:cd1d5f86c413d4bba735145289ad8cb427610558942188a8bf0cb4a640d796e6",
+          "contractFingerprint": "sha256:ad9de4aa9100ef01b95860b2def1ab5274a9719caf524d553cc831fbe124b645",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContractFingerprint": "sha256:d0bccdceb7efccf90d72586745d9a7ab2783ae4486d8a8e09470c392629d21d2"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.PageObjectBundle",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:770646704931fbb966416a39e4edd9239f27594210302b03e0f57f50379fe5f8",
+          "contractFingerprint": "sha256:4e026a3c8bfe4ae0fa9e487e7a16f8613245111ea3216082d6f1c28c786fa93c",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContractFingerprint": "sha256:d0bccdceb7efccf90d72586745d9a7ab2783ae4486d8a8e09470c392629d21d2"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.PageWorkflowBundle",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:770646704931fbb966416a39e4edd9239f27594210302b03e0f57f50379fe5f8",
+          "contractFingerprint": "sha256:60bb1a0c982ea034e1f378a68bfcfb7fdffcb3f11ff68da8267cbf89d89cd905",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContractFingerprint": "sha256:d0bccdceb7efccf90d72586745d9a7ab2783ae4486d8a8e09470c392629d21d2"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.ResourcePackage",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:8afbac681414946dab08d900aa172fec2a3d9fb6429294fb008b6bcd86d5b3aa",
+          "contractFingerprint": "sha256:2d4742c79fd79b6849bb1db0e558a9f042b196ab34d147643669c4e0b3541d69",
+          "ownerPackageId": "halfcode-compiler.xnl",
+          "ownerPackageFingerprint": "sha256:5ba2a01c09784dff38bccf05d16751ddd7b95cfced15ba1aa2634a454c7cf4d6",
+          "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.SOP",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:512ae1df0018b34886738ef9b4f0c5c44b3a9c2c9c49ca619c9c751b4ce5abf8",
+          "contractFingerprint": "sha256:8f55a955119f19f37a39aedd804e61685a7819d4372a06800e90d82084b1171c",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContractFingerprint": "sha256:a1a54a1c1626cfed2a83ebd04252002d7e8243b6539b1bda3fe79f03729b1711"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.Site",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:6af63c78e9663ee5b2704212bf68adbba36da5bfc1aca3f96fba15f9c30709c9",
+          "contractFingerprint": "sha256:49245df7d1613608dcb9a9de5906f8324343bbf52f7c722f9c0a9438d8c04e14",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.SkillApp",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:853dc15129b38dd573816724d399dc517017f00574c098e586655a8367233476",
+          "contractFingerprint": "sha256:98d4b2011ef9f2be2e1d38d2d8a46f1012e4b834ca219a99ac547b75c7370183",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.SkillModule",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:49392cf2b8a7f42f17fece6ab1273962cff51ceeecf9445fefdc51a85cd046bf",
+          "contractFingerprint": "sha256:9f5d39ac0bab2652e19f8baae120f02f155d18d5ceaf82634147a378acd6c028",
+          "ownerPackageId": "@halfcode-cli-lite/skill-app-contract",
+          "ownerPackageFingerprint": "sha256:584e6886e260b21d4d1b9aefc04b1705f0a6aeaa867ca63e62152d9f0d37b036",
+          "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+        }
+      ],
+      "resolutions": [],
+      "lockDigest": "sha256:4765c666f35f1669ca6343bc9607f544393e2f47a1d17c8456222449768b442d"
+    }
+  },
+  {
+    "id": "codument-extraction",
+    "packageRoot": "/Users/kongweixian/infra-dev/depa-codument/project/packages/skill-app-contract",
+    "semanticIdentity": {
+      "resource": {
+        "ownerPackageId": "depa-codument-skill-app-contract",
+        "contractAuthority": "depa-codument-skill-app-contract/resource-contracts/v1"
+      },
+      "readerIdPrefix": "cli-host",
+      "profileId": "cli-host/resource-readers/v1",
+      "contractAuthority": "cli-host-resource-contracts/v1",
+      "adapterVersion": "cli-host/typed-resource-reader/v1"
+    },
+    "expectedLock": {
+      "envelopeVersion": "halfcode.resource-envelope/v1",
+      "envelopeFingerprint": "sha256:e221d3b6fc7a951572b693acc1a002f8d148b3b4d6e895f5ca2ca0de34869c79",
+      "owners": [
+        {
+          "kind": "BrowserWebApiBundle",
+          "subjectFqn": "Halfcode.ResourceKind.BrowserWebApiBundle",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContract": {
+            "sourceShapes": [
+              "directory"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:d0bccdceb7efccf90d72586745d9a7ab2783ae4486d8a8e09470c392629d21d2"
+          }
+        },
+        {
+          "kind": "ConfigBinding",
+          "subjectFqn": "Halfcode.ResourceKind.ConfigBinding",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContract": {
+            "sourceShapes": [
+              "single-file"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:a1a54a1c1626cfed2a83ebd04252002d7e8243b6539b1bda3fe79f03729b1711"
+          }
+        },
+        {
+          "kind": "ConfigurationProfile",
+          "subjectFqn": "Halfcode.ResourceKind.ConfigurationProfile",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContract": {
+            "sourceShapes": [
+              "manifest"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+          }
+        },
+        {
+          "kind": "DatabaseConnection",
+          "subjectFqn": "Halfcode.ResourceKind.DatabaseConnection",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContract": {
+            "sourceShapes": [
+              "manifest"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+          }
+        },
+        {
+          "kind": "HostBundle",
+          "subjectFqn": "Halfcode.ResourceKind.HostBundle",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContract": {
+            "sourceShapes": [
+              "directory"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:d0bccdceb7efccf90d72586745d9a7ab2783ae4486d8a8e09470c392629d21d2"
+          }
+        },
+        {
+          "kind": "KindDefinition",
+          "subjectFqn": "Halfcode.ResourceKind.KindDefinition",
+          "ownerPackageId": "halfcode-compiler.xnl",
+          "ownerPackageFingerprint": "sha256:5ba2a01c09784dff38bccf05d16751ddd7b95cfced15ba1aa2634a454c7cf4d6",
+          "sourceContract": {
+            "sourceShapes": [
+              "directory",
+              "single-file"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:1af6d917626470d829efa0dfae2dd712ffcbe549902c371b288de347250813e4"
+          }
+        },
+        {
+          "kind": "LocalFunctionBundle",
+          "subjectFqn": "Halfcode.ResourceKind.LocalFunctionBundle",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContract": {
+            "sourceShapes": [
+              "directory"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:d0bccdceb7efccf90d72586745d9a7ab2783ae4486d8a8e09470c392629d21d2"
+          }
+        },
+        {
+          "kind": "McpApp",
+          "subjectFqn": "Halfcode.ResourceKind.McpApp",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContract": {
+            "sourceShapes": [
+              "manifest"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+          }
+        },
+        {
+          "kind": "Page",
+          "subjectFqn": "Halfcode.ResourceKind.Page",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContract": {
+            "sourceShapes": [
+              "manifest"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+          }
+        },
+        {
+          "kind": "PageBundle",
+          "subjectFqn": "Halfcode.ResourceKind.PageBundle",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContract": {
+            "sourceShapes": [
+              "directory"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:d0bccdceb7efccf90d72586745d9a7ab2783ae4486d8a8e09470c392629d21d2"
+          }
+        },
+        {
+          "kind": "PageObjectBundle",
+          "subjectFqn": "Halfcode.ResourceKind.PageObjectBundle",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContract": {
+            "sourceShapes": [
+              "directory"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:d0bccdceb7efccf90d72586745d9a7ab2783ae4486d8a8e09470c392629d21d2"
+          }
+        },
+        {
+          "kind": "PageWorkflowBundle",
+          "subjectFqn": "Halfcode.ResourceKind.PageWorkflowBundle",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContract": {
+            "sourceShapes": [
+              "directory"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:d0bccdceb7efccf90d72586745d9a7ab2783ae4486d8a8e09470c392629d21d2"
+          }
+        },
+        {
+          "kind": "ResourcePackage",
+          "subjectFqn": "Halfcode.ResourceKind.ResourcePackage",
+          "ownerPackageId": "halfcode-compiler.xnl",
+          "ownerPackageFingerprint": "sha256:5ba2a01c09784dff38bccf05d16751ddd7b95cfced15ba1aa2634a454c7cf4d6",
+          "sourceContract": {
+            "sourceShapes": [
+              "manifest"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+          }
+        },
+        {
+          "kind": "SOP",
+          "subjectFqn": "Halfcode.ResourceKind.SOP",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContract": {
+            "sourceShapes": [
+              "single-file"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:a1a54a1c1626cfed2a83ebd04252002d7e8243b6539b1bda3fe79f03729b1711"
+          }
+        },
+        {
+          "kind": "Site",
+          "subjectFqn": "Halfcode.ResourceKind.Site",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContract": {
+            "sourceShapes": [
+              "manifest"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+          }
+        },
+        {
+          "kind": "SkillApp",
+          "subjectFqn": "Halfcode.ResourceKind.SkillApp",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContract": {
+            "sourceShapes": [
+              "manifest"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+          }
+        },
+        {
+          "kind": "SkillModule",
+          "subjectFqn": "Halfcode.ResourceKind.SkillModule",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContract": {
+            "sourceShapes": [
+              "manifest"
+            ],
+            "documentCardinality": "one",
+            "requiredFiles": [],
+            "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+          }
+        }
+      ],
+      "readers": [
+        {
+          "readerId": "cli-host.BrowserWebApiBundle.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.BrowserWebApiBundle",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:9ec22adeb013a6f3eb6b820b411a88e13a7d6f6d144f5efed220057993c640a0",
+          "readerImplementationFingerprint": "sha256:28ed2dc653d2828437a3b3414e73e18d0773b2225016b276d0f4a5e2a0080688",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "cli-host.ConfigBinding.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.ConfigBinding",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:9d510eb0ace21d1a49d88ba762adc65c92310cf0c61a1bbaf1c7f7fc2a551f0f",
+          "readerImplementationFingerprint": "sha256:edc6d5ea89cb3c791991eab234e0c81e0e0e393c0bf8cc71b56a7161df926c8b",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "cli-host.ConfigurationProfile.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.ConfigurationProfile",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:335c84712b566c8acbcea29c1acf4da2d68ee3f4bdc94d3037135f49f1e665e7",
+          "readerImplementationFingerprint": "sha256:169860a562e1fc932a518a5fcc6d5418065269951190f53afe049c3436e23fdf",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "cli-host.DatabaseConnection.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.DatabaseConnection",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:3e23dcca83adb7636d01a09ad64d24767f341ff459af1d066537d3965000b35e",
+          "readerImplementationFingerprint": "sha256:082835446a3b4de56dccbb97f46975a2478790889a1d6c21fa2655ddf9d78871",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "cli-host.HostBundle.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.HostBundle",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:3db040d8f77e0075b7923a6c301b0d4e9c9803eb6fd75022bb735844fa4f8fbb",
+          "readerImplementationFingerprint": "sha256:85f77d12e66575c1ede60025367b84d21626ad5351f0ba6965018269f9c3c2a5",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "halfcode.compiler.kind-definition.reader.v1",
+          "subjectFqn": "Halfcode.ResourceKind.KindDefinition",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:b2cf691047722eb7bd67eca9e4864dcbe51756e21e5779b7757ecc1e2ffa3975",
+          "readerImplementationFingerprint": "sha256:4f23d54283e0daafab41d37fad6b94ae4affb41a5280b7f968b835629c8e8258",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "cli-host.LocalFunctionBundle.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.LocalFunctionBundle",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:12f304315a95d5080985cbfa5f723537d778e9ddcd3e683d739bee96368d219e",
+          "readerImplementationFingerprint": "sha256:013b51a328e1d2ed7278f6b6a5837fca2db3f32ec06d91c2a0ec5fc14833dd9d",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "cli-host.McpApp.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.McpApp",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:6faeff6604182a06b9b032dd58112abf27d32f003c71a38b7dfc417eb7c378d0",
+          "readerImplementationFingerprint": "sha256:541594e6899ee898c0e364dcf67642557fae843426eb47f700ad3b7f836d3c76",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "cli-host.Page.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.Page",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:1a3664a04a344b042f9d04e2de737e404b0b96272b24ee37ff6130b630a799bd",
+          "readerImplementationFingerprint": "sha256:822cdc6473f10b175fdaf2620ccf6b2bb812a3b3a06437bc7ab1d6202c0cc821",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "cli-host.PageBundle.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.PageBundle",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:25f595e4518ac47977dac765bf0bad315124ea76ffb82bb40158aa1bc83841a0",
+          "readerImplementationFingerprint": "sha256:7399d8f6799fa5b153576368775dc752078a5daf88f0380845289616129adf2f",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "cli-host.PageObjectBundle.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.PageObjectBundle",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:b666daee3e617d4fa006c9c0c83363278198342b28e23dc70e623d5e60c2c90e",
+          "readerImplementationFingerprint": "sha256:46e7b8c6c3a9716d5853797c175a88a7822a736d3ceea0e01a98ae44e5ba0578",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "cli-host.PageWorkflowBundle.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.PageWorkflowBundle",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:6d6bd44e47f1e6675d1b530000de6e27380aa2ed5e6e4133e3e8160d57b51cf3",
+          "readerImplementationFingerprint": "sha256:3fb207ff423cd81788d35e2bba243d8ec6996c99f887711b55cfdd9538ea9298",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "halfcode.compiler.resource-package.reader.v1",
+          "subjectFqn": "Halfcode.ResourceKind.ResourcePackage",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:2d4742c79fd79b6849bb1db0e558a9f042b196ab34d147643669c4e0b3541d69",
+          "readerImplementationFingerprint": "sha256:5fab92386d2ae39c68e88fb0887fefa9b0d710b3eb6546774498ac01e2cbc4c2",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "cli-host.SOP.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.SOP",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:eb34ebf97ba0407ec5eb075b604aa0243cd857512a1d35cc3e785d04605a7441",
+          "readerImplementationFingerprint": "sha256:848a3079a6fc3d83bf0502a0ecb8d66e24cf8076b8e06a74c249d7b9d109d8e8",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "cli-host.Site.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.Site",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:6c899cbaaf50544c85f099c7429006f5764715366b1d45053b2e3e4a4b423da1",
+          "readerImplementationFingerprint": "sha256:922a6a6f3137015807967a81b414b9b102c7211445025161705bde4e4552b883",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "cli-host.SkillApp.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.SkillApp",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:3afc269b546b7b4b26e45d3b4420cd49d9b00278eb24974730a4f539754d7bad",
+          "readerImplementationFingerprint": "sha256:420b5b34dea3988082056aae296a748d327aae8b40c2463a6c70050e1c244311",
+          "compatibilityPolicy": "exact"
+        },
+        {
+          "readerId": "cli-host.SkillModule.reader/v1",
+          "subjectFqn": "Halfcode.ResourceKind.SkillModule",
+          "readerSpecVersion": 1,
+          "contractFingerprint": "sha256:4b78557edb5e1ad4fbb65ced454a3ff53ba98dcb594404b898abac1b7e162226",
+          "readerImplementationFingerprint": "sha256:4838762e342bb8c3adaae00a6fea0b7326bef003545b70e8d6c53c024329975b",
+          "compatibilityPolicy": "exact"
+        }
+      ],
+      "revisions": [
+        {
+          "subjectFqn": "Halfcode.ResourceKind.BrowserWebApiBundle",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:770646704931fbb966416a39e4edd9239f27594210302b03e0f57f50379fe5f8",
+          "contractFingerprint": "sha256:9ec22adeb013a6f3eb6b820b411a88e13a7d6f6d144f5efed220057993c640a0",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContractFingerprint": "sha256:d0bccdceb7efccf90d72586745d9a7ab2783ae4486d8a8e09470c392629d21d2"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.ConfigBinding",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:4e1e9d05321fa0099dd357d43e6c2f7435f5575cce02545ca622325d0e0a95ad",
+          "contractFingerprint": "sha256:9d510eb0ace21d1a49d88ba762adc65c92310cf0c61a1bbaf1c7f7fc2a551f0f",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContractFingerprint": "sha256:a1a54a1c1626cfed2a83ebd04252002d7e8243b6539b1bda3fe79f03729b1711"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.ConfigurationProfile",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:458acd5299b72083f04b2b79483a425af976509172e6721d6f1fc98c7528c2ca",
+          "contractFingerprint": "sha256:335c84712b566c8acbcea29c1acf4da2d68ee3f4bdc94d3037135f49f1e665e7",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.DatabaseConnection",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:0789e5a301602d73963f4ec92524f4ae28bad2c94a25debffd5a5af226f2e893",
+          "contractFingerprint": "sha256:3e23dcca83adb7636d01a09ad64d24767f341ff459af1d066537d3965000b35e",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.HostBundle",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:bc390e6b61b9eefe8bbd2af976419b407954b3c47bcdf1925d3bceed69c75622",
+          "contractFingerprint": "sha256:3db040d8f77e0075b7923a6c301b0d4e9c9803eb6fd75022bb735844fa4f8fbb",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContractFingerprint": "sha256:d0bccdceb7efccf90d72586745d9a7ab2783ae4486d8a8e09470c392629d21d2"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.KindDefinition",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:11681d8de29970bee24566bf9c7621b287e6f2c67b12dadd045651e62fe94df7",
+          "contractFingerprint": "sha256:b2cf691047722eb7bd67eca9e4864dcbe51756e21e5779b7757ecc1e2ffa3975",
+          "ownerPackageId": "halfcode-compiler.xnl",
+          "ownerPackageFingerprint": "sha256:5ba2a01c09784dff38bccf05d16751ddd7b95cfced15ba1aa2634a454c7cf4d6",
+          "sourceContractFingerprint": "sha256:1af6d917626470d829efa0dfae2dd712ffcbe549902c371b288de347250813e4"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.LocalFunctionBundle",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:770646704931fbb966416a39e4edd9239f27594210302b03e0f57f50379fe5f8",
+          "contractFingerprint": "sha256:12f304315a95d5080985cbfa5f723537d778e9ddcd3e683d739bee96368d219e",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContractFingerprint": "sha256:d0bccdceb7efccf90d72586745d9a7ab2783ae4486d8a8e09470c392629d21d2"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.McpApp",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:b3e0331eac7c55f92c0a0b32fea03fc85f2b44a676ea3767f9a7f3ac8aca5387",
+          "contractFingerprint": "sha256:6faeff6604182a06b9b032dd58112abf27d32f003c71a38b7dfc417eb7c378d0",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.Page",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:b1e32d5c1dd64652791c1011c37f540c8f2e3f4355dfb05e886cb7f371cbdb3b",
+          "contractFingerprint": "sha256:1a3664a04a344b042f9d04e2de737e404b0b96272b24ee37ff6130b630a799bd",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.PageBundle",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:cd1d5f86c413d4bba735145289ad8cb427610558942188a8bf0cb4a640d796e6",
+          "contractFingerprint": "sha256:25f595e4518ac47977dac765bf0bad315124ea76ffb82bb40158aa1bc83841a0",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContractFingerprint": "sha256:d0bccdceb7efccf90d72586745d9a7ab2783ae4486d8a8e09470c392629d21d2"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.PageObjectBundle",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:770646704931fbb966416a39e4edd9239f27594210302b03e0f57f50379fe5f8",
+          "contractFingerprint": "sha256:b666daee3e617d4fa006c9c0c83363278198342b28e23dc70e623d5e60c2c90e",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContractFingerprint": "sha256:d0bccdceb7efccf90d72586745d9a7ab2783ae4486d8a8e09470c392629d21d2"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.PageWorkflowBundle",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:770646704931fbb966416a39e4edd9239f27594210302b03e0f57f50379fe5f8",
+          "contractFingerprint": "sha256:6d6bd44e47f1e6675d1b530000de6e27380aa2ed5e6e4133e3e8160d57b51cf3",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContractFingerprint": "sha256:d0bccdceb7efccf90d72586745d9a7ab2783ae4486d8a8e09470c392629d21d2"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.ResourcePackage",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:8afbac681414946dab08d900aa172fec2a3d9fb6429294fb008b6bcd86d5b3aa",
+          "contractFingerprint": "sha256:2d4742c79fd79b6849bb1db0e558a9f042b196ab34d147643669c4e0b3541d69",
+          "ownerPackageId": "halfcode-compiler.xnl",
+          "ownerPackageFingerprint": "sha256:5ba2a01c09784dff38bccf05d16751ddd7b95cfced15ba1aa2634a454c7cf4d6",
+          "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.SOP",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:512ae1df0018b34886738ef9b4f0c5c44b3a9c2c9c49ca619c9c751b4ce5abf8",
+          "contractFingerprint": "sha256:eb34ebf97ba0407ec5eb075b604aa0243cd857512a1d35cc3e785d04605a7441",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContractFingerprint": "sha256:a1a54a1c1626cfed2a83ebd04252002d7e8243b6539b1bda3fe79f03729b1711"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.Site",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:6af63c78e9663ee5b2704212bf68adbba36da5bfc1aca3f96fba15f9c30709c9",
+          "contractFingerprint": "sha256:6c899cbaaf50544c85f099c7429006f5764715366b1d45053b2e3e4a4b423da1",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.SkillApp",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:853dc15129b38dd573816724d399dc517017f00574c098e586655a8367233476",
+          "contractFingerprint": "sha256:3afc269b546b7b4b26e45d3b4420cd49d9b00278eb24974730a4f539754d7bad",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+        },
+        {
+          "subjectFqn": "Halfcode.ResourceKind.SkillModule",
+          "specVersion": 1,
+          "schemaFingerprint": "sha256:49392cf2b8a7f42f17fece6ab1273962cff51ceeecf9445fefdc51a85cd046bf",
+          "contractFingerprint": "sha256:4b78557edb5e1ad4fbb65ced454a3ff53ba98dcb594404b898abac1b7e162226",
+          "ownerPackageId": "depa-codument-skill-app-contract",
+          "ownerPackageFingerprint": "sha256:398f07f414bf91d8183c726b5746729480db7afefeafddf7d9d8c18ff0dcbd11",
+          "sourceContractFingerprint": "sha256:490c699d79d357bd9fb4ec8b85b3c16771af9ec7e48626a77db25971a0778a9b"
+        }
+      ],
+      "resolutions": [],
+      "lockDigest": "sha256:8edca54643a6d0ee54f883ca2e71a1f48f59012842bdc3db3abe1bbfd31b79a3"
+    }
+  }
+]

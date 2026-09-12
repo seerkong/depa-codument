@@ -1,0 +1,73 @@
+{
+  "date": "2026-09-06",
+  "sourceRoot": "/Users/kongweixian/infra-dev/depa-codument",
+  "targetRoot": "/Users/kongweixian/infra-dev/halfcode-cli/halfcode-cli-lite",
+  "transformation": "Exact npm specifier family substitution only during relocation; subsequent reviewed edits separate in output receipt. No source deletion.",
+  "files": [
+    {
+      "source": "project/packages/cli-host-capsule/src/pages.ts",
+      "target": "packages/live-host-capsule/src/pages.ts",
+      "digest": "fdebf1e0278dbfcb1e8f7c0501062e4932054744cadc8acd00cc00f803c43b37"
+    },
+    {
+      "source": "project/packages/cli-host-capsule/src/page-build.ts",
+      "target": "packages/live-host-capsule/src/page-build.ts",
+      "digest": "46ab9373a2367d0e698f7ed9decfc80c7104e0556d448a7858414b6b7001f62b"
+    },
+    {
+      "source": "project/packages/cli-host-capsule/src/page-automation.ts",
+      "target": "packages/live-host-capsule/src/page-automation.ts",
+      "digest": "cf1894d3cc639f0c6ed879ef04337d4c6fcfca71f847d68d751b701aa5fe4562"
+    },
+    {
+      "source": "project/packages/cli-host-capsule/src/page-control.ts",
+      "target": "packages/live-host-capsule/src/page-control.ts",
+      "digest": "42f8bf2acb67c9b9a1c35ad067702e401fbe961ab4f2029b2a2db214f9213afa"
+    },
+    {
+      "source": "project/packages/cli-host-capsule/src/page-instances.ts",
+      "target": "packages/live-host-capsule/src/page-instances.ts",
+      "digest": "847a11af53d219b0a49fdf6b25499f52c844b8b4d27931c52957af0cab47fc9f"
+    },
+    {
+      "source": "project/packages/cli-host-capsule/src/http.ts",
+      "target": "packages/live-host-capsule/src/http.ts",
+      "digest": "3108443814ec44f8bacb571c3203b6370b4ca6a7dca5b0d2e63f7ca3ac83a7c9"
+    },
+    {
+      "source": "project/packages/cli-host-capsule/test/page-build.test.ts",
+      "target": "packages/live-host-capsule/test/page-build.test.ts",
+      "digest": "5744b90a8652b2e4360adddbfc6a3261b26299b86a1b5f13c96afdc50c93a584"
+    },
+    {
+      "source": "project/packages/cli-host-capsule/test/page-automation.test.ts",
+      "target": "packages/live-host-capsule/test/page-automation.test.ts",
+      "digest": "dfc406d01d9ffa9e04be0f8ad7cb9d9af47c7561bc25b858748a989320f710b2"
+    },
+    {
+      "source": "project/packages/cli-host-capsule/test/page-channels.test.ts",
+      "target": "packages/live-host-capsule/test/page-channels.test.ts",
+      "digest": "475ed63939c8a62ad00aaea7d4a6b2c2f4190a28567f4b251835e67845811778"
+    },
+    {
+      "source": "project/packages/cli-host-capsule/test/http.test.ts",
+      "target": "packages/live-host-capsule/test/http.test.ts",
+      "digest": "c8956dd369067e88c909405742c411fb70164c3b3b121e334c29756af87ae4a2"
+    },
+    {
+      "source": "project/packages/cli-host-shell/src/page-http.ts",
+      "target": "packages/http-shell/src/page-http.ts",
+      "digest": "85b0666e0654914ff22781e7d2fe19124f04facdcb7f60828e7a723670597953"
+    },
+    {
+      "source": "project/packages/cli-host-shell/src/event-stream.ts",
+      "target": "packages/http-shell/src/event-stream.ts",
+      "digest": "968a592fc90992ba0c2378fdadaa46b32b5ee552b3ff16267514bad24155cbb5"
+    },
+    {
+      "source": "project/packages/cli-host-shell/test/event-stream.test.ts",
+      "target": "packages/http-shell/test/event-stream.test.ts",
+      "digest": "28ee363e0be84aee6fe742fc8eaaf628e93a5d7c44bb13fb5e5fd368e9ff9b5b"
+    }
+  ]
+}

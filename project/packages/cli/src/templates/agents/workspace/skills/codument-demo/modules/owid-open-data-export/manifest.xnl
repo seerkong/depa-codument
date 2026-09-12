@@ -1,0 +1,8 @@
+<SkillModule #Codument.Demo.Module.OwidOpenDataExport envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 (
+  <Catalogs [
+    <DirectoryResourceCatalog #host { resourceKind = "HostBundle" root = "vfs://./host/" entry = "manifest.xnl" scope = "root" }>
+    <ManifestResourceCatalog #pages { resourceKind = "Page" root = "vfs://./pages/" entry = "manifest.xnl" }>
+    <FileResourceCatalog #sops { resourceKind = "SOP" root = "vfs://./sops/" }>
+    <ManifestResourceCatalog #mcp_apps { resourceKind = "McpApp" root = "vfs://./mcp-apps/" entry = "manifest.xnl" }>
+  ]>
+)>
