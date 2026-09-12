@@ -157,7 +157,8 @@ export function codexArgs(run: Run, codex: string, prompt: string, name: string,
     '-o', outputFile, prompt];
 }
 export interface Usage { input: number; cached: number; output: number }
-export function readEvents(file: string): { usage: Usage | null; failed: boolean; completed: boolean; reconnects: string[]; threadId?: string; commands: string[]; executions: {command:string;exitCode:number|null}[] } {
+export interface CommandExecution { command: string; argv?: readonly string[]; exitCode: number | null }
+export function readEvents(file: string): { usage: Usage | null; failed: boolean; completed: boolean; reconnects: string[]; threadId?: string; commands: string[]; executions: CommandExecution[] } {
   const result: ReturnType<typeof readEvents> = { usage: null, failed: false, completed: false, reconnects: [], commands: [], executions:[] };
   for (const line of fs.readFileSync(file, 'utf8').split('\n')) {
     let e; try { e = JSON.parse(line); } catch { continue; }

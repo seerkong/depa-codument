@@ -51,6 +51,26 @@ Round: 47
 - Done when: 分类正负例和fresh复核通过，真实工具故障完整保留。
 - Evidence: E313原故障保留；E314实际awaitUiGate deadline/坏JSON及receipt身份和产品失败分类负例、完整回归/fresh复核过线。仍无完整真实UI PASS。
 
+### 让关键操作约束抵达实际入口
+
+- Status: done
+- After: 保留原始需求到验收的对照, 减少无新信息的子代理等待往返
+- Covers: 期望-4, 期望-10, 约束-4, 约束-18
+- Verify: skill-creator独立Terra前向情境：等待及短deadline、原样最小输入/非约束示例、已声明权限边界；链接与完整回归；之后新候选真实测量，不追认旧试次。
+- Outcome: 共享等待规范单一放到真实会先读的SKILL入口，调用点只路由；原始示例的省略语义与已声明权限边界不被自造fixture或空泛安全承诺替代。完整当前AST不与XNL重复强制装载。
+- Done when: 不静态复制operation清单，不新增hook/轮数/通用安全审计，不把示例变成未授权scope；前向情境与源码回归通过，成本实际效果仍单独计量。
+- Evidence: E320独立Terra前向正负情境、684tests完整回归、Skill验证和新候选smoke通过；运行期等待/成本效果仍由真实测量观察，不宣称已经实现节省。
+
+### 外层执行证据识别与裁决顺序
+
+- Status: done
+- After: 外层验收只读隔离与污染分类
+- Covers: 期望-4, 期望-10, 约束-21
+- Verify: 同一fresh线程的原生argv/exit记录；变量路径与环境前缀正例，echo/查询/字符串内命令/控制流/其它线程负例；真实FAIL不被证据启发式遮蔽；无证据PASS为infra；完整回归。
+- Outcome: 交付判定不依赖展示用shell字符串的错误再解析；不把验收器无法识别证据当业务编码缺陷。
+- Done when: 不执行或求值命令文本，不放宽真实PASS要求，不借用别的线程证据；定向和完整验证通过。
+- Evidence: E319保留原失败；E320原生同线程准入及伪命令负例、FAIL优先/缺证据PASS基础设施分类、实际旧日志只读回放、684tests完整回归通过。
+
 ### 外层验收只读隔离与污染分类
 
 - Status: done
@@ -455,95 +475,21 @@ Round: 47
 
 ## Last action
 
-活动试次：Stream /private/tmp/depa-codument-e2e-Jd0Vqx，runner session86744，T日志.tmp/round47-stream-readonly.log。closure37eb5996/harness4818dce2冻结；不要重复启动。先收集真实终态、review只读路径和成本，再调和下一节点。
-
-最新已验证harness4818dce2，完整check681/7891/143files和ouOdBf smoke通过（E318）。准备在T启动新fresh Stream，`bun e2e/run.ts run stream-pipeline-ai-agent --bin=T/dist/depa-codument-r47-closure --codex=/Users/kongweixian/.bun/bin/codex > .tmp/round47-stream-readonly.log`，产品候选37eb5996不变；先记录run root/session，再观察。不得恢复9JWDGk/aTb63U或重置旧预算。
-
-只读修正最终完整check session98861尚在运行；smoke session75469已exit0，ouOdBf十项PASS/modelCalls0。新harness SHA4818dce278cf67b92d4a26cade4d6f7f7587e8d2bffad95fc364099e8d9e62f1，产品closure SHA37eb5996保持。先收集check，再新fresh测量；不把9JWDGk的review PASS改写为最终PASS。
-
-验收只读修正定向3tests/12assertions通过（真实Seatbelt拒写src/build/dependencies及fake agent执行，modelCalls0）。接下来T完整 `bun run check > .tmp/round47-review-isolation-check.log` 和 `bun e2e/run.ts smoke --bin=T/dist/depa-codument-r47-closure > .tmp/round47-review-isolation-smoke.log`；产品candidate不变，仅harness变更。完成后收集退出码/日志，再决定新fresh试次；旧9JWDGk不恢复。
-
-当前恢复点：9JWDGk已终态infrastructure-failed（runner22514退出）；review0口头PASS被原件hash守卫拒绝，implementation1被父层精确停止，auth清理且进程已退出。不恢复此run。先实施外层验收只读sandbox与typed污染分类；保留所有旧hash/result。源写C，测试T；新harness需重新完整验证和smoke。
-
-closure新试次已启动：/private/tmp/depa-codument-e2e-9JWDGk，runner session22514，日志T/.tmp/round47-stream-closure.log。不要重复启动；保留原预算和独立验收，读取该root的进度及最终result。
-
-当前恢复点（E316覆盖下方历史命令）：closure候选完整check678/7878/142及smoke kg6lrr十项通过。接下来在T执行 `bun e2e/run.ts run stream-pipeline-ai-agent --bin=T/dist/depa-codument-r47-closure --codex=/Users/kongweixian/.bun/bin/codex`，日志.tmp/round47-stream-closure.log。出现run root立即记录；保持候选/harness冻结，检查进度/result/terminal-policy，不重复启动、不重置旧试次。三个新源码节点依据E316标done；真实效果测量仍active。
-
-当前执行命令：T下 `bun e2e/run.ts run stream-pipeline-ai-agent --bin=T/dist/depa-codument-r47-profile --codex=/Users/kongweixian/.bun/bin/codex`，输出.tmp/round47-stream.log；候选dad6afd6/harness dd530052经E314冻结，运行中不更改T。这是新试次，原预算不变；出现run root即补录。业务无浏览器依赖。
-
-Stream aTb63U已终态blocked，terminal-policy保持；runner session60386结束，复制auth已清理。attempt0缺原始指定测试，attempt1耗尽第5轮仍缺原始case B/C及三段内容流测试；不恢复此run。下一步把原仓库新runtime交接/等待协议/原始需求对照同步到T，运行完整check日志.tmp/round47-followup-check.log，再构建独立dist/depa-codument-r47-followup。旧candidate与runs保留。
-
-Round47当前：qUXNoE已终态infrastructure-failed，详细E313；runner/server/子进程退出且复制auth不存在。唯一Ego TaskSpace4/p1因dialog/CDP超时保留故障现场，不finish、不新建TaskSpace、不操作其它任务窗口；升级Ego需用户答复已发送的可选问题。先继续无浏览器节点。
-
-Round47当前验证：源码新增profile正文引用和浏览器infra分类；fresh review两项P2（Task后代漏读、坏controller receipt进入业务修复）均修复，等待复检。先前切片check675pass/7867assertions；最终新源码副本check session21609，日志.tmp/round47-profile-final-check.log。完成后构建新名dist/depa-codument-r47-profile、smoke，冻结hash后运行stream新root。T=/private/tmp/depa-codument-verification-AUuuts/depa-codument/project；旧61766候选和旧runs不覆盖。
-
-Round47最终协议验证通过：672pass/7842assertions、typecheck/lint及smoke10通过，候选61766e36、harness a0e0c742。现在执行新fresh todo：副本`bun e2e/run.ts run todo --bin=<copy>/project/dist/depa-codument --codex=/Users/kongweixian/.bun/bin/codex`，runner进度日志.tmp/round47-todo.log；保持三次outer及原hook预算。出现awaiting-ui时用新批次唯一Ego TaskSpace实测，不能伪造回执。R3与旧run不动。
-
-Round47：ce0f2cb检查点完成；精确context/身份handoff及SOP行为验证已实现。隔离副本新增聚焦9测试169assertions/typecheck通过；首次完整回归671pass/1fail（新增context的命令树快照未更新），已补快照。AT3 fresh review找到恢复规划未先传旧identity，已修复为模型前核验并原地修复。接下来在同隔离副本完整check、build及smoke，记录候选hash后fresh todo/stream，不覆盖R3或旧run。
-
-Round46分析观察：按用户要求只读分析五类E2E日志与旧/新runner，产出verification/terra-e2e-coding-capability-analysis.md并追加E310。结论不是“单global SkillApp导致模型变笨”：旧新oracle/model/workload不等价；真实可归因问题是plan→fresh impl没有稳定receipt/ID，impl-track用不含pending的默认list做候选发现，CommandOperation仍为长文SOP且缺机器execution packet，真实业务oracle又在末端。没有产品代码或/tmp改动。若进入修复，先把plan receipt→explicit resolve→impl ContextView→task external oracle做成公共可复用垂直切片；须由用户授权新candidate/新批次，不能恢复Round45耗尽run。
-
-Round45最终：Todo2 Yg2OnD/exec20069 attempt2已PASS/exit0（E308），七个正式root全部终态，无活跃业务worker；不再使用下文历史session恢复指令。UI controller42470已核对命令后终止，Ego TaskSpace3已finish一次且page关闭，不再复用或再次finish。最终报告verification/terra-e2e-round45.md及-results.json已汇总；首次1/7、累计最终2/7。原codument/、旧global codument及R3指纹不变，所有正式run auth/lock均不存在。49165制品服务保持，不停止。最终报告独立审计及preflight结果见E309。
-
-Round45当前Todo2进入最后outer纠偏：Yg2OnD/exec20069 attempt1通过strict/knowledge/app HTTP和fresh review，但真实Ego UI失败（E307）：Add task后event.currentTarget.reset为null而不刷新；Filter后确认title实际DOM注入。ui-receipt-1.json已写failed并绑定cf7e4445…及ui-1数据目录；UI controller19660已精确终止（exec38762结束）。runner会进入implementation2，禁止第四试次；后续若ui-request-2出现，用同space3/p1新server/新dataDirectory完整重验。Ego提示更新，未升级，收尾需finish一次并告知。六终态报告fresh审计NO_GAP，最终Todo2仍待定。
-
-Round45当前仅Todo2仍在运行：Yg2OnD/exec20069 implementation1，原Track P4 hook复检；后续若awaiting-ui用Ego space3/p1真实验收。Stream2 dIrjAv/exec46282已exit1/blocked（E306），max_rounds5仍有同步provider创建异常未事件化，不能generic resume。两个stream正式试次均未过线；不可把第二次较低耗时当同质量节省。接下来完成Todo2、最终汇总/保护hash/浏览器收口；候选仍R3，harness671c。
-
-Round45最新：Todo2 Yg2OnD/exec20069已进入implementation1，attempt0外层因原Track implement-todo-application的status=new而失败；模型先另建并完成add-todo-application，目前纠偏承接原Track，firstPass已经false。Stream2 dIrjAv/exec46282仍implementation0，内部GapLoop发现SDK工具循环conversation缺assistant消息，修复并fresh复检后转coding AttractorCheck。二者尚无outer UI/final PASS。其余运行/基线/保护约束沿下条。
-
-Round45当前两个独立重复并行等待：Todo2 Yg2OnD/exec20069（implementation0，另建add-todo-application，原plan的implement-todo-application仍pending）；Stream2 dIrjAv/exec46282（刚启动，自动Python预检）。二者R3/671c同基线、不同run-root/数据/模型上下文，不相互传代码或反馈；仅优化墙钟等待，不增加各run三次预算。Todo若进入awaiting-ui，用Ego space3/p1真实验收并绑定ui-request.dataDirectory。完成两run后最终成本/通过率报告、保护hash及taskSpace.finish；不提前结束批次。
-
-Round45当前：Nested XiBVUg已terminal failed（exec36456 exit1/E304），不恢复；真实两仓Mission/脚本校验通过，但e2e-server descriptor写argv而runner要求command，未进入正式HTTP/fresh review。parent补充只读源码诊断用argv实际运行四类跨仓HTTP检查通过，明确不改正式FAIL。现已启动fresh Todo2=/private/tmp/depa-codument-e2e-Yg2OnD，exec20069，R3/671c基线；之后fresh Stream2。670/7807完整check与RifTBP最新无模型10项smoke通过。Ego space3/p1继续复用，当前无UI server。
-
-Round45续行：Nested XiBVUg的plan0缺modeling_deltas、plan1缺engineering_deltas；plan2已通过并进入implementation2（exec36456），这是最后outer试次，不再追加第四轮。当前worker仍4a2b基线。最新后续harness为671c554008dc9c8500a1e2902822e71fe15cc2769147b19fd41ac2ddf976ce1b：多scope耗尽证据不充分时明确unsupported而非误判业务block，fresh bounded复核完成；17tests/101assertions、type/lint通过，完整check正运行exec20601。其后执行fresh Todo2→Stream2，保留R3不变与真实成本，不重开Ecommerce阻塞试次。
-
-Round45当前：nested-mission-agent=/private/tmp/depa-codument-e2e-XiBVUg，exec36456，harness4a2b828e4070527cf382d9cdb8aebe19fa450038c64add063a3ad5f8f84a77bc/R3，plan0开始。Ecommerce lztBFk已终止（E301）：attempt0配置GapLoop5轮耗尽且FIX_APPLIED→block；旧worker自动attempt1被controller精确停止，raw infra interruption保留，terminal-policy计真实业务blocked且禁止generic resume。新harness structured implementation outcome保留block停点，17tests/96assertions+type/lint过，等待bounded复核。8957完整669/7795+fresh NO_GAP及U9xwUM无模型smoke已过。Ego space3/p1继续复用，当前无UI server。Blog/stream首轮不恢复；后续fresh Todo/stream独立重复及最终全回归/汇总。新UI gate需receipt.dataDirectory与ui-request一致。报告草稿verification/terra-e2e-round45.md。
-
-Round45最新：Blog I5ZuWb的exec68492已结束，模型实际完成、runner却因中间Reconnecting事件误报infra（E296）；已修复event解析并11/56+type/lint通过，产品R3不变，新harness66116139…。当前恢复exec13011，同root run blog --resume=/private/tmp/depa-codument-e2e-I5ZuWb执行attempt1，只补真实差及outer验收，不重置firstPass。NSaXQo新smoke已exit0/modelCalls0；Ego space3/p1继续复用，不新建space。后续剩ecommerce→nested→fresh Todo/stream重复及汇总。stream OQoacs已最终failed、预算耗尽，不恢复。
-
-Round45最新：OQoacs stream首轮三次尝试后最终failed（E295，exec20875 exit1），不是待恢复；不得第四次重置预算。bvTcgN Todo已passed。当前blog=/private/tmp/depa-codument-e2e-I5ZuWb，exec68492，plan0进行中；从同/tmp project执行bun e2e/run.ts run blog --bin=/private/tmp/depa-codument-verification-AUuuts/depa-codument-candidate-r3 --codex=/Users/kongweixian/.bun/bin/codex。Ego space3/p1保留，后续blog/ecommerce需要真实UI receipt。
-
-Round45正式Todo bvTcgN已全部通过（E293，exec46332已exit0）。当前stream-pipeline-ai-agent=/private/tmp/depa-codument-e2e-OQoacs，恢复exec20875；原exec38555已停止并exit1，attempt0完整保留。plan0通过，implementation0因隔离PATH只暴露Python3.9而卡住（本机uv管理的3.12实际存在）。external-feedback.json提供已有sandbox准入的uv/Python3.12绝对路径，只作环境恢复、不改代码/验收。使用同一R3/harness --resume该root，消耗attempt1，不重置首次结果；详见E294。Ego space3/p1继续复用，Todo UI controller92406已停止。
-
-Round45最新：R3源码完整check663/7749已过（日志/private/tmp/depa-codument-verification-AUuuts/e2e-r3-full-check.log），candidate=/private/tmp/depa-codument-verification-AUuuts/depa-codument-candidate-r3；XYxh6l smoke通过。正式fresh Todo已启动：/private/tmp/depa-codument-e2e-bvTcgN，exec session46332，plan-0进行中；从同一/tmp project运行bun e2e/run.ts run todo --bin=<R3> --codex=/Users/kongweixian/.bun/bin/codex。不要重复启动同root，读取logs/progress/result及runner-lock。OWXOhA旧校准已停止、auth删除、所有成本/实际失败保留并标harness-invalid，不再恢复它。Ego Browser suite TaskSpace=3，p1是本测试页；后续继续复用，不新建space。未来UI gate写ui-request-<attempt>.json，外层用ui-server命令启动实际隔离服务，浏览器实操后按ui-gate.ts强schema写parent-owned receipt，不凭HTML或自述签PASS。
-
-Round45执行中：隔离源码/private/tmp/depa-codument-verification-AUuuts/depa-codument/project，candidate=/private/tmp/depa-codument-verification-AUuuts/depa-codument-candidate。当前Todo /private/tmp/depa-codument-e2e-OWXOhA，恢复worker exec session38711（PID16812），plan-1已完成且严格/知识校验通过，implementation-1执行中；不要重复启动。j4zhPE因runner错把pending未列入list判失败，已停止并标harness-invalid。OWXOhA早期plan-0因同类show查询问题主动中断；此前恢复记录保留。源e2e持续加固（要求不可变、全CLI Seatbelt、私有home拒读、线程身份与并发锁、raw session成本），运行中worker不热加载，不能把新基线验收追溯当它的证据。新smoke UtEpOq session17827；后续先跑最新harness unit/type/lint及fresh审查负例，再沿用户顺序继续真实用例及独立重复。原项目codument/及两个global bin/Skill均不改。
-
-Round44：版本修正、不可变制品闭包、隔离完整验证、源项目依赖安装及已授权global覆盖均完成。长期mission尚未完成，不归档。
-
-Round43最终：所有本轮运行命令已结束，完整日志在/private/tmp/depa-codument-verification-sg3oN5。E286/E287和verification/global-app-round43.md收录证据；真正全局安装保持未执行。原codument/global旧bin不变。
-
-Round43：修正全局agent argv schema、复用生产build资源打包到compiled migration fixture。等待隔离复制脚本session81867返回；取其临时目录跑test/lint/typecheck/context/migration，实际init+upgrade多agent，再记录新证据。全局安装被完整回归门挡住；不以定向通过越过公共版本冲突。
-
-Round42：仅更新MISSION/loop、追加E284并保存完整纠偏记录。没有产品代码或global安装写入。下面Round41是此前实施的历史Last action，不是本轮动作。
-
-Round41：5n3Hrk最终副本check通过645/7089/133files及typecheck/lint，真实CLI定向6/72；来源digest587a0ddc4b5444135d2dacc7c365090efbb4613c5c658d2797ddef191acb159a。历史声明策略、查询/strict notice和负例已验证；详见E283。没有待轮询进程。原codument/global指纹不变，实际App迁移仍review。
+- E320最新切片通过完整684tests/7929assertions/144files、typecheck/lint、Skill验证与SGP4yl smoke10PASS。新候选entry SHA5134e21d…，harness c136de6d…；准备新fresh Stream测量：T中`bun e2e/run.ts run stream-pipeline-ai-agent --bin=<T>/dist/depa-codument-r47-entry --codex=/Users/kongweixian/.bun/bin/codex`，日志`.tmp/round47-stream-entry.log`。不resume任何旧试次；启动后记录run/session，以日志观察不得重复启动。
+- 当前准备在T执行`bun run check`（`.tmp/round47-entry-final-check.log`）、Skill quick_validate、`bun run build --outfile=dist/depa-codument-r47-entry`及独立smoke；源头与副本已同步执行证据/SOP入口切片。两组Terra独立前向情境通过，尚不构成真实业务成本改善。若中断先读取这些日志与进程，不能重复启动活动验证。
+- Jd0Vqx已停止，86744退出；27451/52699/52700退出且auth不存在。attempt0真实bridge失败；attempt1只读review安全FAIL被测试命令识别器错误遮蔽；attempt2收到错误反馈后被停止。原result=infrastructure-failed，不恢复。当前先修执行证据识别与裁决顺序（E319）。
+- T=`/private/tmp/depa-codument-verification-AUuuts/depa-codument/project`；产品 `dist/depa-codument-r47-closure` SHA37eb59960d55aa3e6b6927861bd4e193198a33036a15f0bcae4acfafdb3b9db1；harness4818dce278cf67b92d4a26cade4d6f7f7587e8d2bffad95fc364099e8d9e62f1。
+- E318只读review隔离已通过实际sandbox/fake agent负例、完整681tests/7891assertions/143files和ouOdBf smoke10PASS/modelCalls0。源码检查点dd1e727（此前ce0f2cb、ddb4b6a），作者/提交者均kongweixian <kong_weixian@163.com>，未push。
+- 旧9JWDGk因review污染及错误业务重试已停止，原result=infrastructure-failed；qUXNoE=浏览器infra失败；aTb63U=round5业务blocked。所有原计数/日志/成本保留，不恢复或晋升PASS。详细E313–E318和verification/terra-e2e-round47.md。
+- 唯一Ego TaskSpace4/p1仍因dialog/CDP超时保留故障现场；升级Ego的可选问题尚无答复。不新建space、不操作其它任务窗口。当前Stream不依赖浏览器。
+- 历史Last action/Next的完整投影保存在git检查点dd1e727；耐久事实仍在evidence.md及各verification报告。历史命令不作为当前执行指令。
 
 ## Next
 
-Round47优先：closure候选新根运行stream-pipeline-ai-agent，无需浏览器，固定Terra/medium原预算；长命令日志.tmp/round47-stream-closure.log，出现run root即记录。原qUXNoE/aTb63U不恢复、不手修；浏览器任务等待安全恢复条件。保留所有历史终态，不把infra未验收计作PASS。成功后继续其余已授权用例和重复测量；失败先观察缺口，不放宽验收或轮数。
-
-Round45最终覆盖历史Next：当前六步有界测量批次已执行完且结果冻结；不要再启动Todo2/Stream2或恢复任何耗尽run。完整业务验收仍有差。下一决策是批准一个修复源码后重新冻结candidate/harness的新批次，保持现有hook和outer限额；优先计划ID交接、nested合同清晰度、实际UI/终端流式/同步异常判据及scope-bound hook receipt，详见最终报告。不能把临时业务应用手工修好算产品改进，不能为继续执行绕过block。原mission其它历史Next仍为长期待办，不是本批发布或安装授权。
-
-Round44最终覆盖以下历史Next：本次版本修正及global安装已完成，不再等待0.1.1确认、不重复安装。长期mission仍有三命令完整历史receipt兼容、无scope完整gates及历史语义review。源项目lock的本地制品服务保留于127.0.0.1:49165（PID52171）；未发布npm。下文Round43待确认和Round44实施顺序均为已执行的历史记录，不是当前待办。
-
-Round44覆盖以下阻塞：先实施公共包0.1.1要求及协议/包版本解耦，公共依赖闭包使用新patch版本；旧artifact和另一session0.1.1来源保留。/tmp源码副本→公共包/产品回归→本地打包registry→C安装新闭包→完整验证，最后按已授权范围更新新global。当前无需再次询问0.1.1决定。
-
-当前恢复所需输入：确认保持halfcode-cli-lite-skill-app-contract@0.1.1，允许在Halfcode公共包中解耦package semver与protocol版本2，并用新的本地制品版本构建一致依赖闭包（不发布npm、不覆盖既有同版本tarball）。这是公共兼容合同改变，不能仅修C锁或跳过校验。获准后先读两仓最新状态/另session变化，补公共兼容设计及负例，重跑preflight；解决版本闭包和serve/profile回归后再完整隔离验收、最后覆盖已授权的新global bin+skill。若用户选择恢复2.0.0，须明确覆盖其0.1.1决定，不能自动回滚。
-
-以下Round43进行中/历史Next已被上述明确阻塞覆盖，不要求原样复跑已结束命令。
-
-Round43覆盖下文“本次只记录”停点：当前用户已明确授权开始实施。先完成正在运行的隔离副本及定向验证；失败先诊断与修复，再完整回归、成本与实际安装，不能在中间节点结束。别名最终位置为references/std/compat/operation-alias.md。
-
-历史Round42的仅记录停点已被Round43授权覆盖。实施优先“收敛固定根完整全局App与动态别名路由”，再做整包替换/项目清理；历史兼容与最终验收仍需完成。先读本轮纠偏文档，不重新采用已否定的静态列表、拼装资产或增量保留旧global方案。
-
-历史完成政策已确认并实现，不再询问同一项。执行设计见design/historical-completion.md；后续转receipt及独立历史问题：2处ID冲突、2个缺design的Track、旧MaterialBundle词汇、add-wave-execution显式unchecked、Decision缺Reversibility和modeling悬空引用。原件保真/副本验证边界不变。
-
-0. 新验证边界优先：准备/tmp项目副本、显式CLI/home、原件指纹；通过隔离守卫后才执行后续验收。原文中“真实dogfood切换”现均指该副本，不要求改原codument/。
-1. 继续长期mission时，从三命令完整兼容节点续跑：逐字段核对原upgrade-workspace JSON/cleanup/参数，补齐或显式版本化兼容，不因实际入口已实现而标完整兼容done。
-2. 实现并运行无scope workspace-app/migration/capabilities gates，更新最终版本与分发闭包，重打最终制品并复验；当前候选包不等于最终发布。
-3. 按受控历史副本处理仍未决语义；不可推断的业务内容保留review。真实dogfood、旧src退役、根发行切换保持独立边界；真实npm发布/安装和外部写入不在本批授权中。
-4. 更新最终all及独立验收，全部验收过线后才归档。历史证据保留；新源码或目标变化后重测适用证据。
+1. 启动并观察新entry候选fresh Stream试次，冻结candidate/harness；按真实业务门、等待分布、原样边界测试及成本观察。Jd0Vqx已终态且成本补齐E320，不恢复、不追认PASS。
+2. 当前源码切片过线不等于整体经济性过线：等待协议仍曾出现10秒轮询，scaffold help未列支持kind；后继动作须先按新观察更新工作图/预检，再改源码、隔离验证并冻结新候选。不得修改活动试次。
+3. 继续已授权的关键用例重复及其余真实覆盖；浏览器支路须先安全恢复，不把工具故障冒充业务失败或PASS。保留Round45及全部Round47试次，分别统计首轮、纠偏后通过率和包括排除试次的成本。
+4. 长期剩余兼容、历史语义review及完整gates以工作图为准；不自动退役旧src、切根发行、升级真实codument/、覆盖global旧bin或发布npm。当前任务不是再次全局安装。
 
 ## Decisions and replans
 

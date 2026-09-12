@@ -1,7 +1,7 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import assert from 'node:assert/strict';
-import { createRun, loadRun, setup, execute, sandbox, installAuthentication, removeAuthentication, codexArgs, readEvents, files, sha, treeHash, writeJson, MODEL, EFFORT, type Run } from './runtime';
+import { createRun, loadRun, setup, execute, sandbox, installAuthentication, removeAuthentication, codexArgs, readEvents, files, sha, treeHash, writeJson, MODEL, EFFORT, type Run, type CommandExecution } from './runtime';
 import { verifyHttp } from './http-verifier';
 import { verifyStream, prepareStreamDependencies } from './stream-verifier';
 import { verifyNested } from './nested-verifier';
@@ -11,12 +11,24 @@ import { awaitUiGate, BrowserInfrastructureFailure } from './ui-gate';
 import { preparePython, pythonRuntimeGuidance } from './python-runtime';
 import { applicationEnvironment } from './application-state';
 import { observePlannedIdentities, reconcilePlannedIdentities, implementationHandoff, type PlannedIdentity } from './handoff';
+import { readNativeExecutions } from './execution-evidence';
 
 const caseRoot = path.join(import.meta.dir, 'cases');
 class WorkflowBlocked extends Error {}
 export function isInfrastructureFailure(error: unknown): boolean {
   return error instanceof BrowserInfrastructureFailure || error instanceof ReviewerInfrastructureFailure ||
     String(error).includes('Harness unsupported:') || String(error).includes('Agent ') && String(error).includes('failed: exit=');
+}
+export function requireIndependentReview(review: unknown, executions: readonly CommandExecution[]): void {
+  const value = review as {verdict?: unknown; findings?: unknown; checks?: unknown} | null;
+  if (!value || typeof value.verdict !== 'string' || !['PASS', 'FAIL'].includes(value.verdict) || !Array.isArray(value.findings) || !Array.isArray(value.checks)) throw new ReviewerInfrastructureFailure('Malformed independent review verdict');
+  if (![...value.findings, ...value.checks].every(item => typeof item === 'string' && item.trim())) throw new ReviewerInfrastructureFailure('Malformed independent review verdict');
+  if (value.verdict === 'FAIL') {
+    if (!value.findings.length) throw new ReviewerInfrastructureFailure('Independent FAIL requires findings');
+    throw new Error(`Independent review failed: ${JSON.stringify(value.findings)}`);
+  }
+  if (value.findings.length || !value.checks.length) throw new ReviewerInfrastructureFailure('Independent PASS has findings or no checks');
+  if (!executions.some(execution => execution.exitCode === 0 && isExecutedTestCommand(execution.argv ?? execution.command))) throw new ReviewerInfrastructureFailure('No supported test invocation in a successful reviewer execution block; use a standalone absolute test command');
 }
 export function requireDeliveredImplementation(value: unknown): void {
   assert.ok(value && typeof value === 'object','Missing implementation outcome');
@@ -46,7 +58,10 @@ export async function agentTurn(run: Run, codex: string, prompt: string, name: s
   writeJson(path.join(run.root, `${name}-invocation.json`), { model: MODEL, effort: EFFORT, args, timeoutMs });
   const result = await execute({ argv: sandbox(run, args, access === 'read-only' ? 'review' : true), cwd: run.workspace, env: applicationEnvironment(run,`agent-${name}`), log, timeoutMs });
   const events = readEvents(log);
-  writeJson(path.join(run.root, `${name}-receipt.json`), { ...result, ...events });
+  const nativeExecutions = readNativeExecutions(run, events.threadId);
+  const executionSource = nativeExecutions.length ? 'native-session' : 'cli-events';
+  if (nativeExecutions.length) events.executions = nativeExecutions;
+  writeJson(path.join(run.root, `${name}-receipt.json`), { ...result, ...events, executionSource });
   if (result.code || events.failed) throw new Error(`Agent ${name} failed: exit=${result.code}; see ${log}`);
   const previousThreads = fs.readdirSync(run.root).filter(f => f.endsWith('-receipt.json') && f !== `${name}-receipt.json`).flatMap(name => {
     const f = path.join(run.root,name);
@@ -54,7 +69,7 @@ export async function agentTurn(run: Run, codex: string, prompt: string, name: s
     return typeof receipt.threadId === 'string' ? [receipt.threadId] : [];
   });
   assertFreshThread(events.threadId,previousThreads);
-  return { ...result, ...events, outputFile };
+  return { ...result, ...events, outputFile, executionSource };
 }
 
 export function auditModels(run: Run) {
@@ -241,10 +256,8 @@ export async function runCase(candidate: string, codex: string, auth: string, ca
         `review-${attempt}`, 1200_000, ['--output-schema', schema], 'read-only');
         row.review = reviewReceipt;
         assertReviewerSourceUnchanged(sourceBeforeReview,sourceFingerprint(run));
-        assert.ok(reviewReceipt.executions.some(e=>e.exitCode===0 && isExecutedTestCommand(e.command)),'Reviewer must execute a successful test/typecheck/build command; curl versions, source searches and prose are not execution evidence');
         const review = JSON.parse(fs.readFileSync(reviewReceipt.outputFile, 'utf8'));
-        assert.equal(review.verdict, 'PASS', `Independent review failed: ${JSON.stringify(review.findings)}`);
-        assert.ok(review.checks.length > 0, 'Reviewer provided no execution evidence');
+        requireIndependentReview(review, reviewReceipt.executions);
         if (!nested && !stream) {
           row.ui = await awaitUiGate(run,caseId,attempt,sourceBeforeReview);
           assert.equal(sourceFingerprint(run),sourceBeforeReview,'Browser-tested source drifted');

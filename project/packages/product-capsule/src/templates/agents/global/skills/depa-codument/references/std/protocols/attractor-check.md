@@ -39,7 +39,7 @@ evidence 必须能回到具体文件锚点或稳定资源 id；不要用未引�
 
 调用方应给 reviewer 明确的 profile、审查对象、当前 hook 点和允许的只读命令。协议不要求额外 XNL receipt 或持久 round 状态；需要审计时，由调用方把文本 receipt 写入现有 report。
 
-等待 reviewer 时遵循 `references/std/protocols/context-loading.md` 的“等待子代理结果”；等待超时不是 reviewer 的 BLOCKED/GAP verdict，不另起重复检查。
+等待 reviewer 时遵循全局 `SKILL.md` 的“等待独立任务”；等待超时不是 reviewer 的 BLOCKED/GAP verdict，不另起重复检查。
 
 ## 与 GapLoop 的关系
 

@@ -33,3 +33,9 @@ CLI 固定读取发行包中的同一 App；安装按 agent 复制到 skill 目�
 GapLoop、Hook、AttractorCheck、fresh verify 按操作及配置执行，不因成本删除或缓存独立语义判断。外部发布、安装、破坏性操作的授权不由本 Skill 扩大。
 
 查询与普通领域功能本地执行；Page/live 等少数能力使用 Serve。Host 的 invoke/Page/SOP 用法按需读 [runtime](references/host/runtime.md)；底层调用：`depa-codument invoke --fqn <FQN> --skills-dir <scan-root> --input '<json>' --json`。
+
+## 等待独立任务
+
+fresh reviewer/worker 尚在运行且没有其它可做工作时，使用宿主的事件等待工具；显式选择较长的有界等待（通常 60 秒；宿主上限、沟通时限或已知更近的截止时间更短时从其约束）。结果或新输入可提前唤醒。不用连续 1–10 秒轮询代替等待，也不通过反复读取日志、完整合同或旧报告填充空闲回合。
+
+等待超时只说明本次尚无新结果，不是 GAP、任务失败或重开 reviewer 的理由。无新观察则继续等待；出现结果、输入、真实错误或截止时间后再调和。等待长度不改变 fresh 身份、hook 顺序、GapLoop 轮数、验证要求或人工 gate，也不能把尚未完成的检查记为 PASS。

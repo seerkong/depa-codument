@@ -73,7 +73,7 @@ spec:
    先按输入引用对照本 scope 的原始需求和批准取舍；整 Track 验收须覆盖已批准 Track 范围内的全部原始硬要求，不把其它 Track 或未选 backlog 强加到本次交付。原文明确要求保留的测试/接口/文件名要核对实际收集或可达结果，不能因 Acceptance 未写就略过；对照缺口列 FAIL，而不是以已有测试全绿放行。
 2. 按 criterion 逐条反推：
    - 需要哪些代码/配置/文件存在。
-   - 需要哪些行为可达。
+   - 需要哪些行为可达；按 `references/std/protocols/context-loading.md` 的契约示例规则核对原始输入形状，不以预填字段的fixture替代；当前声明的资源/权限边界须有允许与拒绝的行为证据。
    - 需要哪些测试或证据支持。
 3. 可选补充：从 `behavior_deltas/**/*.xnl` 的行为 case（suite/case）取验收用例作复现依据。
 
@@ -109,7 +109,7 @@ spec:
 
 verify 的核心是**派发 fresh-subagent 实际运行**——不是父代理顺手读一遍代码。父代理只负责收集验证目标、spawn 子代理、汇总其 PASS/FAIL，并据结论决定收口/回退。
 
-父层等待结果遵循 `references/std/protocols/context-loading.md` 的“等待子代理结果”；无新结果时不重新派发或预先宣称通过。
+父层等待结果遵循全局 `SKILL.md` 的“等待独立任务”；无新结果时不重新派发或预先宣称通过。
 
 ```text
 @delimiter: --

@@ -1170,3 +1170,18 @@
 - 实际Seatbelt拒写src/build/node_modules/新增交付文件，允许home/tmp/cache/.codex；fake Codex通过实际agentTurn将最终输出写入home/tmp，交付hash不变。污染类型命中infra分支，普通缺失测试仍为业务失败。定向3tests/12assertions通过。
 - T最终完整check exit0：typecheck/lint及681pass/0fail/7891assertions/143files/115.30秒；ouOdBf smoke十项PASS/modelCalls0。日志.tmp/round47-review-isolation-{check,smoke}.log。harness4818dce278cf67b92d4a26cade4d6f7f7587e8d2bffad95fc364099e8d9e62f1，产品closure37eb5996未变。
 - 该源码节点done；真实E2E及等待协议实际经济性仍未完成。新fresh测量保持Terra/medium和原限额；旧污染试次不恢复、不追认。
+
+### E319 — 真实安全FAIL被命令识别错误遮蔽
+
+- Jd0Vqx attempt0外层bridge0真实失败（SDK metadata省略未适配），attempt1修复后确定性验证通过。review1在只读源上跑原始测试，并复制到HOME/tmp验证editable install；没有交付hash污染，证明E318真实可用。
+- review1实际返回文件工具越界读取的安全FAIL，但runner先执行isExecutedTestCommand。它只识别简单裸/绝对命令，不识别环境赋值和quoted变量venv路径，因此将有效pytest执行误报缺失，并在读安全结论前启动implementation2。原生session CommandExecution含精确argv与exit0，支持修复命令观察来源。
+- 父层停止27451，runner86744退出；子52699/52700退出，auth不存在。原result=infrastructure-failed；两个实际观察到的业务缺陷及失败原样保留，不能把中断后的未知最终结果说成业务PASS或抹掉首次失败。
+- 下一改向：同fresh线程原生argv观察；有限、无求值的常见命令识别与负例；先保留真实FAIL，无法准入PASS执行证据时typed infra停止，不让业务实现者修验收器。旧trial不恢复。
+
+### E320 — 执行证据与实际入口协议切片过线
+
+- 新观测器只读取已选fresh线程匹配session_meta/thread_id的原生argv/exit；有界词法识别quoted venv与环境前缀，不求值shell。字符串伪命令、查询、控制流、pipe、其它线程及缺失/失败执行负例通过。真实FAIL先保留；缺证据或矛盾PASS停止为infra。只读回放Jd0Vqx review1识别8条原生命令中的2条成功测试块，正确保留安全FAIL；不修改旧结果。
+- 等待规范从未展开引用移到实际先读的SKILL入口，各operation仅路由；原样获批示例、已声明权限边界及完整当前AST避免强制重复装载。skill-creator独立Terra/medium前向情境通过：60秒/8秒deadline/timeout不计GAP/目标变化失效；原始缺省输入、非约束草稿、allowedRoot与明确无限目录需求正确区分。不新增hook/轮数/安全范围。
+- T完整`bun run check` exit0：684pass/0fail/7929assertions/144files/105.66秒，typecheck/lint通过；Skill quick_validate通过；build156resources；SGP4yl smoke十项PASS/modelCalls0。日志.tmp/round47-entry-final-check.log、round47-entry-build.log、round47-entry-smoke.log。
+- 新候选dist/depa-codument-r47-entry SHA5134e21d6253b29719c031664ce670d1c4b0fdb88eb59d8a911216ebfa02ad1b；harness c136de6df19158c1f471f8fd08fbf51109aacbad0cfdad3c52793226c0c877f0。旧候选不覆盖，旧bin哈希05206bf…保持，codument/无diff。
+- Jd0Vqx终态成本补齐：input15,431,527/cached14,297,600/output109,752，313responses/18sessions；elapsed2,229,774ms。最终infra排除但成本保留，attempt0已知业务失败不抹去。两源码节点done，真实通过率/等待与成本改善仍须新候选测量，不由上述绿色推断。

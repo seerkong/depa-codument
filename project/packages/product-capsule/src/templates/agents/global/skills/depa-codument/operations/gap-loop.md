@@ -43,7 +43,7 @@ CLI 负责根属性、时间和 Mission revision 的一致写回。
 ## 每轮
 
 1. fresh-spawn 子代理，只注入 scope、authority 路径、上一轮报告（如有）和 verdict 格式。
-   父层等待结果时遵循 `references/std/protocols/context-loading.md` 的“等待子代理结果”；普通等待超时不消耗 GapLoop 轮数，也不启动重复 reviewer。
+   父层等待结果时遵循全局 `SKILL.md` 的“等待独立任务”；普通等待超时不消耗 GapLoop 轮数，也不启动重复 reviewer。
 2. 子代理读取实际文件并运行与目标相称的测试、lint、构建或资源校验。
 3. 子代理先写 issues-first 的 `reports/gap-<scope>-<round>.md`。
 4. 无差距时返回 `NO_GAP`；能在 scope 内修复时完成修复和验证后返回 `FIX_APPLIED`；需要用户决策或外部状态时返回 `BLOCKED`。

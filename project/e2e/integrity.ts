@@ -48,11 +48,7 @@ export function isFirstPass(attempts: Record<string,unknown>[]): boolean {
   return attempts.find(a=>a.attempt===0)?.status === 'passed';
 }
 
-export function isExecutedTestCommand(command: string): boolean {
-  const shell = /^\/(?:usr\/)?bin\/(?:zsh|bash|sh) -l?c (['"])([\s\S]*)\1$/.exec(command.trim());
-  const body = shell ? shell[2]! : command.trim();
-  return body.split(/&&|;|\n/).some(part => /^(?:(?:\/|\.\/)[\w./-]*\/)?(?:(?:bun|npm|pnpm)\s+(?:run\s+)?(?:test|build|typecheck)|node\s+--test|python(?:3(?:\.\d+)?)?\s+-m\s+pytest|pytest)(?:\s|$)/.test(part.trim()));
-}
+export { isExecutedTestCommand } from './execution-evidence';
 
 /** An interrupted runner cannot be resumed concurrently by another worker. */
 export function lockRun(run: Run): () => void {

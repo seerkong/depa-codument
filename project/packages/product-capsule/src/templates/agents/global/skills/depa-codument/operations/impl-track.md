@@ -51,7 +51,7 @@ candidate TrackLink 由 MissionApplier 先 `track transition <track-id> in_progr
 
 宣布目标，幂等 `track transition <track-id> in_progress`。完整读取：
 
-- Track 目录的 `track.xnl`、`proposal.md`、`design.md`（当前 Kind 必需）、`behavior_deltas/**/*.xnl`。
+- Track 当前完整合同（已完整读取且仍有效的 context AST 可直接使用，否则读 `track.xnl`；需源注释/原文细节时再展开），以及 `proposal.md`、`design.md`（当前 Kind 必需）、`behavior_deltas/**/*.xnl`。不为形式重复装载同一合同的两种表示。
 - `analysis/findings.md`、`analysis/knowledge.md`（如存在）；根 `decisions.xnl` 与递归 `decisions/**/*.xnl`（如存在）。
 - `references/std/methods/tdd.md`、`references/std/methods/dag-execution.md`。
 - 本次实际适用的 input MaterialBundle、前置产物、代码测试、hooks/profile/attractors；按 `references/std/protocols/context-loading.md` 保留来源索引。
@@ -111,8 +111,9 @@ worker 不写 track.xnl、acceptance checkmarks、findings，不创建 task/phas
 ### 6.4 Executor completion verification（所有策略必做）
 
 1. 重读当前 Acceptance、相关 behavior case、执行证据、git diff；检查范围与每条预期语义。
-   按 `references/std/protocols/context-loading.md` 对照本任务适用的原始硬要求；明确要求保留的测试需检查实际 test collection，未被收集的必需用例不能由其它测试 exit 0 代替。
+   按 `references/std/protocols/context-loading.md` 对照本任务适用的原始硬要求与契约示例的原样输入；明确要求保留的测试需检查实际 test collection，未被收集的必需用例不能由其它测试 exit 0 代替。
 2. 逐条把本Task Acceptance映射到可重复的行为验证命令及断言，再执行。UI能力必须触发真实用户事件并检查可见状态；HTTP能力启动真实边界并含权限/错误/状态负例；stream能力验证逐事件时序和迭代建立前、迭代中异常；跨服务能力观察两侧真实状态变化。只检查源码字符串、文件存在、编译成功或内存替身，不足以证明这些运行行为。与本任务无关的场景不强行增加；缺少相关真实验证就是证据不足，应在DONE和最终hook前补齐。
+   文件、工具或其它能力若声明资源范围/权限隔离，用隔离测试资源验证允许与越界拒绝；“安全/低风险”等承诺需落实到可检查的边界，不能由一个成功用例证明。只检查当前任务实际承诺，不扩展为通用安全审计。
 3. 确认无无关运行时改动；声称行为不变须逐项核实删除/替换语句等价。worker 声称“旧问题/非我责任”时，以错误性质、HEAD 对照、独立复现、时间或 diff 归因验证。
 4. 通过才 `depa-codument track task complete <track-id> <task-id> -- <verification-command>`；CLI 执行或复用同命令且内容前提有效的成功 receipt，原子写 DONE/Acceptance。不得以 `;` 分隔失败检查与完成写入。
 5. findings 记录 receipt id/reused、命令、diff、覆盖和未验证项，继续 task:after。失败可修则保持 ACTIVE；不能继续才 `task transition ... REFUSED` 并记录 blocker。Track Task 没有 BLOCKED 状态。
