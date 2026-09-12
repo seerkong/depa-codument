@@ -11,6 +11,16 @@ Round: 47
 
 ## Work graph
 
+### 操作阅读使用无重复的完整文本投影
+
+- Status: done
+- After: 独立执行角色加载当前操作合同
+- Covers: 期望-4, 约束-4, 约束-18
+- Verify: 全15操作plain包含完整JSON message与operation markdown；JSON/参数/来源合同不变，Skill闭包与完整回归；阅读默认文本与机器元数据JSON的真实前向情境。
+- Outcome: 人工语义阅读不重复加载相同正文两次；机器JSON能力不删，动态CLI发现及fresh子层当前操作加载保持。
+- Done when: 入口/子层交接指导一致、正文等价门与前向行为验证过线；静态字节差不称完整模型成本收益，不修改W/L运行中候选。
+- Evidence: E340全15 native正文等价/JSON元数据、独立Terra前向角色与格式分流、最终694tests/typecheck/lint/native/10项smoke通过。只完成读取指导切片，真实测量尚待后继试次。
+
 ### 恢复策略拒绝不改写历史试次
 
 - Status: done
@@ -546,16 +556,14 @@ Round: 47
 
 ## Last action
 
-- 恢复准入保护源码已前移到lock/provenance/auth之前，新增旧run整树不变与正常策略抵达锁边界的无模型测试。准备isolated-project.ts round47-resume-admission新副本；返回后先bun test e2e/workflow-policy.test.ts，再全check。W/L活动试次不变，不借此恢复任何历史run。
+- 操作文本读取切片：只改global SKILL与verify子层入口指导，保留JSON完整合同；全15 native操作新增正文等价断言。Skill quick_validate/diff通过，准备isolated-project.ts round47-operation-text新副本，先global-guidance-binary定向，再全check/native/smoke及独立前向读取情境。W/L活动运行不改，后续不把静态字节差冒充完整token收益。
 
-- ec36bbc绑定保护/前置检查提交完成，163 author/committer；L最终693tests/typecheck/lint/native/smoke过线（E335）。启动L冻结bin dist/depa-codument-r47-binding-privacy的fresh Nested：bun e2e/run.ts run nested-mission-agent --bin=<L>/dist/depa-codument-r47-binding-privacy --codex=/Users/kongweixian/.bun/bin/codex，日志父目录nested-binding-privacy.log；记录首行root及返回session后，按原预算观察。W xFEjgk仍活动，两个副本均不改。
-
-- 最新已提交源码ec36bbc，author/committer kongweixian <kong_weixian@163.com>；没有push/global安装。E335最终693tests/typecheck/lint/native/PpXqEq smoke过线。
-- 活动Stream root=/private/tmp/depa-codument-e2e-xFEjgk，session53952；W=/private/tmp/depa-codument-verification-i6ECNV/depa-codument/project，冻结dist/depa-codument-r47-workflow-policy，日志父目录stream-fixed-policy.log。这是固定检查策略的新试次，不改其运行中源码/限额。
-- 活动Nested root=/private/tmp/depa-codument-e2e-hY83QU，session55040；L=/private/tmp/depa-codument-verification-lK5aRy/depa-codument/project，日志父目录nested-binding-privacy.log。用户中断后已重观察两个runner仍在执行，不重复启动。源码无业务未提交改动，只有本循环投影更新。
-- 已结束V Stream vuM1YN首PASS但无GapLoop/AttractorCheck，不能等强度对比（E331/E332）；U Nested4Qt0XU终态blocked，不resume，E333明确第一失败为绑定未被忽略而非HTTP共享文件。S Stream94Yims纠偏后PASS，含隐藏文件误报成本（E326–329）。全部旧run原始结果/预算保留。
-- Ego唯一TaskSpace4/p1仍工具故障，升级未获答复，不改现场/其它任务窗口；Todo/Blog/Ecommerce浏览器支路等待安全恢复。
-- L复制前后原codument/指纹b631c719…与旧global bin字节05206bf0…未变；副本历史升级仍review-required，不计迁移PASS。
+- 最新提交5ce0cd8恢复准入保护，前一ec36bbc绑定隐私；author/committer均kongweixian <kong_weixian@163.com>。UmazDZ最新完整694tests/7993assertions/typecheck/lint通过（E336），无未提交业务源码；本次不build重复产品或启动第三试次。
+- 活动Stream root=/private/tmp/depa-codument-e2e-xFEjgk，session53952；W=/private/tmp/depa-codument-verification-i6ECNV/depa-codument/project，冻结dist/depa-codument-r47-workflow-policy，日志父目录stream-fixed-policy.log。plan0通过，implementation0进入配置GapLoop；父层报告两项修复、第三fresh复检，尚未最终验收。
+- 活动Nested root=/private/tmp/depa-codument-e2e-hY83QU，session55040；L=/private/tmp/depa-codument-verification-lK5aRy/depa-codument/project，冻结dist/depa-codument-r47-binding-privacy，日志父目录nested-binding-privacy.log。plan0及前置绑定/策略准入通过，implementation0正在inventory检查阶段。两仓绑定实际被忽略；父层进展不是最终PASS。
+- W/L活动副本不改，用户中断后保留原进程，未重复启动。旧vuM1YN首PASS但无GapLoop/AttractorCheck（E331/E332），旧4Qt0XU blocked（E333），94Yims纠偏后PASS且包含误报成本（E326–329）；全部旧结果与预算保持。
+- Ego唯一TaskSpace4/p1最新只读info仍Runtime.evaluate超时，agent ownership，0.5.0.28仍提示升级（E338）。不再重试/换space，升级仍待用户明确许可；Todo/Blog/Ecommerce浏览器支路暂停。
+- 最新复制前后原codument/指纹b631c719…与旧global bin字节05206bf0…未变；副本历史升级仍review-required，不计迁移PASS。无global安装、push或发布。
 
 ## Next
 

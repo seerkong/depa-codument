@@ -1292,3 +1292,21 @@
 
 - 用户中断后W xFEjgk/session53952与L hY83QU/session55040均仍活动，沿用原进程，无重复启动。L main-repo/inventory-repo实际git check-ignore -v均命中各自codument/.local/.gitignore:1:*，E333忽略缺口已在真实新规划中消除；未到完整跨仓验收。
 - W实际Track挂载max5/block/verify_round=false GapLoop与coding AttractorCheck；父层报告首轮发现OpenAI工具消息时序问题并修复，第二fresh复检进行中。该观察不是控制器最终PASS，必要检查成本不删除。L仍规划校验，真实首次/最终通过率待终态再计。
+
+### E338 — 浏览器恢复条件只读复查仍失败
+
+- 用户继续后重读ego-browser SKILL/install，仅恢复原TaskSpace4并调用p1.info；ownership仍agent，Runtime.evaluate仍CdpRequestTimeoutError，CLI exit1，版本0.5.0.28仍提示可升级。未goto/reload/清理/新建space/操作其它用户窗口；此前不同安全恢复路径见旧浏览器证据。
+- 按Skill保持原故障现场，不finish错误态、不绕到新browser；升级仍需用户明确许可。W/L非浏览器试次继续，不将UI工具不可用计为业务失败或PASS。
+
+### E339 — 固定Track检查策略的Stream完整首次通过
+
+- W xFEjgk/session53952自然exit0，result passed/firstPass=true；单attempt0，elapsed1,883,643ms。harness917c13a6a6e1f5b7af415658ad3f4b0185b3d68a6f29268ae3e82cca4a9c4deb，workflow-policy.json明确记录末phase max5/block/verify_round=false GapLoop、coding AttractorCheck与独立verify。
+- 实际GapLoop1–4修复provider assistant/tool消息上下文、混合text/tool结束顺序、ToolExecutor事实源与trace身份、segment重放及provider错误语义；第五fresh给NO_GAP，之后独立coding AttractorCheck及外层bridge/reviewer过线。15自测；模型审计、源不变/需求闭包门均过线。既有verify报告曾早判PASS，后续Gap仍检出真实问题，说明不能删除其补充检错作用。
+- 全父子181responses/10sessions均有usage，input9,300,389/cached8,623,360/output73,603。首次/最终本候选各1/1只是一个样本，不等于总体或严格A/B。vuM1YN少检查的成本不作同强度对照；W不包含后续绑定、resume或文本阅读切片，不能把这些改动归因到本试次成功。
+
+### E340 — 完整操作文本投影与JSON元数据分流过线
+
+- native实测JSON的operation.markdown与message重复完整正文：impl-track36803/plain18031字节，gap-loop9108/4276，verify23396/11260。调整global SKILL与verify父层交接：语义阅读优先默认完整文本，需要机器参数/来源才JSON；查询/状态写入JSON用法不变，不删字段、正文或动态来源。
+- VeUfQE全15 native操作在传入target时验证plain完整包含JSON正文（仅归一外层空白）、JSON参数/FQN/contentDigest保持。初始断言因archive正文尾部额外空行失败，修正观察比较后通过；没有为测试改产品正文。保留sha256:前缀合同。定向1test/120assertions、最终完整694tests/8053assertions/147files/107.47秒，typecheck/lint/Skill quick_validate过线。
+- skill-creator独立Terra/medium operation_text_forward真实调用-h、verify默认文本与verify --json；进一步明确CI位置参数alpha/P4后实际读取verify alpha P4 --json返回参数原值、FQN与contentDigest。理解已派独立执行者不再次spawn；只读、未宣称alpha存在/通过。小情境验证用法分流，不充作业务PASS。
+- native156资源SHA55711346d8a881acffc279e533a1cc2cee0106f98d55dc4c98094c01160b298d；harness77cdb1964449d32ddfc044935c7ce84d38e7bf0a87b553196ecc12d25aaa03c5。uVrJkG smoke10项PASS/modelCalls0；日志副本父目录operation-text-{check,build,smoke}.log。simplify保持两处窄指导修改，不加格式/缓存层；原global与codument不变。静态字节降低不是完整模型净成本收益，后继同策略业务测量另计。

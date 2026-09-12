@@ -27,7 +27,7 @@ description: >
 CLI 固定读取发行包中的同一 App；安装按 agent 复制到 skill 目录，CODUMENT_HOME 改安装 home，不扫描项目寻找全局指导。`skill://depa-codument/references/std/...` 指向本全局标准。
 
 先运行 `depa-codument -h`，再调用所需命令读取完整操作。旧 skill 名按需查 [映射](references/std/compat/operation-alias.md)；标准按需读 [入口](references/std/AGENTS.md)，不展开全部操作。
-`depa-codument <command> [arguments...]` 交付指导，由当前 Agent 执行。`--json` 含正文、参数、来源；exit 0 不是业务完成。未知业务选项放在 `--` 后。
+`depa-codument <command> [arguments...]` 交付完整指导，由当前 Agent 执行。阅读操作时优先默认文本，避免 JSON 的 `operation.markdown` 与 `message` 重复正文；需要机器解析、参数或来源元数据时再用 `--json`，不重复读取两份正文。此选择只针对指导操作，不改变资源查询/状态写入的 JSON 用法。exit 0 不是业务完成。未知业务选项放在 `--` 后。
 
 被派来执行某操作的子代理也按此入口读取当前操作正文，不能只依赖父层摘要或测试命令。父层交接操作入口、执行角色和目标范围/输入路径；子层按该角色行动（已是独立执行者时，不重新执行父层的派发步骤）。仅加载适用操作及其所需引用，不展开全套标准。
 

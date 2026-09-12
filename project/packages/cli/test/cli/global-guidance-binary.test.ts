@@ -38,7 +38,13 @@ test('compiled binary installs only one new guidance App and dispatches all 15 c
       expect(help.stdout).toContain(route.command);
       const result = await run([route.command, 'target', '--json']);
       expect(result.code, result.stderr).toBe(0);
-      expect(JSON.parse(result.stdout)).toMatchObject({ status: 'guidance', arguments: ['target'], operation: { fqn: route.fqn } });
+      const structured = JSON.parse(result.stdout);
+      expect(structured).toMatchObject({ status: 'guidance', arguments: ['target'], operation: { fqn: route.fqn } });
+      const text = await run([route.command, 'target']);
+      expect(text.code, text.stderr).toBe(0);
+      expect(text.stdout).toContain(structured.message.trim());
+      expect(text.stdout).toContain(structured.operation.markdown.trim());
+      expect(structured.operation.contentDigest).toMatch(/^sha256:[a-f0-9]{64}$/);
     }
     expect(await readdir(workspace)).toEqual([]);
     const initialized = await run(['init-workspace', '--agent', 'codex', '--json']);

@@ -155,7 +155,7 @@ verify 的核心是**派发 fresh-subagent 实际运行**——不是父代理�
 -- /?verify
 ```
 
-**fresh-spawn 注入：** 父代理交接 `depa-codument verify <track-id> --json` 作为指导入口、fresh verifier执行角色，以及验证范围、输入路径、输出报告要求和必要禁止事项。不注入预期PASS或实现者解释；子代理自行取得当前操作与原始依据。具体运行时配置由当前 agent/runtime 自行决定，Codument 标准提示词不承载这类配置。
+**fresh-spawn 注入：** 父代理交接 `depa-codument verify <track-id>` 作为完整指导入口、fresh verifier执行角色，以及验证范围、输入路径、输出报告要求和必要禁止事项；只有需要结构化来源元数据时才加 `--json`。不注入预期PASS或实现者解释；子代理自行取得当前操作与原始依据。具体运行时配置由当前 agent/runtime 自行决定，Codument 标准提示词不承载这类配置。
 
 **证据复用：** “逐项判定”不等于“逐项重复执行”。fresh verifier 对每条唯一命令使用一次 `--fresh`，不消费实现阶段回执；随后在本次报告的多个目标下引用该次结果。只有目标需要不同输入、状态或复现路径时才新增执行。
 
