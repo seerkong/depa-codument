@@ -11,7 +11,7 @@ import { awaitUiGate, BrowserInfrastructureFailure } from './ui-gate';
 import { preparePython, pythonRuntimeGuidance } from './python-runtime';
 import { applicationEnvironment } from './application-state';
 import { observePlannedIdentities, reconcilePlannedIdentities, implementationHandoff, type PlannedIdentity } from './handoff';
-import { readNativeExecutions } from './execution-evidence';
+import { readNativeExecutions, REVIEW_EXECUTION_GUIDANCE } from './execution-evidence';
 
 const caseRoot = path.join(import.meta.dir, 'cases');
 class WorkflowBlocked extends Error {}
@@ -53,7 +53,8 @@ export function requireNoExhaustedWorkflow(run: Run): void {
 export async function agentTurn(run: Run, codex: string, prompt: string, name: string, timeoutMs: number, extraArgs: string[] = [], access: 'write' | 'read-only' = 'write') {
   const log = path.join(run.root, `logs/${name}.jsonl`);
   const outputFile = path.join(access === 'read-only' ? path.join(run.home, 'tmp') : run.workspace, `.e2e-${name}-last.md`);
-  const args = codexArgs(run, codex, pythonRuntimeGuidance(run.env.UV_PYTHON) + prompt, name, outputFile);
+  const guidance = pythonRuntimeGuidance(run.env.UV_PYTHON) + (access === 'read-only' ? REVIEW_EXECUTION_GUIDANCE : '');
+  const args = codexArgs(run, codex, guidance + prompt, name, outputFile);
   args.splice(args.length - 1, 0, ...extraArgs);
   writeJson(path.join(run.root, `${name}-invocation.json`), { model: MODEL, effort: EFFORT, args, timeoutMs });
   const result = await execute({ argv: sandbox(run, args, access === 'read-only' ? 'review' : true), cwd: run.workspace, env: applicationEnvironment(run,`agent-${name}`), log, timeoutMs });

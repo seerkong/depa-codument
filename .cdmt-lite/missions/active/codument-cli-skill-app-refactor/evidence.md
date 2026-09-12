@@ -1192,3 +1192,17 @@
 - S=/private/tmp/depa-codument-verification-TxnM9H/depa-codument/project，独立准备器复制12,487文件；原codument指纹b631c719…及旧bin05206bf…不变。复制dogfood升级仍review-required、0升级/226unchanged，不能冒称历史整体升级PASS。
 - 定向8tests/155assertions；完整check exit0含typecheck/lint、685pass/0fail/7942assertions/144files/109.64秒。native build156resources，两类scaffold help显示模板子集；gjYZfF smoke十项PASS/modelCalls0。日志在副本父目录scaffold-{check,build,smoke}.log。非法component不写入、帮助无workspace副作用、历史stdout兼容、不可变合同均覆盖。
 - 新binary ec81db745fce2ac812b5642625de24f5f70f91f016dbdcff8e1aea4e1e0906d9；活动nMEIGO仍冻结entry5134e21d…/harnessc136de6d…，不将其行为归因于新help。源码节点done，不宣称模型已因此少犯错或省token。
+
+### E322 — 入口规则采用、提前检错与验收传输终态
+
+- nMEIGO plan0完整读取原始需求；implementation0的独立verify在外层之前捕获最小SDK输入/主线消费缺口，后续还捕获重入事件顺序问题并复检；14tests、内部fresh verify/AttractorCheck及GapLoop1 NO_GAP后完成同一Track。原生记录8次wait_agent均60000ms，未再10秒短轮询。这证明采用和提前检错，不等于最终业务PASS。
+- 外层确定性业务检查通过；review0实际pytest14通过，但所处同一执行块的后续诊断失败，其他成功块是循环/导入而非可准入测试调用。review返回PASS，strict执行证据guard正确拒绝；新infra分类立即终止，没有implementation1。原result=infrastructure-failed/单attempt，68037 exit1、auth不存在；不恢复、不追认。
+- 最终elapsed1,587,676ms；全父子input8,837,949/cached8,176,640/output79,952，154responses/9sessions。费用是观测token不是账单；不以低于另一失败试次的总量宣称净经济性改善。原日志及T的.tmp/round47-stream-entry-report.json保留。
+- 调和：producer未事前得到observer支持的执行形态要求；不扩大词法解析或接受失败块，改为只读agentTurn统一明确独立成功exec义务。先新增review-probe小型隔离fixture校准同一链，再运行完整E2E，避免用整次业务规划实现来反复调试验收传输。
+
+### E323 — reviewer协议校准过线
+
+- read-only agentTurn统一前置REVIEW_EXECUTION_GUIDANCE：单独test exec成功，不把随后诊断失败的混合块作为PASS证据；识别依赖文件中的本地/editable安装写入边界。原有词法负例、exit0、同fresh线程、只读source guard均不放宽。fake agent验证实际调用收到提示；定向6tests/48assertions通过。
+- S完整check exit0：typecheck/lint、685tests/7944assertions/144files/112.56秒；RelwM7最终smoke10PASS/modelCalls0。日志父目录reviewer-protocol-{check,smoke}.log。冻结harness cf696740cec6c333c9a336099894c30eb42242455c1e49cfa03675ab73e40fdc，产品沿用E321 scaffold binary ec81db745f…。
+- 新独立review-probe X01WIQ真实Terra/medium，54.638s，native-session观察到单独环境前缀/quoted venv pytest call exit0；source不变、实际model审计通过、auth清理。fixture为1个pytest测试包含空列表/带负数求和断言，不是Stream或其它业务验收；没有复用旧试次源码或晋升历史结果。
+- 校准观测input96,610/cached76,544/output1,201、6responses/1session，单独报告并计入成本。此源码与传输节点done；仍需完整fresh业务测量，不能把小fixture通过率当产品交付率。

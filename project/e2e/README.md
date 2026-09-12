@@ -8,11 +8,14 @@ Run only from a copied repository under `/tmp`, with a candidate built by that c
 bun test e2e
 bun e2e/run.ts smoke --bin=/absolute/tmp/depa-codument-candidate
 bun e2e/run.ts probe --bin=/absolute/tmp/depa-codument-candidate --codex=/absolute/codex
+bun e2e/run.ts review-probe --bin=/absolute/tmp/depa-codument-candidate --codex=/absolute/codex
 bun e2e/run.ts run todo --bin=/absolute/tmp/depa-codument-candidate --codex=/absolute/codex
 bun e2e/run.ts report /private/tmp/depa-codument-e2e-<run> ...
 ```
 
 Order: smoke → todo → stream-pipeline-ai-agent → blog → ecommerce → nested-mission-agent → second independent todo and stream runs. Each invocation creates a unique retained run root; do not rerun a still-active invocation. Up to three attempts per run retain first-attempt failures. Planning and implementation are separate fresh Codex sessions that recover from workspace files; each correction also opens a fresh session rather than relying on warm conversation history.
+
+After changing reviewer transport, `review-probe` calibrates the same read-only agent turn, native execution observer and verdict gate with a tiny new Python fixture before spending a full business run. It makes one bounded real Terra call; it is not a no-model smoke or business acceptance, and cannot promote/resume an old trial. Reviewer guidance explicitly requires a successful standalone test call: a pytest success hidden inside a subsequently failing diagnostic block is not an admitted successful execution. Unsupported control flow/heredocs remain rejected rather than heuristically treated as PASS.
 
 After planning validation, the parent records `planning-handoff.json` with repository, authored resource ID, lifecycle path and observed source hash. Each implementation session receives these exact identities and reobserves them with `track context`; default `list` intentionally remains active-only. Status/path changes are allowed, identity loss/duplication/replacement is rejected. This fresh-case handoff is not a second lifecycle owner, approval receipt or cached semantic verdict. New optimization batches use new run roots and retain all earlier failures and limits.
 

@@ -11,6 +11,16 @@ Round: 47
 
 ## Work graph
 
+### 验收执行协议显式交接与校准
+
+- Status: done
+- After: 外层执行证据识别与裁决顺序
+- Covers: 期望-4, 期望-10, 约束-4, 约束-21
+- Verify: read-only agentTurn自动交接同观察器接受的独立成功测试块约束；fake agent负例与完整回归；独立临时Python小fixture真实Terra校准，不计入业务PASS。
+- Outcome: reviewer在行动前知道执行证据格式，失败的混合块须单独重跑测试；不放宽heredoc/失败退出守卫，不把infra反馈到业务实现者。
+- Done when: 提示和准入合同一致、真正native成功测试可识别、source保护及模型审计通过；之后再取完整fresh测量。
+- Evidence: E322原失败保留；E323完整685tests、最终smoke与X01WIQ真实Terra独立pytest/source/model校准通过，非业务PASS。
+
 ### 脚手架参数可发现性
 
 - Status: done
@@ -485,26 +495,20 @@ Round: 47
 
 ## Last action
 
-- S完整check685tests/7942assertions/144files/109.64s通过；native build156resources与modeling/engineering scaffold help实际exit0列模板子集。下一验证`bun e2e/run.ts smoke --bin=<S>/dist/depa-codument-r47-scaffold`，日志副本根scaffold-smoke.log；通过后记录E321、提交已验证源码。真实nMEIGO仍entry候选实现0，不受本改动影响。
-- nMEIGO plan0完成465089ms，top-level usage1,890,297/cached1,796,864/output21,659，精确pending身份add-reactive-agent-tutorial；规划耗费未下降，不提前推断经济性。S定向8tests/155assertions通过，完整check session34253运行；后续在S`bun run build --outfile=dist/depa-codument-r47-scaffold`并执行真实help，输出日志同副本根scaffold-build.log。当前候选测量仍entry，不纳入新help改动。
-- 新源码副本S=`/private/tmp/depa-codument-verification-TxnM9H/depa-codument/project`；准备器原件指纹不变，复制dogfood upgrade为review-required/0升级/226unchanged（不当历史全升级PASS）。在S执行`bun run check`，日志`/private/tmp/depa-codument-verification-TxnM9H/scaffold-check.log`，及定向`bun test packages/domain-logic/test/knowledge-scaffold.test.ts packages/cli/test/cli/domain-knowledge.test.ts`。nMEIGO继续使用旧冻结T。
-- scaffold帮助切片已在原仓库修改，活动T及nMEIGO不变。准备通过既有`verification/isolated-project.ts round-47-scaffold-help`创建另一独立/tmp源码副本验证；该准备器只升级复制的dogfood并核对原件指纹。后继在新副本运行定向knowledge测试及完整check，不把源码修改算已完成。
-- entry源码检查点b66b2b6（author/committer kongweixian <kong_weixian@163.com>，未push）；fresh Stream已启动root=`/private/tmp/depa-codument-e2e-nMEIGO`，runner session68037，T日志`.tmp/round47-stream-entry.log`。从该run日志观察，不重复启动、不改冻结harness或被测workspace。
-- E320最新切片通过完整684tests/7929assertions/144files、typecheck/lint、Skill验证与SGP4yl smoke10PASS。新候选entry SHA5134e21d…，harness c136de6d…；准备新fresh Stream测量：T中`bun e2e/run.ts run stream-pipeline-ai-agent --bin=<T>/dist/depa-codument-r47-entry --codex=/Users/kongweixian/.bun/bin/codex`，日志`.tmp/round47-stream-entry.log`。不resume任何旧试次；启动后记录run/session，以日志观察不得重复启动。
-- 当前准备在T执行`bun run check`（`.tmp/round47-entry-final-check.log`）、Skill quick_validate、`bun run build --outfile=dist/depa-codument-r47-entry`及独立smoke；源头与副本已同步执行证据/SOP入口切片。两组Terra独立前向情境通过，尚不构成真实业务成本改善。若中断先读取这些日志与进程，不能重复启动活动验证。
-- Jd0Vqx已停止，86744退出；27451/52699/52700退出且auth不存在。attempt0真实bridge失败；attempt1只读review安全FAIL被测试命令识别器错误遮蔽；attempt2收到错误反馈后被停止。原result=infrastructure-failed，不恢复。当前先修执行证据识别与裁决顺序（E319）。
-- T=`/private/tmp/depa-codument-verification-AUuuts/depa-codument/project`；产品 `dist/depa-codument-r47-closure` SHA37eb59960d55aa3e6b6927861bd4e193198a33036a15f0bcae4acfafdb3b9db1；harness4818dce278cf67b92d4a26cade4d6f7f7587e8d2bffad95fc364099e8d9e62f1。
-- E318只读review隔离已通过实际sandbox/fake agent负例、完整681tests/7891assertions/143files和ouOdBf smoke10PASS/modelCalls0。源码检查点dd1e727（此前ce0f2cb、ddb4b6a），作者/提交者均kongweixian <kong_weixian@163.com>，未push。
-- 旧9JWDGk因review污染及错误业务重试已停止，原result=infrastructure-failed；qUXNoE=浏览器infra失败；aTb63U=round5业务blocked。所有原计数/日志/成本保留，不恢复或晋升PASS。详细E313–E318和verification/terra-e2e-round47.md。
-- 唯一Ego TaskSpace4/p1仍因dialog/CDP超时保留故障现场；升级Ego的可选问题尚无答复。不新建space、不操作其它任务窗口。当前Stream不依赖浏览器。
-- 历史Last action/Next的完整投影保存在git检查点dd1e727；耐久事实仍在evidence.md及各verification报告。历史命令不作为当前执行指令。
+- E323校准及完整检查过线，harness冻结cf696740cec6c333c9a336099894c30eb42242455c1e49cfa03675ab73e40fdc。准备S fresh Stream：`bun e2e/run.ts run stream-pipeline-ai-agent --bin=<S>/dist/depa-codument-r47-scaffold --codex=/Users/kongweixian/.bun/bin/codex`，父目录日志stream-calibrated.log。只启动新run，不resume历史；启动后记录session/root。
+- S新check exit0：685tests/7944assertions/144files/112.56秒；X01WIQ真实review-probe PASS/native-session/独立pytest exit0/source不变/model审计通过/auth清理，用量96,610/76,544/1,201，54.638s。先跑S最终无模型smoke（父目录reviewer-protocol-smoke.log）；过线后E323和源码检查点，再冻结cf696740…harness开展fresh Stream，不恢复nMEIGO。
+- E322：nMEIGO终态infrastructure-failed、runner68037 exit1、auth清理；内部提前捕获最小输入与主线顺序，8次wait均60s，但review测试所在混合块后来失败，strict guard拒绝。没有implementation1，不恢复或追认PASS。总usage8,837,949/8,176,640/79,952（input/cached/output），见evidence及verification/terra-e2e-round47.md。
+- 当前S=`/private/tmp/depa-codument-verification-TxnM9H/depa-codument/project`；只读agentTurn新增显式独立成功测试义务，review-probe共享实际观察/裁决链。完整check session51747，日志副本父目录reviewer-protocol-check.log；定向6tests/48assertions通过。真实小fixture校准root=`/private/tmp/depa-codument-e2e-X01WIQ`、session95978，日志reviewer-protocol-probe.log。先观察结果，不重复启动。
+- S产品binary `dist/depa-codument-r47-scaffold` SHAec81db745fce2ac812b5642625de24f5f70f91f016dbdcff8e1aea4e1e0906d9，E321685tests/7942assertions与gjYZfF smoke通过。新harness尚未完成最终校准；不得拿上次完整check替代本轮证据。
+- T=`/private/tmp/depa-codument-verification-AUuuts/depa-codument/project`保留旧测量harness/candidates及全部Round47日志。qUXNoE/aTb63U/9JWDGk/Jd0Vqx/nMEIGO均终态；不恢复/重置/晋升。源码已验证检查点ce0f2cb、ddb4b6a、dd1e727、b66b2b6、df7766c均author/committer kongweixian <kong_weixian@163.com>，未push。
+- 唯一Ego TaskSpace4/p1保留dialog/CDP故障现场；可选升级问题尚无答复。不创建替代space、不操作其它任务窗口。原codument/及旧global bin指纹未变；本轮无global安装、真实dogfood升级或发布。
 
 ## Next
 
-1. 启动并观察新entry候选fresh Stream试次，冻结candidate/harness；按真实业务门、等待分布、原样边界测试及成本观察。Jd0Vqx已终态且成本补齐E320，不恢复、不追认PASS。
-2. 当前源码切片过线不等于整体经济性过线：等待协议仍曾出现10秒轮询，scaffold help未列支持kind；后继动作须先按新观察更新工作图/预检，再改源码、隔离验证并冻结新候选。不得修改活动试次。
-3. 继续已授权的关键用例重复及其余真实覆盖；浏览器支路须先安全恢复，不把工具故障冒充业务失败或PASS。保留Round45及全部Round47试次，分别统计首轮、纠偏后通过率和包括排除试次的成本。
-4. 长期剩余兼容、历史语义review及完整gates以工作图为准；不自动退役旧src、切根发行、升级真实codument/、覆盖global旧bin或发布npm。当前任务不是再次全局安装。
+1. 使用E323冻结harness观察新fresh Stream至终态；基础设施与业务失败分开，保留所有预算和真实失败。当前校准已过线，但不是业务PASS。
+2. 接着继续剩余非浏览器nested覆盖；新候选和旧日志明确分开，首次/最终通过率与含排除试次的成本分别报告。不以等待采用或排除失败宣称净经济性改善。
+3. 浏览器支路须先安全恢复；等待用户对可能影响其它session的Ego升级答复期间，不把工具不可用冒充业务失败或PASS。
+4. 长期兼容、历史语义review和完整gates仍以工作图为准；不自动退役旧src、切根发行、升级真实codument/、覆盖global旧bin或发布npm。
 
 ## Decisions and replans
 

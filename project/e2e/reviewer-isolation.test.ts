@@ -4,6 +4,7 @@ import * as path from 'node:path';
 import { createRun, execute, sandbox } from './runtime';
 import { assertReviewerSourceUnchanged, ReviewerInfrastructureFailure, sourceFingerprint } from './integrity';
 import { agentTurn, isInfrastructureFailure } from './workload';
+import { REVIEW_EXECUTION_GUIDANCE } from './execution-evidence';
 
 test('reviewer pollution terminates as infrastructure while real business failures remain corrections', () => {
   assertReviewerSourceUnchanged('same', 'same');
@@ -42,5 +43,7 @@ test('actual read-only agent turn writes its final output outside the delivery',
     expect(JSON.parse(fs.readFileSync(receipt.outputFile, 'utf8')).verdict).toBe('PASS');
     expect(sourceFingerprint(run)).toBe(before);
     expect(fs.existsSync(path.join(run.workspace, '.e2e-review-0-last.md'))).toBe(false);
+    const invocation = JSON.parse(fs.readFileSync(path.join(run.root, 'review-0-invocation.json'), 'utf8'));
+    expect(invocation.args.at(-1)).toBe(REVIEW_EXECUTION_GUIDANCE + 'Fixture only, no model invocation.');
   } finally { fs.rmSync(run.root, { recursive: true, force: true }); }
 });

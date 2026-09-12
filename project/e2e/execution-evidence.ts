@@ -2,6 +2,13 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { files, type CommandExecution, type Run } from './runtime';
 
+/** Producer obligations match the bounded observer below; no business criterion is added. */
+export const REVIEW_EXECUTION_GUIDANCE =
+  'Before returning PASS, run at least one test/build/typecheck command in its own separate exec call and obtain exit 0. ' +
+  'That evidence call must not contain heredocs, loops, conditionals, pipes, or unrelated diagnostic commands. Environment assignments and quoted venv executable paths are supported. ' +
+  'If tests pass but a later command in a combined call fails, rerun the test alone: a failed combined call is not successful execution evidence. Other diagnostic calls may be more complex. ' +
+  'Inspect dependency files before installation: editable or local-path entries must not build the original read-only delivery; install them only from an exact temporary copy.\n';
+
 /** Use the selected native thread's argv, not the CLI's shell-display rendering. */
 export function readNativeExecutions(run: Run, threadId: string | undefined): CommandExecution[] {
   if (!threadId) return [];
