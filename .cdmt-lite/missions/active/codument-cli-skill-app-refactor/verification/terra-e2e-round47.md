@@ -1,6 +1,6 @@
 # Round47: identity handoff and earlier behavior verification
 
-Current checkpoint: source `d196e87` is verified; latest Stream is first-pass, but the full mission is blocked on Ego browser recovery. See [latest terminal checkpoint](#latest-terminal-checkpoint-e347e348). Earlier pending descriptions below are historical observations, not current active runs.
+Current checkpoint: source `d196e87` is verified; latest Stream is first-pass. Ego was upgraded to 0.5.0.32; after explicit user approval, replacement TaskSpace1/p1 is usable (E352). Fresh Todo `ngMIIY` is running, not yet accepted. The prior [terminal checkpoint](#latest-terminal-checkpoint-e347e348) and earlier pending descriptions below remain historical observations, not current active runs.
 
 Baseline: `ce0f2cb` (author/committer `kongweixian <kong_weixian@163.com>`).
 

@@ -1377,3 +1377,21 @@
 - active preflight通过。正式ego-browser upgrade exit0，输出“Update installed. Restarting ego lite to apply it.”；随后完整重读安装后的ego-browser SKILL.md。
 - 重启期间首次原TaskSpace4/p1检查session63099无输出exit1，不能称原页面检查通过。随后改用不依赖Page的运行时/空间目录观察：ego-browser --version返回0.5.0.32、Chromium152.0.7977.54、Node24.18.1；nodejs成功打印ready，listTaskSpaces()返回空数组，exit0。
 - 因原空间重启后不可见，依Skill禁止新TaskSpace绕过错误的明确规则停止；未创建新空间、未检查profile或操作用户页面。升级许可不推定为新建替代空间许可。需用户明确允许新空间或手动恢复原空间；loop重新blocked，未启动收费模型试次、未改全局Codument或原dogfood。历史试次及预算不变。
+
+### E352 — 已获替代空间授权，启动新版Todo测量
+
+- 用户明确回复“同意”新建验收空间。重读已更新的ego-browser（date2026-09-09）和MissionLite；创建TaskSpace1/p1，ownership=agent，info实际成功（新标签页）。此空间替代已消失的旧空间，后续统一复用，不解除旧试次冻结。
+- 候选i8oyvm原生二进制重新hash仍0c6ce11b141353d37fa317cf72b4b3d9765bdfdd414761c3ebca767bbbf89c07；原仓干净，workload源码与副本相同。按固定Terra/medium与现有检查策略启动fresh Todo，非resume。
+
+### E353 — Todo内部边界纠偏引入合法输入回归
+
+- ngMIIY/session98866规划通过，身份add-todo-app准确交接；实现0内部Attractor发现路由可直接改Store记录并修复。GapLoop round2进一步把DATA_FILE收窄为basename，round3 NO_GAP及后续fresh验证均使用相对文件名，内部全部宣布通过。
+- 外层真实server-0.log直接证明启动失败：Store.fromEnvironment拒绝runner application-state.ts传入的E2E_DATA_DIR内绝对store.json，错误“DATA_FILE must be a filename within E2E_DATA_DIR”。原合同要求数据在指定目录内，不等于只允许basename；合法绝对路径与越界路径必须区分。此为业务交付失败，不是Ego故障或基础设施豁免。
+- runner已自然进入implementation1，原max5/outer3预算不变，父层未手改业务App或增加轮数。首轮失败保留；最终结果、UI、模型审计和完整成本待终态。
+
+### E354 — Todo外评通过，Ego弹窗确认再现故障并交还用户
+
+- Todo implementation1修复合法绝对路径，5tests及内部fresh verify/Gap4/Attractor完成；外评实际脚本/HTTP/只读源守卫通过，进入awaiting-ui attempt1（sourceFingerprint dd1d21885c8dd3ecde769170b5fbc7e0e88719c5b46b1e4da30a731edc0a43aa）。server控制器PID99725/session90410，origin http://127.0.0.1:54090，状态目录home/tmp/app-state/ui-1。
+- TaskSpace1/p1实际注册ui-ngmiiy@example.test成功、创建带截止日期/标签的任务成功。标题输入HTML片段作为字面文本显示，evaluate观察images=0/injected=false。Edit返回Title prompt，已见具体弹窗；acceptDialog('Edited acceptance task')随后Runtime.evaluate timeout/false，info也同类超时，不能宣称编辑成功。
+- 实质不同恢复：Page.handleJavaScriptDialog({accept:false})返回No dialog is showing；Page.reload({ignoreCache:false})最终返回{}，但尚未观察恢复后的页面状态。按Skill已task.handOff成功，并请用户手动检查原空间/关闭弹窗后确认。没有新space、profile操作或finish，没有UI PASS receipt。Ego故障不能作为应用缺陷进入纠偏。
+- Blog 0D692O/session67010使用同冻结候选独立home，目前implementation0；Todo session98866仍等UI（既有15分钟截止），不是终态。用户确认续接先看actual result/进程/ownership，不能重启或重置已终止试次。整体暂blocked于浏览器控制输入，其余已完成结果保持。

@@ -121,7 +121,7 @@ Round: 47
 - Done when: 新试次有终态、真实验收及成本证据；失败据证据调和，不能重置旧预算。
 - Evidence: E313 qUXNoE为UI基础设施终态；aTb63U attempt0因缺必需测试failed，attempt1在gap_round5因原始B/C与三片段内容流测试缺口blocked。两次试次不重置；据此新增原始需求对照/等待/运行时交接源码修正，完整验证后用另一个新候选测量。
 - Latest evidence: E347最新ox1QMV首次PASS，E345旧Q按max5阻塞；成本/策略分组完整保留。E348浏览器恢复复查仍失败，缺UI覆盖不是非浏览器结果能替代。
-- Blocked on: Ego TaskSpace4/p1恢复，或用户明确允许升级Ego Lite；之后用当前冻结候选fresh Todo/Blog/Ecommerce及Todo重复，不恢复/改判旧终态。不请求增加旧检查轮数。
+- Resume: 用户批准新空间，E352创建Ego TaskSpace1/p1且info成功；使用冻结候选fresh Todo/Blog/Ecommerce及Todo重复，不恢复/改判旧终态。
 
 ### 显式展开适用吸引子引用
 
@@ -570,6 +570,10 @@ Round: 47
 
 ## Last action
 
+- E354浏览器交还用户：TaskSpace1/p1确认Title prompt时acceptDialog及随后info Runtime.evaluate超时；底层dismiss报No dialog，Page.reload返回{}但尚未确认恢复。task.handOff已成功，等待用户手动恢复确认；不得自行夺回控制/新建space。Todo ngMIIY/session98866在awaiting-ui attempt1，server session90410/PID99725/origin54090，尚无UI receipt，runner有15分钟自然截止；Blog0D692O/session67010仍在implementation0。恢复先观察两个result/进程状态，不resume/reset终态；若Todo仍等UI且用户确认，takeOverTaskSpace(1)后重新观察实际页。
+- 当前活动Blog：/private/tmp/depa-codument-e2e-0D692O/session67010，冻结i8oyvm候选，日志/private/tmp/depa-codument-verification-i8oyvm/blog-ego-upgraded.log。独立run/home，规划实施与Todo复检重叠，UI按到达顺序串行复用TaskSpace1/p1；不改变任一预算，不重复启动。
+- 当前活动Todo：/private/tmp/depa-codument-e2e-ngMIIY，runner session98866，日志/private/tmp/depa-codument-verification-i8oyvm/todo-ego-upgraded.log。E353首轮因合法绝对DATA_FILE被拒绝而失败，现implementation1。等待phase/终态或ui-request；TaskSpace1/p1可用。不得重新启动同一试次。
+- E352用户明确批准替代测试空间；新TaskSpace1/p1（agent ownership）info成功。当前动作：在i8oyvm副本执行bun e2e/run.ts run todo --bin=<该副本>/dist/depa-codument-r47-contract-path --codex=/Users/kongweixian/.bun/bin/codex，日志todo-ego-upgraded.log。启动后记录run root/session；收到awaiting-ui则同一空间启动隔离server并实际UI验证，不重复启动活动runner。
 - E351：按用户批准正式升级Ego至0.5.0.32；重启后Node runtime正常，但listTaskSpaces()返回[]，原TaskSpace4未保留。没有创建替代空间、启动收费试次或改Codument安装。需要用户明确允许创建新TaskSpace，或恢复原空间。
 - 最新源码d196e87（author/committer kongweixian <kong_weixian@163.com>），E344完整694tests/typecheck/lint/native/smoke及独立情境通过。其后无业务源码变化，只有mission记录。
 - ox1QMV/session36345已自然exit0，firstPass=true，35.22分钟；候选/private/tmp/depa-codument-verification-i8oyvm/depa-codument/project/dist/depa-codument-r47-contract-path冻结。E347含四轮GapLoop、独立Attractor/verify/外评、全9会话模型审计、usage和auth清理。没有活动真实试次或待等runner。
@@ -579,7 +583,7 @@ Round: 47
 
 ## Next
 
-1. Ego升级已完成（E351），但重启后原TaskSpace4不在listTaskSpaces()返回列表（空列表）中。按ego-browser禁止用新空间绕过故障的规则暂停：等待用户明确允许创建新的验收TaskSpace，或恢复原空间后确认。旧run不恢复、不重置预算。
+1. E354已handOff TaskSpace1给用户，等待手动恢复确认；随后先检查Todo/Blog是否已终态及UI截止，不重启已有run。仅用户确认后takeOverTaskSpace(1)，在同一空间继续。Todo已通过外评但尚缺编辑/筛选UI，不能补造PASS；若已基础设施失败，保留终态。
 2. 浏览器可用后，按当前源码/候选身份核对启动fresh Todo、Blog、Ecommerce及Todo重复；旧UI失败试次封存，不用API/文本评审替代UI。全过程仍在/tmp与隔离home。
 3. 依据新终态追加成本及首次/最终率；不同策略/候选不当受控A/B，无新证据不声称稳定净token下降。
 4. 长期兼容、历史语义review及完整gates仍未收口；不自动退役旧src、切根发行、升级真实codument/、覆盖global旧bin或发布npm。
