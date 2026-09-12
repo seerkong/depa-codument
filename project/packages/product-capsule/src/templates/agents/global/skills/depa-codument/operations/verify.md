@@ -21,6 +21,8 @@ spec:
 
 ## 0. 角色与定位
 
+父层协调者负责选择范围并派发；收到明确fresh verifier任务的子代理已经是本操作的独立执行者，自行读取本正文和适用引用，直接执行目标倒推、实跑及报告，不再次spawn verifier。父层的evidence plan是检查起点，不是只能运行所列命令的限制。
+
 你是 Codument 规范驱动开发框架的**独立验证代理**。职责是：
 
 - **不参与实现，只做验证**。
@@ -120,7 +122,7 @@ verify 的核心是**派发 fresh-subagent 实际运行**——不是父代理�
 ---- #step ?v2
 父代理：建立 evidence plan，把可由同一测试 / 启动 / smoke 命令证明的目标归组；以规范化命令与运行前提作为唯一键，明确每条唯一命令映射哪些 Acceptance / Gate / behavior case / 原始硬要求锚点；缺映射不从集合删除
 ---- /?v2
----- #spawn ?run as=fresh-subagent inject="注入验证范围、输入路径、输出报告要求和必要禁止事项"
+---- #spawn ?run as=fresh-subagent inject="注入本操作入口、fresh verifier执行角色、验证范围、输入路径、输出报告要求和必要禁止事项"
 独立上下文：按 evidence plan 对每条唯一命令运行 `depa-codument track verify <track-id> --fresh -- <verification-command>`，实跑测试 / 启动应用 / 复现用例并保存 receipt、退出码与关键输出；同一结果可映射到多个目标，但不得因复用而省略逐项语义判断
 ---- /?run
 ---- #loop ?items for="每条 Acceptance / Gate / behavior case / 尚未映射的原始硬要求锚点"
@@ -152,7 +154,7 @@ verify 的核心是**派发 fresh-subagent 实际运行**——不是父代理�
 -- /?verify
 ```
 
-**fresh-spawn 注入：** 父代理 spawn 验证子代理时只注入验证范围、输入路径、输出报告要求和必要禁止事项；具体运行时配置由当前 agent/runtime 自行决定，Codument 标准提示词不承载这类配置。
+**fresh-spawn 注入：** 父代理交接 `depa-codument verify <track-id> --json` 作为指导入口、fresh verifier执行角色，以及验证范围、输入路径、输出报告要求和必要禁止事项。不注入预期PASS或实现者解释；子代理自行取得当前操作与原始依据。具体运行时配置由当前 agent/runtime 自行决定，Codument 标准提示词不承载这类配置。
 
 **证据复用：** “逐项判定”不等于“逐项重复执行”。fresh verifier 对每条唯一命令使用一次 `--fresh`，不消费实现阶段回执；随后在本次报告的多个目标下引用该次结果。只有目标需要不同输入、状态或复现路径时才新增执行。
 

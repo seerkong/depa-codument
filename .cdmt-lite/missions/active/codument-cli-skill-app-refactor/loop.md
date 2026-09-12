@@ -11,6 +11,16 @@ Round: 47
 
 ## Work graph
 
+### 独立执行角色加载当前操作合同
+
+- Status: done
+- After: 让关键操作约束抵达实际入口
+- Covers: 期望-4, 期望-10, 约束-4, 约束-18
+- Verify: 独立fresh情境从全局入口发现verify并完成目标反推，不递归spawn、不修改实现；相同读取闭包下原样输入负例；新/tmp副本完整check及Skill校验。
+- Outcome: 父层交接操作入口/角色/范围，子层自行取得当前指导；父层摘要与命令receipt都不代替子层语义判断。
+- Done when: 按需路由与角色边界过线，不复制操作清单、不新增hook/轮数或弱化fresh；真实E2E效果另测。
+- Evidence: E324原漏检及不确定边界保留；E325独立Terra前向情境、U完整685tests/7944assertions、Skill校验及native smoke通过。只完成角色交接切片，不等于业务检出效果或净节省已过线。
+
 ### 验收执行协议显式交接与校准
 
 - Status: done
@@ -452,6 +462,7 @@ Round: 47
 
 ## 尚未看清
 
+- Round47追加观察：94Yims plan0为保存原始需求快照连续两次`base64 < request.md`，存在字节搬运经过模型上下文的额外成本。尚未确认完整写入链与主导开销；后续先检查现有scaffold/material/复制能力及日志，再决定是否需要确定性CLI快照入口。不以此减少必要原文阅读或取消输入追溯。
 - 三个同名命令最终用户界面和组合行为：明确延期到核心重构后讨论，不在本轮替用户选择。
 - Browser/LF公共runtime边界已由E140以及后继三消费者/clone制品证明；尚未验证的是其它OS native与真实外部browser长期行为，不能扩大已有本机隔离证明。
 - modeling作者合同与迁移core已由E196–E205、E261–E267验证。真实历史App仍有全局ID冲突、缺design、完成状态/criterion矛盾与旧MaterialBundle等语义差距；不能以机械包裹或core通过声称这些历史副本升级成功。
@@ -495,6 +506,11 @@ Round: 47
 
 ## Last action
 
+- E325过线：U完整check exit0/685tests/7944assertions/116.67秒；新native32d55b127b6dca2771b4bf66c8771e46a7fce471112526df0ba8f2cefe4da57f、156资源，PqxplB smoke10PASS。准备163author/committer源码检查点，再使用U新候选运行fresh nested（原XiBVUg保持终态）；命令`bun e2e/run.ts run nested-mission-agent --bin=<U>/dist/depa-codument-r47-child-contract --codex=/Users/kongweixian/.bun/bin/codex`，日志U父目录nested-child-contract.log。94Yims仍独立冻结，不把此切片变成其中的热修。
+- 独立verify_child_entry_forward已完成：实际读取CLI verify及context-loading，未把预填字段pytest当省略字段的证明，明确父派发/子执行职责；仅情境动作非业务实测。U check session55224仍运行。过线后U `bun run build --outfile=dist/depa-codument-r47-child-contract`及`bun e2e/run.ts smoke --bin=<U>/dist/depa-codument-r47-child-contract`，日志父目录child-contract-{build,smoke}.log；保持活动S不变。
+- 新副本U=`/private/tmp/depa-codument-verification-9UW083/depa-codument/project`，12488文件，原资产指纹不变；仅副本升级review-required/0升级/226未变，不算迁移PASS。准备U `bun run check`（父目录child-contract-check.log）及skill-creator独立Terra/medium只读接手情境；之后观察记录，不重复启动。
+- 当前94Yims仍冻结执行implementation1；源码另修独立角色入口，完成后用isolated-project.ts round47-child-contract新标签创建隔离副本，完整check与前向测试，不覆盖活动S候选。
+- 新校准后Stream已启动：root=`/private/tmp/depa-codument-e2e-94Yims`，session64549，S父目录stream-calibrated.log。harnesscf696740…/binaryec81db745f…冻结。已验证源码检查点c1d34c2，仍163author/committer且未push；通过只读日志继续观察，不重复启动。
 - E323校准及完整检查过线，harness冻结cf696740cec6c333c9a336099894c30eb42242455c1e49cfa03675ab73e40fdc。准备S fresh Stream：`bun e2e/run.ts run stream-pipeline-ai-agent --bin=<S>/dist/depa-codument-r47-scaffold --codex=/Users/kongweixian/.bun/bin/codex`，父目录日志stream-calibrated.log。只启动新run，不resume历史；启动后记录session/root。
 - S新check exit0：685tests/7944assertions/144files/112.56秒；X01WIQ真实review-probe PASS/native-session/独立pytest exit0/source不变/model审计通过/auth清理，用量96,610/76,544/1,201，54.638s。先跑S最终无模型smoke（父目录reviewer-protocol-smoke.log）；过线后E323和源码检查点，再冻结cf696740…harness开展fresh Stream，不恢复nMEIGO。
 - E322：nMEIGO终态infrastructure-failed、runner68037 exit1、auth清理；内部提前捕获最小输入与主线顺序，8次wait均60s，但review测试所在混合块后来失败，strict guard拒绝。没有implementation1，不恢复或追认PASS。总usage8,837,949/8,176,640/79,952（input/cached/output），见evidence及verification/terra-e2e-round47.md。

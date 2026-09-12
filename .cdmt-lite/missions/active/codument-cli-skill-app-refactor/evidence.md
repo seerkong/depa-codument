@@ -1206,3 +1206,16 @@
 - S完整check exit0：typecheck/lint、685tests/7944assertions/144files/112.56秒；RelwM7最终smoke10PASS/modelCalls0。日志父目录reviewer-protocol-{check,smoke}.log。冻结harness cf696740cec6c333c9a336099894c30eb42242455c1e49cfa03675ab73e40fdc，产品沿用E321 scaffold binary ec81db745f…。
 - 新独立review-probe X01WIQ真实Terra/medium，54.638s，native-session观察到单独环境前缀/quoted venv pytest call exit0；source不变、实际model审计通过、auth清理。fixture为1个pytest测试包含空列表/带负数求和断言，不是Stream或其它业务验收；没有复用旧试次源码或晋升历史结果。
 - 校准观测input96,610/cached76,544/output1,201、6responses/1session，单独报告并计入成本。此源码与传输节点done；仍需完整fresh业务测量，不能把小fixture通过率当产品交付率。
+
+### E324 — fresh执行角色的操作加载边界
+
+- 新94Yims冻结ec81db745f候选/cf696740 harness。plan0成功，implementation0内部12pytest、GapLoop2 NO_GAP、fresh verify PASS，但外层bridge-0以最小SDK envelope失败；保留原attempt0，implementation1按原预算继续。未修改运行中源码或模型交接。
+- 原生session 01a0969e-b5ab-7a13-bdfa-d0df79d266e1（acceptance_verify）实际读取全局SKILL、项目AGENTS/SKILL，调用track verify并写报告；完整CommandExecution清单无verify操作正文或context-loading读取。父session 01a09694-921f-73a2-979d-d70df2e1a48b有depa-codument verify读取。spawn消息在原生日志中为encrypted_content，因此不能证明父层是否转述过具体规则，亦不能把此次漏检全部归因于路由。
+- 源码verify同时面向父层与执行者，但fresh注入清单只列范围/路径/报告/禁止项，没有明确交接操作入口和当前角色。调和为窄修复：入口按角色自行加载对应操作；verify执行者不再递归spawn。规则仍由单一操作正文拥有，不在SKILL重抄最小输入规则，不新增检查或轮数。
+
+### E325 — 独立执行角色入口切片通过
+
+- 全局SKILL按需路由收到委派的子层读取当前操作；verify显式区分父层和fresh执行者，交接操作入口但不注入预期PASS。evidence plan是检查起点而非只准跑所列命令。只改两份指导资产，无新增资源/状态owner/检查/轮数；现有适用合同仍为authority，父层摘要不替代它。
+- skill-creator授权的独立Terra/medium verify_child_entry_forward实际调用候选源码CLI `verify --json`并读取context-loading等适用引用；对ingest-record情境保留省略record_id原始硬要求，不以预填字段pytest全绿证明省略语义。区分父层spawn与已委派子层实跑。该测试只请求接手动作、未执行fixture或给业务PASS；不扩大其证明范围。
+- 新隔离U=`/private/tmp/depa-codument-verification-9UW083/depa-codument/project`完整check exit0：typecheck/lint、685tests/7944assertions/144files/116.67秒。Skill quick_validate过线、git diff --check过线。simplify自检保留两文件窄路由，不复写完整规范或另添抽象。
+- 原codument/及旧global codument指纹不变；U复制12488文件，复制后的历史升级仍review-required/0升级/226未变，不算迁移完成。构建156BunFS资源，bin SHA32d55b127b6dca2771b4bf66c8771e46a7fce471112526df0ba8f2cefe4da57f；harness沿用cf696740cec6c333c9a336099894c30eb42242455c1e49cfa03675ab73e40fdc。PqxplB smoke10PASS/modelCalls0，日志U父目录child-contract-{check,build,smoke}.log。后继真实业务测量仍独立，不追认94Yims旧attempt0。

@@ -29,6 +29,8 @@ CLI 固定读取发行包中的同一 App；安装按 agent 复制到 skill 目�
 先运行 `depa-codument -h`，再调用所需命令读取完整操作。旧 skill 名按需查 [映射](references/std/compat/operation-alias.md)；标准按需读 [入口](references/std/AGENTS.md)，不展开全部操作。
 `depa-codument <command> [arguments...]` 交付指导，由当前 Agent 执行。`--json` 含正文、参数、来源；exit 0 不是业务完成。未知业务选项放在 `--` 后。
 
+被派来执行某操作的子代理也按此入口读取当前操作正文，不能只依赖父层摘要或测试命令。父层交接操作入口、执行角色和目标范围/输入路径；子层按该角色行动（已是独立执行者时，不重新执行父层的派发步骤）。仅加载适用操作及其所需引用，不展开全套标准。
+
 原生 validate/migrate 是确定性 CLI；validate-operation/migrate-operation 是复合流程。旧项目先走 migrate-operation，不覆盖 std 或手改版本号冒充升级。
 GapLoop、Hook、AttractorCheck、fresh verify 按操作及配置执行，不因成本删除或缓存独立语义判断。外部发布、安装、破坏性操作的授权不由本 Skill 扩大。
 
