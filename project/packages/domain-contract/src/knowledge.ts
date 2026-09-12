@@ -73,6 +73,12 @@ export type KnowledgeReadResult =
   | { readonly kind: 'validated'; readonly family: KnowledgeFamily; readonly directory: string; readonly findings: readonly KnowledgeFinding[] }
   | { readonly kind: 'linted'; readonly family: KnowledgeFamily; readonly directory: string; readonly findings: readonly KnowledgeLintFinding[] };
 
+/** Supported draft templates, not the complete vocabulary of registry schemas. */
+export const KNOWLEDGE_SCAFFOLD_KINDS = Object.freeze({
+  modeling: Object.freeze(['entity', 'object', 'state-machine', 'enum', 'module'] as const),
+  engineering: Object.freeze(['rule', 'howto', 'reference', 'code-map', 'overview'] as const),
+});
+
 export type KnowledgeScaffoldRequest = {
   readonly kind: string; readonly name: string; readonly plane: string; readonly track?: string;
 } & (

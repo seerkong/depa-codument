@@ -1,13 +1,16 @@
 import { expect, it } from 'bun:test';
-import type { KnowledgeScaffoldRequest, KnowledgeScaffoldSnapshot } from 'depa-codument-domain-contract';
+import { KNOWLEDGE_SCAFFOLD_KINDS, type KnowledgeScaffoldRequest, type KnowledgeScaffoldSnapshot } from 'depa-codument-domain-contract';
 import { indexKnowledgeSources, knowledgeScaffoldFile, proposeKnowledgeScaffold, validateKnowledgeIndex } from '../src';
 const envelope = 'envelopeVersion="halfcode.resource-envelope/v1" specVersion=1';
 function observation(request: KnowledgeScaffoldRequest, sources = new Map<string, string>()): KnowledgeScaffoldSnapshot {
   return {request, file: knowledgeScaffoldFile(request), directory: `codument/${request.family}`, sources, sourceRevision: 'test'};
 }
 it('all ten knowledge drafts have one current owner and structural schemas, not a claimed semantic review', () => {
+  expect(Object.isFrozen(KNOWLEDGE_SCAFFOLD_KINDS)).toBe(true);
+  expect(Object.isFrozen(KNOWLEDGE_SCAFFOLD_KINDS.modeling)).toBe(true);
+  expect(Object.isFrozen(KNOWLEDGE_SCAFFOLD_KINDS.engineering)).toBe(true);
   for (const family of ['modeling', 'engineering'] as const) {
-    const kinds = family === 'modeling' ? ['entity', 'object', 'state-machine', 'enum', 'module'] : ['rule', 'howto', 'reference', 'code-map', 'overview'];
+    const kinds = KNOWLEDGE_SCAFFOLD_KINDS[family];
     for (const kind of kinds) {
       const request: KnowledgeScaffoldRequest = family === 'modeling'
         ? {family, kind, name: 'example', plane: 'domain', context: 'orders', fields: ['id:string', 'value?:{key:string}'], states: ['initial', 'done']}

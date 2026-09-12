@@ -4,6 +4,8 @@
  * of hand-writing XNL structure that frequently trips id-context or schema rules.
  */
 
+import { KNOWLEDGE_SCAFFOLD_KINDS } from 'depa-codument-domain-contract';
+
 export interface ScaffoldOptions {
   plane: string;
   context: string;
@@ -41,7 +43,7 @@ export function renderModelingKnowledgeNode(kind: string, name: string, opts: Sc
     case 'module':
       return moduleTemplate(nodeId, name, opts);
     default:
-      throw new Error(`modeling scaffold: unsupported kind '${kind}' (entity|object|state-machine|enum|module)`);
+      throw new Error(`modeling scaffold: unsupported kind '${kind}' (${KNOWLEDGE_SCAFFOLD_KINDS.modeling.join('|')})`);
   }
 }
 

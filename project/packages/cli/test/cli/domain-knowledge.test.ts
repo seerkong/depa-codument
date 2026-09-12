@@ -10,6 +10,22 @@ async function invoke(root: string, args: string[]) {
   const [code, stdout, stderr] = await Promise.all([child.exited, new Response(child.stdout).text(), new Response(child.stderr).text()]);
   return {code, stdout, stderr};
 }
+it('scaffold help exposes template subsets without loading or writing a workspace', async () => {
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), 'codument-knowledge-help-'));
+  try {
+    for (const [family, kinds] of [
+      ['modeling', 'entity, object, state-machine, enum, module'],
+      ['engineering', 'rule, howto, reference, code-map, overview'],
+    ] as const) {
+      const result = await invoke(root, [family, 'scaffold', '--help']);
+      expect(result.code).toBe(0);
+      expect(result.stdout).toContain(`Template kinds: ${kinds}.`);
+      expect(result.stdout).toContain('not the full registry schema');
+      expect(result.stderr).toBe('');
+    }
+    expect(await fs.readdir(root)).toEqual([]);
+  } finally { await fs.rm(root, {recursive: true, force: true}); }
+}, 30_000);
 it('knowledge scaffold retains both option families and text protocol, with one source owner and no Serve', async () => {
   const root = await fs.mkdtemp(path.join(os.tmpdir(), 'codument-knowledge-scaffold-cli-'));
   const modelArgs = ['modeling', 'scaffold', 'entity', 'order', '--plane', 'domain', '--context', 'orders', '--fields', 'id:string,total:number', '--json'];
@@ -33,7 +49,8 @@ it('knowledge scaffold retains both option families and text protocol, with one 
     expect((await invoke(root, ['modeling', 'validate', '--json'])).code).toBe(0);
     expect((await invoke(root, ['engineering', 'validate', 'codument/engineering'])).code).toBe(0);
     const files = (await fs.readdir(root, {recursive: true})).sort();
-    for (const args of [modelArgs.map(value => value === 'orders' ? '../escape' : value),
+    for (const args of [modelArgs.map(value => value === 'entity' ? 'component' : value),
+      modelArgs.map(value => value === 'orders' ? '../escape' : value),
       ['modeling', 'scaffold', 'object', 'bad', '--plane', 'domain'],
       ['engineering', 'scaffold', 'overview', 'bad', '--plane', 'global', '--category', 'overview', '--topic', 'project', '--unknown']]) expect((await invoke(root, args)).code).toBe(1);
     expect((await fs.readdir(root, {recursive: true})).sort()).toEqual(files);

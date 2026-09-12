@@ -1,4 +1,4 @@
-import type { KnowledgeFinding, KnowledgeReadResult, KnowledgeReadRequest, KnowledgeFamily, KnowledgeScaffoldRequest } from 'depa-codument-domain-contract';
+import { KNOWLEDGE_SCAFFOLD_KINDS, type KnowledgeFinding, type KnowledgeReadResult, type KnowledgeReadRequest, type KnowledgeFamily, type KnowledgeScaffoldRequest } from 'depa-codument-domain-contract';
 import type { CommandDefinition } from 'halfcode-cli-lite-cli-host-contract';
 import { createArgvSchema } from 'halfcode-cli-lite-cli-host-logic';
 import type { CodumentDomainCommandRuntime } from './index';
@@ -66,9 +66,10 @@ export function createKnowledgeCommands<R extends CodumentDomainCommandRuntime>(
 function createKnowledgeScaffoldCommand<R extends CodumentDomainCommandRuntime>(family: KnowledgeFamily): CommandDefinition<R> {
   const names = family === 'modeling' ? ['plane', 'context', 'track', 'fields', 'states'] : ['plane', 'category', 'topic', 'track'];
   const usage = `codument ${family} scaffold <kind> <name> --plane <plane> ${family === 'modeling' ? '--context <ctx> [--fields a:string,b:int] [--states a,b]' : '--category <cat> --topic <topic>'} [--track <track>]`;
-  return {name: 'scaffold', summary: `Append a ${family} draft to its resource owner.`, usage: [usage], examples: [],
-    doc: {summary: usage, usage: [usage], examples: [], options: [...names.map(name => `--${name}`), '--json']},
-    schema: createArgvSchema<R>(usage, [usage], [...names.map(name => ({name, kind: 'value' as const})), {name: 'json', kind: 'boolean'}]),
+  const summary = `Append a ${family} draft to its resource owner. Template kinds: ${KNOWLEDGE_SCAFFOLD_KINDS[family].join(', ')}. This is a template subset, not the full registry schema.`;
+  return {name: 'scaffold', summary, usage: [usage], examples: [],
+    doc: {summary, usage: [usage], examples: [], options: [...names.map(name => `--${name}`), '--json']},
+    schema: createArgvSchema<R>(summary, [usage], [...names.map(name => ({name, kind: 'value' as const})), {name: 'json', kind: 'boolean'}]),
     execution: CODUMENT_DOMAIN_EXECUTION.registry,
     async run({runtime, positional, options}) {
       const required = family === 'modeling' ? ['plane', 'context'] : ['plane', 'category', 'topic'];

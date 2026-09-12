@@ -1185,3 +1185,10 @@
 - T完整`bun run check` exit0：684pass/0fail/7929assertions/144files/105.66秒，typecheck/lint通过；Skill quick_validate通过；build156resources；SGP4yl smoke十项PASS/modelCalls0。日志.tmp/round47-entry-final-check.log、round47-entry-build.log、round47-entry-smoke.log。
 - 新候选dist/depa-codument-r47-entry SHA5134e21d6253b29719c031664ce670d1c4b0fdb88eb59d8a911216ebfa02ad1b；harness c136de6df19158c1f471f8fd08fbf51109aacbad0cfdad3c52793226c0c877f0。旧候选不覆盖，旧bin哈希05206bf…保持，codument/无diff。
 - Jd0Vqx终态成本补齐：input15,431,527/cached14,297,600/output109,752，313responses/18sessions；elapsed2,229,774ms。最终infra排除但成本保留，attempt0已知业务失败不抹去。两源码节点done，真实通过率/等待与成本改善仍须新候选测量，不由上述绿色推断。
+
+### E321 — 脚手架模板子集可发现
+
+- nMEIGO在读scaffold help后重现component模板拒绝，与9JWDGk一致。新增产品domain-contract不可变KNOWLEDGE_SCAFFOLD_KINDS；help及既有准入/错误投影使用同一词汇，renderer实现由十类生成测试约束。不是资源Kind清单，不收窄完整知识schema、不加side effect或运行时owner。
+- S=/private/tmp/depa-codument-verification-TxnM9H/depa-codument/project，独立准备器复制12,487文件；原codument指纹b631c719…及旧bin05206bf…不变。复制dogfood升级仍review-required、0升级/226unchanged，不能冒称历史整体升级PASS。
+- 定向8tests/155assertions；完整check exit0含typecheck/lint、685pass/0fail/7942assertions/144files/109.64秒。native build156resources，两类scaffold help显示模板子集；gjYZfF smoke十项PASS/modelCalls0。日志在副本父目录scaffold-{check,build,smoke}.log。非法component不写入、帮助无workspace副作用、历史stdout兼容、不可变合同均覆盖。
+- 新binary ec81db745fce2ac812b5642625de24f5f70f91f016dbdcff8e1aea4e1e0906d9；活动nMEIGO仍冻结entry5134e21d…/harnessc136de6d…，不将其行为归因于新help。源码节点done，不宣称模型已因此少犯错或省token。

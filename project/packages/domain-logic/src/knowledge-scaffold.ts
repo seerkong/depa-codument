@@ -1,5 +1,5 @@
 import { parseXnl, type DataElementNode } from 'xnl-core';
-import type { KnowledgeScaffoldRequest, KnowledgeScaffoldSnapshot } from 'depa-codument-domain-contract';
+import { KNOWLEDGE_SCAFFOLD_KINDS, type KnowledgeScaffoldRequest, type KnowledgeScaffoldSnapshot } from 'depa-codument-domain-contract';
 import { indexKnowledgeSources } from './knowledge';
 import { patchRootBodySource } from './source-patch';
 import { renderModelingKnowledgeNode } from './modeling-scaffold';
@@ -16,12 +16,12 @@ export function knowledgeScaffoldFile(input: KnowledgeScaffoldRequest): string {
   if (names.some(name => typeof name !== 'string' || !/^[A-Za-z_][A-Za-z0-9_-]*$/.test(name))) throw new Error('Knowledge scaffold names must be safe single identifier segments.');
   if (input.track !== undefined && !/^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/.test(input.track)) throw new Error('Knowledge scaffold Track must be a safe resource identity.');
   if (input.family === 'modeling') {
-    if (!['entity', 'object', 'state-machine', 'enum', 'module'].includes(input.kind)) throw new Error(`modeling scaffold: unsupported kind '${input.kind}' (entity|object|state-machine|enum|module)`);
+    if (!(KNOWLEDGE_SCAFFOLD_KINDS.modeling as readonly string[]).includes(input.kind)) throw new Error(`modeling scaffold: unsupported kind '${input.kind}' (${KNOWLEDGE_SCAFFOLD_KINDS.modeling.join('|')})`);
     for (const state of input.states ?? []) if (!/^[A-Za-z_][A-Za-z0-9_-]*$/.test(state)) throw new Error('Knowledge scaffold state must be a safe identifier.');
     for (const field of input.fields ?? []) if (!/^[A-Za-z_$][A-Za-z0-9_$]*\??:[^\r\n]+$/.test(field) || field.includes('</?')) throw new Error('Knowledge scaffold fields require name:type without text-delimiter injection.');
     return input.track ? `${input.plane}/${input.context}.xnl` : `${input.plane}/${input.context}/index.xnl`;
   }
-  if (!['rule', 'howto', 'reference', 'code-map', 'overview'].includes(input.kind)) throw new Error(`engineering scaffold: unsupported kind '${input.kind}' (rule|howto|reference|code-map|overview)`);
+  if (!(KNOWLEDGE_SCAFFOLD_KINDS.engineering as readonly string[]).includes(input.kind)) throw new Error(`engineering scaffold: unsupported kind '${input.kind}' (${KNOWLEDGE_SCAFFOLD_KINDS.engineering.join('|')})`);
   return `${input.plane}/${input.category}/${input.topic}.xnl`;
 }
 

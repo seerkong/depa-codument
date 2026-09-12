@@ -4,6 +4,8 @@
  * following engineering-node-schema required blocks.
  */
 
+import { KNOWLEDGE_SCAFFOLD_KINDS } from 'depa-codument-domain-contract';
+
 export interface ScaffoldOptions {
   plane: string;
   category: string;
@@ -29,7 +31,7 @@ export function renderEngineeringKnowledgeNode(kind: string, name: string, opts:
     case 'overview':
       return overviewTemplate(header, name);
     default:
-      throw new Error(`engineering scaffold: unsupported kind '${kind}' (rule|howto|reference|code-map|overview)`);
+      throw new Error(`engineering scaffold: unsupported kind '${kind}' (${KNOWLEDGE_SCAFFOLD_KINDS.engineering.join('|')})`);
   }
 }
 
