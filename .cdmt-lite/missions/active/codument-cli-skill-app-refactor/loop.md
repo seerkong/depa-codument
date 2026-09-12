@@ -11,6 +11,16 @@ Round: 47
 
 ## Work graph
 
+### 已批准数据流约束的路径证据
+
+- Status: done
+- After: 操作阅读使用无重复的完整文本投影
+- Covers: 期望-4, 期望-10, 约束-4
+- Verify: 共享context-loading指导区分输出等价与已批准的数据流路径；独立Terra对真实只读失败快照及合法结构情境核验，完整隔离check/native/smoke。
+- Outcome: 必要结构约束由实际producer→正式边界→consumer及效果证据证明，不用绿色输出测试替代；只对批准的约束激活，不普遍强制响应式或事件溯源，不增检查轮数。
+- Done when: 指导窄改、无新增authority/协议副本，反例与不误报情境通过；R0Pona冻结且旧失败与成本保持，真实整体效果另测。
+- Evidence: E344完整694tests/native/smoke及独立Terra结构缺口/不扩张情境通过，forward缓存写入保障限制明确保留；真实整体效果待新候选测量。E345原R0Pona已blocked，不改判。
+
 ### 操作阅读使用无重复的完整文本投影
 
 - Status: done
@@ -556,6 +566,14 @@ Round: 47
 
 ## Last action
 
+- E344路径证据候选隔离完整回归及小情境验证通过；E345 Q R0Pona已BLOCKED，session31030 exit1、auth清理，不再轮询/恢复。准备提交这一窄修订，再启动i8oyvm冻结候选的一次fresh同策略Stream（dist/depa-codument-r47-contract-path），命令bun e2e/run.ts run stream-pipeline-ai-agent --bin=<i8oyvm>/dist/depa-codument-r47-contract-path --codex=/Users/kongweixian/.bun/bin/codex，日志父目录stream-contract-path.log。记录新root/session后不改候选。以下活动描述均为历史。
+
+- E343路径证据指导仅改共享context-loading；新隔离副本i8oyvm（/private/tmp/depa-codument-verification-i8oyvm/depa-codument/project），全check session60739、smoke session24570，日志父目录contract-path-{check,build,smoke}.log。native dist/depa-codument-r47-contract-path已构建156资源，Skill quick_validate通过；独立Terra contract_path_forward只读评估真实旧快照及无结构约束纯函数情境，不提供预期结论。Q R0Pona仍冻结，attempt0外评真实FAIL后implementation1原预算内修复，20tests已过、fresh验证活动。不提前标新指导或真实试次完成。
+
+- 恢复观察（2026-09-12）：唯一活动真实试次是Q R0Pona，session31030；root=/private/tmp/depa-codument-e2e-R0Pona，日志/private/tmp/depa-codument-verification-VeUfQE/stream-operation-text.log。plan0已过，implementation0的首次fresh verify发现原始需求中的端到端测试覆盖及README解释缺口，父层修复后14tests通过，正在请求新的fresh verifier；不是最终PASS。Q保持冻结。以下W/L活动叙述为历史，均已由终态覆盖：W xFEjgk首次PASS（E339），L hY83QU首次PASS（E342）。当前源码提交782d8e5，只有mission记录未提交。
+
+- 782d8e5文本读取优化提交（163 author/committer），E340完整694tests/native/smoke/前向情境过线。W xFEjgk终态首次PASS（E339）；按用户关键用例重复授权启动Q=/private/tmp/depa-codument-verification-VeUfQE/depa-codument/project冻结候选的fresh Stream：bun e2e/run.ts run stream-pipeline-ai-agent --bin=<Q>/dist/depa-codument-r47-operation-text --codex=/Users/kongweixian/.bun/bin/codex，日志父目录stream-operation-text.log。需记录首行root/session；不再改Q，保留相同workflow-policy，所有成本照计。L hY83QU仍活动，不重复启动。
+
 - 操作文本读取切片：只改global SKILL与verify子层入口指导，保留JSON完整合同；全15 native操作新增正文等价断言。Skill quick_validate/diff通过，准备isolated-project.ts round47-operation-text新副本，先global-guidance-binary定向，再全check/native/smoke及独立前向读取情境。W/L活动运行不改，后续不把静态字节差冒充完整token收益。
 
 - 最新提交5ce0cd8恢复准入保护，前一ec36bbc绑定隐私；author/committer均kongweixian <kong_weixian@163.com>。UmazDZ最新完整694tests/7993assertions/typecheck/lint通过（E336），无未提交业务源码；本次不build重复产品或启动第三试次。
@@ -567,7 +585,7 @@ Round: 47
 
 ## Next
 
-1. 观察W xFEjgk与L hY83QU至终态，根据实际失败决定下个源码切片，不重复启动。vuM1YN与4Qt0XU均已终态，不resume、不重置原预算。基础设施、真实业务失败及模型误报分开。
+1. 提交E344窄修订后启动i8oyvm新候选的一次fresh Stream，核对真实契约边检出及完整成本，不重复启动。Q R0Pona已blocked，W xFEjgk与L hY83QU已首次PASS；所有终态不resume、不重置原预算。基础设施、真实业务失败及模型误报分开。
 2. 汇总当前版本的首次/最终交付结果与含排除试次的全部观测成本；版本不同不冒充受控A/B，源码check或小fixture不冒充业务PASS。
 3. 浏览器支路仍需安全恢复；等待Ego升级授权，不把工具不可用冒充业务失败或PASS。
 4. 长期兼容、历史语义review和完整gates仍以工作图为准；不自动退役旧src、切根发行、升级真实codument/、覆盖global旧bin或发布npm。

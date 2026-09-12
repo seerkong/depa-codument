@@ -1310,3 +1310,34 @@
 - VeUfQE全15 native操作在传入target时验证plain完整包含JSON正文（仅归一外层空白）、JSON参数/FQN/contentDigest保持。初始断言因archive正文尾部额外空行失败，修正观察比较后通过；没有为测试改产品正文。保留sha256:前缀合同。定向1test/120assertions、最终完整694tests/8053assertions/147files/107.47秒，typecheck/lint/Skill quick_validate过线。
 - skill-creator独立Terra/medium operation_text_forward真实调用-h、verify默认文本与verify --json；进一步明确CI位置参数alpha/P4后实际读取verify alpha P4 --json返回参数原值、FQN与contentDigest。理解已派独立执行者不再次spawn；只读、未宣称alpha存在/通过。小情境验证用法分流，不充作业务PASS。
 - native156资源SHA55711346d8a881acffc279e533a1cc2cee0106f98d55dc4c98094c01160b298d；harness77cdb1964449d32ddfc044935c7ce84d38e7bf0a87b553196ecc12d25aaa03c5。uVrJkG smoke10项PASS/modelCalls0；日志副本父目录operation-text-{check,build,smoke}.log。simplify保持两处窄指导修改，不加格式/缓存层；原global与codument不变。静态字节降低不是完整模型净成本收益，后继同策略业务测量另计。
+
+### E341 — 同策略重复Stream的实际读取分流采用
+
+- Q=VeUfQE候选启动fresh Stream R0Pona/session31030，沿用明确workflow-policy。原生日志plan0实际调用depa-codument plan-track（默认文本），同时status --json/list --json保留；不是只在独立情境中遵守分流。plan0已通过全部准入，implementation0进行中。
+- 不改W/L历史或Q运行中副本。首次/最终结果、成本尚未知，不用一次采用动作宣称净token收益。
+
+### E342 — Nested完整首次通过，选中交付与未选backlog边界保持
+
+- L hY83QU/session55040自然exit0，单attempt0，passed/firstPass=true，elapsed1,999,367ms。产品0f03db82…/harnessf749a04d…冻结，策略快照固定各Track末phase max5/block/verify_round=false GapLoop、coding AttractorCheck和独立verify。
+- 两仓前置绑定忽略检查通过；真实test/typecheck/build/strict、跨仓库存预留/扣减/释放/不足补偿/幂等HTTP链、最终独立review及模型/source/需求门均通过。AttractorChecks曾发现inventory持久化边界与order authority/transition说明问题，修复后fresh复检通过；Root完成，未选inventory reconciliation保持未执行，不为总体绿色关闭子backlog。
+- 全父子330responses/17sessions均有usage，input16,774,007/cached15,839,744/output110,399。该候选首次/最终各1/1，不能代替总体通过率。相比旧4Qt0XU，实际绑定缺口已明确消除，但策略/候选多处差异，不能把整段成本变化单因归到一个修复。
+- W xFEjgk与L hY83QU终态后auth均确认移除。它们都不包含后来的文本读取优化；Q R0Pona仍活动。浏览器三用例仍受E338阻塞，不计业务PASS。
+
+### E343 — 输出通过不能证明已批准的事实消费路径
+
+- R0Pona attempt0完成19tests、五轮GapLoop及独立Attractor/final verify，但外层review0正式FAIL：request.md §4.6明确tool executor应从统一semantic mainline观察/订阅/消费；保留的只读review副本home/tmp/reactive-agent-review.J4RX10/source/src/agent_runtime/agent_loop.py实际订阅pipeline.semantic，将requested列表直接交tools.execute。主线收到镜像事实，不是工具消费来源。此为原始明确合同缺口，不是额外强制DEPA风格。
+- 内部Attractor报告称SemanticMainline唯一authority、UI投影等，通过测试却未证明指定consumer边。按depa-expert DataTopology +已由RxPY激活的ReactiveDataGraphProfile，需区分producer→主线与主线→consumer；输入/终态相同不能证明中间路径。共享context-loading已有原样输入规则，但未明确此类已批准结构契约的证据；后继仅补这个测量缺口，不增加全局结构要求、hook或轮数。
+- 原review0曾先在进度消息写PASS，正式终态为FAIL；runner已正确进入implementation1，firstPass不得计真。Q源及预算冻结，controller未修测试业务；完整结果和usage仍待终态。新指导候选不会被Q加载。
+
+### E344 — 路径证据窄指导验证
+
+- 仅共享context-loading追加已批准结构约束的生产者→指定边界→消费者测量规则；运行探测需合法入口/准入/生命周期，不把个案变成所有项目的统一主线或事件溯源要求。既有operation、检查种类、轮数、JSON和动态加载不变。simplify自检保持一处合同，不再复制到各operation。
+- i8oyvm隔离副本完整check：694pass/0fail/8053assertions/147files/151.54秒，typecheck/lint通过；Skill quick_validate通过。native156资源SHA0c6ce11b141353d37fa317cf72b4b3d9765bdfdd414761c3ebca767bbbf89c07，harness仍77cdb1964449d32ddfc044935c7ce84d38e7bf0a87b553196ecc12d25aaa03c5；EF1KaW smoke10项PASS/modelCalls0。日志副本父目录contract-path-{check,build,smoke}.log；原codument/与旧global完整指纹未变，复制升级仍review-required/0upgraded226unchanged，不称迁移通过。
+- skill-creator独立Terra contract_path_forward读取新App/CLI指导及旧review快照，不提供预期结论；实际19tests通过仍判指定工具消费边FAIL。内存探针observe_facts调用0与工具execute真实调用相互印证；无结构范式约束sum情境没有被强加Observable，并实际验证三个输入。没有把Agent额外提及的trace/debug observer缺失自动升级为本轮通用新要求。
+- 该forward首次运行pytest未禁cacheprovider，事后承认无前后hash，不能证明整个评估零写入；可能写入的范围是独立review副本缓存，非活动Q业务目录。保留此限制。父层补用sandbox-exec拒绝该source全部file-write，并加-B及-p no:cacheprovider重新跑19tests通过（1.35秒）；这补证只读可执行性，不反向改写首次行为。新指导仍不等于真实完整交付或净成本收益。
+
+### E345 — R0Pona终态BLOCKED，文本去重不等于净成本下降
+
+- Q R0Pona/session31030自然exit1，firstPass=false，2,581,298ms；attempt0外评发现E343真实缺口，attempt1修复且独立20tests通过，但原末phase GapLoop已用满5轮，源码变更使旧NO_GAP不能覆盖新实现，无法开启第6轮，按block终止。没有重置、扩轮、resume或控制器代修业务。
+- 全父子266responses/14sessions均有usage：input13,178,690/cached12,250,368/output106,577；top7,826,185/7,383,552/52,746不重复加。auth已删除；最终model-audit未运行，observedModels=false，不能宣称最终模型门过线。实际文本分流采用保留，但费用与时间并未低于W，且交付未过；不能宣称净优化成功，更不能归因文本格式造成业务退化。
+- 当前已有明确不同假说及通过的源码/小情境验证（E344）：新候选可进行一次fresh同策略完整Stream测量，旧Q完整保留。浏览器支路E338仍阻塞，不以增加非浏览器成功替代五用例验收。

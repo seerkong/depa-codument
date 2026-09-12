@@ -90,3 +90,40 @@ Fresh94Yims used binaryec81db745f…/harnesscf696740… and ended **passed, not 
 All observed parent/child usage: input15,879,199, cached14,606,848, output126,453;324responses/20sessions. This candidate has only one completed sample: first0/1, final1/1. Different candidate/harness versions and Codex0.154.0 versus the old0.150.1 baseline prevent a strict old/new A/B claim. A successful delivery after correction is evidence of eventual convergence, not a proven net token saving.
 
 Two subsequent narrow source slices address distinct observations: fresh child role/current-operation loading (E324–E325), and direct path evidence before missing-file verdicts (E326–E328). Both have independent Terra behavioral checks, full685test/typecheck/lint regressions and native smoke; the path slice also has fresh real reviewer-probe f1qOnJ. They were **not loaded by94Yims**, so its success cannot establish their effect. Nested4Qt0XU uses the child-entry candidate; a later fresh Stream measures the path candidate. Browser-dependent cases remain blocked on the preserved Ego failure scene, not relabeled as business passes.
+
+## Latest completed measurements: explicit Track check policy (E331–E342)
+
+Earlier pending descriptions above are historical observations, superseded by their evidence entries and terminal records. Each trial is immutable; a later candidate does not change an earlier trial's contract, limits or outcome.
+
+| Trial | Case | Terminal result | First outer attempt | Elapsed | Input / cached subset / output tokens |
+|---|---|---|---|---|---|
+| vuM1YN | Stream | PASS | PASS | 1,305,611 ms | 6,137,288 / 5,695,488 / 54,832 |
+| 4Qt0XU | Nested | BLOCKED | FAIL | 2,543,541 ms | 16,664,475 / 15,472,640 / 131,702 |
+| xFEjgk | Stream | PASS | PASS | 1,883,643 ms | 9,300,389 / 8,623,360 / 73,603 |
+| hY83QU | Nested | PASS | PASS | 1,999,367 ms | 16,774,007 / 15,839,744 / 110,399 |
+
+- vuM1YN legitimately followed the product's auto planning defaults and authored no GapLoop/AttractorCheck hooks. Its lower usage is **not** equal-strength optimization evidence. This exposed the need to record and enforce actual planned checks, not just config file bytes (E331).
+- 4Qt0XU first failed `git check-ignore` for local workspace bindings, before outer HTTP started. The generic `1 !== 0` error misled implementation recovery toward an unproven shared-data-file hypothesis; the old max3 GapLoop was then exhausted. It remains blocked, not resumed or promoted (E333).
+- xFEjgk used explicit max5/block/verify_round=false final-phase GapLoop plus coding AttractorCheck and separate fresh verify. Five actual gap rounds, coding review and outer acceptance passed; all10sessions/181responses have usage. This is one complete first-pass sample under the recorded policy (E339).
+- hY83QU additionally uses the binding privacy Effect and pre-coding boundary check. Real cross-repository HTTP, local scripts, selected Mission delivery, mandatory checks and independent final review passed; unselected child backlog remains unexecuted. All17sessions/330responses have usage (E342).
+- These are different candidates/harnesses, not a controlled old/new A/B. “First pass” means the first **outer** attempt, and includes the internal corrections required by the unchanged selected check policy. Cached tokens are a subset of input, not an amount to add to input. No account-bill estimate is inferred.
+
+The next frozen trial R0Pona uses candidate55711346…/harness77cdb196… with the same recorded Track check policy. It measures a narrow guidance change: read complete operation text once instead of loading identical `operation.markdown` and `message` from JSON; machine parameter/source queries retain JSON. Actual plan0 adopted plain `plan-track` while retaining JSON status/list queries (E340–E341). Its outcome and cost are still pending, not zero.
+
+Todo/Blog/Ecommerce are not newly certified: Ego TaskSpace4/p1 still times out in Runtime.evaluate on version0.5.0.28 (latest read-only check E338). No replacement browser space, global tool upgrade, old-trial reset or UI PASS workaround was used. The two non-browser successes do not mean the five-case suite has passed.
+
+### Cross-candidate accounting checkpoint (before R0Pona terminal)
+
+The report function was rerun against all ten completed Round47 business trials listed above, not just the successes. Six are business-eligible: first3/6, final4/6; four infrastructure failures are excluded from those denominators, but their usage remains included. Stream is first2/4, final3/4 across four eligible trials (seven runs including infrastructure failures); Nested is first1/2, final1/2. Todo has no eligible result in this round, so its rate is unknown, not zero. Blog/Ecommerce have no new completed runs.
+
+Observed usage across those ten terminal trials is input124,677,988 / cached116,050,432 / output906,376. This does not include pending R0Pona, earlier Round45 trials, or standalone calibration/forward probes; it is not the cost of the whole development session. One session in9JWDGk lacks usage, so this remains observed usage rather than a claim of exhaustive billing. Different binaries, harnesses and hook policies make these engineering-history rates, not controlled optimization estimates.
+
+### R0Pona terminal and next hypothesis (E343–E345)
+
+R0Pona ended **BLOCKED**, not first-pass, after2,581,298ms. Its19tests, five internal GapLoop rounds, AttractorCheck and fresh verification missed an explicit consumption-path requirement: the tool executor used the private pipeline list rather than observing the unified SemanticMainline. Outer review correctly rejected it. Attempt1 repaired that path and passed20tests, but the already-exhausted max5 GapLoop could not cover the changed implementation; no sixth round or reset was permitted. All14sessions/266responses have usage: input13,178,690 / cached12,250,368 / output106,577. Authentication was removed; the final model audit was not reached.
+
+Thus actual text-reading adoption is demonstrated, but **net cost reduction is not**: this run cost more than xFEjgk and did not finish delivery. Neither the failure nor the extra usage can be causally attributed to text format from these single, stochastic, cross-candidate samples.
+
+Including R0Pona, Round47 now has11terminal trials: seven business-eligible, first3/7 and final4/7; four infrastructure exclusions retain their cost. Observed total input137,856,678 / cached128,300,800 / output1,012,953, with the same incomplete historical-session coverage and probe exclusions noted above. Among the explicit-policy Stream samples xFEjgk/R0Pona, first/final are both1/2; Nested hY83QU is1/1. Do not pool the no-hook vuM1YN sample into equal-strength comparisons.
+
+The next candidate adds only an approved-structure path-evidence rule to shared context-loading, not extra hook rounds or a universal reactive architecture. Isolated694tests/typecheck/lint/native/smoke and independent structural counterexample/non-reactive control passed (E344), with the initial forward pytest-cache limitation explicitly preserved. Its full business effectiveness remains to be measured; it was not loaded by R0Pona.
