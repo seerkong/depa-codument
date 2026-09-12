@@ -11,6 +11,16 @@ Round: 47
 
 ## Work graph
 
+### 恢复策略拒绝不改写历史试次
+
+- Status: done
+- After: 固定E2E规划检查策略并校验实际挂载
+- Covers: 期望-10, 约束-21
+- Verify: 缺失/漂移策略的旧run在任何锁/provenance/auth/result写入前拒绝；隔离fixture整树指纹保持，合法策略仍可准入；完整回归。
+- Outcome: 恢复准入失败不能变成对旧结果的再分类或覆盖。
+- Done when: admission提前且无写入负例通过；活动W/L不改，不恢复旧终态。
+- Evidence: E336准入已前移；真实runCase无模型旧试次整树不变负例、合法策略正常锁边界及完整694tests/typecheck/lint通过。真实旧run及活动试次未修改。
+
 ### 嵌套绑定忽略契约与确定性错误定位
 
 - Status: done
@@ -536,16 +546,20 @@ Round: 47
 
 ## Last action
 
-- 最新已提交源码7b20c44，author/committer kongweixian <kong_weixian@163.com>；没有push/global安装。E334固定E2E策略688tests/typecheck/lint/native/Cv5MEC smoke过线。
+- 恢复准入保护源码已前移到lock/provenance/auth之前，新增旧run整树不变与正常策略抵达锁边界的无模型测试。准备isolated-project.ts round47-resume-admission新副本；返回后先bun test e2e/workflow-policy.test.ts，再全check。W/L活动试次不变，不借此恢复任何历史run。
+
+- ec36bbc绑定保护/前置检查提交完成，163 author/committer；L最终693tests/typecheck/lint/native/smoke过线（E335）。启动L冻结bin dist/depa-codument-r47-binding-privacy的fresh Nested：bun e2e/run.ts run nested-mission-agent --bin=<L>/dist/depa-codument-r47-binding-privacy --codex=/Users/kongweixian/.bun/bin/codex，日志父目录nested-binding-privacy.log；记录首行root及返回session后，按原预算观察。W xFEjgk仍活动，两个副本均不改。
+
+- 最新已提交源码ec36bbc，author/committer kongweixian <kong_weixian@163.com>；没有push/global安装。E335最终693tests/typecheck/lint/native/PpXqEq smoke过线。
 - 活动Stream root=/private/tmp/depa-codument-e2e-xFEjgk，session53952；W=/private/tmp/depa-codument-verification-i6ECNV/depa-codument/project，冻结dist/depa-codument-r47-workflow-policy，日志父目录stream-fixed-policy.log。这是固定检查策略的新试次，不改其运行中源码/限额。
-- 绑定隐私切片尚未提交：contract显式privacy Effect，support创建自有.local/.gitignore、保留已有规则/根ignore、冲突或已跟踪拒绝，不自动untrack；nested oracle明确两仓绑定检查失败。新副本L=/private/tmp/depa-codument-verification-lK5aRy/depa-codument/project，定向4tests/15assertions通过，session41127完整check运行，日志父目录binding-privacy-check.log。完成后native/smoke及新fresh Nested。
+- 活动Nested root=/private/tmp/depa-codument-e2e-hY83QU，session55040；L=/private/tmp/depa-codument-verification-lK5aRy/depa-codument/project，日志父目录nested-binding-privacy.log。用户中断后已重观察两个runner仍在执行，不重复启动。源码无业务未提交改动，只有本循环投影更新。
 - 已结束V Stream vuM1YN首PASS但无GapLoop/AttractorCheck，不能等强度对比（E331/E332）；U Nested4Qt0XU终态blocked，不resume，E333明确第一失败为绑定未被忽略而非HTTP共享文件。S Stream94Yims纠偏后PASS，含隐藏文件误报成本（E326–329）。全部旧run原始结果/预算保留。
 - Ego唯一TaskSpace4/p1仍工具故障，升级未获答复，不改现场/其它任务窗口；Todo/Blog/Ecommerce浏览器支路等待安全恢复。
 - L复制前后原codument/指纹b631c719…与旧global bin字节05206bf0…未变；副本历史升级仍review-required，不计迁移PASS。
 
 ## Next
 
-1. 完成W策略检查/提交，继续绑定忽略契约与错误定位，再用新快照fresh trials。vuM1YN与4Qt0XU均已终态，不resume、不重置原预算。基础设施、真实业务失败及模型误报分开。
+1. 观察W xFEjgk与L hY83QU至终态，根据实际失败决定下个源码切片，不重复启动。vuM1YN与4Qt0XU均已终态，不resume、不重置原预算。基础设施、真实业务失败及模型误报分开。
 2. 汇总当前版本的首次/最终交付结果与含排除试次的全部观测成本；版本不同不冒充受控A/B，源码check或小fixture不冒充业务PASS。
 3. 浏览器支路仍需安全恢复；等待Ego升级授权，不把工具不可用冒充业务失败或PASS。
 4. 长期兼容、历史语义review和完整gates仍以工作图为准；不自动退役旧src、切根发行、升级真实codument/、覆盖global旧bin或发布npm。

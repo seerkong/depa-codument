@@ -1281,3 +1281,14 @@
 - L=lK5aRy定向5tests/18assertions通过；最终全check typecheck/lint、693tests/7987assertions/147files/129.45秒过线；之前692tests结果仅覆盖前一子切片，不能代替最终。simplify自检仅抽出规划/验收共享的实际检查，无空泛适配层。
 - native156资源SHA0f03db8271451f64faab68c7a82613f26ec3edbf42aec0a146f6cb86265dc2c5；harnessf749a04d80cd5595e86147e492cf7173fedced8dffabed629df4538c6a9394e9；PpXqEq smoke10项PASS/modelCalls0。日志L父目录binding-privacy-{check-final,build,smoke}.log。原codument/与旧global指纹不变；vuM1YN/4Qt0XU auth确已清理。
 - W新固定策略Stream xFEjgk plan0已过声明校验并进入implementation0，仍活动；不与未挂检查的vuM1YN做等强度比较。L后继fresh Nested尚未执行，不能以源码回归宣称跨仓业务已通过。
+
+### E336 — 恢复准入拒绝保持历史试次不变
+
+- 恢复控制流审查发现策略快照校验原在resume-provenance/auth写入后；outer catch会把旧result.json覆盖为infrastructure-failed。未用真实旧run触发该路径；新实现把resume策略准入移到锁与任何写入之前，fresh路径及运行期持续检查保留。
+- UmazDZ隔离副本4定向tests/25assertions通过：缺失/漂移政策拒绝后试次整树文件内容hash不变；合法政策抵达正常ownership拒绝，也不写入。无模型、无真实认证、未恢复任何旧run。simplify仅移动既有准入，不添加第二政策或通用流程框架。
+- 完整check typecheck/lint、694tests/7993assertions/147files/114.70秒通过；日志副本父目录resume-admission-check.log；原codument/与旧global指纹不变，副本历史升级仍review-required。本次仅harness恢复路径变化，原产品native验证E335仍适用；不改活动W/L。
+
+### E337 — 新运行的真实边界采用观察（非终态）
+
+- 用户中断后W xFEjgk/session53952与L hY83QU/session55040均仍活动，沿用原进程，无重复启动。L main-repo/inventory-repo实际git check-ignore -v均命中各自codument/.local/.gitignore:1:*，E333忽略缺口已在真实新规划中消除；未到完整跨仓验收。
+- W实际Track挂载max5/block/verify_round=false GapLoop与coding AttractorCheck；父层报告首轮发现OpenAI工具消息时序问题并修复，第二fresh复检进行中。该观察不是控制器最终PASS，必要检查成本不删除。L仍规划校验，真实首次/最终通过率待终态再计。

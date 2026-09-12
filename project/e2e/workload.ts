@@ -159,6 +159,8 @@ export async function runCase(candidate: string, codex: string, auth: string, ca
   const stream = caseId === 'stream-pipeline-ai-agent';
   const run = resumeRoot ? loadRun(resumeRoot,candidate,caseId) : createRun(candidate, caseId);
   if (resumeRoot && fs.existsSync(path.join(run.root,'terminal-policy.json'))) throw new Error('Configured workflow block requires an explicit new policy decision; generic resume is forbidden');
+  const policyFile = path.join(run.root, 'workflow-policy.json');
+  if (resumeRoot) assertWorkflowPolicySnapshot(fs.existsSync(policyFile) ? JSON.parse(fs.readFileSync(policyFile, 'utf8')) : undefined);
   const unlock = lockRun(run);
   if (resumeRoot) writeJson(path.join(run.root,`resume-provenance-${Date.now()}.json`),{harnessSha256:treeHash(import.meta.dir),resumedAt:new Date().toISOString()});
   console.log(JSON.stringify({ phase: 'real-case', caseId, root: run.root }));
@@ -172,7 +174,6 @@ export async function runCase(candidate: string, codex: string, auth: string, ca
     if(!resumeRoot) await setup(run, nested);
     installAuthentication(run, auth);
     const repositories = nested ? ['main-repo','inventory-repo'].map(p => path.join(run.workspace,p)) : [run.workspace];
-    const policyFile = path.join(run.root, 'workflow-policy.json');
     if (!resumeRoot) writeJson(policyFile, WORKFLOW_POLICY);
     assertWorkflowPolicySnapshot(fs.existsSync(policyFile) ? JSON.parse(fs.readFileSync(policyFile, 'utf8')) : undefined);
     const checkTrackPolicies = () => {

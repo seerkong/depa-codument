@@ -1,5 +1,10 @@
 import { expect, test } from 'bun:test';
 import { WORKFLOW_POLICY, assertTrackWorkflowPolicy, assertWorkflowPolicySnapshot, workflowPolicyGuidance } from './workflow-policy';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import { createRun, treeHash, writeJson } from './runtime';
+import { runCase } from './workload';
+import { lockRun } from './integrity';
 
 const hooks = '<Hooks [<Hook {on="phase:after"} (<GapLoop {max_rounds=5 on_exhausted="block" verify_round=false}>)><Hook {on="phase:after"} (<AttractorCheck {use="coding"}>)>]>';
 function track(first = '', last = hooks): string {
@@ -19,6 +24,27 @@ test('one immutable E2E policy drives choices and snapshot admission, not a prod
   copy.checks[0].attributes.max_rounds = 6;
   expect(() => assertWorkflowPolicySnapshot(copy)).toThrow('changed');
   expect(WORKFLOW_POLICY.checks[0]!.attributes.max_rounds).toBe(5);
+});
+
+test('resume rejects missing or changed policy before altering any historical run bytes', async () => {
+  const run = createRun('/usr/bin/true', 'todo');
+  try {
+    writeJson(path.join(run.root, 'result.json'), { status: 'failed', attempts: [{ attempt: 0, error: 'original' }] });
+    for (const changed of [undefined, { ...WORKFLOW_POLICY, version: 0 }]) {
+      if (changed) writeJson(path.join(run.root, 'workflow-policy.json'), changed);
+      const before = treeHash(run.root);
+      await expect(runCase('/usr/bin/true', '/missing-codex', '/missing-auth', 'todo', run.root)).rejects.toThrow('do not retrofit');
+      expect(treeHash(run.root)).toBe(before);
+    }
+    writeJson(path.join(run.root, 'workflow-policy.json'), WORKFLOW_POLICY);
+    const unlock = lockRun(run);
+    try {
+      const before = treeHash(run.root);
+      // Matching policy reaches the normal ownership gate, still without a model.
+      await expect(runCase('/usr/bin/true', '/missing-codex', '/missing-auth', 'todo', run.root)).rejects.toThrow('already owned');
+      expect(treeHash(run.root)).toBe(before);
+    } finally { unlock(); }
+  } finally { fs.rmSync(run.root, { recursive: true, force: true }); }
 });
 
 test('selected checks belong to the final phase without completing an unselected backlog', () => {
