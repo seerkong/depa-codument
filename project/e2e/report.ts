@@ -13,6 +13,7 @@ export function summarize(roots: string[]) {
       return fs.existsSync(file) ? JSON.parse(fs.readFileSync(file,'utf8')) : null;
     };
     const provenance = readOptional('provenance.json');
+    const workflowPolicy = readOptional('workflow-policy.json');
     const terminalPolicy = readOptional('terminal-policy.json');
     const rawStatus = result.status;
     if (terminalPolicy) {
@@ -32,7 +33,7 @@ export function summarize(roots: string[]) {
     const measured = receipts.map(r => r.usage).filter((v): v is Usage => v !== null);
     const usage = measured.length ? measured.reduce((sum,u) => ({ input:sum.input+u.input, cached:sum.cached+u.cached, output:sum.output+u.output }), { input:0,cached:0,output:0 }) : null;
     const allSessions = sessionUsage(root);
-    return { root, caseId: result.caseId ?? provenance?.caseId, status: result.status, rawStatus, terminalPolicy, resumed: result.resumed === true, firstPass: result.firstPass ?? null, elapsedMs: result.elapsedMs ?? null, harness,gateCoverage,usage: allSessions.usage ?? usage, sessionAccounting: allSessions, topLevelUsage: usage, topLevelUsageComplete: receipts.length > 0 && measured.length === receipts.length, moneyCost: null };
+    return { root, caseId: result.caseId ?? provenance?.caseId, status: result.status, rawStatus, terminalPolicy, resumed: result.resumed === true, firstPass: result.firstPass ?? null, elapsedMs: result.elapsedMs ?? null, harness,workflowPolicy,gateCoverage,usage: allSessions.usage ?? usage, sessionAccounting: allSessions, topLevelUsage: usage, topLevelUsageComplete: receipts.length > 0 && measured.length === receipts.length, moneyCost: null };
   });
   const businessCases = new Set(['todo','blog','ecommerce','stream-pipeline-ai-agent','nested-mission-agent']);
   const business = rows.filter(r => businessCases.has(r.caseId) && !['infrastructure-failed','harness-invalid','incomplete'].includes(r.status));
@@ -50,5 +51,5 @@ export function summarize(roots: string[]) {
     byCase,
     firstPassRate: business.length ? business.filter(r => r.firstPass).length/business.length : null,
     correctedPassRate: business.length ? business.filter(r => r.status==='passed').length/business.length : null,
-    warning: 'Small-sample observed rates, not population guarantees. Null is unknown, never zero. No API-price estimate is presented as a ChatGPT account bill.' };
+    warning: 'Small-sample observed rates, not population guarantees. Null is unknown, never zero. Different or unrecorded workflow policies are not equal-strength cost comparisons. No API-price estimate is presented as a ChatGPT account bill.' };
 }

@@ -1240,3 +1240,36 @@
 - 新V完整check exit0：typecheck/lint、685tests/7944assertions/144files/109.97秒；Skill quick_validate、diff whitespace检查通过。simplify自检只扩展既有producer义务和小fixture，无额外通用层或语义guard启发式。
 - V native156资源，SHA1f881714cd8930fdbbfb1a87708bdd2b75cd17bf598f3f85fa6a6ee33ade3059；harnessd8e0025d6519490666a451135815e0ee4d2a2e0ba69e77fbf27561fcf63a11a2。真实probe f1qOnJ PASS/native-session：直接核对.env.example、独立环境pytest成功、source不变、model审计通过、auth清理。55,067ms，usage89,844/78,592/1,573，5responses/1session；不是业务PASS或零成本smoke。
 - xmbVos最终smoke10PASS/modelCalls0；日志V父目录path-observation-{check,build,probe,smoke}.log及probe-report.json。V复制前后原codument/与旧global bin指纹未变，副本历史升级仍review-required。后继fresh业务测量才能判断实际误报/漏检与净成本，旧试次保留。
+
+### E329 — 误报触发后续轮次的独立成本归属
+
+- 只读按94Yims implementation2原生thread01a096b1-ef62-7d21-a603-ba174cc33d24及其子树，加review2 thread01a096b5-ec6b-70a3-be08-a540a0d51a63，逐response_id去重token_usage_record。4sessions/49responses合计input2,047,607/cached1,801,728/output16,413，约382,502ms父实施+外层review耗时。
+- 该轮由E326隐藏文件误报触发；这是实际后续重接手/复核成本，不等于全部可保证消除的未来费用，也不是新一轮业务首失败。整个94Yims成本和原attempt记录照常保留，不从总成本中减掉这个子集。
+
+### E330 — 最新候选的子层操作入口实际采用
+
+- vuM1YN原生子session fresh_verify/01a096c6-bbb8-7ab0-a145-8f5d1398ee93与fresh_verify_recheck/01a096c9-9b83-7e80-a367-16d8173d189b，均实际运行`depa-codument -h && depa-codument verify --json`取得当前操作。不是仅父层读正文或定向情境自述。
+- 第一名内部fresh reviewer发现多个indexed工具调用只保留第一个的真实缺口，父层修复后启动第二名fresh复检；发生于首个外层attempt终结前。不以这条采用/早期检错观察宣称最终PASS、净成本节省或严格因果证明；运行中的V候选/harness不改。
+
+### E331 — 相同配置快照不能证明实际检查策略相同
+
+- vuM1YN规划/实现Track add-rxpy-agent-stream为Hooks空集合，没有GapLoop/AttractorCheck；17自测与两次独立verify不替代这两个检查。plan-track §3.7的现有auto分支明确允许默认不挂，故不能仅凭空Hooks断言代理删除已配置检查；当前操作配置只设置GapLoopDefaults.verify_round=false，Profile.enabled也不等于挂载该检查。
+- 对照94Yims实际P4 phase:after有max_rounds=5/on_exhausted=block/verify_round=false GapLoop及coding AttractorCheck。harness当前只固定config文件并说“保持已配置检查”，没有固定规划时的检查选择，导致同原始任务的检查集合可漂移。此前任何“策略未变”的表述只覆盖未改配置/轮数，不证明两试次的实际挂载集合相同；不能据vuM1YN较低成本宣称等强度收益。
+- 调和限定E2E测试面：显式选择每Track末phase一个上述GapLoop和一个coding AttractorCheck，保留fresh独立验收，手动提交/无人机HumanConfirm不启用；同一声明同时驱动planner提示、保留snapshot和plan/post-implementation校验，包含backlog声明但不执行未选任务。产品auto默认不改，不回写活动S/U/V试次或重置历史预算。新策略需独立后继候选；声明校验仍不能代替真实fresh执行证据。
+
+### E332 — vuM1YN首个外层attempt通过，检查集合差异保留
+
+- V冻结候选1f881714…/harness d8e0025…，result passed/firstPass=true，1,305,611ms；109responses/5sessions均有usage，input6,137,288/cached5,695,488/output54,832。内部fresh先发现多indexed工具调用遗漏，修复后复检通过，17tests及外层验收通过。此结果没有挂载GapLoop/AttractorCheck（E331），不能冒充等强度成本优化；不补写旧run检查或改判原始结果。
+
+### E333 — Nested终态阻塞与纠偏目标误定位
+
+- U冻结32d55b12…/cf696740…，4Qt0XU自然exit1，status blocked/firstPass=false；2,543,541ms，346responses/19sessions全有usage，input16,664,475/cached15,472,640/output131,702。attempt1最终声明main原GapLoop max3已耗尽；保留terminal-policy禁止resume，不增加旧轮数，不冒充完整业务PASS。报告observedModels=false，不能宣称最后模型审计过线。
+- 原始attempt0错误仅AssertionError 1 !== 0。逐边界追查：两仓test/typecheck/build和strict日志均过，最后nested-0-ignored.log为空，没有任何nested服务器启动日志；nested-verifier在这里检查git check-ignore -q codument/.local/workspace-bindings.xnl。原main-repo缺.gitignore，该命令当前也返回1。故实际首先失败的是本地绑定忽略契约，尚未运行外层HTTP。
+- implementation1日志item10把该泛化异常猜为shared DATA_FILE冲突，重开Tracks并修双服务共享文件，最终耗尽原检查预算。该改动是否另有价值不抵消最初错误定位；harness实际按服务提供不同DATA_FILE，不能把它当本次已证实HTTP根因。前面仅转述模型“shared-DATA_FILE缺陷”的即时评论不代表控制器验证结论，本条更正归因。
+- 后继源码切片应让确定性失败携带准确阶段、路径及可运行命令，并核实project bind忽略规则的实际owner；不修改原run，不把模型猜测升级为观察事实。
+
+### E334 — 固定E2E检查策略切片过线
+
+- 单一WORKFLOW_POLICY同时驱动planner/impl/review指导、不可漂移snapshot及实际Track AST检查；所有仓库/Track含backlog仅验证声明，挂载末一级phase，参数严格相等，保留独立fresh且不修改产品auto默认。旧run缺snapshot禁止悄然resume换政策。声明不是执行证明，报告明确不可比较不同/未知策略的成本。
+- W=i6ECNV隔离副本3定向测试通过；最初全check发现readonly数组索引联合类型，保留失败日志，改为readonly tuple后全check通过：688tests/7965assertions/145files/120.54秒，typecheck/lint过线。simplify仅简化测试fixture并持续核对snapshot，没有通用新框架。
+- native构建156资源；Cv5MEC smoke10项PASS/modelCalls0。日志W父目录workflow-policy-{check-final,build,smoke}.log。source diff检查和mission preflight通过；原codument/global指纹保持，不改任何既有运行或宣称本切片完整业务PASS。

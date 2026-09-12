@@ -12,6 +12,7 @@ import { preparePython, pythonRuntimeGuidance } from './python-runtime';
 import { applicationEnvironment } from './application-state';
 import { observePlannedIdentities, reconcilePlannedIdentities, implementationHandoff, type PlannedIdentity } from './handoff';
 import { readNativeExecutions, REVIEW_EXECUTION_GUIDANCE } from './execution-evidence';
+import { WORKFLOW_POLICY, workflowPolicyGuidance, assertWorkflowPolicySnapshot, assertTrackWorkflowPolicy } from './workflow-policy';
 
 const caseRoot = path.join(import.meta.dir, 'cases');
 class WorkflowBlocked extends Error {}
@@ -171,6 +172,17 @@ export async function runCase(candidate: string, codex: string, auth: string, ca
     if(!resumeRoot) await setup(run, nested);
     installAuthentication(run, auth);
     const repositories = nested ? ['main-repo','inventory-repo'].map(p => path.join(run.workspace,p)) : [run.workspace];
+    const policyFile = path.join(run.root, 'workflow-policy.json');
+    if (!resumeRoot) writeJson(policyFile, WORKFLOW_POLICY);
+    assertWorkflowPolicySnapshot(fs.existsSync(policyFile) ? JSON.parse(fs.readFileSync(policyFile, 'utf8')) : undefined);
+    const checkTrackPolicies = () => {
+      assertWorkflowPolicySnapshot(fs.existsSync(policyFile) ? JSON.parse(fs.readFileSync(policyFile, 'utf8')) : undefined);
+      for (const repo of repositories) {
+        const tracks = files(path.join(repo, 'codument/tracks')).filter(file => file.endsWith('/track.xnl'));
+        assert.ok(tracks.length, 'E2E workflow policy requires authored Tracks');
+        for (const file of tracks) assertTrackWorkflowPolicy(fs.readFileSync(file, 'utf8'));
+      }
+    };
     for (const repo of resumeRoot ? [] : repositories) {
       for (const kind of ['modeling','engineering']) {
         const config = path.join(repo,'codument/config',kind+'.xnl');
@@ -201,7 +213,7 @@ export async function runCase(candidate: string, codex: string, auth: string, ca
     const offset = resumeRoot ? Math.max(-1,...previous)+1 : 0;
     if(resumeRoot){
       for(const name of ['result.json','progress.json']){const f=path.join(run.root,name);if(fs.existsSync(f))fs.renameSync(f,path.join(run.root,`prior-${offset}-${name}`));}
-      try { for(const repo of repositories) await verifyWorkflow({...run,workspace:repo},'plan',1000+offset*10+repositories.indexOf(repo)); planPassed=true; } catch(error){ feedback='Resume observed incomplete planning: '+String(error); }
+      try { for(const repo of repositories) await verifyWorkflow({...run,workspace:repo},'plan',1000+offset*10+repositories.indexOf(repo)); checkTrackPolicies(); planPassed=true; } catch(error){ feedback='Resume observed incomplete planning: '+String(error); }
     }
     if(offset >= 3) throw new Error('Three-attempt budget exhausted; resume cannot reset it');
     for (let attempt = offset; attempt < 3; attempt++) {
@@ -210,29 +222,38 @@ export async function runCase(candidate: string, codex: string, auth: string, ca
       try {
         checkConfiguration();
         checkRequirements(run,path.join(caseRoot,caseId));
+        if (planPassed) {
+          try { checkTrackPolicies(); } catch (error) {
+            planPassed = false;
+            feedback = 'Repair the existing plan to retain the declared E2E workflow policy: ' + String(error);
+          }
+        }
         if (!planPassed) {
           const recovery = planned ? 'Repair and validate the existing plan only; do not create replacement resources or implement application code.\n' + implementationHandoff(observePlannedIdentities(run.workspace, repositories)) :
             'If an earlier planning attempt left resources, repair those in place instead of creating duplicate plans.\n';
-          row.plan = await agentTurn(run, codex, basePrompt() +
+          row.plan = await agentTurn(run, codex, basePrompt() + workflowPolicyGuidance() +
             (nested ? 'Read request.md and acceptance.md. For this turn only plan the root and child Missions in main-repo and inventory-repo using plan-mission, create implementation Tracks and establish reciprocal links, selected-tasks and ProjectRef bindings. Every Track (including backlog Tracks) requires BehaviorPatch, Modeling deltas (domain/backend/surface) and Engineering deltas (at least three knowledge kinds); both knowledge systems are enabled. Validate every Track and both delta sets. The legacy skill names in request.md are historical; use the current global Skill. Do not implement application code yet. Plans are approved for the next turn after validation.\n' :
             'Read request.md and acceptance.md. For this turn only: use plan-track to create or repair a complete implementation Track including BehaviorPatch, Modeling delta (domain/backend/surface), and Engineering delta (at least three knowledge kinds). Modeling and Engineering are enabled. Use deterministic scaffolding and validate track plus both delta sets. Do not implement code yet. The plan is preapproved for the next turn once it validates.\n') + recovery + feedback,
           `plan-${attempt}`, 1800_000);
           for (const repo of repositories) await verifyWorkflow({ ...run, workspace: repo }, 'plan', nested ? attempt * 10 + repositories.indexOf(repo) : attempt);
+          checkTrackPolicies();
           if (planned) reconcilePlannedIdentities(planned, observePlannedIdentities(run.workspace, repositories));
           planPassed = true;
         }
         checkConfiguration();
+        checkTrackPolicies();
         const currentPlan = observePlannedIdentities(run.workspace, repositories);
         if (planned) reconcilePlannedIdentities(planned, currentPlan);
         else { planned = currentPlan; writeJson(handoffFile, planned); }
         const implementationSchema = path.join(run.root,'implementation-schema.json');
         writeJson(implementationSchema,{type:'object',additionalProperties:false,properties:{status:{type:'string',enum:['delivered','blocked']},reason:{type:'string'}},required:['status','reason']});
-        row.implementation = await agentTurn(run, codex, basePrompt() +
+        row.implementation = await agentTurn(run, codex, basePrompt() + workflowPolicyGuidance() +
           'Read request.md and acceptance.md. Plans are approved. Use ' + (nested ? 'impl-mission to orchestrate the root and child Missions and impl-track for code work' : 'impl-track') + ' to implement the entire application, run its tests, finish all required hooks and independent verification, and complete delivery through CLI. Implement the real acceptance boundary; do not mock or hard-code expected results. For nested Missions keep the independent child backlog active after the selected root delivery completes. If any mandatory hook exhausts with on_exhausted=block or requires a genuine policy decision, return status=blocked with the exact reason. Do not reset/increase rounds or bypass blocked hooks to satisfy an outer retry. Return delivered only after the real delivery gates complete.\n' + implementationHandoff(currentPlan) + feedback,
         `implementation-${attempt}`, 3600_000,['--output-schema',implementationSchema]);
         requireNoExhaustedWorkflow(run);
         reconcilePlannedIdentities(planned, observePlannedIdentities(run.workspace, repositories));
         requireDeliveredImplementation(JSON.parse(fs.readFileSync(path.join(run.workspace,`.e2e-implementation-${attempt}-last.md`),'utf8')));
+        checkTrackPolicies();
         if (!nested) await verifyWorkflow(run, 'implementation', attempt);
         if (stream) await prepareStreamDependencies(run,attempt);
         const deliveredFingerprint = sourceFingerprint(run);
@@ -251,7 +272,7 @@ export async function runCase(candidate: string, codex: string, auth: string, ca
         const schema = path.join(run.root, 'review-schema.json');
         writeJson(schema, { type: 'object', additionalProperties: false, properties: { verdict: { type: 'string', enum: ['PASS','FAIL'] }, findings: { type: 'array', items: { type: 'string' } }, checks: { type: 'array', items: { type: 'string' } } }, required: ['verdict','findings','checks'] });
         const sourceBeforeReview = sourceFingerprint(run);
-        const reviewReceipt = await agentTurn(run, codex, basePrompt() +
+        const reviewReceipt = await agentTurn(run, codex, basePrompt() + workflowPolicyGuidance() +
           'The delivered workspace is OS-enforced read-only. Keep temporary reviewer environments and diagnostic files under isolated HOME/tmp. Existing .e2e-venv may be used read-only. Do not pip install the original source path: package builds write build/ and egg-info there even when the destination venv is elsewhere. If a clean package build is necessary, copy the exact delivered inputs into a temporary build directory, never repair that copy, and keep all build/install writes there. Test the original delivery whenever possible; identify any copied build and its original source in the evidence. Changes to delivered dependencies/build outputs also count as source drift.\n' +
           'You are a fresh independent acceptance reviewer, NOT the implementer. Read request.md, acceptance.md, actual source, Track and evidence. Run real checks yourself. Review completeness including functional browser UI, auth/ownership, domain and engineering alignment, configured hooks/gap-loop/fresh checks. Detect fake test scripts, hardcoded outputs, forged receipts, and missing functionality. Do not repair or change project source, requirements, reports or workflow state. Execute app tests directly; do not invoke track verify, task transitions or other commands that write workflow receipts. The implementation phase already owns those mandatory hooks; this outer review independently checks them without rewriting evidence. Give FAIL for any substantive gap; report exact paths and runnable evidence. Do not trust prior agent summaries. Return the specified JSON verdict.',
         `review-${attempt}`, 1200_000, ['--output-schema', schema], 'read-only');

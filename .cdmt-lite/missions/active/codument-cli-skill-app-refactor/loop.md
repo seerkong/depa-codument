@@ -11,6 +11,26 @@ Round: 47
 
 ## Work graph
 
+### 嵌套绑定忽略契约与确定性错误定位
+
+- Status: pending
+- After: 固定E2E规划检查策略并校验实际挂载
+- Covers: 期望-4, 期望-10
+- Verify: project bind真实新仓忽略规则、保留用户gitignore、精确失败消息；隔离完整回归及后继fresh Nested，不恢复4Qt0XU。
+- Outcome: 先让确定性失败抵达正确的纠偏目标，不让无上下文AssertionError引发无关业务修改。
+- Done when: 找到忽略契约owner并修复真实缺口、正负测试通过；旧失败/轮数完整保留。
+- Evidence: E333：绑定git check-ignore失败被实施代理猜成尚未执行的HTTP共享数据问题。
+
+### 固定E2E规划检查策略并校验实际挂载
+
+- Status: done
+- After: 缺失结论核对原始文件边界
+- Covers: 期望-4, 期望-10, 约束-4, 约束-21
+- Verify: 单一E2E策略派生planner交接、snapshot与实际Track检查；缺失/错参数/嵌入无效scope/删除/重复检查负例；跨仓及未执行backlog仅检查声明，不强迫完成；完整回归后新试次，不改活动run。
+- Outcome: 明确E2E选择每Track一个末phase GapLoop(max5/block/verify_round=false)和coding AttractorCheck，保留独立verify；不修改产品auto默认或既有项目配置。规划前传选择，规划后及实施后验证，避免用更少实际检查宣称等强度节省。
+- Done when: producer/observer共用同一策略，resume不悄然给旧run换政策；源码与隔离验证过线，后继测量明确新策略身份。声明检查不冒充实际fresh执行证据。
+- Evidence: E331比较策略偏差；E334单一producer/observer策略、W全688tests/typecheck/lint/native与10项smoke通过。后继试次仍需真实执行检查，未把声明当执行证据。
+
 ### 缺失结论核对原始文件边界
 
 - Status: done
@@ -516,31 +536,21 @@ Round: 47
 
 ## Last action
 
-- E328完整check/真实probe/smoke均过线，V冻结bin1f881714cd8930fdbbfb1a87708bdd2b75cd17bf598f3f85fa6a6ee33ade3059、harnessd8e0025d6519490666a451135815e0ee4d2a2e0ba69e77fbf27561fcf63a11a2。准备163author/committer源码检查点；随后V fresh Stream `bun e2e/run.ts run stream-pipeline-ai-agent --bin=<V>/dist/depa-codument-r47-path-observation --codex=/Users/kongweixian/.bun/bin/codex`（父目录stream-path-observation.log），验证角色/路径改动实际效果。94Yims终态不重跑；U Nested4Qt0XU仍冻结推进。
-- E327：94Yims自然exit0/最终passed/firstPass=false、2,708,443ms；全usage15,879,199/14,606,848/126,453，20sessions。attempt0真实最小输入失败、attempt1隐藏文件误报均保留；auth清理，不恢复。Nested4Qt0XU implementation0仍运行。V check1539、probe21964已PASS（f1qOnJ），等待全量check后smoke与源码检查点，再规划最新候选测量。
-- 新副本V=`/private/tmp/depa-codument-verification-sc7lME/depa-codument/project`；复制/原件指纹检查通过，副本upgrade仍review-required。准备V build `--outfile=dist/depa-codument-r47-path-observation`，随后完整check与review-probe（独立新临时fixture、Terra/medium、300秒单次上限）、smoke；日志V父目录path-observation-{build,check,probe,smoke}.log。存在性fresh情境实际直接test/stat观察隐藏.example.conf存在、usage.md确实缺失，不篡改文件。
-- 独立存在性情境fixture=`/private/tmp/depa-codument-path-review-2o44Zf`；准备fresh Terra只读按verify Exists核对request内两个目标（真实隐藏样例与确实缺失文档），不给预期结论，不扫描私人目录，不建业务Track。作为skill-creator定向前向验证，非完整业务PASS。
-- 缺失核对义务已加入内部verify/外部review producer；review-probe增加真实隐藏非秘密配置样例（非业务case）。准备 `bun .cdmt-lite/missions/active/codument-cli-skill-app-refactor/verification/isolated-project.ts round47-path-observation` 新副本；之后完整check、native构建、probe与smoke，既有S/U模型试次保持冻结。
-- 94Yims implementation1已delivered，15pytest、GapLoop5 NO_GAP及外层确定性bridge0…7通过；review1正运行。首个attempt0失败仍保留，未到最终PASS。U Nested4Qt0XU plan0并行进行，两者模型固定Terra/medium且独立home。
-- 新Nested已启动root=`/private/tmp/depa-codument-e2e-4Qt0XU`，session25003，U父目录nested-child-contract.log；冻结32d55b127b…/cf696740…，源码检查点f517710仍163author/committer、未push。94Yims session64549继续保留，不重启两者。
-- E325过线：U完整check exit0/685tests/7944assertions/116.67秒；新native32d55b127b6dca2771b4bf66c8771e46a7fce471112526df0ba8f2cefe4da57f、156资源，PqxplB smoke10PASS。准备163author/committer源码检查点，再使用U新候选运行fresh nested（原XiBVUg保持终态）；命令`bun e2e/run.ts run nested-mission-agent --bin=<U>/dist/depa-codument-r47-child-contract --codex=/Users/kongweixian/.bun/bin/codex`，日志U父目录nested-child-contract.log。94Yims仍独立冻结，不把此切片变成其中的热修。
-- 独立verify_child_entry_forward已完成：实际读取CLI verify及context-loading，未把预填字段pytest当省略字段的证明，明确父派发/子执行职责；仅情境动作非业务实测。U check session55224仍运行。过线后U `bun run build --outfile=dist/depa-codument-r47-child-contract`及`bun e2e/run.ts smoke --bin=<U>/dist/depa-codument-r47-child-contract`，日志父目录child-contract-{build,smoke}.log；保持活动S不变。
-- 新副本U=`/private/tmp/depa-codument-verification-9UW083/depa-codument/project`，12488文件，原资产指纹不变；仅副本升级review-required/0升级/226未变，不算迁移PASS。准备U `bun run check`（父目录child-contract-check.log）及skill-creator独立Terra/medium只读接手情境；之后观察记录，不重复启动。
-- 当前94Yims仍冻结执行implementation1；源码另修独立角色入口，完成后用isolated-project.ts round47-child-contract新标签创建隔离副本，完整check与前向测试，不覆盖活动S候选。
-- 新校准后Stream已启动：root=`/private/tmp/depa-codument-e2e-94Yims`，session64549，S父目录stream-calibrated.log。harnesscf696740…/binaryec81db745f…冻结。已验证源码检查点c1d34c2，仍163author/committer且未push；通过只读日志继续观察，不重复启动。
-- E323校准及完整检查过线，harness冻结cf696740cec6c333c9a336099894c30eb42242455c1e49cfa03675ab73e40fdc。准备S fresh Stream：`bun e2e/run.ts run stream-pipeline-ai-agent --bin=<S>/dist/depa-codument-r47-scaffold --codex=/Users/kongweixian/.bun/bin/codex`，父目录日志stream-calibrated.log。只启动新run，不resume历史；启动后记录session/root。
-- S新check exit0：685tests/7944assertions/144files/112.56秒；X01WIQ真实review-probe PASS/native-session/独立pytest exit0/source不变/model审计通过/auth清理，用量96,610/76,544/1,201，54.638s。先跑S最终无模型smoke（父目录reviewer-protocol-smoke.log）；过线后E323和源码检查点，再冻结cf696740…harness开展fresh Stream，不恢复nMEIGO。
-- E322：nMEIGO终态infrastructure-failed、runner68037 exit1、auth清理；内部提前捕获最小输入与主线顺序，8次wait均60s，但review测试所在混合块后来失败，strict guard拒绝。没有implementation1，不恢复或追认PASS。总usage8,837,949/8,176,640/79,952（input/cached/output），见evidence及verification/terra-e2e-round47.md。
-- 当前S=`/private/tmp/depa-codument-verification-TxnM9H/depa-codument/project`；只读agentTurn新增显式独立成功测试义务，review-probe共享实际观察/裁决链。完整check session51747，日志副本父目录reviewer-protocol-check.log；定向6tests/48assertions通过。真实小fixture校准root=`/private/tmp/depa-codument-e2e-X01WIQ`、session95978，日志reviewer-protocol-probe.log。先观察结果，不重复启动。
-- S产品binary `dist/depa-codument-r47-scaffold` SHAec81db745fce2ac812b5642625de24f5f70f91f016dbdcff8e1aea4e1e0906d9，E321685tests/7942assertions与gjYZfF smoke通过。新harness尚未完成最终校准；不得拿上次完整check替代本轮证据。
-- T=`/private/tmp/depa-codument-verification-AUuuts/depa-codument/project`保留旧测量harness/candidates及全部Round47日志。qUXNoE/aTb63U/9JWDGk/Jd0Vqx/nMEIGO均终态；不恢复/重置/晋升。源码已验证检查点ce0f2cb、ddb4b6a、dd1e727、b66b2b6、df7766c均author/committer kongweixian <kong_weixian@163.com>，未push。
-- 唯一Ego TaskSpace4/p1保留dialog/CDP故障现场；可选升级问题尚无答复。不创建替代space、不操作其它任务窗口。原codument/及旧global bin指纹未变；本轮无global安装、真实dogfood升级或发布。
+- 当前覆盖下方旧进行中状态：vuM1YN自然退出PASS但无GapLoop/AttractorCheck（E332）；4Qt0XU自然退出blocked（E333），不再poll/resume。新W=/private/tmp/depa-codument-verification-i6ECNV/depa-codument/project，策略定向3tests/19assertions通过，修复tuple类型后session55664跑全check；日志父目录workflow-policy-check-final.log。策略源码未提交，下一步native/smoke/提交后推进E333绑定契约。
+
+- 新E2E固定检查策略源码已落：WORKFLOW_POLICY同源驱动planner/impl/review提示、snapshot与Track实际声明校验；不改产品默认。准备isolated-project.ts round47-workflow-policy新副本，先bun test e2e/workflow-policy.test.ts，再全check、native/smoke；活动Nested U不变，V Stream已终态passed/firstPass=true但E331检查集合不同，不据此宣称等强度节省。
+- 最新源码检查点c294342，author/committer均kongweixian <kong_weixian@163.com>，未push。E328完整typecheck/lint/685tests/7944assertions、独立路径正负情境、f1qOnJ真实probe和xmbVos smoke过线。源码现无未提交改动；仅Mission当前观察继续更新。
+- 最新Stream root=`/private/tmp/depa-codument-e2e-vuM1YN`，session59144；V=`/private/tmp/depa-codument-verification-sc7lME/depa-codument/project`，日志父目录stream-path-observation.log。bin=`dist/depa-codument-r47-path-observation` SHA1f881714cd8930fdbbfb1a87708bdd2b75cd17bf598f3f85fa6a6ee33ade3059，harnessd8e0025d6519490666a451135815e0ee4d2a2e0ba69e77fbf27561fcf63a11a2冻结。plan0已完成，implementation0进行中。
+- Nested root=`/private/tmp/depa-codument-e2e-4Qt0XU`，session25003；U=`/private/tmp/depa-codument-verification-9UW083/depa-codument/project`，日志父目录nested-child-contract.log。bin=`dist/depa-codument-r47-child-contract` SHA32d55b127b6dca2771b4bf66c8771e46a7fce471112526df0ba8f2cefe4da57f，harnesscf696740cec6c333c9a336099894c30eb42242455c1e49cfa03675ab73e40fdc冻结。两仓规划精确身份交接通过，implementation0进行中，已观测真实HTTP与fresh纠偏，未到最终验收。
+- E327 Stream94Yims终态passed/firstPass=false，2,708,443ms；全usage15,879,199/14,606,848/126,453，20sessions；auth清理。attempt0真实最小输入失败，attempt1隐藏文件误报（E326），attempt2通过；不恢复或重置。误报后续子树成本独立记录E329，不从总成本删除。
+- 已结束qUXNoE/aTb63U/9JWDGk/Jd0Vqx/nMEIGO全部保留；S=`/private/tmp/depa-codument-verification-TxnM9H/depa-codument/project`与T=`/private/tmp/depa-codument-verification-AUuuts/depa-codument/project`保留各冻结候选/旧日志，不改写其证据。真实测量和源码切片的版本对应见evidence及verification/terra-e2e-round47.md。
+- 唯一Ego TaskSpace4/p1保留dialog/CDP故障现场，升级问题尚无答复；不另开space或操作其它任务窗口。原codument/及旧global bin指纹不变；无global安装、真实dogfood升级或发布。V/U仅副本历史升级仍review-required，不计迁移PASS。
 
 ## Next
 
-1. 使用E323冻结harness观察新fresh Stream至终态；基础设施与业务失败分开，保留所有预算和真实失败。当前校准已过线，但不是业务PASS。
-2. 接着继续剩余非浏览器nested覆盖；新候选和旧日志明确分开，首次/最终通过率与含排除试次的成本分别报告。不以等待采用或排除失败宣称净经济性改善。
-3. 浏览器支路须先安全恢复；等待用户对可能影响其它session的Ego升级答复期间，不把工具不可用冒充业务失败或PASS。
+1. 完成W策略检查/提交，继续绑定忽略契约与错误定位，再用新快照fresh trials。vuM1YN与4Qt0XU均已终态，不resume、不重置原预算。基础设施、真实业务失败及模型误报分开。
+2. 汇总当前版本的首次/最终交付结果与含排除试次的全部观测成本；版本不同不冒充受控A/B，源码check或小fixture不冒充业务PASS。
+3. 浏览器支路仍需安全恢复；等待Ego升级授权，不把工具不可用冒充业务失败或PASS。
 4. 长期兼容、历史语义review和完整gates仍以工作图为准；不自动退役旧src、切根发行、升级真实codument/、覆盖global旧bin或发布npm。
 
 ## Decisions and replans
