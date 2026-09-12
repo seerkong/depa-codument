@@ -4,12 +4,33 @@ import * as path from 'node:path';
 import { writeJson, loadRun, execute, sandbox, assertTemporary, type Run } from './runtime';
 import { applicationEnvironment } from './application-state';
 
+/** Controller failures stop the trial; they are never feedback to the business implementer. */
+export class BrowserInfrastructureFailure extends Error {}
+class BrowserAcceptanceFailure extends Error {}
+
 export function validateUiReceipt(receipt: any, expected: {caseId:string;attempt:number;sourceFingerprint:string;dataDirectory?:string}): void {
+  try { inspectUiReceipt(receipt, expected); }
+  catch (error) {
+    if (error instanceof BrowserAcceptanceFailure || error instanceof BrowserInfrastructureFailure) throw error;
+    throw new BrowserInfrastructureFailure(`Invalid browser controller evidence: ${String(error)}`);
+  }
+}
+
+function inspectUiReceipt(receipt: any, expected: {caseId:string;attempt:number;sourceFingerprint:string;dataDirectory?:string}): void {
   for (const key of ['caseId','attempt','sourceFingerprint'] as const) assert.equal(receipt[key],expected[key],`Browser evidence ${key} mismatch`);
   if (expected.dataDirectory) assert.equal(receipt.dataDirectory,expected.dataDirectory,'Browser runtime state directory mismatch');
-  assert.equal(receipt.status,'passed',`Browser acceptance failed: ${JSON.stringify(receipt.findings)}`);
+  if (receipt.status === 'infrastructure-failed') {
+    assert.equal(receipt.browser, 'ego-browser');
+    assert.ok(typeof receipt.reason === 'string' && receipt.reason.trim(), 'Infrastructure failure requires a diagnostic reason');
+    throw new BrowserInfrastructureFailure(receipt.reason);
+  }
   assert.equal(receipt.browser,'ego-browser');
   assert.ok(Number.isInteger(receipt.spaceId) && receipt.spaceId > 0);
+  if (receipt.status === 'failed') {
+    assert.ok(Array.isArray(receipt.findings) && receipt.findings.length > 0 && receipt.findings.every((finding: unknown) => typeof finding === 'string' && finding.trim()), 'Business failure requires observed findings');
+    throw new BrowserAcceptanceFailure(`Browser acceptance failed: ${JSON.stringify(receipt.findings)}`);
+  }
+  assert.equal(receipt.status,'passed','Unknown browser controller status');
   assert.ok(Array.isArray(receipt.findings) && receipt.findings.length===0,'PASS cannot retain unresolved findings');
   assert.ok(Array.isArray(receipt.actions) && receipt.actions.length >= 5,'Require actual UI interaction observations, not a bare HTML response');
   const covered = new Set<string>();
@@ -34,10 +55,12 @@ export async function awaitUiGate(run: Run, caseId: string, attempt: number, sou
   const receiptFile = path.join(run.root,`ui-receipt-${attempt}.json`);
   const deadline = Date.now()+900_000;
   while (!fs.existsSync(receiptFile)) {
-    if (Date.now() >= deadline) throw new Error('Independent browser controller did not provide evidence within 15 minutes');
+    if (Date.now() >= deadline) throw new BrowserInfrastructureFailure('Independent browser controller did not provide evidence within 15 minutes');
     await Bun.sleep(1000);
   }
-  const receipt = JSON.parse(fs.readFileSync(receiptFile,'utf8'));
+  let receipt;
+  try { receipt = JSON.parse(fs.readFileSync(receiptFile,'utf8')); }
+  catch (error) { throw new BrowserInfrastructureFailure(`Unreadable browser controller evidence: ${String(error)}`); }
   validateUiReceipt(receipt,expected);
   return receipt;
 }

@@ -31,7 +31,7 @@ describe('codument public surface', () => {
     expect(commandPaths()).toEqual([
       ...['track', 'Track'].flatMap(name => [
         [name], [name, 'create'], [name, 'transition'], [name, 'gap-round'], [name, 'task'],
-        [name, 'task', 'transition'], [name, 'task', 'complete'], [name, 'ready'], [name, 'verify'],
+        [name, 'task', 'transition'], [name, 'task', 'complete'], [name, 'context'], [name, 'ready'], [name, 'verify'],
       ]),
       ...['mission', 'Mission'].flatMap(name => [
         [name], [name, 'create'], [name, 'transition'], [name, 'gap-round'], [name, 'task'],

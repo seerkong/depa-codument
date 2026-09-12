@@ -7,9 +7,10 @@ import { verifyStream, prepareStreamDependencies } from './stream-verifier';
 import { verifyNested } from './nested-verifier';
 import { trackValidationSelection, validateArchivedKnowledge, assertPromotedKnowledge, assertPromotedBehaviors, exhaustedGapReason, resourceRoot } from './resource-oracle';
 import { assertFreshThread, checkRequirements, lockRun, sourceFingerprint, isFirstPass, isExecutedTestCommand } from './integrity';
-import { awaitUiGate } from './ui-gate';
-import { preparePython } from './python-runtime';
+import { awaitUiGate, BrowserInfrastructureFailure } from './ui-gate';
+import { preparePython, pythonRuntimeGuidance } from './python-runtime';
 import { applicationEnvironment } from './application-state';
+import { observePlannedIdentities, reconcilePlannedIdentities, implementationHandoff, type PlannedIdentity } from './handoff';
 
 const caseRoot = path.join(import.meta.dir, 'cases');
 class WorkflowBlocked extends Error {}
@@ -35,7 +36,7 @@ export function requireNoExhaustedWorkflow(run: Run): void {
 }
 export async function agentTurn(run: Run, codex: string, prompt: string, name: string, timeoutMs: number, extraArgs: string[] = []) {
   const log = path.join(run.root, `logs/${name}.jsonl`);
-  const args = codexArgs(run, codex, prompt, name);
+  const args = codexArgs(run, codex, pythonRuntimeGuidance(run.env.UV_PYTHON) + prompt, name);
   args.splice(args.length - 1, 0, ...extraArgs);
   writeJson(path.join(run.root, `${name}-invocation.json`), { model: MODEL, effort: EFFORT, args, timeoutMs });
   const result = await execute({ argv: sandbox(run, args, true), cwd: run.workspace, env: applicationEnvironment(run,`agent-${name}`), log, timeoutMs });
@@ -167,6 +168,11 @@ export async function runCase(candidate: string, codex: string, auth: string, ca
     const skillRoot = path.join(run.home, '.agents/skills/depa-codument');
     const skillHash = treeHash(skillRoot);
     let planPassed = false;
+    const handoffFile = path.join(run.root, 'planning-handoff.json');
+    let planned: PlannedIdentity[] | undefined = fs.existsSync(handoffFile) ? JSON.parse(fs.readFileSync(handoffFile, 'utf8')) : undefined;
+    // A saved delivery identity must be admitted before any recovery model turn.
+    // Invalid deltas may be repaired; missing/replaced authorities are not new plans.
+    if (planned) reconcilePlannedIdentities(planned, observePlannedIdentities(run.workspace, repositories));
     let feedback = attempts.filter(a => a.status === 'failed').map(a => String(a.error ?? '')).join('\n');
     const externalFeedback = path.join(run.root,'external-feedback.json');
     if (fs.existsSync(externalFeedback)) feedback += '\nIndependent outer acceptance findings: '+JSON.stringify(JSON.parse(fs.readFileSync(externalFeedback,'utf8')));
@@ -184,20 +190,27 @@ export async function runCase(candidate: string, codex: string, auth: string, ca
         checkConfiguration();
         checkRequirements(run,path.join(caseRoot,caseId));
         if (!planPassed) {
+          const recovery = planned ? 'Repair and validate the existing plan only; do not create replacement resources or implement application code.\n' + implementationHandoff(observePlannedIdentities(run.workspace, repositories)) :
+            'If an earlier planning attempt left resources, repair those in place instead of creating duplicate plans.\n';
           row.plan = await agentTurn(run, codex, basePrompt() +
-            (nested ? 'Read request.md and acceptance.md. For this turn only plan the root and child Missions in main-repo and inventory-repo using plan-mission, create implementation Tracks and establish reciprocal links, selected-tasks and ProjectRef bindings. The legacy skill names in request.md are historical; use the current global Skill. Do not implement application code yet. Plans are approved for the next turn after validation.\n' :
-            'Read request.md and acceptance.md. For this turn only: use plan-track to create a complete implementation Track including BehaviorPatch, Modeling delta (domain/backend/surface), and Engineering delta (at least three knowledge kinds). Modeling and Engineering are enabled. Use deterministic scaffolding and validate track plus both delta sets. Do not implement code yet. The plan is preapproved for the next turn once it validates.\n') + feedback,
+            (nested ? 'Read request.md and acceptance.md. For this turn only plan the root and child Missions in main-repo and inventory-repo using plan-mission, create implementation Tracks and establish reciprocal links, selected-tasks and ProjectRef bindings. Every Track (including backlog Tracks) requires BehaviorPatch, Modeling deltas (domain/backend/surface) and Engineering deltas (at least three knowledge kinds); both knowledge systems are enabled. Validate every Track and both delta sets. The legacy skill names in request.md are historical; use the current global Skill. Do not implement application code yet. Plans are approved for the next turn after validation.\n' :
+            'Read request.md and acceptance.md. For this turn only: use plan-track to create or repair a complete implementation Track including BehaviorPatch, Modeling delta (domain/backend/surface), and Engineering delta (at least three knowledge kinds). Modeling and Engineering are enabled. Use deterministic scaffolding and validate track plus both delta sets. Do not implement code yet. The plan is preapproved for the next turn once it validates.\n') + recovery + feedback,
           `plan-${attempt}`, 1800_000);
           for (const repo of repositories) await verifyWorkflow({ ...run, workspace: repo }, 'plan', nested ? attempt * 10 + repositories.indexOf(repo) : attempt);
+          if (planned) reconcilePlannedIdentities(planned, observePlannedIdentities(run.workspace, repositories));
           planPassed = true;
         }
         checkConfiguration();
+        const currentPlan = observePlannedIdentities(run.workspace, repositories);
+        if (planned) reconcilePlannedIdentities(planned, currentPlan);
+        else { planned = currentPlan; writeJson(handoffFile, planned); }
         const implementationSchema = path.join(run.root,'implementation-schema.json');
         writeJson(implementationSchema,{type:'object',additionalProperties:false,properties:{status:{type:'string',enum:['delivered','blocked']},reason:{type:'string'}},required:['status','reason']});
         row.implementation = await agentTurn(run, codex, basePrompt() +
-          'Read request.md and acceptance.md. Plans are approved. Use ' + (nested ? 'impl-mission to orchestrate the root and child Missions and impl-track for code work' : 'impl-track') + ' to implement the entire application, run its tests, finish all required hooks and independent verification, and complete delivery through CLI. Implement the real acceptance boundary; do not mock or hard-code expected results. For nested Missions keep the independent child backlog active after the selected root delivery completes. If any mandatory hook exhausts with on_exhausted=block or requires a genuine policy decision, return status=blocked with the exact reason. Do not reset/increase rounds or bypass blocked hooks to satisfy an outer retry. Return delivered only after the real delivery gates complete.\n' + feedback,
+          'Read request.md and acceptance.md. Plans are approved. Use ' + (nested ? 'impl-mission to orchestrate the root and child Missions and impl-track for code work' : 'impl-track') + ' to implement the entire application, run its tests, finish all required hooks and independent verification, and complete delivery through CLI. Implement the real acceptance boundary; do not mock or hard-code expected results. For nested Missions keep the independent child backlog active after the selected root delivery completes. If any mandatory hook exhausts with on_exhausted=block or requires a genuine policy decision, return status=blocked with the exact reason. Do not reset/increase rounds or bypass blocked hooks to satisfy an outer retry. Return delivered only after the real delivery gates complete.\n' + implementationHandoff(currentPlan) + feedback,
         `implementation-${attempt}`, 3600_000,['--output-schema',implementationSchema]);
         requireNoExhaustedWorkflow(run);
+        reconcilePlannedIdentities(planned, observePlannedIdentities(run.workspace, repositories));
         requireDeliveredImplementation(JSON.parse(fs.readFileSync(path.join(run.workspace,`.e2e-implementation-${attempt}-last.md`),'utf8')));
         if (!nested) await verifyWorkflow(run, 'implementation', attempt);
         if (stream) await prepareStreamDependencies(run,attempt);
@@ -247,9 +260,11 @@ export async function runCase(candidate: string, codex: string, auth: string, ca
           writeJson(path.join(run.root,'terminal-policy.json'),{kind:'configured-workflow-block',caseId,attempt,reason:error.message,rawResultPreserved:true,resumeAllowed:false});
           break;
         }
-        feedback = `External acceptance found this failure; diagnose and fix the implementation, not the requirement or tests: ${String(error)}. Inspect your local test outputs and task evidence. Continue from the existing Track; do not fabricate receipts.`;
         // Authentication/model/transport failures are not business corrections.
-        if (String(error).includes('Harness unsupported:') || String(error).includes('Agent ') && String(error).includes('failed: exit=')) { status = 'infrastructure-failed'; break; }
+        if (error instanceof BrowserInfrastructureFailure || String(error).includes('Harness unsupported:') || String(error).includes('Agent ') && String(error).includes('failed: exit=')) {
+          row.status = 'infrastructure-failed'; status = 'infrastructure-failed'; break;
+        }
+        feedback = `External acceptance found this failure; diagnose and fix the implementation, not the requirement or tests: ${String(error)}. Inspect your local test outputs and task evidence. Continue from the existing Track; do not fabricate receipts.`;
       } finally {
         writeJson(path.join(run.root, 'progress.json'), { status: 'running', attempts, root: run.root });
       }

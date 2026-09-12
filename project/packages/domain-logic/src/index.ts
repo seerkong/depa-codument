@@ -1,4 +1,5 @@
 export * from './lifecycle';
+export * from './execution-context';
 export * from './verification';
 export * from './operations';
 export * from './registry';

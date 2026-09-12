@@ -70,6 +70,7 @@ spec:
 ### 3.1 Goal-Backward（目标倒推）
 
 1. 从 `track.xnl` 提取目标 task 的 `Acceptance`（验收标准），以及所属 phase 的 `Gate`（阶段门控）。
+   先按输入引用对照本 scope 的原始需求和批准取舍；整 Track 验收须覆盖已批准 Track 范围内的全部原始硬要求，不把其它 Track 或未选 backlog 强加到本次交付。原文明确要求保留的测试/接口/文件名要核对实际收集或可达结果，不能因 Acceptance 未写就略过；对照缺口列 FAIL，而不是以已有测试全绿放行。
 2. 按 criterion 逐条反推：
    - 需要哪些代码/配置/文件存在。
    - 需要哪些行为可达。
@@ -108,19 +109,21 @@ spec:
 
 verify 的核心是**派发 fresh-subagent 实际运行**——不是父代理顺手读一遍代码。父代理只负责收集验证目标、spawn 子代理、汇总其 PASS/FAIL，并据结论决定收口/回退。
 
+父层等待结果遵循 `references/std/protocols/context-loading.md` 的“等待子代理结果”；无新结果时不重新派发或预先宣称通过。
+
 ```text
 @delimiter: --
 -- #sequence ?verify
 ---- #step ?v1
-父代理：从 track.xnl 收集所有 Acceptance、Gate，以及 behavior_deltas 的验收用例（suite/case），按范围（整 track / phase / wave）圈定目标集
+父代理：从 track.xnl 收集所有 Acceptance、Gate，以及 behavior_deltas 的验收用例（suite/case）；对照已批准范围的原始需求，把尚未映射的硬要求也按来源锚点纳入目标集，按范围（整 track / phase / wave）圈定边界
 ---- /?v1
 ---- #step ?v2
-父代理：建立 evidence plan，把可由同一测试 / 启动 / smoke 命令证明的目标归组；以规范化命令与运行前提作为唯一键，明确每条唯一命令映射哪些 Acceptance / Gate / behavior case
+父代理：建立 evidence plan，把可由同一测试 / 启动 / smoke 命令证明的目标归组；以规范化命令与运行前提作为唯一键，明确每条唯一命令映射哪些 Acceptance / Gate / behavior case / 原始硬要求锚点；缺映射不从集合删除
 ---- /?v2
 ---- #spawn ?run as=fresh-subagent inject="注入验证范围、输入路径、输出报告要求和必要禁止事项"
 独立上下文：按 evidence plan 对每条唯一命令运行 `depa-codument track verify <track-id> --fresh -- <verification-command>`，实跑测试 / 启动应用 / 复现用例并保存 receipt、退出码与关键输出；同一结果可映射到多个目标，但不得因复用而省略逐项语义判断
 ---- /?run
----- #loop ?items for="每条 Acceptance / Gate / behavior case"
+---- #loop ?items for="每条 Acceptance / Gate / behavior case / 尚未映射的原始硬要求锚点"
 ------ #step ?ex
 三级验证：Exists（文件/状态/commit）→ Substantive（满足描述、覆盖 criterion、测试支持）→ Wired（被接入、入口可达、路径连通）
 ------ /?ex
@@ -198,4 +201,3 @@ Summary:
 - `operations/gap-loop.md`（FAIL 后的目标对比修复双角色协议）
 - `operations/impl-track.md`（FAIL 后补实现）
 - `references/std/protocols/questioning.md`（ask-* 协议）
-

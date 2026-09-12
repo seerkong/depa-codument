@@ -5,22 +5,28 @@ import { isDataElement } from './registry';
 import { patchLifecycleSource } from './source-patch';
 import { validateLifecycleTree } from './lifecycle-validation';
 
+/** Recovery discovery admits identity/envelope only, never task/state validity. */
+export function inspectLifecycleIdentity(source: string, kind: 'track' | 'mission') {
+  const parsed = parseXnl(source, { textBlockStyle: true });
+  const root = parsed.nodes[0];
+  const tag = kind === 'track' ? 'Track' : 'Mission';
+  if (parsed.warnings?.length || parsed.nodes.length !== 1 || !isDataElement(root) || root.tag !== tag) {
+    throw new Error(`Lifecycle authority requires exactly one unambiguous <${tag}> root.`);
+  }
+  const id = wordToString(root.id);
+  if (!id) throw new Error('Lifecycle authority requires a stable root ID.');
+  if (root.metadata.envelopeVersion !== 'halfcode.resource-envelope/v1' || root.metadata.specVersion !== 1
+    || 'apiVersion' in root.metadata || 'version' in root.metadata) {
+    throw new Error('Lifecycle envelope/spec requires migration or review before normal writes.');
+  }
+  return { id, root };
+}
+
 /** Current authoring envelope only. This is structural admission, not the full
  * semantic validator; historical inputs must use the migration boundary. */
 export const lifecycleSourceCodec = Object.freeze<LifecycleSourceCodec>({
   inspect(source, kind) {
-    const parsed = parseXnl(source, { textBlockStyle: true });
-    const root = parsed.nodes[0];
-    const tag = kind === 'track' ? 'Track' : 'Mission';
-    if (parsed.warnings?.length || parsed.nodes.length !== 1 || !isDataElement(root) || root.tag !== tag) {
-      throw new Error(`Lifecycle authority requires exactly one unambiguous <${tag}> root.`);
-    }
-    const id = wordToString(root.id);
-    if (!id) throw new Error('Lifecycle authority requires a stable root ID.');
-    if (root.metadata.envelopeVersion !== 'halfcode.resource-envelope/v1' || root.metadata.specVersion !== 1
-      || 'apiVersion' in root.metadata || 'version' in root.metadata) {
-      throw new Error('Lifecycle envelope/spec requires migration or review before normal writes.');
-    }
+    const { id, root } = inspectLifecycleIdentity(source, kind);
     if (!LIFECYCLE_ROOT_STATES[kind].includes(String(root.attributes?.status))) throw new Error(`Invalid ${kind} root status.`);
     for (const field of ['gap_round', 'revision']) {
       const value = root.attributes?.[field];

@@ -1121,3 +1121,40 @@
 - 结论区分三层：旧新验收不等价造成的表观下降；pending Track发现/跨fresh handoff/文档型CommandOperation造成的真实有效交付能力下降；Stream/Blog/Ecommerce真实last-mile实现缺口。Nested主要是planner/validator与descriptor合同不对称，补充HTTP通过不晋升正式结果。
 - 七run命令观察为508条，其中371条含depa-codument、284条为显式find/rg/sed读取；正式输入85217000中cached79704320（93.5%）。这些量支持控制面负担与重复上下文假说，但不单独作为因果证明或账单。
 - DEPA裁决：Track XNL是versioned authority，默认list是省略pending的derived observation；impl consumer把局部projection用于完整发现。CommandOperation完成了入口标准化但workflow Processor仍由自然语言Actor重建。优先修receipt交接、精确resolve、task ContextView、合同schema与external oracle前移；不删除质量机制、不回退多Skill、不增加轮数伪造提升。
+
+### E311 — 优化实施授权与检查点
+
+- 用户明确要求先使用163.com author提交，再依据分析自主迭代；已创建ce0f2cb，author/committer均为kongweixian <kong_weixian@163.com>，无push。保存project源码、MissionLite记录及原有DEPA attractor改动；忽略的依赖/构建包不纳入。检查点保留既有空白格式警告，不冒称全量新验证。
+- Round47工作图和design/execution-handoff.md记录先行垂直切片，MissionLite preflight exit0。新候选fresh测量已获授权，旧七个试次/失败/轮数不得改写或恢复。
+- E310工具数量统计是已记录顶层成功phase receipt的可观测样本，不保证包含中断phase/所有子代理；不能据此宣称完整工具总量或净因果。旧/新仍无等价A/B。
+
+### E312 — 精确交接切片验证
+
+- 实现及设计见design/execution-handoff.md，完整过程见verification/terra-e2e-round47.md。两项fresh reviewer恢复P2均修复并复检无新问题；身份观察不替代正常严格状态/合同准入。
+- 最终隔离副本完整check：typecheck/lint通过，672pass/0fail，7842assertions，141files；之前命令树期望遗漏的1fail保留记录。新candidate SHA61766e3625ec514d5b77dad671a24e60b88aec62ba7577e0b1b14f39e7e18334；harness a0e0c742cad1878e78f5c548c3a47ced062ffc069a343fabea852ea5facb6cd3。
+- qlU8hG smoke十项PASS/modelCalls0；原codument和旧global指纹不变。实际Native Codex0.154.0，旧批次0.150.1差异已记录。无真实业务新PASS或token节省声明；下一节点新fresh todo/stream按原限额运行。
+
+### E313 — 首个新Todo试次的基础设施中断
+
+- qUXNoE的plan-0、implementation-0及外层HTTP/fresh review通过；同一add-todo-application身份成功交接。GapLoop纠正UI编辑与非法日期，AttractorCheck后置发现runtime/effect耦合并返工；由此追加前置正文引用优化。
+- Ego TaskSpace4/p1真实注册、创建及literal输入观察成功；编辑prompt操作反复Runtime.evaluate超时，底层CDP拒绝dialog、reload后重试仍失败。只读CUA看到另一任务窗口，未操作。无完整UI PASS。Ego0.5.0.28更新需用户授权，不影响其它任务。
+- UI15分钟deadline触发不恰当的业务纠偏implementation-1，控制器随后SIGTERM精确runner79915；子进程15176/15183及server2789已退出，run内复制auth已由finally清理。最终原result为infrastructure-failed，原日志和计数不改写；此trial不计作产品PASS或明确产品失败。补充typed infra分类防止同类无谓模型纠偏。
+
+### E314 — 引用前置与infra分类切片收口
+
+- 最终源码及负例经独立复检；修复正式Task后代profile漏读与坏controller receipt误入业务修复，两者不削弱hook/验收。simplify仅展开新增遍历以便审阅。说明与测量见verification/terra-e2e-round47.md。
+- /tmp最终完整check通过typecheck/lint及677tests/7871assertions/142files；独立build156resources，candidate dad6afd6，harness dd530052；qFekDc smoke10PASS/modelCalls0。
+- 使用原isolated-project.ts目录/权限/字节算法复核原codument仍b631c719，旧global字节仍05206bf0。另一个仅文件字节treeHash算法产生03a880ff，并非原件变化；与临时副本逐文件比较也无差异。
+- 仅这两个源码切片验收通过，不代表经济性或真实业务验收完成。下一步新候选stream，不恢复旧run，也不等待浏览器故障阻塞无浏览器工作。
+
+### E315 — 新Stream实际失败与下一轮调和
+
+- aTb63U终态blocked，attempt0缺原始指定测试，attempt1在gap_round5仍缺原始B/C及三内容片段流测试，按配置停止。原result/terminal-policy保留，认证副本已清理。没有以内部8/13tests或NO_GAP覆盖外层实际失败。
+- 新run成本及过程见verification/terra-e2e-round47.md：全可观测session输入18732405/cached17696512/output87752，不冒称输入下降或净改善。父session57次短wait及Python PATH偏差是新观测，支持新增源码切片。
+- 原始需求对照、较长有界等待和已准入Python交接已实施；独立正反情境复核通过。新规不增加hook/owner/轮数或扩大到未选backlog。Skill结构校验通过；完整followup check还在运行，不能提前标源码切片done。
+
+### E316 — 原始需求完整读取与低摩擦执行切片验证
+
+- 最后EOF读取修正后的完整check exit0：typecheck/lint及678pass、0fail、7878assertions、142files、122.18秒，T日志.tmp/round47-followup-final-check.log。独立前向情境涵盖613行只读260行、明确批准章节范围、缺失原始测试、批准取消、聊天输入及局部backlog，复检通过。
+- build156resources；最终closure候选SHA256 37eb59960d55aa3e6b6927861bd4e193198a33036a15f0bcae4acfafdb3b9db1；harness d8963ceafe72dcdc4f137fd6904b31e165c64c396d9be65beaddad420ed96f7c。kg6lrr无模型smoke十项PASS/modelCalls0。之前followup候选仅中间验证，不冒充最终源。
+- 显式Python交接、较长有界等待、原始需求对照三个源码节点据此done；业务交付率与成本改善仍未证明，继续新冻结候选真实测量。原失败、预算、候选保留；无global安装、原codument升级或发布。

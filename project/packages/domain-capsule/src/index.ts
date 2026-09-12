@@ -1,11 +1,12 @@
 import type { DomainOperationRuntime, DomainOwner } from 'depa-codument-domain-contract/operations';
+import { projectTrackExecutionContext } from 'depa-codument-domain-logic';
 import { applyArchive, applyDomainOperation, applyScaffold, applyWorkspaceBinding, inspectDecisionQuery, inspectDomainValidation, inspectStdDocumentation, proposeDecisionCreation, readyTrackTasks, runTrackVerification, runDomainQuery, runKnowledgeRead, proposeKnowledgeScaffold, syncArtifacts } from 'depa-codument-domain-logic';
 
 /** Per-workspace admission/drain and per-resource operation ordering.
  * Repository CAS remains necessary for changes from other processes/editors.
  * Injected ports are borrowed unless release is explicitly supplied. */
 export function createDomainOwner(bindings: DomainOperationRuntime, options: { release?: () => Promise<void> } = {}): DomainOwner {
-  const runtime = { ...bindings };
+  const runtime = { ...bindings, contextSources: bindings.contextSources ? { ...bindings.contextSources } : undefined };
   const release = options.release;
   const tails = new Map<string, Promise<void>>();
   let closed = false;
@@ -107,6 +108,9 @@ export function createDomainOwner(bindings: DomainOperationRuntime, options: { r
     },
     ready(track) {
       return admit(`track:${track}`, async () => readyTrackTasks(await runtime.repository.load({ kind: 'track', id: track }, { includeArchived: false })));
+    },
+    context(track) {
+      return admit(`track:${track}`, async () => projectTrackExecutionContext(await runtime.repository.load({ kind: 'track', id: track }, { includeArchived: true }), runtime.contextSources?.profiles));
     },
     verify(request) {
       const input = structuredClone(request);

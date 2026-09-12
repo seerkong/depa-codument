@@ -4,7 +4,7 @@ Keep the original business and Mission requirements in request.md. Its legacy ex
 
 The runner creates main-repo and inventory-repo under this workspace and initializes both. The root Mission completes the selected delivery; the autonomous inventory child retains a real outstanding task and remains active. Parent/child links are reciprocal, selected-tasks references leaf tasks, and cross-layer TrackLink declares all refs. Only the local ignored binding file stores absolute project paths.
 
-Each repository supplies actual runnable code, real `test`, `typecheck`, `build` scripts and `e2e-server.json` command argv. Servers read PORT and bind 127.0.0.1. The main server receives INVENTORY_URL pointing to the inventory server. This seam may be an HTTP adapter over the actual domain implementation; no second fake state machine.
+Each repository supplies actual runnable code, real `test`, `typecheck`, `build` scripts and `e2e-server.json` with the exact shape `{"command":["bun","run","src/server.ts"]}` (replace the argv values with the actual server command; the field is `command`, not `argv`). Servers read PORT and bind 127.0.0.1. The main server receives INVENTORY_URL pointing to the inventory server. This seam may be an HTTP adapter over the actual domain implementation; no second fake state machine.
 
 Inventory API (JSON): POST /stock {sku,quantity} →201; GET /stock/:sku →200 {quantity,reserved}. POST /reservations {id,sku,quantity} →201, insufficient→409; DELETE /reservations/:id releases stock, idempotently 200/204. POST /reservations/:id/commit →200, idempotently deducts quantity once and removes outstanding reserved amount.
 

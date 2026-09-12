@@ -37,6 +37,23 @@ export interface OwnedLifecycleSnapshot extends LifecycleSnapshot {
   readonly file: string;
 }
 
+/** Read-only observation, never approval, a hook verdict or a verification receipt.
+ * sourceRevision is repository-instance scoped; callers must reobserve after writes. */
+export interface TrackExecutionContext {
+  readonly version: 1;
+  readonly identity: { readonly kind: 'track'; readonly id: string; readonly stage: OwnedLifecycleSnapshot['stage']; readonly directory: string; readonly file: string; readonly sourceRevision: string };
+  readonly status: string;
+  readonly ready: readonly ReadyTrackTask[];
+  /** Full authored contract retains hooks, acceptance, extensions and references. */
+  readonly contract: DataElementNode;
+  readonly requiredSources: readonly string[];
+  readonly attractors: {
+    readonly profilesObserved: boolean;
+    readonly references: readonly { readonly profile: string; readonly enabled: boolean | null; readonly refs: readonly string[] }[];
+  };
+  readonly limitations: readonly string[];
+}
+
 export interface LifecycleRepositoryPort {
   load(ref: LifecycleRef, options: { readonly includeArchived: boolean }): Promise<OwnedLifecycleSnapshot>;
   /** Reject stale sources, ambiguous authorities and occupied move targets.
@@ -58,6 +75,8 @@ export type DomainOperation = LifecycleRef & (
 );
 
 export interface DomainOperationRuntime {
+  /** Guarded invocation snapshot, not a second editable profile configuration. */
+  readonly contextSources?: { readonly profiles?: string };
   readonly archive?: {readonly sources: ArchiveSourcePort; readonly baseline: KnowledgeBaselinePort};
   readonly artifacts?: ArtifactSyncPort;
   readonly knowledgeScaffolds?: KnowledgeScaffoldPort;
@@ -99,6 +118,7 @@ export interface DomainOwner {
   createDecision(input: DecisionCreateInput): Promise<{ readonly file: string; readonly id: string; readonly parent?: string; readonly specVersion: 1; readonly maintenanceWarnings?: readonly string[] }>;
   apply(input: DomainOperation): Promise<DomainOperationReceipt>;
   ready(track: string): Promise<{ track: string; ready: ReadyTrackTask[] }>;
+  context(track: string): Promise<TrackExecutionContext>;
   verify(input: VerificationRequest): Promise<VerificationReceipt>;
   /** Close admission, drain admitted work, then release explicitly owned ports. */
   close(): Promise<void>;

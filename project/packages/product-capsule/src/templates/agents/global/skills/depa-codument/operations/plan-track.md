@@ -13,6 +13,8 @@ spec:
 
 # skill: codument-plan-track（创建变更追踪）
 
+开始规划前，按 `references/std/protocols/context-loading.md` 确认选定原始需求已完整读取：检查长度，补齐分页或截断输出。只看前若干行不能据此制定完整 Track；原始输入对照与自包含快照规则见 §2/§3.2。
+
 为一个新功能 / Bug 修复 / 变更创建一条 **Track**：引导用户收集信息，生成行为增量（`behavior_deltas/<capability>/delta.xnl`）、提案（`proposal.md`）、设计（`design.md`）和状态真源 `track.xnl`。普通调用创建 pending Track；由 `codument-impl-mission` 以 `QuestionSeverity=auto` 调用时直接创建 active Track，后续始终使用 CLI receipt 返回的目录。
 
 > 本文以 **Markdown 为主**：程序化控制流使用流程标记块，Track 与 BehaviorPatch 资源使用当前 Kind 定义的 XNL。遇到 legacy authority 时先运行 `depa-codument upgrade-resource <path>`。
@@ -87,6 +89,8 @@ spec:
 - **不可引用 `.` 开头隐藏目录**中的文档（如 `.abc/e.md`）。
 - 每个 track 目录的内容必须**自包含**：**不可引用 track 目录之外**的说明文档（如 `doc/`、`docs/` 里的解释文档）作为读懂本 track 的必要前提。
 - 若仅靠 `behavior_deltas/<capability>/delta.xnl`、`proposal.md`、`design.md`、`track.xnl` 不足以记录关键信息（如 `example.md`、`ui-ux-design.md`），可在**当前 track 目录内**额外建文件，并由上述标准产物引用之。
+
+原始需求的出处记录不等于把外部文档作为加载前提。对用户提供的外部或隐藏目录需求文档，在允许复制时把本 Track 所需原文完整保存为 Track 内的输入快照（如 `inputs/requirements.md`），记录来源标识、原内容摘要哈希及截取范围，input MaterialBundle 指向该快照；不把改述当原文，也不复制无关或无权复制的材料。无法合法保留必要依据时协调缺口，不伪造来源。快照是已观察版本：已知来源变化或用户修订后重核适用约束，不用旧快照覆盖新输入。其它说明材料仍遵守上述自包含规则。
 
 ---
 
@@ -202,6 +206,8 @@ spec:
    - 根级 `decisions.xnl` 只在首次出现真实 decision 时创建：运行 `depa-codument decisions create <track-dir>/decisions.xnl <decision-id>`，再填写语义并运行 `depa-codument decisions validate <file>`；无 decision 时不落空文件。嵌套 decision 使用 `--parent <decision-id>`。
    - `memory/` —— 记忆上下文，按类型分子目录 `lessons/`、`incidents/`、`patterns/`、`summaries/`（归档且 `memory` profile 启用时提升 `memory://`）。
 7. **填写 Track 骨架**（§3.6 一并落盘）：保留 CLI 创建的 identity、Kind version 与通道结构，按 `track-xnl-spec.md` 填写业务字段。
+
+**原始需求对照**：有明确输入文档或较长约束清单时，在现有 `proposal.md` 中记录原始来源路径/锚点及“约束 → Acceptance/behavior case → 拟验证方式”的紧凑对照；可用文件通过现有 input MaterialBundle 引用，不只登记派生 deltas。原文明确要求保留的测试名称、接口、文件及边界条件须逐项对应，不能用“测试通过/核心能力完成”概述替代。仅有聊天输入时记录用户已明确的完整约束，不编造来源文件或确认。对照是导航，不存第二份完成状态；批准的取舍需可追溯，遗漏不是默认取消需求。最终交接前反查原始输入，确认没有尚未覆盖的硬要求。
 
 ### 3.3 交互式行为增量（BehaviorPatch XNL）
 
@@ -539,7 +545,8 @@ proposal 获批后："现在我将在 CLI 已生成的当前版本 `track.xnl` �
 
 1. **确认真相源**：`track.xnl` 的 `#id`、系统 metadata 与根 `{}` 已含资源身份、版本、普通属性和状态。
 2. **best-effort validate**：尝试 `depa-codument validate <id> --strict`；若系统找不到命令则跳过并明确说明，不因此阻塞。validate 检查 XNL 通道、根字段、TaskSpace、DAG、Hooks、引用与 required files（见 `track-xnl-spec.md` §8）。
-3. **宣布完成**：
+3. **明确交接**：校验成功后运行 `depa-codument track context <id> --json`，将identity.id、identity.stage、identity.directory、identity.file交给实现调用方，保留批准来源和未完成gate。该只读观察不是批准或验收receipt；fresh实现会话按精确id重新观察，不能用默认active-only list代替pending身份。找不到CLI或校验未通过时明确标注“计划已落盘但未验证”，不能宣称可执行交接完成。
+4. **宣布完成**：
    > "新 track '<track_id>' 已创建。
    > 状态真源：`<track-dir>/track.xnl`
    > 提交模式：<auto|manual>
@@ -561,4 +568,3 @@ proposal 获批后："现在我将在 CLI 已生成的当前版本 `track.xnl` �
 - `references/std/protocols/questioning.md#ask-multi-question-free` / `#ask-multi-question-closed`
 - `codument/config/attractor-profiles.xnl` —— `coding`/`docs`/`memory` profile 定义
 - `codument/config/operation-hooks.xnl` —— 命令级 hook
-

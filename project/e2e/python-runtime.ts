@@ -9,6 +9,15 @@ export function runtimeWrapper(executable: string): string {
   return `#!/bin/sh\nexec '${executable.replaceAll("'", "'\\''")}' "$@"\n`;
 }
 
+/** Pass the admitted runtime explicitly; login shells may reorder PATH ahead of private wrappers. */
+export function pythonRuntimeGuidance(python: string | undefined): string {
+  if (python === undefined) return '';
+  assert.ok(path.isAbsolute(python) && !/[\r\n\0]/.test(python), 'Absolute prepared Python path required');
+  return `The harness has preflighted Python 3.12 at ${JSON.stringify(python)} and exported it as UV_PYTHON. ` +
+    'Use "$UV_PYTHON" -m venv to create a unique environment under "$TMPDIR", then invoke that environment\'s Python/pip/pytest by their paths. ' +
+    'Do not rely on bare python3 in a login shell: it may resolve to the old system Python despite PATH wrappers. Do not create environments directly under /tmp, install globally or download another interpreter. Pass this runtime instruction to child reviewers too.\n';
+}
+
 /** Discover existing read-only runtimes before spending a model turn. No download or global install. */
 export async function preparePython(run: Run): Promise<void> {
   const uv = path.join(os.homedir(), '.local/bin/uv');

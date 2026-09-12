@@ -70,7 +70,7 @@ export function createCodumentDomainRuntime(workspaceRoot: string, bindings: Cod
       return {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate(), hour: date.getHours(), minute: date.getMinutes()};
     },
   });
-  const domain = createDomainOwner({ repository, verification, artifacts: createFileArtifactSyncPort(workspaceRoot), decisions: createFileDecisionSourcePort(workspaceRoot),
+  const domain = createDomainOwner({ repository, verification, contextSources: context?.sources, artifacts: createFileArtifactSyncPort(workspaceRoot), decisions: createFileDecisionSourcePort(workspaceRoot),
     archive: {sources: archives, baseline: createGitKnowledgeBaselinePort({workspaceRoot, env: bindings.env})},
     decisionWrites: createFileDecisionWritePort(workspaceRoot), projectBindings: createFileWorkspaceBindingRuntime(workspaceRoot),
     queries: createFileDomainQuerySourcePort(workspaceRoot), scaffolds: createFileScaffoldSourcePort(workspaceRoot, lifecycleSourceCodec),

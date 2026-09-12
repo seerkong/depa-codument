@@ -25,6 +25,8 @@ GapLoop 让父层编排器控制轮次，每轮由 fresh 子代理独立比较�
 
 Track/phase scope 读取 `track.xnl`、proposal、design、behavior deltas、Acceptance、相关代码测试和上一轮报告。Mission scope读取 `mission.xnl`、proposal、design、reports、ProjectRef binding 及 bound Track 的真实 authority。
 
+同时按 `references/std/protocols/context-loading.md` 读取本 scope 适用的原始需求和批准取舍；派生 Acceptance 的遗漏本身也是差距。局部 phase 检查不宣称覆盖其它 phase，也不代替最终交付的原始需求完整性核对；不因此新增或重复配置 hook。
+
 目标态来自这些 authority 的共同约束。实现、测试、reports 和 linked resource 是实际态。冲突时先报告 authority 冲突，不凭上下文猜测目标。
 
 ## 初始化
@@ -41,6 +43,7 @@ CLI 负责根属性、时间和 Mission revision 的一致写回。
 ## 每轮
 
 1. fresh-spawn 子代理，只注入 scope、authority 路径、上一轮报告（如有）和 verdict 格式。
+   父层等待结果时遵循 `references/std/protocols/context-loading.md` 的“等待子代理结果”；普通等待超时不消耗 GapLoop 轮数，也不启动重复 reviewer。
 2. 子代理读取实际文件并运行与目标相称的测试、lint、构建或资源校验。
 3. 子代理先写 issues-first 的 `reports/gap-<scope>-<round>.md`。
 4. 无差距时返回 `NO_GAP`；能在 scope 内修复时完成修复和验证后返回 `FIX_APPLIED`；需要用户决策或外部状态时返回 `BLOCKED`。
@@ -68,4 +71,3 @@ evidence: <gap report 和关键验证>
 ## 完成条件
 
 最后一轮为可收口的 `NO_GAP`，authority 与报告已验证，gap round 与相关 Track/Mission/task 状态已由对应生命周期命令更新。Hook 本身没有运行期 status 字段。Mission 中的子 Track 随后立即返回 MissionApplier 继续 mission observe/reconcile 或下一 ready operation。
-

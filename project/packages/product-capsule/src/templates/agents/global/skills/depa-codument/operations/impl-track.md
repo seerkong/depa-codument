@@ -35,8 +35,8 @@ local 与 delegated 均需 acceptance、目标命令、行为基线与 diff 证�
 
 ### 1.3 选择 track
 
-- 有明确 id（包括已完成、取消、归档的显式续跑）：运行 `depa-codument track transition <track-id> in_progress`，CLI 从 pending/active/archived 按资源 id 唯一定位；使用 receipt.directory 重新加载。唯一匹配直接继续；无匹配或多个 authority 请求澄清。
-- 无 id：`depa-codument list --json`，选择第一个根状态非 completed/cancelled 的 Track。无可选或全部完成时，独立调用通知用户；mission 子流程返回缺失/完成事实，由父层 reconcile，不默认提问或结束 mission。
+- 有明确 id（包括交接receipt、Mission TrackLink、已完成/取消/归档的显式续跑）：先 `depa-codument track context <track-id> --json` 只读定位，读取identity、contract及适用来源，再运行 `depa-codument track transition <track-id> in_progress`；CLI 从 pending/active/archived 按资源 id 唯一定位，使用 receipt.directory 重新加载。无匹配或多个 authority 请求澄清，不能创建替代Track。
+- 无 id：先读取 `@/codument/tracks/pending/` 与 `@/codument/tracks/active/` 中的 `track.xnl` 身份及根状态；旧 `list --json` 只列active，不是完整候选发现。只有唯一未完成且已获实施批准的候选才能按明确id继续；多个候选按用户/父Mission目标消歧，不能选列表第一项。无可选或全部完成时，独立调用通知用户；mission 子流程返回缺失/完成事实，由父层 reconcile，不自动新建Track。
 - phase 参数含糊需用户选择；缺省从首个未完成 phase 续跑。不要手工移动 authority、改根状态或撤回归档已晋升的 durable 产物。
 
 ### 1.4 mission 候选激活
@@ -44,6 +44,10 @@ local 与 delegated 均需 acceptance、目标命令、行为基线与 diff 证�
 candidate TrackLink 由 MissionApplier 先 `track transition <track-id> in_progress`，再 `mission bind-track <mission-id> <task-id> <track-id>`。用成功 receipt 的真实目录并立即实现；只有显式 gate 停在激活点。
 
 ## 2.0 加载 track 上下文（step 1）
+
+`track context <id> --json` 给出同一XNL authority的完整合同AST、ready任务及来源位置，可直接读取其当前TaskSpace/Schedule/Hooks；不必为了身份和ready反复完整读文件。它不是完整外部引用闭包，也不是批准或验证成功。sourceRevision仅供当前repository实例CAS，不能跨调用用作缓存key；状态/配置/证据变化后重观察。以下适用伴随文件和引用仍必须读取。
+
+在第一次设计/编码前，读取context.attractors中enabled=true的每个ref正文（`skill://depa-codument/` 指当前global App根）。只读profile配置不等于读过其规范。缺失/未解析引用需先定位或修复，不得延迟到末端AttractorCheck才首次加载；disabled或未引用profile不因此激活。实际hook仍在原生命周期点独立fresh执行。
 
 宣布目标，幂等 `track transition <track-id> in_progress`。完整读取：
 
@@ -107,7 +111,8 @@ worker 不写 track.xnl、acceptance checkmarks、findings，不创建 task/phas
 ### 6.4 Executor completion verification（所有策略必做）
 
 1. 重读当前 Acceptance、相关 behavior case、执行证据、git diff；检查范围与每条预期语义。
-2. 选覆盖本 Task Acceptance 的可重复命令（现有 verify script、测试/lint/typecheck/smoke）；缺命令是证据不足。
+   按 `references/std/protocols/context-loading.md` 对照本任务适用的原始硬要求；明确要求保留的测试需检查实际 test collection，未被收集的必需用例不能由其它测试 exit 0 代替。
+2. 逐条把本Task Acceptance映射到可重复的行为验证命令及断言，再执行。UI能力必须触发真实用户事件并检查可见状态；HTTP能力启动真实边界并含权限/错误/状态负例；stream能力验证逐事件时序和迭代建立前、迭代中异常；跨服务能力观察两侧真实状态变化。只检查源码字符串、文件存在、编译成功或内存替身，不足以证明这些运行行为。与本任务无关的场景不强行增加；缺少相关真实验证就是证据不足，应在DONE和最终hook前补齐。
 3. 确认无无关运行时改动；声称行为不变须逐项核实删除/替换语句等价。worker 声称“旧问题/非我责任”时，以错误性质、HEAD 对照、独立复现、时间或 diff 归因验证。
 4. 通过才 `depa-codument track task complete <track-id> <task-id> -- <verification-command>`；CLI 执行或复用同命令且内容前提有效的成功 receipt，原子写 DONE/Acceptance。不得以 `;` 分隔失败检查与完成写入。
 5. findings 记录 receipt id/reused、命令、diff、覆盖和未验证项，继续 task:after。失败可修则保持 ACTIVE；不能继续才 `task transition ... REFUSED` 并记录 blocker。Track Task 没有 BLOCKED 状态。
@@ -161,4 +166,3 @@ commit_mode=auto 时逐任务 commit+Git Notes、逐 phase 检查点；manual �
 - ArtifactSync 仅 operation-hooks.xnl 当前点显式配置才运行；读取 output MaterialBundle 和所引用规则，执行 artifact-sync.md。docs profile 本身不构成隐式同步。
 - behavior deltas 显著影响产品/架构吸引子时，提出 diff 并明确人工确认后才改 `codument/attractors/`。
 - Track 清理交 archive-track（归档/删除/保留），本 operation 不删目录。
-

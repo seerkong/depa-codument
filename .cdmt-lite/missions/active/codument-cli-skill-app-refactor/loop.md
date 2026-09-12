@@ -1,15 +1,85 @@
 # Loop: Codument CLI Skill App 与可复用 Host 重构
 
 Status: active
-Round: 45
+Round: 47
 
-本轮模式：Round45真实Terra E2E有界测量批次已结束；不进行global安装或原dogfood升级。七个正式试次均终态，首次1/7、最终2/7；完整业务验收仍未达成。耗尽策略禁止原试次自动续跑，下一修复候选与新测量批次需明确决策。长期mission保持active、未归档；业务验收节点保留active，阻塞原因见Blocked on（节点枚举没有blocked）。
+本轮模式：用户已授权检查点提交及依据E310自主优化。检查点ce0f2cb，author kongweixian <kong_weixian@163.com>。优先精确交接、只读执行上下文和前置真实行为验证；代码在原仓库，测试/构建在/tmp副本。Round45七个终态试次及限额保持，新候选使用fresh trials；不安装global或升级原dogfood。
 
 期望态：[MISSION.md](MISSION.md)。证据：[evidence.md](evidence.md)。本图是唯一执行计划/状态投影；名称为人机交接主标识。
 
 > 固定纪律（勿删）：节点完成 ≠ 回合结束。更新本文件后，同一回合继续取下一个「当前可做」节点；停点只认：验收全过 / 硬中断（工具·宿主·用户强制）/ 卡住（缺输入、不可逆选择）。不因「做了一段」而回头汇报。
 
 ## Work graph
+
+### 精确规划交接与执行上下文
+
+- Status: done
+- After: 新版真实E2E框架与无模型smoke
+- Covers: 期望-4, 期望-10, 约束-4, 约束-16, 约束-21
+- Verify: 隔离副本生命周期上下文、E2E交接负例、完整typecheck/lint/test及候选smoke。
+- Outcome: 保持旧list契约；显式Track身份跨fresh会话传递，CLI提供单一authority的只读执行投影；pending不会被误认为无计划。知识规划合同和真实行为验收时机一致。
+- Done when: pending/active/archived精确身份、重复/失效交接、任务上下文、配置及hook保留负例通过；fresh review无未解决偏差。
+- Evidence: E310诊断、E311授权、E312最终完整check 672pass/7842assertions+smoke10/fresh复检；此节点是机器协议切片，不等于真实业务或token经济性已通过。
+
+### 优化候选真实测量
+
+- Status: active
+- After: 精确规划交接与执行上下文
+- Covers: 期望-4, 期望-10, 约束-21
+- Verify: 新候选fresh todo、stream及其它受影响用例；固定Terra/medium与原轮数，独立业务验收和usage报告。
+- Outcome: 用实际执行而非文档字节衡量有效交付；原失败保持可追溯。
+- Done when: 新试次有终态、真实验收及成本证据；失败据证据调和，不能重置旧预算。
+- Evidence: E313 qUXNoE为UI基础设施终态；aTb63U attempt0因缺必需测试failed，attempt1在gap_round5因原始B/C与三片段内容流测试缺口blocked。两次试次不重置；据此新增原始需求对照/等待/运行时交接源码修正，完整验证后用另一个新候选测量。
+
+### 显式展开适用吸引子引用
+
+- Status: done
+- After: 精确规划交接与执行上下文
+- Covers: 期望-2, 期望-4, 约束-4, 约束-16
+- Verify: profile引用纯投影、disabled/未引用/配置变更负例、CLI context及完整回归，后继新候选fresh测量。
+- Outcome: 执行上下文把Track引用的profile映射到明确正文URI，提醒首次实现前读取；既有profile配置仍为authority，投影不增加或跳过hook。
+- Done when: 不把只读配置当作加载规范；不激活未配置profile；投影不冒充正文或fresh verdict，测试与fresh复核通过。
+- Evidence: E314，完整677pass/7871assertions、配置/正式嵌套与Extension排除负例/fresh复核。真实经济性由优化候选真实测量继续验证，不提前宣称降低token。
+
+### 浏览器基础设施失败分类
+
+- Status: done
+- After: 精确规划交接与执行上下文
+- Covers: 期望-4, 期望-10, 约束-21
+- Verify: 超时和显式基础设施receipt终止而非业务纠偏；真实UI失败仍拒绝PASS；隔离完整回归。
+- Outcome: 外部浏览器不可用不触发模型修改已交付应用，未完成验收不能晋升通过。
+- Done when: 分类正负例和fresh复核通过，真实工具故障完整保留。
+- Evidence: E313原故障保留；E314实际awaitUiGate deadline/坏JSON及receipt身份和产品失败分类负例、完整回归/fresh复核过线。仍无完整真实UI PASS。
+
+### 显式交接隔离Python运行时
+
+- Status: done
+- After: 精确规划交接与执行上下文
+- Covers: 期望-4, 期望-10, 约束-21
+- Verify: 精确runtime入口提示负例及隔离登录shell实际执行3.12；之后新冻结harness完整回归，不改变运行中的aTb63U。
+- Outcome: runtime预检选择与模型消费同一个明确入口，不依赖被login shell改排的PATH。
+- Done when: 不安装新runtime，不改变测试需求；引用已准入Python与临时目录，测试和fresh复核通过。
+- Evidence: aTb63U implementation-0先误用/tmp，再用python3生成旧pip环境；父层相同sandbox诊断日志controller-python-path-diagnostic.log实际观察python3=/usr/bin/python3(3.9.6)，python3.12=私有bin(3.12.7)。源码先修，活动试次和候选不变。
+
+### 减少无新信息的子代理等待往返
+
+- Status: done
+- After: 精确规划交接与执行上下文
+- Covers: 期望-4, 约束-4, 约束-21
+- Verify: 按skill-creator进行独立情境复核，完整App资产/链接回归与后继新试次wait调用分布；不改正在运行的候选。
+- Outcome: 等待fresh reviewer结果时采用较长有界事件等待，无新信息不重新加载合同；仍响应新输入和真实阻塞，不跳过检查或抬高轮数。
+- Done when: 宿主上限优先、正常等待非失败、fresh判定不复用、所有调用入口可达协议；源码及fresh验证通过，真实token收益另外测量。
+- Evidence: aTb63U实施父session已观察57次wait_agent，其中56次timeout_ms=10000、1次1280；这类无新信息往返是E310命令统计未涵盖的成本来源。计数不等于已节省token。
+
+### 保留原始需求到验收的对照
+
+- Status: done
+- After: 精确规划交接与执行上下文
+- Covers: 期望-4, 期望-10, 约束-4
+- Verify: 基于明确保留名称/长需求来源的独立正反情境复核；完整App资产/链接回归，后继新候选真实测量。
+- Outcome: 外部原始需求仍是约束来源；proposal/Acceptance只作可追溯派生，明确接口/测试/文件保留要求不被概述丢掉。使用现有proposal与input MaterialBundle，不创造第二状态owner或新hook。
+- Done when: 无原始文件时不编造来源；不把任务内旧PASS等同原需求覆盖；局部scope不冒充完整交付。通过源码与fresh复核后才冻结后继候选。
+- Evidence: aTb63U implementation-0内部8tests/fresh checks通过；外层test collection检出缺少原需求指定test_thinking_stream_keeps_start_delta_end，attempt0真实failed。原Track输入仅三种派生deltas，没有原request引用，报告以派生Acceptance为主；继续保留实际失败，不由父层改应用或原trial。
 
 ### 新版真实E2E框架与无模型smoke
 
@@ -30,7 +100,7 @@ Round: 45
 - Outcome: 同模型执行真实工程任务，以外部判据做有界纠偏，产品问题回源码修复并作废受影响结果。
 - Done when: 各场景和重复关键用例均有真实验收过线证据，失败/成本完整报告，无验收弱化。
 - Evidence: E293–E309；七次正式试验全部终态，Todo首次1/2、最终2/2；Stream两次未过、Blog/Nested失败、Ecommerce与Stream2按配置耗尽block。测试运行与测量已完成，不等于本节点全业务验收完成。
-- Blocked on: 原试次的三次outer预算或on_exhausted=block已耗尽；禁止第四试次、重置hook或改写失败。需要确认下一批以源码改进后新candidate+fresh trials推进，保持原限额与本轮结果，而非解禁旧run。其它长期mission工作不被本节点冒称完成，本轮不扩张到发行/历史原件迁移。
+- Blocked on: Round45原试次的三次outer预算或on_exhausted=block已耗尽；禁止第四试次、重置hook或改写失败。用户已授权源码优化及新candidate+fresh trials，由“优化候选真实测量”节点推进，不解禁旧run。本节点仍未满足全部业务验收，不扩张到发行/历史原件迁移。
 
 ### 统一公共合同0.1.1与本地制品闭包
 
@@ -375,6 +445,22 @@ Round: 45
 
 ## Last action
 
+closure新试次已启动：/private/tmp/depa-codument-e2e-9JWDGk，runner session22514，日志T/.tmp/round47-stream-closure.log。不要重复启动；保留原预算和独立验收，读取该root的进度及最终result。
+
+当前恢复点（E316覆盖下方历史命令）：closure候选完整check678/7878/142及smoke kg6lrr十项通过。接下来在T执行 `bun e2e/run.ts run stream-pipeline-ai-agent --bin=T/dist/depa-codument-r47-closure --codex=/Users/kongweixian/.bun/bin/codex`，日志.tmp/round47-stream-closure.log。出现run root立即记录；保持候选/harness冻结，检查进度/result/terminal-policy，不重复启动、不重置旧试次。三个新源码节点依据E316标done；真实效果测量仍active。
+
+当前执行命令：T下 `bun e2e/run.ts run stream-pipeline-ai-agent --bin=T/dist/depa-codument-r47-profile --codex=/Users/kongweixian/.bun/bin/codex`，输出.tmp/round47-stream.log；候选dad6afd6/harness dd530052经E314冻结，运行中不更改T。这是新试次，原预算不变；出现run root即补录。业务无浏览器依赖。
+
+Stream aTb63U已终态blocked，terminal-policy保持；runner session60386结束，复制auth已清理。attempt0缺原始指定测试，attempt1耗尽第5轮仍缺原始case B/C及三段内容流测试；不恢复此run。下一步把原仓库新runtime交接/等待协议/原始需求对照同步到T，运行完整check日志.tmp/round47-followup-check.log，再构建独立dist/depa-codument-r47-followup。旧candidate与runs保留。
+
+Round47当前：qUXNoE已终态infrastructure-failed，详细E313；runner/server/子进程退出且复制auth不存在。唯一Ego TaskSpace4/p1因dialog/CDP超时保留故障现场，不finish、不新建TaskSpace、不操作其它任务窗口；升级Ego需用户答复已发送的可选问题。先继续无浏览器节点。
+
+Round47当前验证：源码新增profile正文引用和浏览器infra分类；fresh review两项P2（Task后代漏读、坏controller receipt进入业务修复）均修复，等待复检。先前切片check675pass/7867assertions；最终新源码副本check session21609，日志.tmp/round47-profile-final-check.log。完成后构建新名dist/depa-codument-r47-profile、smoke，冻结hash后运行stream新root。T=/private/tmp/depa-codument-verification-AUuuts/depa-codument/project；旧61766候选和旧runs不覆盖。
+
+Round47最终协议验证通过：672pass/7842assertions、typecheck/lint及smoke10通过，候选61766e36、harness a0e0c742。现在执行新fresh todo：副本`bun e2e/run.ts run todo --bin=<copy>/project/dist/depa-codument --codex=/Users/kongweixian/.bun/bin/codex`，runner进度日志.tmp/round47-todo.log；保持三次outer及原hook预算。出现awaiting-ui时用新批次唯一Ego TaskSpace实测，不能伪造回执。R3与旧run不动。
+
+Round47：ce0f2cb检查点完成；精确context/身份handoff及SOP行为验证已实现。隔离副本新增聚焦9测试169assertions/typecheck通过；首次完整回归671pass/1fail（新增context的命令树快照未更新），已补快照。AT3 fresh review找到恢复规划未先传旧identity，已修复为模型前核验并原地修复。接下来在同隔离副本完整check、build及smoke，记录候选hash后fresh todo/stream，不覆盖R3或旧run。
+
 Round46分析观察：按用户要求只读分析五类E2E日志与旧/新runner，产出verification/terra-e2e-coding-capability-analysis.md并追加E310。结论不是“单global SkillApp导致模型变笨”：旧新oracle/model/workload不等价；真实可归因问题是plan→fresh impl没有稳定receipt/ID，impl-track用不含pending的默认list做候选发现，CommandOperation仍为长文SOP且缺机器execution packet，真实业务oracle又在末端。没有产品代码或/tmp改动。若进入修复，先把plan receipt→explicit resolve→impl ContextView→task external oracle做成公共可复用垂直切片；须由用户授权新candidate/新批次，不能恢复Round45耗尽run。
 
 Round45最终：Todo2 Yg2OnD/exec20069 attempt2已PASS/exit0（E308），七个正式root全部终态，无活跃业务worker；不再使用下文历史session恢复指令。UI controller42470已核对命令后终止，Ego TaskSpace3已finish一次且page关闭，不再复用或再次finish。最终报告verification/terra-e2e-round45.md及-results.json已汇总；首次1/7、累计最终2/7。原codument/、旧global codument及R3指纹不变，所有正式run auth/lock均不存在。49165制品服务保持，不停止。最终报告独立审计及preflight结果见E309。
@@ -414,6 +500,8 @@ Round42：仅更新MISSION/loop、追加E284并保存完整纠偏记录。没有
 Round41：5n3Hrk最终副本check通过645/7089/133files及typecheck/lint，真实CLI定向6/72；来源digest587a0ddc4b5444135d2dacc7c365090efbb4613c5c658d2797ddef191acb159a。历史声明策略、查询/strict notice和负例已验证；详见E283。没有待轮询进程。原codument/global指纹不变，实际App迁移仍review。
 
 ## Next
+
+Round47优先：closure候选新根运行stream-pipeline-ai-agent，无需浏览器，固定Terra/medium原预算；长命令日志.tmp/round47-stream-closure.log，出现run root即记录。原qUXNoE/aTb63U不恢复、不手修；浏览器任务等待安全恢复条件。保留所有历史终态，不把infra未验收计作PASS。成功后继续其余已授权用例和重复测量；失败先观察缺口，不放宽验收或轮数。
 
 Round45最终覆盖历史Next：当前六步有界测量批次已执行完且结果冻结；不要再启动Todo2/Stream2或恢复任何耗尽run。完整业务验收仍有差。下一决策是批准一个修复源码后重新冻结candidate/harness的新批次，保持现有hook和outer限额；优先计划ID交接、nested合同清晰度、实际UI/终端流式/同步异常判据及scope-bound hook receipt，详见最终报告。不能把临时业务应用手工修好算产品改进，不能为继续执行绕过block。原mission其它历史Next仍为长期待办，不是本批发布或安装授权。
 

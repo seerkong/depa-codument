@@ -84,6 +84,8 @@ export function createCodumentDomainCommands<R extends CodumentDomainCommandRunt
       group('task', task),
     ];
     if (kind === 'track') {
+      children.push(leaf('context', 'depa-codument track context <id> [--json]', 1,
+        async context => report(await owner(context).context(context.positional[0]))));
       children.push(leaf('ready', `${base} ready <id> [--json]`, 1, ready));
       children.push(leaf('verify', `${base} verify <id> [--fresh] [--json] -- <verification-command> [args...]`, 1,
         async context => report(await owner(context).verify({ track: context.positional[0], ...verification(context) })), true));

@@ -11,6 +11,27 @@ export function readAttractorProfileEnabled(source: string | undefined, name: st
   return readAttractorProfiles(source).find(profile => wordToString(profile.id) === name)?.attributes?.enabled === true;
 }
 
+/** Expose only referenced profiles; disabled profiles do not load their bodies. */
+export function readAttractorProfileReferences(source: string | undefined, names: readonly string[]) {
+  const profiles = readAttractorProfiles(source);
+  return [...new Set(names)].map(name => {
+    const profile = profiles.find(profile => wordToString(profile.id) === name);
+    if (!profile) return {profile: name, enabled: null, refs: [] as string[]};
+    const enabled = profile.attributes?.enabled === true;
+    const refs: string[] = [];
+    if (enabled) for (const container of orderedElementChildren(profile)) {
+      if (!isDataElement(container) || container.tag !== 'Attractors') continue;
+      for (const node of orderedElementChildren(container)) {
+        if (!isDataElement(node) || node.tag !== 'Attractor') continue;
+        const ref = node.attributes?.ref;
+        if (typeof ref !== 'string' || !ref.trim()) throw new Error(`Profile ${name} requires an explicit Attractor ref.`);
+        refs.push(ref);
+      }
+    }
+    return {profile: name, enabled, refs: [...new Set(refs)]};
+  });
+}
+
 function readAttractorProfiles(source: string | undefined): readonly DataElementNode[] {
   if (source === undefined) return [];
   const parsed = parseXnl(source, { textBlockStyle: true });

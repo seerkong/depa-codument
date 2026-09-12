@@ -48,6 +48,7 @@ describe('Codument lifecycle command compatibility boundary', () => {
       async syncArtifacts() { throw new Error('unexpected artifact sync'); },
       async archive() { throw new Error('unexpected archive'); },
       async ready(track: string) { return { track, ready: [] }; },
+      async context() { throw new Error('unexpected context'); },
       async verify() { throw new Error('unexpected verify'); }, async close() {},
     } };
     for (const kind of ['track', 'mission']) for (const name of [kind, kind[0].toUpperCase() + kind.slice(1)]) {
@@ -89,6 +90,14 @@ describe('Codument lifecycle command compatibility boundary', () => {
       expect(runtime.domain).toBeDefined();
       for (const key of ['serveProcess', 'httpFetch', 'httpServer', 'page', 'codex', 'browserProviderFor', 'resourceCatalog']) expect(runtime).not.toHaveProperty(key);
       await runtime.close?.();
+      const pendingContext = await invoke(root, ['track', 'context', 'example', '--json']);
+      expect(pendingContext.code).toBe(0);
+      const observed = JSON.parse(pendingContext.stdout);
+      expect(observed.identity.stage).toBe('pending');
+      expect(observed.identity.directory).toBe('codument/tracks/pending/example');
+      expect(observed.ready[0].id).toBe('T1');
+      expect(observed.contract.attributes.custom).toEqual({keep:[1,true,'中文']});
+      expect(await fs.readFile(path.join(pending, 'track.xnl'), 'utf8')).toBe(source);
       const moved = await invoke(root, ['track', 'transition', 'example', 'in_progress', '--json']);
       expect(moved.stderr).toBe('');
       expect(moved.code).toBe(0);
@@ -138,6 +147,16 @@ describe('Codument lifecycle command compatibility boundary', () => {
       const valid = await invoke(root, ['track', 'ready', 'example', '--json']);
       expect(valid.stderr).toBe('');
       expect(valid.code).toBe(0);
+      const withRef = profiles.replace('<Profile #project {enabled=true}>', '<Profile #project {enabled=true} (<Attractors [<Attractor {ref="codument/attractors/project.md"}>]>)>');
+      await fs.writeFile(file, withRef);
+      const context = await invoke(root, ['track', 'context', 'example', '--json']);
+      expect(context.code).toBe(0);
+      expect(JSON.parse(context.stdout).attractors).toEqual({ profilesObserved: true, references: [{profile:'project',enabled:true,refs:['codument/attractors/project.md']}] });
+      await fs.writeFile(file, withRef.replace('project.md', 'changed.md'));
+      const changedContext = await invoke(root, ['track', 'context', 'example', '--json']);
+      expect(changedContext.code).toBe(0);
+      expect(JSON.parse(changedContext.stdout).requiredSources).toContain('codument/attractors/changed.md');
+      expect(JSON.parse(changedContext.stdout).requiredSources).not.toContain('codument/attractors/project.md');
       await fs.writeFile(file, profiles.replace('#project', '#changed'));
       expect((await invoke(root, ['track', 'ready', 'example', '--json'])).code).toBe(1);
       await fs.writeFile(file, profiles.replace('specVersion=1', 'apiVersion="old" version="1"'));
@@ -145,9 +164,11 @@ describe('Codument lifecycle command compatibility boundary', () => {
       expect(old.code).toBe(1);
       expect(old.stdout).toBe('');
       expect(old.stderr).toContain('migration');
+      expect((await invoke(root, ['track', 'context', 'example', '--json'])).code).toBe(1);
       await fs.rm(file);
       await fs.symlink(path.join(directory, 'track.xnl'), file);
       expect((await invoke(root, ['track', 'ready', 'example', '--json'])).code).toBe(1);
+      expect((await invoke(root, ['track', 'context', 'example', '--json'])).code).toBe(1);
     } finally { await fs.rm(root, { recursive: true, force: true }); }
   }, 30_000);
 
