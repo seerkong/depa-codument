@@ -94,11 +94,13 @@ export function loadRun(root: string, candidate: string, caseId: string): Run {
   return { root, workspace:path.join(root,'workspace'), home:path.join(root,'home'), bin, env:isolatedEnvironment(root) };
 }
 /** macOS outer boundary also constrains verifier commands and Codex internal writes. */
-export function sandbox(run: Run, argv: string[], mode: boolean | 'setup' = false): string[] {
+export function sandbox(run: Run, argv: string[], mode: boolean | 'setup' | 'review' = false): string[] {
   if (process.platform !== 'darwin' || !fs.existsSync('/usr/bin/sandbox-exec')) throw new Error('Verified macOS sandbox required; no unsafe fallback');
   assertTemporary(run.root);
-  const writable = [run.workspace, path.join(run.home, 'cache'), path.join(run.home, 'tmp')];
-  if (mode === true) writable.push(path.join(run.home, '.codex'));
+  const writable = [path.join(run.home, 'cache'), path.join(run.home, 'tmp')];
+  if (mode !== 'review') writable.push(run.workspace);
+  const agent = mode === true || mode === 'review';
+  if (agent) writable.push(path.join(run.home, '.codex'));
   if (mode === 'setup') writable.push(run.home);
   const realHome = os.homedir();
   const runtimePaths = ['.bun/bin', '.bun/install/global/node_modules', '.local/bin', '.local/share/uv/python'].map(p => path.join(realHome,p));
@@ -107,7 +109,7 @@ export function sandbox(run: Run, argv: string[], mode: boolean | 'setup' = fals
     `(deny file-read* (subpath ${JSON.stringify(realHome)}))` +
     `(allow file-read-metadata (subpath ${JSON.stringify(realHome)}))` +
     `(allow file-read* ${runtimePaths.map(p => `(subpath ${JSON.stringify(p)})`).join(' ')})` +
-    (mode === true ? '' : `(deny file-read* (subpath ${JSON.stringify(path.join(run.home,'.codex'))}))`);
+    (agent ? '' : `(deny file-read* (subpath ${JSON.stringify(path.join(run.home,'.codex'))}))`);
   return ['/usr/bin/sandbox-exec', '-p', profile, ...argv];
 }
 export async function setup(run: Run, nested = false): Promise<void> {
@@ -144,7 +146,7 @@ export function removeAuthentication(run: Run): void {
   const auth = path.join(run.home, '.codex/auth.json');
   if (fs.existsSync(auth)) fs.unlinkSync(auth);
 }
-export function codexArgs(run: Run, codex: string, prompt: string, name: string): string[] {
+export function codexArgs(run: Run, codex: string, prompt: string, name: string, outputFile = path.join(run.workspace, `.e2e-${name}-last.md`)): string[] {
   return [codex, 'exec', '--ignore-user-config', '--ignore-rules', '--json',
     '-m', MODEL, '-c', `model_reasoning_effort="${EFFORT}"`,
     '-c', 'approval_policy="never"', '-c', 'sandbox_workspace_write.network_access=true',
@@ -152,7 +154,7 @@ export function codexArgs(run: Run, codex: string, prompt: string, name: string)
     '-c', 'shell_environment_policy.inherit="all"',
     // Seatbelt is already applied to the whole process tree; macOS rejects reapplying it.
     '--sandbox', 'danger-full-access', '-C', run.workspace, '--skip-git-repo-check',
-    '-o', path.join(run.workspace, `.e2e-${name}-last.md`), prompt];
+    '-o', outputFile, prompt];
 }
 export interface Usage { input: number; cached: number; output: number }
 export function readEvents(file: string): { usage: Usage | null; failed: boolean; completed: boolean; reconnects: string[]; threadId?: string; commands: string[]; executions: {command:string;exitCode:number|null}[] } {

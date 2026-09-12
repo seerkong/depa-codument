@@ -6,7 +6,7 @@ import { verifyHttp } from './http-verifier';
 import { verifyStream, prepareStreamDependencies } from './stream-verifier';
 import { verifyNested } from './nested-verifier';
 import { trackValidationSelection, validateArchivedKnowledge, assertPromotedKnowledge, assertPromotedBehaviors, exhaustedGapReason, resourceRoot } from './resource-oracle';
-import { assertFreshThread, checkRequirements, lockRun, sourceFingerprint, isFirstPass, isExecutedTestCommand } from './integrity';
+import { assertFreshThread, checkRequirements, lockRun, sourceFingerprint, isFirstPass, isExecutedTestCommand, assertReviewerSourceUnchanged, ReviewerInfrastructureFailure } from './integrity';
 import { awaitUiGate, BrowserInfrastructureFailure } from './ui-gate';
 import { preparePython, pythonRuntimeGuidance } from './python-runtime';
 import { applicationEnvironment } from './application-state';
@@ -14,6 +14,10 @@ import { observePlannedIdentities, reconcilePlannedIdentities, implementationHan
 
 const caseRoot = path.join(import.meta.dir, 'cases');
 class WorkflowBlocked extends Error {}
+export function isInfrastructureFailure(error: unknown): boolean {
+  return error instanceof BrowserInfrastructureFailure || error instanceof ReviewerInfrastructureFailure ||
+    String(error).includes('Harness unsupported:') || String(error).includes('Agent ') && String(error).includes('failed: exit=');
+}
 export function requireDeliveredImplementation(value: unknown): void {
   assert.ok(value && typeof value === 'object','Missing implementation outcome');
   const outcome = value as {status?:unknown;reason?:unknown};
@@ -34,12 +38,13 @@ export function requireNoExhaustedWorkflow(run: Run): void {
     if (reason) throw new WorkflowBlocked(reason);
   }
 }
-export async function agentTurn(run: Run, codex: string, prompt: string, name: string, timeoutMs: number, extraArgs: string[] = []) {
+export async function agentTurn(run: Run, codex: string, prompt: string, name: string, timeoutMs: number, extraArgs: string[] = [], access: 'write' | 'read-only' = 'write') {
   const log = path.join(run.root, `logs/${name}.jsonl`);
-  const args = codexArgs(run, codex, pythonRuntimeGuidance(run.env.UV_PYTHON) + prompt, name);
+  const outputFile = path.join(access === 'read-only' ? path.join(run.home, 'tmp') : run.workspace, `.e2e-${name}-last.md`);
+  const args = codexArgs(run, codex, pythonRuntimeGuidance(run.env.UV_PYTHON) + prompt, name, outputFile);
   args.splice(args.length - 1, 0, ...extraArgs);
   writeJson(path.join(run.root, `${name}-invocation.json`), { model: MODEL, effort: EFFORT, args, timeoutMs });
-  const result = await execute({ argv: sandbox(run, args, true), cwd: run.workspace, env: applicationEnvironment(run,`agent-${name}`), log, timeoutMs });
+  const result = await execute({ argv: sandbox(run, args, access === 'read-only' ? 'review' : true), cwd: run.workspace, env: applicationEnvironment(run,`agent-${name}`), log, timeoutMs });
   const events = readEvents(log);
   writeJson(path.join(run.root, `${name}-receipt.json`), { ...result, ...events });
   if (result.code || events.failed) throw new Error(`Agent ${name} failed: exit=${result.code}; see ${log}`);
@@ -49,7 +54,7 @@ export async function agentTurn(run: Run, codex: string, prompt: string, name: s
     return typeof receipt.threadId === 'string' ? [receipt.threadId] : [];
   });
   assertFreshThread(events.threadId,previousThreads);
-  return { ...result, ...events };
+  return { ...result, ...events, outputFile };
 }
 
 export function auditModels(run: Run) {
@@ -231,13 +236,13 @@ export async function runCase(candidate: string, codex: string, auth: string, ca
         writeJson(schema, { type: 'object', additionalProperties: false, properties: { verdict: { type: 'string', enum: ['PASS','FAIL'] }, findings: { type: 'array', items: { type: 'string' } }, checks: { type: 'array', items: { type: 'string' } } }, required: ['verdict','findings','checks'] });
         const sourceBeforeReview = sourceFingerprint(run);
         const reviewReceipt = await agentTurn(run, codex, basePrompt() +
-          'Keep temporary reviewer environments and diagnostic files under the isolated HOME/tmp, not inside the delivered workspace. Existing .e2e-venv may be used read-only. Changes to delivered dependencies/build outputs also count as source drift.\n' +
+          'The delivered workspace is OS-enforced read-only. Keep temporary reviewer environments and diagnostic files under isolated HOME/tmp. Existing .e2e-venv may be used read-only. Do not pip install the original source path: package builds write build/ and egg-info there even when the destination venv is elsewhere. If a clean package build is necessary, copy the exact delivered inputs into a temporary build directory, never repair that copy, and keep all build/install writes there. Test the original delivery whenever possible; identify any copied build and its original source in the evidence. Changes to delivered dependencies/build outputs also count as source drift.\n' +
           'You are a fresh independent acceptance reviewer, NOT the implementer. Read request.md, acceptance.md, actual source, Track and evidence. Run real checks yourself. Review completeness including functional browser UI, auth/ownership, domain and engineering alignment, configured hooks/gap-loop/fresh checks. Detect fake test scripts, hardcoded outputs, forged receipts, and missing functionality. Do not repair or change project source, requirements, reports or workflow state. Execute app tests directly; do not invoke track verify, task transitions or other commands that write workflow receipts. The implementation phase already owns those mandatory hooks; this outer review independently checks them without rewriting evidence. Give FAIL for any substantive gap; report exact paths and runnable evidence. Do not trust prior agent summaries. Return the specified JSON verdict.',
-        `review-${attempt}`, 1200_000, ['--output-schema', schema]);
+        `review-${attempt}`, 1200_000, ['--output-schema', schema], 'read-only');
         row.review = reviewReceipt;
-        assert.equal(sourceFingerprint(run),sourceBeforeReview,'Independent reviewer modified delivered source');
+        assertReviewerSourceUnchanged(sourceBeforeReview,sourceFingerprint(run));
         assert.ok(reviewReceipt.executions.some(e=>e.exitCode===0 && isExecutedTestCommand(e.command)),'Reviewer must execute a successful test/typecheck/build command; curl versions, source searches and prose are not execution evidence');
-        const review = JSON.parse(fs.readFileSync(path.join(run.workspace, `.e2e-review-${attempt}-last.md`), 'utf8'));
+        const review = JSON.parse(fs.readFileSync(reviewReceipt.outputFile, 'utf8'));
         assert.equal(review.verdict, 'PASS', `Independent review failed: ${JSON.stringify(review.findings)}`);
         assert.ok(review.checks.length > 0, 'Reviewer provided no execution evidence');
         if (!nested && !stream) {
@@ -261,7 +266,7 @@ export async function runCase(candidate: string, codex: string, auth: string, ca
           break;
         }
         // Authentication/model/transport failures are not business corrections.
-        if (error instanceof BrowserInfrastructureFailure || String(error).includes('Harness unsupported:') || String(error).includes('Agent ') && String(error).includes('failed: exit=')) {
+        if (isInfrastructureFailure(error)) {
           row.status = 'infrastructure-failed'; status = 'infrastructure-failed'; break;
         }
         feedback = `External acceptance found this failure; diagnose and fix the implementation, not the requirement or tests: ${String(error)}. Inspect your local test outputs and task evidence. Continue from the existing Track; do not fabricate receipts.`;

@@ -39,6 +39,11 @@ export function sourceFingerprint(run: Run): string {
   return createHash('sha256').update(rows.sort().join('\n')).digest('hex');
 }
 
+export class ReviewerInfrastructureFailure extends Error {}
+export function assertReviewerSourceUnchanged(before: string, after: string): void {
+  if (before !== after) throw new ReviewerInfrastructureFailure(`Independent reviewer modified delivered source: expected ${before}, observed ${after}`);
+}
+
 export function isFirstPass(attempts: Record<string,unknown>[]): boolean {
   return attempts.find(a=>a.attempt===0)?.status === 'passed';
 }

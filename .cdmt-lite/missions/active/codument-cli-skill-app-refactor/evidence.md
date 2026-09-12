@@ -1158,3 +1158,15 @@
 - 最后EOF读取修正后的完整check exit0：typecheck/lint及678pass、0fail、7878assertions、142files、122.18秒，T日志.tmp/round47-followup-final-check.log。独立前向情境涵盖613行只读260行、明确批准章节范围、缺失原始测试、批准取消、聊天输入及局部backlog，复检通过。
 - build156resources；最终closure候选SHA256 37eb59960d55aa3e6b6927861bd4e193198a33036a15f0bcae4acfafdb3b9db1；harness d8963ceafe72dcdc4f137fd6904b31e165c64c396d9be65beaddad420ed96f7c。kg6lrr无模型smoke十项PASS/modelCalls0。之前followup候选仅中间验证，不冒充最终源。
 - 显式Python交接、较长有界等待、原始需求对照三个源码节点据此done；业务交付率与成本改善仍未证明，继续新冻结候选真实测量。原失败、预算、候选保留；无global安装、原codument升级或发布。
+
+### E317 — closure试次暴露验收写边界缺口
+
+- 9JWDGk完成原始测试收集16项及bridge、fresh review返回PASS，但review运行pip install "$PWD"后交付hash从742e9122…变为a3130fa7…；现有guard拒绝，不能晋升PASS。未保存逐文件before清单，具体变化集合不能仅凭两hash确定；review的build步骤是明确可见污染路径。
+- 原runner错误把reviewer污染送入implementation1。父层观察后精确SIGTERM84459，22514退出；14857/14858也退出，复制auth不存在。原result终态infrastructure-failed，attempt0失败和attempt1中断原样保留；不恢复/重置。不把此trial当业务PASS，也不把验收者违规归为业务编码失败。
+- DEPA调和：交付source/build/dependencies是冻结输入authority，review只产出观察。新增显式只读执行权限、把review输出置于已有隔离tmp；保留hash守卫，污染归typed基础设施失败而非业务纠偏。不通过扩大忽略范围或降低验收解决。
+
+### E318 — 验收只读边界过线
+
+- 实际Seatbelt拒写src/build/node_modules/新增交付文件，允许home/tmp/cache/.codex；fake Codex通过实际agentTurn将最终输出写入home/tmp，交付hash不变。污染类型命中infra分支，普通缺失测试仍为业务失败。定向3tests/12assertions通过。
+- T最终完整check exit0：typecheck/lint及681pass/0fail/7891assertions/143files/115.30秒；ouOdBf smoke十项PASS/modelCalls0。日志.tmp/round47-review-isolation-{check,smoke}.log。harness4818dce278cf67b92d4a26cade4d6f7f7587e8d2bffad95fc364099e8d9e62f1，产品closure37eb5996未变。
+- 该源码节点done；真实E2E及等待协议实际经济性仍未完成。新fresh测量保持Terra/medium和原限额；旧污染试次不恢复、不追认。

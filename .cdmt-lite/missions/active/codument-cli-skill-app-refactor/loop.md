@@ -51,6 +51,16 @@ Round: 47
 - Done when: 分类正负例和fresh复核通过，真实工具故障完整保留。
 - Evidence: E313原故障保留；E314实际awaitUiGate deadline/坏JSON及receipt身份和产品失败分类负例、完整回归/fresh复核过线。仍无完整真实UI PASS。
 
+### 外层验收只读隔离与污染分类
+
+- Status: done
+- After: 浏览器基础设施失败分类
+- Covers: 期望-4, 期望-10, 约束-21
+- Verify: 实际sandbox拒写交付source/build/dependencies但允许隔离tmp与Codex运行状态；review输出不写交付目录；污染错误不进入implementation反馈；完整回归和无模型smoke。
+- Outcome: 验收者只能观察已交付authority；测试环境/输出有独立写入位置，不能把reviewer造成的变化当业务缺陷让实现者修复。
+- Done when: 只读边界正负例与新分类验证通过，不增加忽略目录、不豁免source fingerprint、不提升旧失败为PASS。
+- Evidence: E317保留9JWDGk污染原始记录；E318实际sandbox/fake agent负例、完整681tests/7891assertions及无模型smoke过线。真实新试次测量单独进行，不提升旧PASS。
+
 ### 显式交接隔离Python运行时
 
 - Status: done
@@ -444,6 +454,16 @@ Round: 47
 - 真实0.5.2/0.5.4/dogfood历史副本仍有未决语义，0.5.3本地tag缺失；当前候选产品版本仍0.1.0而非最终0.6.0。root发行切换、旧src退役、真实dogfood升级及最终all未做。原src中的用户修改保持，未触碰旧全局安装。
 
 ## Last action
+
+活动试次：Stream /private/tmp/depa-codument-e2e-Jd0Vqx，runner session86744，T日志.tmp/round47-stream-readonly.log。closure37eb5996/harness4818dce2冻结；不要重复启动。先收集真实终态、review只读路径和成本，再调和下一节点。
+
+最新已验证harness4818dce2，完整check681/7891/143files和ouOdBf smoke通过（E318）。准备在T启动新fresh Stream，`bun e2e/run.ts run stream-pipeline-ai-agent --bin=T/dist/depa-codument-r47-closure --codex=/Users/kongweixian/.bun/bin/codex > .tmp/round47-stream-readonly.log`，产品候选37eb5996不变；先记录run root/session，再观察。不得恢复9JWDGk/aTb63U或重置旧预算。
+
+只读修正最终完整check session98861尚在运行；smoke session75469已exit0，ouOdBf十项PASS/modelCalls0。新harness SHA4818dce278cf67b92d4a26cade4d6f7f7587e8d2bffad95fc364099e8d9e62f1，产品closure SHA37eb5996保持。先收集check，再新fresh测量；不把9JWDGk的review PASS改写为最终PASS。
+
+验收只读修正定向3tests/12assertions通过（真实Seatbelt拒写src/build/dependencies及fake agent执行，modelCalls0）。接下来T完整 `bun run check > .tmp/round47-review-isolation-check.log` 和 `bun e2e/run.ts smoke --bin=T/dist/depa-codument-r47-closure > .tmp/round47-review-isolation-smoke.log`；产品candidate不变，仅harness变更。完成后收集退出码/日志，再决定新fresh试次；旧9JWDGk不恢复。
+
+当前恢复点：9JWDGk已终态infrastructure-failed（runner22514退出）；review0口头PASS被原件hash守卫拒绝，implementation1被父层精确停止，auth清理且进程已退出。不恢复此run。先实施外层验收只读sandbox与typed污染分类；保留所有旧hash/result。源写C，测试T；新harness需重新完整验证和smoke。
 
 closure新试次已启动：/private/tmp/depa-codument-e2e-9JWDGk，runner session22514，日志T/.tmp/round47-stream-closure.log。不要重复启动；保留原预算和独立验收，读取该root的进度及最终result。
 
