@@ -1395,3 +1395,24 @@
 - TaskSpace1/p1实际注册ui-ngmiiy@example.test成功、创建带截止日期/标签的任务成功。标题输入HTML片段作为字面文本显示，evaluate观察images=0/injected=false。Edit返回Title prompt，已见具体弹窗；acceptDialog('Edited acceptance task')随后Runtime.evaluate timeout/false，info也同类超时，不能宣称编辑成功。
 - 实质不同恢复：Page.handleJavaScriptDialog({accept:false})返回No dialog is showing；Page.reload({ignoreCache:false})最终返回{}，但尚未观察恢复后的页面状态。按Skill已task.handOff成功，并请用户手动检查原空间/关闭弹窗后确认。没有新space、profile操作或finish，没有UI PASS receipt。Ego故障不能作为应用缺陷进入纠偏。
 - Blog 0D692O/session67010使用同冻结候选独立home，目前implementation0；Todo session98866仍等UI（既有15分钟截止），不是终态。用户确认续接先看actual result/进程/ownership，不能重启或重置已终止试次。整体暂blocked于浏览器控制输入，其余已完成结果保持。
+
+### E355 — 用户交还浏览器控制权，恢复下一独立用例
+
+- 用户观察不到阻塞痕迹并明确表示控制权已交还。按Ego规则takeOverTaskSpace(1)成功，ownership=agent，Todo页面snapshot可读；但实际page.fetch('/health')失败，说明此前终态试次的server54090已正确停止，历史DOM不是活服务。ngMIIY与0D692O result均为infrastructure-failed，不能事后写UI receipt或resume。
+- 这是浏览器控制可用性的实际变化，不是旧试次结果变化。loop恢复active；下一可做项为相同冻结候选的fresh Ecommerce，仍用TaskSpace1/p1且在controller请求后立即实际验收，保持原模型、轮数和隔离约束。
+
+### E356 — 用户将 UI 超时裁决权收回到测试套件
+
+- 用户明确指出：UI receipt 超时应修复测试套件，不应修改已经由 AI + depa-codument 生成的 E2E Todo/Blog 应用；随后要求“修改测试套件，来验收前面已经生成完毕的 Todo，Blog”。这改变的是验收控制面，不是业务应用的期望态。
+- 观察证据：`project/e2e/ui-gate.ts` 仅把裸 `ui-request-*.json` 轮询 15 分钟；`serveUi` 在没有 pending request 时仍可启动服务，且没有 request lease、health-ready transition、动作轨迹或 suite-owned receipt writer。Todo `ngMIIY` 与 Blog `0D692O` 已在此薄弱边界后以 `infrastructure-failed` 终态保存；它们的应用级 HTTP/独立审查证据不等于 UI PASS。
+- 决策：新增一个只属于 harness 的 UI controller state authority。run 拥有不可变 request 与历史 result；controller 拥有 lease/server-ready/action/terminal state；浏览器只提交带身份与动作证据的 command。已有 workspace 只以独立 `/tmp` 复验根被读取和启动，不能写回旧 run 或应用 source。旧 trial 状态不重分类，复验报告也不计入其历史首过/纠偏统计。
+- 约束：本批不启动模型、不会重跑 Ecommerce，也不改动 `/Users/kongweixian/infra-dev/depa-codument/codument/`、全局 Codument 或旧 global binary。先通过 Mission Lite active preflight，再写 `project/e2e`。
+
+### E357 — suite-owned UI 控制器与冻结 Todo/Blog 的追加式验收
+
+- `project/e2e/ui-gate.ts` 现在把 immutable request、controller transition history、lease、health-ready timestamp 与 typed receipt 分开：runner 只能创建 request；controller 只能在一个 pending request 上 lease、启动一个隔离 process group、通过 `/health` 后写 `server-ready`；browser operator 只能带 request identity + lease 提交终态 receipt。15 分钟 UI deadline 从 ready 而非 request creation 起计。无 request、错误 lease、错误 source/data identity、裸 receipt、启动失败和缺失 ready 均拒绝或记为 controller infrastructure，不反馈给业务实现。
+- `ui-reverify <historical-run-root>` 创建新的 `/private/tmp/depa-codument-e2e-*` root，记录历史 root/source fingerprint，指向旧 workspace 的只读 sandbox；它不复制或修改应用，不写历史 run。`report` 将 `kind: ui-reverification` 从历史业务分母和首过/纠偏率排除，并单列它。agent turn 退出不再靠字符串包含 `Agent ... failed` 误判基础设施：已完成的 agent failure 是业务纠偏，实际 execute transport 有单独类型。
+- 无模型验证：`bun test e2e` 35 pass / 219 assertions，`bun run lint`、`bunx tsc --noEmit`、`git diff --check` 全部通过。状态机真实 fixture 覆盖空 request 拒绝、health-ready、错误 lease 拒绝、passed transition、controller acquisition timeout、历史只读 root；report test 覆盖 reverify 不进入分母。
+- 实际 Todo 复验：新 suite copy `/tmp/depa-codument-ui-suite-MadLQi/project` 使用冻结二进制 `0c6ce11b…` 创建 `/private/tmp/depa-codument-e2e-0mGU8x`。TaskSpace1/p1 在 `http://127.0.0.1:49752` 实际注册、创建含 `<img src=x onerror=window.uiInjected=1>` 的任务（可见为字面文本）、四个 edit dialogs 更新、标签+截止日期过滤；state 为 requested → leased → server-ready → passed。原 `ngMIIY/result.json` 仍为 infrastructure-failed。
+- 实际 Blog 复验：同 copy/candidate 创建 `/private/tmp/depa-codument-e2e-JsiCh6`。TaskSpace1/p1 在 `http://127.0.0.1:50259` 实际注册 editor、创建包含同一字面 HTML 的 draft、编辑两字段、发布到 reader、tag/category filter；一次 `waitForSelector(text=Edited literal story)` 因 reader/workbench 同名而报告 locator ambiguity，但 filter click 已发生，随后 full-page snapshot 直接确认过滤结果，未重试盲操作。state 同样收敛到 passed。原 `0D692O/result.json` 仍为 infrastructure-failed。
+- 四 root report 的业务分母为 0、历史 infrastructure exclusion 为 2；Todo/Blog 的两条 `uiReverifications` 都 passed。该结论是“冻结交付的后置真实 UI 验收通过”，不是改写历史 trial、首次通过、成本或纠偏率。

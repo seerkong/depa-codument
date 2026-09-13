@@ -33,10 +33,11 @@ export function summarize(roots: string[]) {
     const measured = receipts.map(r => r.usage).filter((v): v is Usage => v !== null);
     const usage = measured.length ? measured.reduce((sum,u) => ({ input:sum.input+u.input, cached:sum.cached+u.cached, output:sum.output+u.output }), { input:0,cached:0,output:0 }) : null;
     const allSessions = sessionUsage(root);
-    return { root, caseId: result.caseId ?? provenance?.caseId, status: result.status, rawStatus, terminalPolicy, resumed: result.resumed === true, firstPass: result.firstPass ?? null, elapsedMs: result.elapsedMs ?? null, harness,workflowPolicy,gateCoverage,usage: allSessions.usage ?? usage, sessionAccounting: allSessions, topLevelUsage: usage, topLevelUsageComplete: receipts.length > 0 && measured.length === receipts.length, moneyCost: null };
+    return { root, kind: result.kind ?? provenance?.kind ?? 'business-trial', sourceRunRoot: result.sourceRunRoot ?? provenance?.sourceRunRoot ?? null, caseId: result.caseId ?? provenance?.caseId, status: result.status, rawStatus, terminalPolicy, resumed: result.resumed === true, firstPass: result.firstPass ?? null, elapsedMs: result.elapsedMs ?? null, harness,workflowPolicy,gateCoverage,usage: allSessions.usage ?? usage, sessionAccounting: allSessions, topLevelUsage: usage, topLevelUsageComplete: receipts.length > 0 && measured.length === receipts.length, moneyCost: null };
   });
   const businessCases = new Set(['todo','blog','ecommerce','stream-pipeline-ai-agent','nested-mission-agent']);
-  const business = rows.filter(r => businessCases.has(r.caseId) && !['infrastructure-failed','harness-invalid','incomplete'].includes(r.status));
+  const business = rows.filter(r => r.kind === 'business-trial' && businessCases.has(r.caseId) && !['infrastructure-failed','harness-invalid','incomplete'].includes(r.status));
+  const uiReverifications = rows.filter(r => r.kind === 'ui-reverification');
   const byCase = [...new Set(rows.map(r=>r.caseId).filter(Boolean))].map(caseId => {
     const cases = rows.filter(r=>r.caseId===caseId);
     const eligible = business.filter(r=>r.caseId===caseId);
@@ -47,7 +48,8 @@ export function summarize(roots: string[]) {
       knownUsage:measured.length ? measured.reduce((sum,r)=>({input:sum.input+r.usage!.input,cached:sum.cached+r.usage!.cached,output:sum.output+r.usage!.output}),{input:0,cached:0,output:0}) : null,
       unknownUsageRuns:cases.length-measured.length,includesExcludedTrialCosts:true};
   });
-  return { runs: rows, denominator: business.length, excludedInfrastructureOrIncomplete: rows.length-business.length,
+  return { runs: rows, denominator: business.length, excludedInfrastructureOrIncomplete: rows.filter(r => r.kind === 'business-trial').length-business.length,
+    uiReverifications: uiReverifications.map(r => ({ root:r.root, sourceRunRoot:r.sourceRunRoot, caseId:r.caseId, status:r.status, gateCoverage:r.gateCoverage })),
     byCase,
     firstPassRate: business.length ? business.filter(r => r.firstPass).length/business.length : null,
     correctedPassRate: business.length ? business.filter(r => r.status==='passed').length/business.length : null,

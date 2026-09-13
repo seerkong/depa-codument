@@ -1,7 +1,7 @@
 # Loop: Codument CLI Skill App 与可复用 Host 重构
 
-Status: blocked
-Round: 47
+Status: active
+Round: 48
 
 本轮模式：用户已授权检查点提交及依据E310自主优化。检查点ce0f2cb，author kongweixian <kong_weixian@163.com>。优先精确交接、只读执行上下文和前置真实行为验证；代码在原仓库，测试/构建在/tmp副本。Round45七个终态试次及限额保持，新候选使用fresh trials；不安装global或升级原dogfood。
 
@@ -122,6 +122,16 @@ Round: 47
 - Evidence: E313 qUXNoE为UI基础设施终态；aTb63U attempt0因缺必需测试failed，attempt1在gap_round5因原始B/C与三片段内容流测试缺口blocked。两次试次不重置；据此新增原始需求对照/等待/运行时交接源码修正，完整验证后用另一个新候选测量。
 - Latest evidence: E347最新ox1QMV首次PASS，E345旧Q按max5阻塞；成本/策略分组完整保留。E348浏览器恢复复查仍失败，缺UI覆盖不是非浏览器结果能替代。
 - Resume: 用户批准新空间，E352创建Ego TaskSpace1/p1且info成功；使用冻结候选fresh Todo/Blog/Ecommerce及Todo重复，不恢复/改判旧终态。
+
+### UI验收控制闭环与历史应用复验
+
+- Status: done
+- After: 优化候选真实测量
+- Covers: 期望-4, 期望-10, 约束-4, 约束-21
+- Verify: 无模型状态迁移与负例测试；隔离的控制器启动/健康检查/收据提交测试；以冻结的已生成 Todo、Blog 工作区作追加式 UI 复验，不修改其源码、历史 result、attempt 或成本记录。
+- Outcome: runner 是 UI 请求与最终试次结果的唯一 authority；UI controller 是 server 生命周期、lease、动作轨迹和收据的唯一 writer；浏览器操作只是带证据的 effect。业务应用不能写验收状态，且 UI 超时从 server-ready 而非裸 request 开始计时。
+- Done when: controller 拒绝无 request、错误 attempt/nonce、过期或不健康服务；真实 UI 的 passed/failed/infrastructure 三类收据有可追溯状态；Todo 与 Blog 的历史试次仍标 infrastructure-failed，同时具有独立、不可反写的复验结论。
+- Evidence: E356 记录用户对 authority 边界的纠正与本节点的重规划；E357 的无模型全 harness 35pass、Todo/Blog 冻结应用的独立真实浏览器复验和报告投影均通过。
 
 ### 显式展开适用吸引子引用
 
@@ -570,6 +580,9 @@ Round: 47
 
 ## Last action
 
+- E357：在 `/tmp/depa-codument-ui-suite-MadLQi/project` 的新 suite copy 上，使用冻结候选 `0c6ce11b…` 对既有 Todo `ngMIIY` 与 Blog `0D692O` 运行 `ui-reverify`。两个新 root 均按 `requested → leased → server-ready → passed` 收敛：Todo `/private/tmp/depa-codument-e2e-0mGU8x`，Blog `/private/tmp/depa-codument-e2e-JsiCh6`。同一 Ego TaskSpace1/p1 实际完成注册、创建、编辑、查询和字面输入渲染；Todo另验证日期/标签过滤，Blog另验证发布后 reader 过滤。旧 result 仍为 infrastructure-failed，且 reverify 只读指针/源指纹守卫通过。
+- E356：用户明确要求修复测试套件并验收既已生成的 Todo、Blog；不重跑模型、不断言历史基础设施失败已通过，也不改动其 delivered source、历史 result、attempt、usage 或工作流资产。此前 6vxlTT 是用户要求停止后的中断试次，不作为业务或基础设施结论的样本。
+- 当前动作已收口：project/e2e 的 suite-owned UI controller、typed receipt、historical reverify 与报表隔离已落地；全 E2E harness 无模型回归通过。后续只处理 mission 的其余长期真实测量/兼容节点，不把本批复验变成新模型业务试次或重分类历史结果。
 - E354浏览器交还用户：TaskSpace1/p1确认Title prompt时acceptDialog及随后info Runtime.evaluate超时；底层dismiss报No dialog，Page.reload返回{}但尚未确认恢复。task.handOff已成功，等待用户手动恢复确认；不得自行夺回控制/新建space。Todo ngMIIY/session98866在awaiting-ui attempt1，server session90410/PID99725/origin54090，尚无UI receipt，runner有15分钟自然截止；Blog0D692O/session67010仍在implementation0。恢复先观察两个result/进程状态，不resume/reset终态；若Todo仍等UI且用户确认，takeOverTaskSpace(1)后重新观察实际页。
 - 当前活动Blog：/private/tmp/depa-codument-e2e-0D692O/session67010，冻结i8oyvm候选，日志/private/tmp/depa-codument-verification-i8oyvm/blog-ego-upgraded.log。独立run/home，规划实施与Todo复检重叠，UI按到达顺序串行复用TaskSpace1/p1；不改变任一预算，不重复启动。
 - 当前活动Todo：/private/tmp/depa-codument-e2e-ngMIIY，runner session98866，日志/private/tmp/depa-codument-verification-i8oyvm/todo-ego-upgraded.log。E353首轮因合法绝对DATA_FILE被拒绝而失败，现implementation1。等待phase/终态或ui-request；TaskSpace1/p1可用。不得重新启动同一试次。
@@ -583,10 +596,9 @@ Round: 47
 
 ## Next
 
-1. E354已handOff TaskSpace1给用户，等待手动恢复确认；随后先检查Todo/Blog是否已终态及UI截止，不重启已有run。仅用户确认后takeOverTaskSpace(1)，在同一空间继续。Todo已通过外评但尚缺编辑/筛选UI，不能补造PASS；若已基础设施失败，保留终态。
-2. 浏览器可用后，按当前源码/候选身份核对启动fresh Todo、Blog、Ecommerce及Todo重复；旧UI失败试次封存，不用API/文本评审替代UI。全过程仍在/tmp与隔离home。
-3. 依据新终态追加成本及首次/最终率；不同策略/候选不当受控A/B，无新证据不声称稳定净token下降。
-4. 长期兼容、历史语义review及完整gates仍未收口；不自动退役旧src、切根发行、升级真实codument/、覆盖global旧bin或发布npm。
+1. Todo/Blog 的旧 result 继续是 infrastructure-failed；报告单列 historical UI re-verification，不把它们并入历史首次/纠偏通过率或伪造旧收据。不要重跑它们的模型生成阶段。
+2. 依据余下 mission 的真实测量节点，先观察既有 Stream/Nested/Ecommerce 证据与未完成兼容范围；不在本节点后擅自启动新模型 E2E。
+3. 长期兼容、历史语义 review 及完整 gates 仍未收口；不自动退役旧src、切根发行、升级真实 codument、覆盖 global 旧 bin 或发布 npm。
 
 ## Decisions and replans
 

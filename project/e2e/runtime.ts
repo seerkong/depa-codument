@@ -53,7 +53,7 @@ export async function execute(spec: Execution): Promise<ExecutionResult> {
   } finally { fs.closeSync(out); }
 }
 export interface Run {
-  root: string; workspace: string; home: string; bin: string; env: NodeJS.ProcessEnv;
+  root: string; workspace: string; home: string; bin: string; env: NodeJS.ProcessEnv; readonlyWorkspace?: boolean;
 }
 export function createRun(candidate: string, caseId: string): Run {
   if (!/^[a-z][a-z0-9-]*$/.test(caseId)) throw new Error('Invalid case ID');
@@ -91,14 +91,20 @@ export function loadRun(root: string, candidate: string, caseId: string): Run {
   if(provenance.caseId!==caseId || provenance.model!==MODEL || provenance.sha256!==sha(candidate)) throw new Error('Resume identity mismatch');
   const bin = path.join(root,'bin/depa-codument');
   if(sha(bin)!==provenance.sha256) throw new Error('Candidate drift');
-  return { root, workspace:path.join(root,'workspace'), home:path.join(root,'home'), bin, env:isolatedEnvironment(root) };
+  const reverify = provenance.kind === 'ui-reverification';
+  const workspace = reverify ? provenance.sourceWorkspace : path.join(root,'workspace');
+  if (reverify) {
+    if (typeof workspace !== 'string' || !path.isAbsolute(workspace) || !fs.existsSync(workspace)) throw new Error('Invalid historical UI re-verification workspace');
+    if (!/^\/(private\/)?tmp\/depa-codument-e2e-[^/]+\/workspace$/.test(fs.realpathSync(workspace))) throw new Error('Unsafe historical UI re-verification workspace');
+  }
+  return { root, workspace, home:path.join(root,'home'), bin, env:isolatedEnvironment(root), readonlyWorkspace: reverify };
 }
 /** macOS outer boundary also constrains verifier commands and Codex internal writes. */
 export function sandbox(run: Run, argv: string[], mode: boolean | 'setup' | 'review' = false): string[] {
   if (process.platform !== 'darwin' || !fs.existsSync('/usr/bin/sandbox-exec')) throw new Error('Verified macOS sandbox required; no unsafe fallback');
   assertTemporary(run.root);
   const writable = [path.join(run.home, 'cache'), path.join(run.home, 'tmp')];
-  if (mode !== 'review') writable.push(run.workspace);
+  if (mode !== 'review' && !run.readonlyWorkspace) writable.push(run.workspace);
   const agent = mode === true || mode === 'review';
   if (agent) writable.push(path.join(run.home, '.codex'));
   if (mode === 'setup') writable.push(run.home);

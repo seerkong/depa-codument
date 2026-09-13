@@ -16,9 +16,12 @@ import { WORKFLOW_POLICY, workflowPolicyGuidance, assertWorkflowPolicySnapshot, 
 
 const caseRoot = path.join(import.meta.dir, 'cases');
 class WorkflowBlocked extends Error {}
+/** A completed agent turn can report a business defect; transport failures need a distinct type. */
+export class AgentTurnFailure extends Error {}
+export class AgentTransportFailure extends Error {}
 export function isInfrastructureFailure(error: unknown): boolean {
   return error instanceof BrowserInfrastructureFailure || error instanceof ReviewerInfrastructureFailure ||
-    String(error).includes('Harness unsupported:') || String(error).includes('Agent ') && String(error).includes('failed: exit=');
+    error instanceof AgentTransportFailure || String(error).includes('Harness unsupported:');
 }
 export function requireIndependentReview(review: unknown, executions: readonly CommandExecution[]): void {
   const value = review as {verdict?: unknown; findings?: unknown; checks?: unknown} | null;
@@ -58,13 +61,18 @@ export async function agentTurn(run: Run, codex: string, prompt: string, name: s
   const args = codexArgs(run, codex, guidance + prompt, name, outputFile);
   args.splice(args.length - 1, 0, ...extraArgs);
   writeJson(path.join(run.root, `${name}-invocation.json`), { model: MODEL, effort: EFFORT, args, timeoutMs });
-  const result = await execute({ argv: sandbox(run, args, access === 'read-only' ? 'review' : true), cwd: run.workspace, env: applicationEnvironment(run,`agent-${name}`), log, timeoutMs });
+  let result;
+  try {
+    result = await execute({ argv: sandbox(run, args, access === 'read-only' ? 'review' : true), cwd: run.workspace, env: applicationEnvironment(run,`agent-${name}`), log, timeoutMs });
+  } catch (error) {
+    throw new AgentTransportFailure(`Agent ${name} transport failed before a completed turn: ${String(error)}`);
+  }
   const events = readEvents(log);
   const nativeExecutions = readNativeExecutions(run, events.threadId);
   const executionSource = nativeExecutions.length ? 'native-session' : 'cli-events';
   if (nativeExecutions.length) events.executions = nativeExecutions;
   writeJson(path.join(run.root, `${name}-receipt.json`), { ...result, ...events, executionSource });
-  if (result.code || events.failed) throw new Error(`Agent ${name} failed: exit=${result.code}; see ${log}`);
+  if (result.code || events.failed) throw new AgentTurnFailure(`Agent ${name} failed: exit=${result.code}; see ${log}`);
   const previousThreads = fs.readdirSync(run.root).filter(f => f.endsWith('-receipt.json') && f !== `${name}-receipt.json`).flatMap(name => {
     const f = path.join(run.root,name);
     const receipt = JSON.parse(fs.readFileSync(f,'utf8'));

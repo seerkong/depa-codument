@@ -165,9 +165,11 @@ test('rates exclude infrastructure explicitly and never turn unknown usage into 
     make({caseId:'todo', status:'passed',firstPass:false}),
     make({caseId:'todo', status:'failed',firstPass:false}),
     make({caseId:'todo', status:'infrastructure-failed'}),
+    make({caseId:'todo', status:'passed',kind:'ui-reverification',sourceRunRoot:'/private/tmp/depa-codument-e2e-historical'}),
   ]);
   expect(result.denominator).toBe(3);
   expect(result.excludedInfrastructureOrIncomplete).toBe(1);
+  expect(result.uiReverifications).toEqual([expect.objectContaining({caseId:'todo',status:'passed',sourceRunRoot:'/private/tmp/depa-codument-e2e-historical'})]);
   expect(result.firstPassRate).toBe(1/3);
   expect(result.correctedPassRate).toBe(2/3);
   expect(result.runs.every(r=>r.usage===null && r.moneyCost===null)).toBe(true);
