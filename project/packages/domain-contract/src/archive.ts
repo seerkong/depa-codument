@@ -24,7 +24,7 @@ export interface ArchiveSourceSnapshot {
    * guards all binary/unknown files while moving the complete directory. */
   readonly processSources: ReadonlyMap<string, string>;
   readonly registries: Readonly<Record<ArchiveRegistry, ReadonlyMap<string, string>>>;
-  readonly configs: {readonly profiles?: string; readonly modeling?: string; readonly engineering?: string};
+  readonly configs: {readonly profiles?: string};
   readonly linkedTracks: readonly ArchiveTrackObservation[];
   readonly nowIso: string;
   readonly calendar: ArchiveCalendar;

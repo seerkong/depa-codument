@@ -1,6 +1,6 @@
 ---
 name: codument
-description: 在当前项目的 codument/ workspace 中讨论、规划、执行和验证规格驱动的软件变更，并维护行为、决策与工程知识。已有具体 Codument 操作 Skill 时按该操作路由执行。
+description: 在当前项目的 codument/ workspace 中讨论、规划、执行和验证规格驱动的软件变更，并维护 track、mission、decision 与 memory 资源。已有具体 Codument 操作 Skill 时按该操作路由执行。
 ---
 
 # Codument workspace App

@@ -14,7 +14,7 @@ description: 当前项目的 Codument 迭代资产 SkillApp；操作指导由全
 
 # 项目资产
 
-本目录 manifest.xnl 声明项目正式资源；@/ 表示项目根。Track、Mission、行为、决策、配置与知识属于本项目。
+本目录 manifest.xnl 声明项目正式资源；@/ 表示项目根。Track、Mission、Decision、Memory 与配置属于本项目。
 加载全局 depa-codument Skill，调用其顶层 CommandOperation 获得操作指导；references/std/ 属于全局 Skill，不在本目录维护第二份。
 Kind 由产品包内置；不复制 KindDefinitions，不删除 Hook、GapLoop、AttractorCheck 或 fresh verify。
 `;
