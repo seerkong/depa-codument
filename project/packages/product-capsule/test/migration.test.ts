@@ -44,11 +44,6 @@ test('semantic and source-contract failures leave the old resource intact with r
   expect(semantics.status).toBe('review-required');
   expect(semantics.diagnostics.join('\n')).toMatch(/TaskSpace|Ports|BehaviorPatch/u);
   expect(await fs.readFile(join(root, lifecycle), 'utf8')).toBe(old);
-  const config = 'codument/config/modeling.xnl';
-  await put(config, '<ModelingConfig #modeling apiVersion="codument.tech/v1alpha1" {enabled="false"}>');
-  const structural = await migration.upgrade(config);
-  expect(structural.status).toBe('review-required');
-  expect(structural.diagnostics.join('\n')).toMatch(/boolean/u);
 }));
 
 test('knowledge and Decision validation sees peer resources, not only a parseable changed header', () => fixture(async (root, put) => {

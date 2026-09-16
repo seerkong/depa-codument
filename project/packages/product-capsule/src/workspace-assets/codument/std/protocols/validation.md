@@ -8,7 +8,7 @@ Run the configured automatic checks first, present their evidence, then yield fo
 
 ## GapLoop
 
-The parent coordinator owns rounds. Each round uses a fresh child context to compare the selected scope with proposal, design, behavior deltas and Acceptance, write a report, apply in-scope repairs when possible, and return:
+The parent coordinator owns rounds. Each round uses a fresh child context to compare the selected scope with proposal, design and Acceptance, write a report, apply in-scope repairs when possible, and return:
 
 ```text
 status: NO_GAP | FIX_APPLIED | BLOCKED

@@ -21,6 +21,18 @@ test('controller infrastructure failure stops acceptance without granting PASS o
   expect(() => validateUiReceipt(productFailure, expected)).not.toThrow(BrowserInfrastructureFailure);
 });
 
+test('opencli browser evidence is accepted when it carries a named session and full typed actions', () => {
+  const expected = {caseId:'todo',attempt:0,sourceFingerprint:'sha',dataDirectory:'/private/tmp/ui',leaseId:'lease'};
+  const origin = 'http://127.0.0.1:1';
+  const receipt = {...expected,browser:'opencli',session:'todo-e2e-ui',status:'passed',findings:[],actions:actions(origin)};
+  expect(() => validateUiReceipt(receipt, expected)).not.toThrow();
+  // The named session is required: a browser identity with no handle is rejected.
+  expect(() => validateUiReceipt({...receipt,session:''}, expected)).toThrow(BrowserInfrastructureFailure);
+  // The 5 coverage kinds are still enforced, regardless of browser.
+  const partial = {...receipt,actions:actions(origin)?.slice(0,2)};
+  expect(() => validateUiReceipt(partial, expected)).toThrow(BrowserInfrastructureFailure);
+});
+
 test('runner request has no lease or receipt authority and controller refuses no request', async () => {
   const run = createRun(process.execPath, 'todo');
   try {
@@ -68,6 +80,27 @@ test('unleased controller timeout is infrastructure without a business correctio
     try { await expect(awaitUiGate(run,'todo',0,'sha')).rejects.toThrow('did not lease and start'); }
     finally { clock.mockRestore(); }
   } finally { fs.rmSync(run.root,{recursive:true,force:true}); }
+});
+
+test('server-ready without a browser operator fails fast as infrastructure', async () => {
+  const run = createRun(process.execPath, 'todo');
+  const previous = process.env.E2E_UI_OPERATOR_ATTACH_MS;
+  process.env.E2E_UI_OPERATOR_ATTACH_MS = '0';
+  try {
+    fs.writeFileSync(path.join(run.workspace, 'e2e-server.json'), JSON.stringify({command:[process.execPath, '-e', "require('node:http').createServer((q,s)=>s.end(q.url==='/health'?'ok':'app')).listen(process.env.PORT,'127.0.0.1')"]}));
+    const fingerprint = sourceFingerprint(run);
+    const gate = awaitUiGate(run, 'todo', 0, fingerprint);
+    const controller = serveUi(run.root, process.execPath);
+    try {
+      await expect(gate).rejects.toThrow('No browser operator attached after server-ready');
+    } finally {
+      await controller.catch(() => {});
+    }
+  } finally {
+    if (previous === undefined) delete process.env.E2E_UI_OPERATOR_ATTACH_MS;
+    else process.env.E2E_UI_OPERATOR_ATTACH_MS = previous;
+    fs.rmSync(run.root,{recursive:true,force:true});
+  }
 });
 
 test('historical Todo re-verification creates an additive read-only controller root', () => {

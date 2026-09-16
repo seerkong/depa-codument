@@ -13,7 +13,6 @@ const track = `<Track #example ${legacy} {status="in_progress" goal="Validate" d
 <Ports {scope="track"} [<MaterialBundle {name="outputs" role="output" domain="docs" path="vfs://./docs/"}>]>
 <TaskSpace #TS (<SubNodes [<TaskGroup #G1 {status="ACTIVE" child_mode="sequential"} (<SubNodes [<Task #T1 {status="DONE"} (<Acceptance [<Criterion #C1 {checked=true} ?>Check.</?>]>)>]>)>]>)>
 <Schedule []><Hooks [<Hook {on="track:after"} [<AttractorCheck {use="custom"}> <GapLoop {max_rounds=3}>]>]>)>`;
-const patch = `<BehaviorPatch #track.example.behavior_patch.cli ${legacy} {capability="cli"} (<Mutations [<Delete {selector="behavior://cli/requirements/old"}>]>)>`;
 async function fixture(run: (root: string, put: (file: string, source: string) => Promise<void>) => Promise<void>) {
   const root = await fs.realpath(await fs.mkdtemp(join(tmpdir(), 'codument-workspace-migration-product-')));
   const put = async (file: string, source: string) => {await fs.mkdir(dirname(join(root, file)), {recursive: true}); await fs.writeFile(join(root, file), source);};
@@ -23,7 +22,6 @@ async function fixture(run: (root: string, put: (file: string, source: string) =
 test('whole legacy App upgrades mutually dependent Track and Patch together via real compiler and complete semantic validation', () => fixture(async (root, put) => {
   const owner = 'codument/tracks/active/example';
   await put(owner + '/track.xnl', track);
-  await put(owner + '/behavior_deltas/cli.xnl', patch);
   await put(owner + '/proposal.md', '# User proposal'); await put(owner + '/design.md', '# User design');
   const profiles = `<AttractorProfiles #profiles ${legacy} (<Profiles [<Profile #custom {enabled=true}>]>)>`;
   await put('codument/config/attractor-profiles.xnl', profiles);
@@ -93,28 +91,18 @@ test('intermediate global URI layout upgrades to canonical methods without resto
   for (const file of definition.appFiles) await put('codument/'+file.path,file.source);
   const file = 'codument/config/attractor-profiles.xnl';
   const broken = (await fs.readFile(join(root,file),'utf8'))
-    .replace('references/std/methods/modeling-fractal.md','references/std/skill/docs-modeling-fractal/index.md#overview')
-    .replace('references/std/methods/engineering-fractal.md','references/std/skill/docs-engineering-fractal/index.md')
-    .replace('编码方向（DEPA 标准架构吸引子 + 项目工程约束）','Example (skill://depa-codument/references/std/skill/docs-modeling-fractal/index.md#overview). Keep xskill://depa-codument/std/not-a-uri.md');
+    .replace('references/std/protocols/operation-authoring.md','references/std/operations/_operation-spec.md')
+    .replace('编码方向（DEPA 标准架构吸引子 + 项目工程约束）','Example (skill://depa-codument/references/std/operations/_operation-spec.md). Keep xskill://depa-codument/std/not-a-uri.md');
   await put(file,broken);
   const result = await createCodumentWorkspaceMigrator(root).upgrade();
   expect(result.status,result.diagnostics.join('\n')).toBe('applied');
   const actual = await fs.readFile(join(root,file),'utf8');
   expect(actual).not.toContain('std/skill/');
-  expect(actual).toContain('references/std/methods/modeling-fractal.md#overview');
-  expect(actual).toContain('(skill://depa-codument/references/std/methods/modeling-fractal.md#overview).');
+  expect(actual).toContain('references/std/protocols/operation-authoring.md');
+  expect(actual).toContain('(skill://depa-codument/references/std/protocols/operation-authoring.md).');
   expect(actual).toContain('xskill://depa-codument/std/not-a-uri.md');
   expect(await fs.readFile(join(result.backupPath!,'config/attractor-profiles.xnl'),'utf8')).toBe(broken);
   expect((await createCodumentWorkspaceMigrator(root).upgrade()).status).toBe('noop');
-}));
-
-test('full semantic validation rejects invalid migrated knowledge even though all headers and App membership are current', () => fixture(async (root, put) => {
-  await put('codument/modeling/domain/sales.xnl', '<object #domain.sales.order kind="entity">');
-  const result = await createCodumentWorkspaceMigrator(root).upgrade();
-  expect(result.status).toBe('review-required');
-  expect(result.diagnostics.join('\n')).toMatch(/types|fact_grade|single_writer/u);
-  expect(await fs.readFile(join(root, 'codument/modeling/domain/sales.xnl'), 'utf8')).toBe('<object #domain.sales.order kind="entity">');
-  expect(await fs.stat(join(root, 'codument/modeling/domain/sales/index.xnl')).catch(() => undefined)).toBeUndefined();
 }));
 
 test('current authored App membership and non-Codument mixed resources are not replaced by installer defaults', () => fixture(async (root, put) => {
@@ -155,7 +143,6 @@ test('old flat and archive lifecycle directories relocate with all attachments; 
   ]) await fixture(async (root, put) => {
     const source = track.replace('status="in_progress"', 'status="completed"').replace('status="ACTIVE"', 'status="DONE"').replace('<Hooks [<Hook {on="track:after"} [<AttractorCheck {use="custom"}> <GapLoop {max_rounds=3}>]>]>', '<Hooks []>');
     await put(from + '/track.xnl', source); await put(from + '/proposal.md', '# Proposal'); await put(from + '/design.md', '# Design');
-    await put(from + '/behavior_deltas/cli.xnl', patch);
     await fs.writeFile(join(root, from, 'attachment.bin'), Buffer.from([0xff, 0, 0xfe]));
     const result = await createCodumentWorkspaceMigrator(root).upgrade();
     expect(result.diagnostics.filter(message => !/registry is empty|no 'global' plane/u.test(message))).toEqual([]);

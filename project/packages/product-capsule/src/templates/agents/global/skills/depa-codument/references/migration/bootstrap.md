@@ -23,7 +23,7 @@
 
 ## 验证边界
 
-按实际存在的领域运行 `depa-codument validate --strict`、`depa-codument decisions validate <owner-or-directory>`、`depa-codument modeling validate <directory>`、`depa-codument engineering validate <directory>`。原始 Markdown 的完整性比较和 Agent 的语义判断是独立要求，不可由 CLI PASS 代替。未配置的检查不凭空添加；已有 GapLoop/Hook/AttractorCheck/fresh verify/人工 gate 不删、不缓存为通用 PASS。
+按实际存在的领域运行 `depa-codument validate --strict` 与 `depa-codument decisions validate <owner-or-directory>`。已废弃的旧域 registry 不经当前 validate 验收：先按 `upgrade-resource` / `upgrade-workspace` 迁移并处理 `review-required`。原始 Markdown 的完整性比较和 Agent 的语义判断是独立要求，不可由 CLI PASS 代替。未配置的检查不凭空添加；已有 GapLoop/Hook/AttractorCheck/fresh verify/人工 gate 不删、不缓存为通用 PASS。
 
 当前版本强制保留备份：`upgrade-track --no-backup` 明确拒绝；`--backup-dir` 只接受 workspace 内、codument/ 外的位置。两个目录 rename 是带 ledger/guard 的可恢复事务，不是跨文件 OS 原子交换。独立编辑导致恢复不确定时保留两侧材料并停止该写入，不覆盖别人的变更。
 

@@ -56,7 +56,27 @@ describe('PascalCase Kind-native resource CLI', () => {
   test('lists, details and validates declarative and executable Kinds from XNL authority', async () => {
     const runtime = createCommandRuntime(await fixture());
     const pages = await dispatchCommand(['Page', 'list'], runtime, true);
-    expect(pages.data).toMatchObject({ command: 'Page.list', count: 1 });
+    expect(pages.data).toMatchObject({
+      command: 'Page.list', count: 1,
+      pages: [{
+        fqn: 'Test.Page.Hello',
+        detailPath: expect.stringMatching(/\.agents\/skills\/demo\/pages\/hello\/manifest\.xnl$/),
+      }],
+    });
+    const page = await dispatchCommand(['Page', 'detail', '--fqn', 'Test.Page.Hello'], runtime, true);
+    expect(page.data).toMatchObject({
+      kind: 'Page',
+      resource: {
+        detailPath: expect.stringMatching(/\.agents\/skills\/demo\/pages\/hello\/manifest\.xnl$/),
+        xnl: expect.stringContaining('<Page #Test.Page.Hello'),
+        presentation: {
+          version: 'local-xnl-vfs-projection/v1',
+          contentDigest: expect.stringMatching(/^sha256:/),
+          readCoverage: 'full-file',
+          returnedBytes: expect.any(Number),
+        },
+      },
+    });
     const sop = await dispatchCommand(['SOP', 'detail', '--fqn', 'Test.SOP.Hello'], runtime, true);
     expect(sop.data).toMatchObject({ kind: 'SOP', resource: { fqn: 'Test.SOP.Hello', logicalPath: expect.stringMatching(/^SOP\//) } });
     const locals = await dispatchCommand(['LocalFunction', 'list'], runtime, true);

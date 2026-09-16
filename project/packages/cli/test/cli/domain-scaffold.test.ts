@@ -30,16 +30,7 @@ it('actual creation commands publish only codument resource skeletons with alias
       expect((await invoke(root, [command, 'create', id, '--stage', stage, '--json'])).code).toBe(1);
       expect(await fs.readFile(file, 'utf8')).toBe(source);
     }
-    const patch = await invoke(root, ['behavior-patch', 'create', 'pending-track', 'auth.login']);
-    expect(patch.stderr).toBe(''); expect(patch.code).toBe(0);
-    expect(patch.stdout).toContain("BehaviorPatch 'auth.login' created for Track 'pending-track'");
-    expect(patch.stdout).toContain('  specVersion: 1');
-    const alias = await invoke(root, ['BehaviorPatch', 'create', 'active-track', 'api', '--json']);
-    expect(alias.code).toBe(0); expect(JSON.parse(alias.stdout).files).toEqual(['delta.xnl']);
-    const source = await fs.readFile(path.join(root, 'codument/tracks/pending/pending-track/behavior_deltas/auth.login/delta.xnl'), 'utf8');
-    expect(source).toContain('#track.pending-track.behavior_patch.auth.login');
-    expect(source).toContain('<Mutations []>');
-    for (const args of [['track', 'create', '../outside', '--stage', 'pending'], ['track', 'create', 'valid'], ['mission', 'create', 'valid', '--stage', 'archived'], ['behavior-patch', 'create', 'pending-track', '../outside']]) {
+    for (const args of [['track', 'create', '../outside', '--stage', 'pending'], ['track', 'create', 'valid'], ['mission', 'create', 'valid', '--stage', 'archived']]) {
       const invalid = await invoke(root, [...args, '--json']); expect(invalid.code).toBe(1); expect(invalid.stdout).toBe('');
     }
     await fs.rm(path.join(root, 'codument/config/attractor-profiles.xnl'));

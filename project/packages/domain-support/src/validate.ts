@@ -72,8 +72,7 @@ export function createFileDomainValidationSourcePort(workspaceRoot: string,
       const working = directory + '/analysis/decision-tree.xnl';
       try { if (await workspace.kind(working) !== undefined) decisionForests.push(new Map([[working, await read(working)]])); }
       catch (error) { issue(output, working, error); }
-      const patches = kind === 'Track' ? await forest(directory + '/behavior_deltas', output, true) : new Map<string, string>();
-      units.push({ kind, id, file, directory, source, missingFiles, patches, decisionForests, findings: output });
+      units.push({ kind, id, file, directory, source, missingFiles, decisionForests, findings: output });
     }
     async function processes(kind: 'Track' | 'Mission', directory: string): Promise<void> {
       try {
@@ -94,18 +93,8 @@ export function createFileDomainValidationSourcePort(workspaceRoot: string,
       issue(findings, 'codument/tracks/' + target, 'Requested archived Track was not found.', 'track.missing');
     }
     for (const stage of ['pending', 'active', 'archived']) await processes('Mission', 'codument/missions/' + stage);
-    const behaviorFindings: DomainValidationFinding[] = [];
-    for (const [file, source] of await forest('codument/behaviors', behaviorFindings, true)) {
-      const id = file.slice('codument/behaviors/'.length, -4);
-      if (selected(id)) units.push({ kind: 'Behavior', id, file, directory: path.posix.dirname(file), source, missingFiles: [], patches: new Map(), decisionForests: [], findings: [] });
-    }
-    findings.push(...behaviorFindings.filter(finding => {
-      if (!target || target === 'all') return true;
-      const base = 'codument/behaviors/' + target;
-      return finding.file === base || finding.file.startsWith(base + '.') || finding.file.startsWith(base + '/') || base.startsWith(finding.file + '/');
-    }));
     let profiles: string | undefined;
-    if (units.some(unit => unit.kind !== 'Behavior')) {
+    if (units.length) {
       try { profiles = await readAttractorProfilesSource(root); }
       catch (error) { issue(findings, 'codument/config/attractor-profiles.xnl', error, 'attractor.config'); }
     }

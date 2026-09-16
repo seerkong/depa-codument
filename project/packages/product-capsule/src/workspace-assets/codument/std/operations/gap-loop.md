@@ -10,7 +10,7 @@ GapLoop 让父层编排器控制轮次，每轮由 fresh 子代理独立比较�
 
 ## 输入与目标态
 
-Track/phase scope 读取 `track.xnl`、proposal、design、behavior deltas、Acceptance、相关代码测试和上一轮报告。Mission scope读取 `mission.xnl`、proposal、design、reports、ProjectRef binding 及 bound Track 的真实 authority。
+Track/phase scope 读取 `track.xnl`、proposal、design、Acceptance、相关代码测试和上一轮报告。Mission scope读取 `mission.xnl`、proposal、design、reports、ProjectRef binding 及 bound Track 的真实 authority。
 
 目标态来自这些 authority 的共同约束。实现、测试、reports 和 linked resource 是实际态。冲突时先报告 authority 冲突，不凭上下文猜测目标。
 

@@ -18,9 +18,9 @@ describe('Host resource contract composition root', () => {
     const second = createHostResourceContractRuntime();
 
     expect(HOST_KIND_CONTRACT_DESCRIPTORS).toHaveLength(18);
-    expect(first.readerProfile.readers.size).toBe(29);
-    expect(first.contractLock.readers).toHaveLength(29);
-    for (const kind of ['AttractorProfiles', 'Behavior', 'BehaviorPatch', 'decision', 'EngineeringConfig', 'Mission', 'ModelingConfig', 'OperationHooks', 'Track', 'ModelingRegistry', 'EngineeringRegistry']) {
+    expect(first.readerProfile.readers.size).toBe(23);
+    expect(first.contractLock.readers).toHaveLength(23);
+    for (const kind of ['AttractorProfiles', 'decision', 'Mission', 'OperationHooks', 'Track']) {
       expect(first.readerProfile.readerFor(`codument.resource_kind.${kind}`).readerId).toBe(`codument.${kind}.reader/v1`);
     }
     expect(first.contractLock.lockDigest).toBe(second.contractLock.lockDigest);

@@ -1,4 +1,3 @@
-import type { KnowledgeFamily } from './knowledge';
 import type { LifecycleKind } from './lifecycle';
 import type { OwnedLifecycleSnapshot } from './operations';
 
@@ -8,8 +7,6 @@ export interface ArchiveRequest {
   readonly kind: LifecycleKind;
   readonly id: string;
   readonly yes?: boolean;
-  /** Historical flag: skips only behavior/spec promotion. */
-  readonly skipSpecs?: boolean;
 }
 export interface ArchiveTrackSelector {
   readonly trackId: string;
@@ -19,7 +16,7 @@ export interface ArchiveTrackSelector {
 export interface ArchiveTrackObservation extends ArchiveTrackSelector {
   readonly stage: 'pending' | 'active' | 'archived' | 'missing' | 'unbound';
 }
-export type ArchiveRegistry = 'behaviors' | 'modeling' | 'engineering' | 'decisions' | 'memory';
+export type ArchiveRegistry = 'decisions' | 'memory';
 export interface ArchiveSourceSnapshot {
   readonly request: ArchiveRequest;
   readonly process: OwnedLifecycleSnapshot;
@@ -40,9 +37,7 @@ export interface ArchivePublication {
   /** Only the lifecycle root and derived summary may change in the moved tree. */
   readonly processUpdates: ReadonlyMap<string, string>;
   readonly warnings: readonly string[];
-  readonly behaviorCapabilities: readonly string[];
   readonly promotedMemory: readonly string[];
-  readonly baselines: readonly {readonly family: KnowledgeFamily; readonly commit: string; readonly blobIds: ReadonlyMap<string, string>}[];
 }
 export interface ArchiveReceipt {
   readonly kind: LifecycleKind;
@@ -51,7 +46,6 @@ export interface ArchiveReceipt {
   readonly updated: Readonly<Partial<Record<ArchiveRegistry, readonly string[]>>>;
   readonly summary?: string;
   readonly warnings: readonly string[];
-  readonly behaviorCapabilities?: readonly string[];
   readonly promotedMemory?: readonly string[];
   readonly maintenanceWarnings?: readonly string[];
 }
@@ -60,17 +54,4 @@ export interface ArchiveSourcePort {
   /** All publication and the process move share a guarded recovery boundary.
    * A failed restore retains its journal/backups; unrelated edits survive. */
   publish(snapshot: ArchiveSourceSnapshot, proposal: ArchivePublication): Promise<ArchiveReceipt>;
-}
-
-/** Immutable historical merge input. Never a writable registry or a cache of
- * current knowledge; semantic conversion belongs to the migration boundary. */
-export interface KnowledgeGitBaseline {
-  readonly family: KnowledgeFamily;
-  readonly commit: string;
-  readonly repositoryPath: string;
-  readonly sources: ReadonlyMap<string, string>;
-  readonly blobIds: ReadonlyMap<string, string>;
-}
-export interface KnowledgeBaselinePort {
-  read(input: {readonly family: KnowledgeFamily; readonly commit: string}): Promise<KnowledgeGitBaseline>;
 }

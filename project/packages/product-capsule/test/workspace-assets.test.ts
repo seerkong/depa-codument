@@ -3,7 +3,7 @@ import { readFile, readdir } from 'node:fs/promises';
 import { dirname, join, posix } from 'node:path';
 import { CODUMENT_WORKSPACE_ASSETS } from '../src/workspace-assets';
 import { createCodumentWorkspaceBlueprint } from '../src/workspace-app';
-import { indexKnowledgeSources, validateKnowledgeIndex, inspectStdDocumentation } from 'depa-codument-domain-logic';
+import { inspectStdDocumentation } from 'depa-codument-domain-logic';
 
 test('embedded assets have one complete source index, local route closure and no Kind copies', async () => {
   const root = join(import.meta.dir, '../src/workspace-assets');
@@ -30,17 +30,4 @@ test('embedded assets have one complete source index, local route closure and no
   }
   expect(inspectStdDocumentation({ root: 'codument/std', sources: new Map([...assets].filter(([path]) => path.startsWith('codument/std/'))
     .map(([path, source]) => [path.slice('codument/std/'.length), source])) }).findings).toEqual([]);
-});
-
-test('distributed current knowledge owner examples pass the same product semantic validators', () => {
-  for (const [path, family, file, mode] of [
-    ['codument/std/spec/modeling-registry.md', 'modeling', 'domain/orders/index.xnl', 'registry'],
-    ['codument/std/spec/engineering-delta.md', 'engineering', 'backend/howto/orders.xnl', 'deltas'],
-  ] as const) {
-    const text = CODUMENT_WORKSPACE_ASSETS.find(asset => asset.path === path)!.source;
-    const source = text.match(/```xnl\n([\s\S]+?)\n```/)![1]!;
-    const index = indexKnowledgeSources(new Map([[file, source]]), family, mode);
-    expect(index.ready, path).toBe(true);
-    expect(validateKnowledgeIndex(index).filter(f => f.severity === 'error'), path).toEqual([]);
-  }
 });

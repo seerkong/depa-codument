@@ -1,6 +1,5 @@
 import { CODUMENT_KIND_CONTRACTS, type CodumentResourceKind, type CodumentResourceView } from 'depa-codument-domain-contract/resources';
 import { defineResourceContractRegistrations, digestCanonical, type PortableSpec } from 'halfcode-cli-lite-skill-app-contract/resource';
-import { readKnowledgeResource } from './knowledge-resource';
 
 function frozenCopy<T>(value: T): T {
   if (!value || typeof value !== 'object') return value;
@@ -13,8 +12,7 @@ function readSpec(kind: CodumentResourceKind, spec: PortableSpec): CodumentResou
     || !spec.subdomains || typeof spec.subdomains !== 'object' || Array.isArray(spec.subdomains) || !Array.isArray(spec.body)) {
     throw new Error(`Codument ${kind} reader requires a canonical portable XNL container.`);
   }
-  const knowledge = kind === 'ModelingRegistry' || kind === 'EngineeringRegistry' ? readKnowledgeResource(kind, spec) : undefined;
-  return Object.freeze({ kind, validationLevel: 'structural', spec: frozenCopy(spec), ...(knowledge ? { knowledge: frozenCopy(knowledge) } : {}) });
+  return Object.freeze({ kind, validationLevel: 'structural', spec: frozenCopy(spec) });
 }
 
 /** Typed projection bindings, separate from the data-only Kind ownership package. */
@@ -23,7 +21,7 @@ export const CODUMENT_RESOURCE_READER_REGISTRATIONS = defineResourceContractRegi
   readers: CODUMENT_KIND_CONTRACTS.map(({ kind, owner, revision }) => ({
     readerId: `codument.${kind}.reader/v1`, subjectFqn: owner.subjectFqn,
     readerSpecVersion: 1, contractFingerprint: revision.contractFingerprint,
-    readerImplementationFingerprint: digestCanonical({ kind, implementation: kind === 'ModelingRegistry' || kind === 'EngineeringRegistry' ? 'codument-knowledge-owner-projection/v1' : 'codument-preserved-portable-tree/v1' }),
+    readerImplementationFingerprint: digestCanonical({ kind, implementation: 'codument-preserved-portable-tree/v1' }),
     compatibilityPolicy: 'exact' as const,
     read: (spec: PortableSpec) => readSpec(kind, spec),
   })),

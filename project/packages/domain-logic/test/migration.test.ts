@@ -32,16 +32,6 @@ describe('bootstrap migration proposals', () => {
     expect(parseXnl(plan.proposal!.source!, {textBlockStyle: true}).nodes).toHaveLength(2);
   });
 
-  test('wraps historical knowledge without guessing current DataTopology roles', () => {
-    const source = '<!-- old authoring -->\n<entity #domain.sales.order kind="entity" fact_grade="primary" single_writer="OrderActor" {unknown=[1 2]}>\n';
-    const plan = planResourceMigration({path: 'codument/modeling/domain/sales/index.xnl', source});
-    expect(plan.status).toBe('planned');
-    expect(plan.proposal!.source).toContain(source);
-    expect(plan.proposal!.source).toContain('#codument.modeling.domain.sales');
-    expect(plan.proposal!.source).toContain('modeling_schema="codument-legacy/v1"');
-    expect(planResourceMigration({path: plan.path, source: plan.proposal!.source!}).status).toBe('noop');
-  });
-
   test('fails closed on unknown versions, ambiguity and semantic owner decisions', () => {
     const sources = [
       '<Track #t apiVersion="future/v99">', '<Track #t version="2">',
@@ -68,18 +58,6 @@ describe('bootstrap migration proposals', () => {
       }
       expect(planResourceMigration({path: 'codument/tracks/active/t/decisions.xnl', source}).status).toBe('review-required');
     }
-  });
-
-  test('relocates only flat registry Modeling, preserving body and delta paths', () => {
-    const source = '<object #domain.sales.order apiVersion="codument.tech/v1alpha1" version=1 {kind="entity" single_writer="store"}>';
-    const flat = planResourceMigration({path: 'codument/modeling/domain/sales.xnl', source});
-    expect(flat).toMatchObject({status: 'planned', targetPath: 'codument/modeling/domain/sales/index.xnl'});
-    expect(flat.proposal!.source).toContain(source);
-    expect(flat.proposal!.source).toContain('#codument.modeling.domain.sales');
-    expect(planResourceMigration({path: flat.targetPath!, source: flat.proposal!.source!}).status).toBe('noop');
-    const path = 'codument/tracks/active/t/modeling_deltas/domain/sales.xnl';
-    expect(planResourceMigration({path, source})).toMatchObject({status: 'planned', targetPath: path});
-    expect(planResourceMigration({path: 'codument/modeling/domain/sales.xnl', source: source.replace('version=1', 'version=99')}).status).toBe('review-required');
   });
 
   test('distinguishes non-writing inspection, unsupported inputs, and empty forest retirement', () => {

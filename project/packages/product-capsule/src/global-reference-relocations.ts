@@ -1,7 +1,5 @@
 /** Product-owned historical aliases; canonical content remains owned by the global App. */
 const movedStandards = [
-  ['skill/docs-modeling-fractal/index.md', 'methods/modeling-fractal.md'],
-  ['skill/docs-engineering-fractal/index.md', 'methods/engineering-fractal.md'],
   ['operations/_operation-spec.md', 'protocols/operation-authoring.md'],
 ] as const;
 

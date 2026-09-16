@@ -1,6 +1,6 @@
 ---
 name: codument-validate
-description: 校验 Track、Mission、Behavior、BehaviorPatch、Decision 与相关 registry，支持 --strict 与独立校验子代理模式。提交或归档前做结构/一致性检查时使用。
+description: 校验 Track、Mission、Decision 与相关 registry，支持 --strict 与独立校验子代理模式。提交或归档前做结构/一致性检查时使用。
 ---
 
 # Codument · validate
@@ -12,6 +12,6 @@ description: 校验 Track、Mission、Behavior、BehaviorPatch、Decision 与相
 按其中的 Markdown 说明 + `--` 流程标记块执行；具体 Kind 和 registry 规范由 body 按目标资源引用。
 
 - **前置**：项目已通过 `codument init` 初始化。外部 `codument` CLI 不可用时 body 会降级为提示词自检并说明。
-- **用法**：`codument validate [item] [--strict]`；Decision/modeling/engineering 使用各自 registry validate 子命令。
+- **用法**：`codument validate [item] [--strict]`；Decision 使用 `codument decisions validate`。
 
 > 壳只做路由，不重述规则。一切以 `@/codument/std/operations/validate.md` 为准。

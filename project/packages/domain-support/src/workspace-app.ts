@@ -5,7 +5,6 @@ import { CODUMENT_APP_CATALOGS, type LifecycleSourceCodec, type WorkspaceAppAuth
   type WorkspaceAppSourcePort, type WorkspaceAppSourceSnapshot } from 'depa-codument-domain-contract';
 import { createWorkspaceEffect } from 'halfcode-cli-lite-skill-app-support/workspace';
 import { createFileDomainValidationSourcePort } from './validate';
-import { createFileKnowledgeSourcePort } from './knowledge';
 import { readXnlRegistrySources } from './registry';
 
 /** Product aggregate observation reuses existing domain source ports. It neither
@@ -13,7 +12,6 @@ import { readXnlRegistrySources } from './registry';
 export function createFileWorkspaceAppSourcePort(workspaceRoot: string, codec: Pick<LifecycleSourceCodec, 'inspect'>): WorkspaceAppSourcePort {
   const root = path.resolve(workspaceRoot), workspace = createWorkspaceEffect(root);
   const lifecycle = createFileDomainValidationSourcePort(root, { includeArchivedTracks: true });
-  const knowledge = createFileKnowledgeSourcePort(root, codec);
   const digest = (source: string) => 'sha256:' + createHash('sha256').update(source).digest('hex');
   async function read(file: string): Promise<string> {
     if (await workspace.kind(file) !== 'file') throw new Error('Missing App source: ' + file);
@@ -27,7 +25,6 @@ export function createFileWorkspaceAppSourcePort(workspaceRoot: string, codec: P
     if (!skillSource.trim()) throw new Error('Codument App SKILL.md must not be empty.');
     const authorities: WorkspaceAppAuthority[] = [];
     const findings: WorkspaceAppSourceSnapshot['findings'][number][] = [];
-    const observedKnowledge: WorkspaceAppSourceSnapshot['knowledge'][number][] = [];
     function add(file: string, source: string, kind: WorkspaceAppAuthority['kind'], ownerFile?: string): void {
       authorities.push({ file, source, kind, digest: digest(source), ...(ownerFile ? { ownerFile } : {}) });
     }
@@ -39,28 +36,12 @@ export function createFileWorkspaceAppSourcePort(workspaceRoot: string, codec: P
     const processes = await lifecycle.observe();
     for (const unit of processes.units) {
       if (unit.source !== undefined) add(unit.file, unit.source, unit.kind);
-      for (const [file, source] of unit.patches) add(file, source, 'BehaviorPatch', unit.file);
       for (const forest of unit.decisionForests) for (const [file, source] of forest) add(file, source, 'decision', unit.file);
-      if (unit.kind === 'Track' || unit.kind === 'Mission') {
-        for (const family of ['modeling', 'engineering'] as const) {
-          const directory = unit.directory + '/' + family + '_deltas';
-          const observed = await knowledge.observe({ family, directory });
-          observedKnowledge.push({ ...observed, family, mode: 'deltas' });
-          for (const [file, source] of observed.sources) add(directory + '/' + file, source,
-            family === 'modeling' ? 'ModelingRegistry' : 'EngineeringRegistry', unit.file);
-        }
-      }
-    }
-    for (const family of ['modeling', 'engineering'] as const) {
-      const observed = await knowledge.observe({ family });
-      observedKnowledge.push({ ...observed, family, mode: 'registry' });
-      for (const [file, source] of observed.sources) add(`codument/${family}/${file}`, source,
-        family === 'modeling' ? 'ModelingRegistry' : 'EngineeringRegistry');
     }
     const decisions = new Map([...await readXnlRegistrySources(path.join(root, 'codument/decisions'), { rejectLegacy: true })]
       .map(([file, source]) => ['codument/decisions/' + file, source]));
     for (const [file, source] of decisions) add(file, source, 'decision');
     authorities.sort((a, b) => a.file < b.file ? -1 : a.file > b.file ? 1 : 0);
-    return { manifestDigest: digest(manifest), skillSource, authorities, lifecycle: processes, knowledge: observedKnowledge, decisions, findings };
+    return { manifestDigest: digest(manifest), skillSource, authorities, lifecycle: processes, decisions, findings };
   } };
 }

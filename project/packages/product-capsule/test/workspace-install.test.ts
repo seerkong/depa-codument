@@ -21,9 +21,8 @@ describe('formal workspace internal installer', () => {
     const assets = new Set(CODUMENT_GLOBAL_GUIDANCE_ASSETS.map(a=>a.path));
     const profiles = definition().appFiles.find(a=>a.path==='config/attractor-profiles.xnl')!.source;
     const refs = [...profiles.matchAll(/skill:\/\/depa-codument\/([^"\s]+)/g)].map(m=>m[1]!);
-    expect(refs.length).toBeGreaterThan(5);
+    expect(refs.length).toBeGreaterThan(3);
     for (const ref of refs) expect(assets.has(ref),ref).toBe(true);
-    expect(profiles).toContain('references/std/methods/modeling-fractal.md');
     expect(profiles).not.toContain('std/skill/');
     for (const file of definition().appFiles) expect(file.source,file.path).not.toContain('references/skill://');
     expect(definition().appFiles.find(f=>f.path==='README.md')!.source).toBe(CODUMENT_WORKSPACE_ASSETS.find(f=>f.path==='codument/README.md')!.source);
@@ -118,11 +117,8 @@ describe('formal workspace internal installer', () => {
     expect(await fs.exists(join(root, 'codument/std'))).toBe(false);
     expect(await fs.readFile(join(root, 'codument/SKILL.md'), 'utf8')).toContain('depa-codument');
     await fs.writeFile(join(root, 'codument/attractors/project.md'), 'User authored project attractor.\n');
-    const config = join(root, 'codument/config/modeling.xnl');
-    await fs.writeFile(config, (await fs.readFile(config, 'utf8')).replace('enabled = true', 'enabled = false'));
     const second = await installer.install();
     expect(second.createdApp).toBe(false); expect(second.writtenFiles).toEqual([]);
-    expect(await fs.readFile(config, 'utf8')).toContain('enabled = false');
     expect(await fs.readFile(join(root, 'codument/attractors/project.md'), 'utf8')).toBe('User authored project attractor.\n');
     await expect(installer.install({ appId: 'other.workspace' })).rejects.toThrow('identity requires reviewed migration');
     expect(await leftovers(root)).toEqual([]);

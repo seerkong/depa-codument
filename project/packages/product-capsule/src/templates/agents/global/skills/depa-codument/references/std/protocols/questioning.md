@@ -7,8 +7,8 @@
 - **只在必须澄清/选择/确认时提问**；禁止为"测试运行环境能否提问"而发占位问题。
 - 当前步骤无需立即提问就直接继续。
 - 优先一次问清互不依赖的问题，减少往返；具体由 `decision-tree.md` 的拓扑批次算法选出所有 ready 根问题与已解锁分支，不能沿一个根逐题深挖而遗漏其他 ready 方向。
-- **能查证就不问用户**：凡能从代码、测试、schema、config、现有 behaviors/modeling/engineering/decisions 中确认的问题，先查本地文件并写入 Evidence；只有用户意图、取舍偏好、不可逆策略才提问。
-- **澄清即沉淀（file-in/file-out）**：澄清过程中一旦某概念/行为/policy/架构**被澄清并稳定**，**当轮就**把它写回对应 owner registry（领域结构进 `codument/modeling`，长期工程知识进 `codument/engineering`，通过对应 delta 管理；`codument/modeling` 只按项目配置同步），按 `knowledge-tiers.md` 路由，不要让结论只留在对话或拖到归档。未稳定的猜测留 track，不污染 owner registry。
+- **能查证就不问用户**：凡能从代码、测试、schema、config、现有 decisions 中确认的问题，先查本地文件并写入 Evidence；只有用户意图、取舍偏好、不可逆策略才提问。
+- **澄清即沉淀（file-in/file-out）**：澄清过程中一旦某取舍**被澄清并稳定**，**当轮就**把它写回对应 owner（承重决策进 `decisions/**/*.xnl`，复用教训进 `memory/`），按 `knowledge-tiers.md` 路由，不要让结论只留在对话或拖到归档。未稳定的猜测留 track，不污染 owner 层。
 
 ## Questioning Severity
 

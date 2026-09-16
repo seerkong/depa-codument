@@ -9,6 +9,7 @@ import {
   type BuiltinResourceKindName,
 } from '../resources/kinds';
 import type { WorkspaceResourceRecord } from '../resources/workspace-resource-catalog';
+import { localResourceDetailPath, presentLocalXnlDetail } from 'halfcode-cli-lite-skill-app-support/resources/confined-resource-file';
 import { validateSopSnapshot } from '../sop';
 import { optionString, parseJsonInput } from './runtime-flags';
 
@@ -38,7 +39,8 @@ function exactFqn(context: CommandContext, kind: string): string {
   return fqn;
 }
 
-function publicWorkspaceResource(resource: WorkspaceResourceRecord) {
+async function publicWorkspaceResource(resource: WorkspaceResourceRecord) {
+  const { detailPath } = await localResourceDetailPath(resource);
   return Object.freeze({
     kind: resource.kind,
     fqn: resource.fqn,
@@ -47,6 +49,7 @@ function publicWorkspaceResource(resource: WorkspaceResourceRecord) {
     sourceRoot: resource.sourceRoot,
     sourceShape: resource.sourceShape,
     logicalPath: resource.logicalPath,
+    detailPath,
     authorityDigest: resource.authorityDigest,
     sourceContentDigest: resource.sourceContentDigest,
     effectiveContentDigest: resource.effectiveContentDigest,
@@ -131,13 +134,13 @@ export function resourceKindListCommand(kind: BuiltinResourceKindName) {
     if (context.positional.length > 0) return { code: 1, message: `Usage: ${BIN} ${kind} list` };
     try {
       const entries = isDeclarativeResourceKind(kind)
-        ? (await resources(context).list(kind)).map(publicWorkspaceResource)
+        ? await Promise.all((await resources(context).list(kind)).map(publicWorkspaceResource))
         : await Promise.all((await definitions(context).list(kind)).map((definition) => publicDefinition(definition, context)));
       return {
         code: 0,
         data: { command: `${kind}.list`, kind, count: entries.length, resources: entries },
         message: entries.length
-          ? entries.map((entry) => `${String(entry.fqn)}\t${String(entry.logicalPath)}`).join('\n')
+          ? entries.map((entry) => `${String(entry.fqn)}\t${String(entry.detailPath ?? entry.logicalPath)}`).join('\n')
           : `No ${kind} resources found.`,
       };
     } catch (error) {
@@ -151,15 +154,35 @@ export function resourceKindDetailCommand(kind: BuiltinResourceKindName) {
     try {
       const fqn = exactFqn(context, kind);
       const resource = isDeclarativeResourceKind(kind)
-        ? await resources(context).detail(fqn).then((entry) => {
+        ? await resources(context).detail(fqn).then(async (entry) => {
           if (entry.kind !== kind) throw new Error(`${fqn} is ${entry.kind}, not ${kind}`);
-          return publicWorkspaceResource(entry);
+          const metadata = await publicWorkspaceResource(entry);
+          if (entry.format !== 'xnl') return metadata;
+          const xnl = await presentLocalXnlDetail(entry);
+          return Object.freeze({
+            ...metadata,
+            xnl: xnl.xnl,
+            vfsReferences: xnl.vfsReferences,
+            presentation: Object.freeze({
+              version: 'local-xnl-vfs-projection/v1',
+              contentDigest: entry.contentDigest,
+              readCoverage: xnl.readCoverage,
+              returnedBytes: xnl.returnedBytes,
+            }),
+          });
         })
         : await definitions(context).detail(fqn).then((entry) => {
           if (entry.kind !== kind) throw new Error(`${fqn} is ${entry.kind}, not ${kind}`);
           return publicDefinition(entry, context);
         });
-      return { code: 0, data: { command: `${kind}.detail`, kind, resource }, message: `${fqn}\n${String(resource.description)}\n${String(resource.logicalPath)}` };
+      const xnl = typeof (resource as Record<string, unknown>).xnl === 'string'
+        ? (resource as Record<string, unknown>).xnl as string
+        : undefined;
+      return {
+        code: 0,
+        data: { command: `${kind}.detail`, kind, resource },
+        message: xnl ?? `${fqn}\n${String(resource.description)}\n${String(resource.detailPath ?? resource.logicalPath)}`,
+      };
     } catch (error) {
       return { code: 1, data: { command: `${kind}.detail`, kind }, message: error instanceof Error ? error.message : String(error) };
     }
@@ -250,7 +273,7 @@ export async function resourceTreeCommand(context: CommandContext): Promise<Comm
     const executable = await definitions(context).list();
     const projected = await Promise.all(executable.map((definition) => publicDefinition(definition, context)));
     const grouped = new Map<string, Array<Record<string, unknown>>>();
-    for (const resource of snapshot.resources.filter(isPublicLeafResource).map(publicWorkspaceResource)) {
+    for (const resource of await Promise.all(snapshot.resources.filter(isPublicLeafResource).map(publicWorkspaceResource))) {
       const entries = grouped.get(resource.sourceRoot) ?? [];
       entries.push(resource);
       grouped.set(resource.sourceRoot, entries);

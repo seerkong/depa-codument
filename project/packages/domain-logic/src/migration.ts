@@ -80,19 +80,6 @@ function mapRoots(source: string, transform: (node: DataElementNode, fragment: s
   return result + source.slice(cursor);
 }
 
-function knowledgeLocation(file: string): { kind: 'ModelingRegistry' | 'EngineeringRegistry'; owner: string; family: string; targetPath: string } | undefined {
-  const parts = file.split('/');
-  const at = parts.findIndex(part => ['modeling', 'engineering', 'modeling_deltas', 'engineering_deltas'].includes(part));
-  if (at < 0) return undefined;
-  const family = parts[at].startsWith('modeling') ? 'modeling' : 'engineering';
-  const segments = parts.slice(1).map(part => part.replace(/\.xnl$/u, '')).filter((part, index, rest) => part !== 'index' || index !== rest.length - 1);
-  if (segments.some(part => !/^[A-Za-z_][A-Za-z0-9_-]*$/u.test(part))) throw new Error('Knowledge owner path cannot be mapped to a stable identity without review.');
-  if (parts[0] !== 'codument' || parts.length - at < (family === 'modeling' ? 3 : 4)) throw new Error('Knowledge authority path requires explicit ownership review.');
-  const flatModeling = at === 1 && parts[at] === 'modeling' && parts.length === 4;
-  const targetPath = flatModeling ? file.replace(/\.xnl$/u, '/index.xnl') : file;
-  return {family, kind: family === 'modeling' ? 'ModelingRegistry' : 'EngineeringRegistry', owner: ['codument', ...segments].join('.'), targetPath};
-}
-
 function ownerlessDurable(nodes: readonly XnlNode[], file: string): boolean {
   const parts = file.split('/');
   if (parts.at(-1)?.toLowerCase() !== 'decisions.xnl' || parts.at(-2) === 'decisions') return false;
@@ -132,20 +119,6 @@ export function planResourceMigration(input: MigrationSource): ResourceMigration
       throw new Error('Empty source has no deterministic resource identity.');
     }
     if (ownerlessDurable(roots, input.path)) throw new Error('Working durable Decision ownership requires current Agent review before migration.');
-    const location = knowledgeLocation(input.path);
-    if (location && roots.every(root => !known(root.tag))) {
-      for (const root of roots) {
-        if (!readStableNodeId(root) || (root.attributes?.kind ?? root.metadata.kind) === undefined) throw new Error('Knowledge forest contains a root without a stable knowledge identity/kind.');
-        if (root.metadata.apiVersion !== undefined && root.metadata.apiVersion !== LEGACY) throw new Error('Unknown knowledge version requires review.');
-        if (root.metadata.version !== undefined && root.metadata.version !== 1 && root.metadata.version !== '1') throw new Error('Unknown knowledge resource version requires review.');
-        if ('envelopeVersion' in root.metadata || 'specVersion' in root.metadata) throw new Error('Unexpected resource envelope on an owned knowledge node.');
-      }
-      // Preserve the entire old forest as authored body, not a lossy AST print.
-      const source = `<${location.kind} #${location.owner} envelopeVersion="${ENVELOPE}" specVersion=1${location.family === 'modeling' ? ' {modeling_schema="codument-legacy/v1"}' : ''} [\n${input.source}\n]>\n`;
-      const body = forest(source)[0].body;
-      if (digestCanonical(body) !== digestCanonical(roots)) throw new Error('Knowledge wrapper changed its authored body.');
-      return finish('planned', {migrationId: 'xnl.knowledge.owner-wrap/v1', targetKind: location.kind, targetPath: location.targetPath, proposal: {source}});
-    }
     const kinds = new Set(roots.map(root => root.tag === 'decision-tree' ? 'decision' : root.tag));
     if (kinds.size !== 1 || !known([...kinds][0])) throw new Error('Unknown or mixed resource Kind requires review.');
     const kind = [...kinds][0] as CodumentResourceKind;

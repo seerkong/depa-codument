@@ -1,6 +1,5 @@
 export type ScaffoldRequest =
-  | { readonly kind: 'Track' | 'Mission'; readonly id: string; readonly stage: 'pending' | 'active' }
-  | { readonly kind: 'BehaviorPatch'; readonly id: string; readonly capability: string };
+  { readonly kind: 'Track' | 'Mission'; readonly id: string; readonly stage: 'pending' | 'active' };
 export interface ScaffoldLocation {
   readonly request: ScaffoldRequest;
   readonly stage: 'pending' | 'active';

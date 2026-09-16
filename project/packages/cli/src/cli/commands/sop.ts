@@ -1,6 +1,7 @@
 import { BIN } from '../../identity';
 import type { CommandContext, CommandResult } from '../contracts/command';
 import { renderSopMermaid, type SopDocument, type SopRuntime } from '../sop';
+import { localResourceDetailPath } from 'halfcode-cli-lite-skill-app-support/resources/confined-resource-file';
 import { optionString } from './runtime-flags';
 
 function sops(context: CommandContext): SopRuntime {
@@ -14,7 +15,11 @@ function exactFqn(context: CommandContext, operation: string): string {
   return fqn;
 }
 
-function summary(document: SopDocument): Record<string, unknown> {
+async function summary(document: SopDocument, context: CommandContext): Promise<Record<string, unknown>> {
+  if (!context.runtime.resourceCatalog) throw new Error('Workspace resource catalog is not configured');
+  const source = await context.runtime.resourceCatalog.detail(document.fqn);
+  if (source.kind !== 'SOP') throw new Error(`${document.fqn} is ${source.kind}, not SOP`);
+  const { detailPath } = await localResourceDetailPath(source);
   return Object.freeze({
     kind: 'SOP',
     fqn: document.fqn,
@@ -23,6 +28,7 @@ function summary(document: SopDocument): Record<string, unknown> {
     packageId: document.packageId,
     sourceRoot: document.sourceRoot,
     logicalPath: document.logicalPath,
+    detailPath,
     contentDigest: document.contentDigest,
   });
 }
@@ -30,12 +36,12 @@ function summary(document: SopDocument): Record<string, unknown> {
 export async function sopListCommand(context: CommandContext): Promise<CommandResult> {
   if (context.positional.length > 0) return { code: 1, message: `Usage: ${BIN} SOP list` };
   try {
-    const resources = (await sops(context).list()).map(summary);
+    const resources = await Promise.all((await sops(context).list()).map((document) => summary(document, context)));
     return {
       code: 0,
       data: { command: 'SOP.list', kind: 'SOP', count: resources.length, resources },
       message: resources.length
-        ? resources.map((resource) => `${String(resource.fqn)}\t${String(resource.logicalPath)}`).join('\n')
+        ? resources.map((resource) => `${String(resource.fqn)}\t${String(resource.detailPath)}`).join('\n')
         : 'No SOP resources found.',
     };
   } catch (error) {
@@ -47,8 +53,10 @@ export async function sopDetailCommand(context: CommandContext): Promise<Command
   try {
     const fqn = exactFqn(context, 'detail');
     const document = await sops(context).get(fqn);
-    const resource = Object.freeze({ ...summary(document), markdown: document.markdown, diagnostics: document.diagnostics });
-    return { code: 0, data: { command: 'SOP.detail', kind: 'SOP', resource }, message: `${fqn}\n${document.description}\n${document.logicalPath}` };
+    const summaryDocument = await summary(document, context);
+    const detailPath = String(summaryDocument.detailPath);
+    const resource = Object.freeze({ ...summaryDocument, markdown: document.markdown, diagnostics: document.diagnostics });
+    return { code: 0, data: { command: 'SOP.detail', kind: 'SOP', resource }, message: `${fqn}\n${document.description}\n${detailPath}` };
   } catch (error) {
     return { code: 1, data: { command: 'SOP.detail', kind: 'SOP' }, message: error instanceof Error ? error.message : String(error) };
   }

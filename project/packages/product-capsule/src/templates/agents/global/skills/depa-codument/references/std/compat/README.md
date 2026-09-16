@@ -11,7 +11,6 @@ Use `depa-codument -h` to discover the current CLI surface.
 | `std/actions/` or `std/operations/` | Root `operations/`, exposed as CommandOperation commands |
 | `std/operations/_operation-spec.md` | `references/std/protocols/operation-authoring.md` |
 | `std/commands/` | Relevant operations and migration/method references; no parallel command manual |
-| `std/skill/docs-*-fractal/` | `references/std/methods/modeling-fractal.md` and `engineering-fractal.md` |
 | `std/kernel-pointer.md` | Retired; no external dynamic-workflow documentation dependency |
 | `skill://depa-codument/std/...` | `skill://depa-codument/references/std/...` at the migration boundary |
 | `config/action-hooks.xml`, `config/action-hooks.xnl`, `config/operation-hooks.xml` | Project `config/operation-hooks.xnl` |

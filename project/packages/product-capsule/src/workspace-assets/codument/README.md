@@ -7,8 +7,7 @@
 
 - `tracks/{pending,active,archived}/`：变更任务树、调度、验收与历史。
 - `missions/{pending,active,archived}/`：跨 track 的长期工作。
-- `behaviors/`、`decisions/`：行为及按 owner 组织的耐久决策。
-- `modeling/`、`engineering/`：领域结构与工程知识 registry。
+- `decisions/`：按 owner 组织的耐久决策。
 - `attractors/`、`config/`：项目自己的目标、规则、profile 与 hook 配置。
 - `memory/`、`backlog/`、`analysis/`：项目记忆、候选工作与分析材料。
 - `sop/`、`workflows/`：项目自定义流程；不是全局内置操作副本。

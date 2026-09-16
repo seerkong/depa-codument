@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "commitMode": "manual",
+  "scope": "final-first-level-task-group",
+  "event": "phase:after",
+  "independentVerify": true,
+  "unselectedBacklog": "declare-only",
+  "hooks": {
+    "GapLoop": {
+      "enabled": false,
+      "attributes": {
+        "max_rounds": 5,
+        "on_exhausted": "block",
+        "verify_round": false
+      }
+    },
+    "AttractorCheck": {
+      "enabled": false,
+      "attributes": {
+        "use": "coding"
+      }
+    },
+    "HumanConfirm": {
+      "enabled": false,
+      "attributes": {}
+    }
+  }
+}

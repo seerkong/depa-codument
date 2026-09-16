@@ -24,7 +24,7 @@ spec:
 - 必须与用户进行讨论、提问、确认或澄清，除非用户显式要求 `QuestionSeverity=auto` / 无问答。
 - 不修改源码。
 - 不创建 track/mission。
-- 不写 proposal/design/behavior delta。
+- 不写 proposal/design。
 - 不创建 `codument/discussions/` 或任何 discussion workspace。
 - 不把 route、决策树、推荐命令做成固定产物文件。
 - 输出一个对话中的下一步建议：`quick | track | mission | blocked`。
@@ -38,12 +38,12 @@ spec:
 1. 删除旧的 `codument/analysis/`。
 2. 创建新的 `codument/analysis/`。
 3. 只在确有必要时写入类似 track/mission analysis 的临时材料：
-   - `findings.md`：从代码、测试、behavior/modeling/engineering、archive、mission/track 中读到的证据。
+   - `findings.md`：从代码、测试、decisions、archive、mission/track 中读到的证据。
    - `knowledge.md`：讨论中尚未稳定、仅供本轮继续推理的临时知识草稿。
 4. 不在 `codument/analysis/` 中保存聊天记录、最终推荐报告、正式决策或待创建的 proposal/design。
 5. 如果用户同意进入 `codument-plan-track` 或 `codument-plan-mission`，在开始创建前再次删除 `codument/analysis/`。
 
-`codument/analysis/` 是 scratch，不是 owner 真源；稳定结论应在后续 quick/track/mission 中按知识层级进入 `codument/modeling`、`codument/engineering`、`behaviors`、`decisions` 或 memory。
+`codument/analysis/` 是 scratch，不是 owner 真源；稳定结论应在后续 quick/track/mission 中按知识层级进入 `decisions` 或 `memory`。
 
 ## 2. 上下文搜集
 
@@ -52,8 +52,7 @@ spec:
 按需求相关性读取：
 
 - `codument/attractors/` 与 `references/std/attractors/`。
-- `codument/behaviors/`。
-- `codument/modeling/` 与 `codument/engineering/`（如果存在）。
+- `codument/decisions/`。
 - `codument/decisions/`、`codument/memory/`。
 - 当前 active tracks、missions、archive 中相关历史。
 - 相关源码、测试、配置和文档。
@@ -83,7 +82,7 @@ spec:
 | route | 条件 | 下一步 |
 |---|---|---|
 | `quick` | 小范围 bug、测试、局部重构、配置修正；不引入新行为契约和长期规划对象 | `codument-impl-quick` |
-| `track` | 新能力、行为变化、架构/模式调整、风险较高或需要 proposal/design/behavior delta | `codument-plan-track` |
+| `track` | 新能力、行为变化、架构/模式调整、风险较高或需要 proposal/design | `codument-plan-track` |
 | `mission` | 跨多个 track/仓库，长期自动化，执行期需要重规划 | `codument-plan-mission` |
 | `blocked` | 关键信息缺失、权限/环境不可用、用户目标冲突 | 先补证据或请求用户决策 |
 

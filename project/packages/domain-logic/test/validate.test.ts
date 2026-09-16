@@ -6,21 +6,19 @@ const source = `<Track #example ${envelope} {status="in_progress" goal="Validate
 <Ports {scope="track"} [<MaterialBundle {name="outputs" role="output" domain="docs" path="vfs://./docs/"}>]>
 <TaskSpace #TS (<SubNodes [<TaskGroup #G1 {status="ACTIVE" child_mode="sequential"} (<SubNodes [<Task #T1 {status="DONE"} (<Acceptance [<Criterion #C1 {checked=false} ?>Check.</?>]>)>]>)>]>)>
 <Schedule []><Hooks []>)>`;
-const patch = `<BehaviorPatch #track.example.behavior_patch.cli ${envelope} {capability="cli"} (<Mutations [<Delete {selector="behavior://cli/requirements/old"}>]>)>`;
 function unit(): DomainValidationUnit {
   return { kind: 'Track', id: 'example', directory: 'codument/tracks/active/example', file: 'codument/tracks/active/example/track.xnl',
-    source, missingFiles: [], patches: new Map([['delta.xnl', patch]]), decisionForests: [], findings: [] };
+    source, missingFiles: [], decisionForests: [], findings: [] };
 }
-it('composes structural/semantic/companion/patch checks with strict warning promotion without mutating snapshots', () => {
+it('composes structural/semantic/companion checks with strict warning promotion without mutating snapshots', () => {
   const input: DomainValidationSnapshot = { units: [unit()], findings: [] };
   const before = structuredClone(input);
   const normal = inspectDomainValidation(input, {});
   expect(normal.findings.map(finding => [finding.rule, finding.severity])).toEqual([['track.lifecycle.done-criterion', 'warning']]);
   expect(inspectDomainValidation(input, { strict: true }).findings[0].severity).toBe('error');
   expect(input).toEqual(before);
-  const missing = { ...unit(), missingFiles: ['proposal.md'], patches: new Map<string, string>() };
+  const missing = { ...unit(), missingFiles: ['proposal.md'] };
   expect(inspectDomainValidation({ units: [missing], findings: [] }, {}).findings.map(finding => finding.rule)).toContain('track.required-file');
-  expect(inspectDomainValidation({ units: [missing], findings: [] }, {}).findings.map(finding => finding.rule)).toContain('track.behavior-delta.missing');
 });
 it('keeps canonical and working Decision forests separate and checks duplicates/profiles/old envelopes', () => {
   const decision = `<decision #same ${envelope} {status="accepted"}>`;
@@ -33,6 +31,15 @@ it('keeps canonical and working Decision forests separate and checks duplicates/
   expect(inspectDomainValidation({ units: [hooked], findings: [] }, {}).findings.map(finding => finding.rule)).toContain('attractor.profile');
   expect(inspectDomainValidation({ units: [hooked], findings: [], profiles: `<AttractorProfiles #profiles ${envelope} (<Profiles [<Profile #project {enabled=true}>]>)>` }, {}).findings).toEqual([]);
   expect(inspectDomainValidation({ units: [{ ...current, source: current.source.replace('specVersion=1', 'apiVersion="old" version="1"') }], findings: [] }, {}).findings[0].rule).toBe('track.kind');
-  const broken = { ...current, patches: new Map([['delta.xnl', patch.replace('<Delete {selector="behavior://cli/requirements/old"}>', '')]]) };
-  expect(inspectDomainValidation({ units: [broken], findings: [] }, {}).findings.map(finding => finding.rule)).toContain('behavior.patch.mutations');
+});
+it('names XML-style closers instead of opaque parser misses', () => {
+  const xml = inspectDomainValidation({ units: [{ ...unit(), source: source.replace('?>Check.</?>', '?>Check.</Given>') }], findings: [] }, {});
+  expect(xml.findings[0]?.rule).toBe('track.kind');
+  expect(xml.findings[0]?.message).toContain('expected </?>, got </Given>');
+});
+it('accepts text that ends with ? before a normal closer as the same bytes as a mutation', () => {
+  // `?>Is this ok?</?>` is legitimately read as text ending in `?`; a closer
+  // lint cannot separate it from the `?</?>` mutation on bytes alone.
+  const question = { ...unit(), source: source.replace('checked=false', 'checked=true').replace('?>Check.</?>', '?>Is this ok?</?>') };
+  expect(inspectDomainValidation({ units: [question], findings: [] }, {}).findings).toEqual([]);
 });

@@ -1,6 +1,6 @@
 # skill: codument-impl-quick（基于 Codument 上下文快速实现小改动）
 
-用于小范围变更：bug 修复、测试补齐、局部重构、非破坏性配置修正。它读取 Codument 知识上下文和项目工程文件后直接实现，不创建 track、mission、proposal 或 behavior delta。
+用于小范围变更：bug 修复、测试补齐、局部重构、非破坏性配置修正。它读取 Codument 知识上下文和项目工程文件后直接实现，不创建 track、mission 或 proposal。
 
 ## 0. 边界
 
@@ -14,7 +14,7 @@
 不适合 quick：
 
 - 新能力或对外行为变化。
-- 需要 behavior/modeling/engineering delta 才能表达清楚的变更。
+- 需要完整 Track 生命周期才能表达清楚的变更。
 - 架构/模式调整。
 - 多阶段或跨模块高风险工作。
 - 长期自动化目标。
@@ -26,8 +26,7 @@
 1. 直接读取与目标相关的项目约束、代码和测试；仅当 `operation-hooks.xnl` 显式为 `impl-quick:before` 配置 `<AttractorCheck>` 时才执行 fresh check，执行与结果处理统一遵循 `std/protocols/attractor-check.md`。
 2. 读取与请求相关的：
    - `codument/attractors/`、`codument/std/attractors/`。
-   - `codument/behaviors/`。
-   - `codument/modeling/`、`codument/engineering/`（如果存在）。
+   - `codument/decisions/`。
    - `codument/decisions/` 与相关 archive/track 历史。
    - 源码、测试、配置、脚本。
 
@@ -49,7 +48,7 @@
 运行最小必要验证；能跑测试就跑，不能跑则说明原因
 ---- /?verify
 ---- #step ?durable
-判断是否发现稳定结构知识或工程知识；如有，只提示是否写入 codument/modeling 或 codument/engineering，不静默沉淀
+判断是否发现承重决策或可复用教训；如有，只提示是否写入 decisions 或 memory，不静默沉淀
 ---- /?durable
 ---- #return ?done value="quick implementation complete"
 ---- /?done
@@ -58,12 +57,12 @@
 
 ## 3. 知识沉淀
 
-默认不创建 track、不写 proposal、不写 behavior delta。
+默认不创建 track、不写 proposal。
 
 若实现过程中发现稳定长期知识：
 
-- 领域结构、对象、状态机、policy、workflow → 提示是否写入 `codument/modeling`。
-- 工程规则、howto、troubleshooting、code-map、runbook → 提示是否写入 `codument/engineering`。
+- 承重的取舍/策略 → 提示是否写入 `decisions/`。
+- 可复用的教训/模式 → 提示是否写入 `memory/`。
 - 对外行为变化 → quick 不再合适，建议创建 track。
 
 未经用户明确同意，不要把 quick 中发现的知识直接沉淀为 durable owner registry。
@@ -75,5 +74,5 @@
 - 修改摘要。
 - 验证结果。
 - 是否仍属于 quick。
-- 是否发现建议沉淀到 `codument/modeling` / `codument/engineering` 的长期知识。
+- 是否发现建议沉淀到 `decisions` / `memory` 的长期知识。
 - 若未能验证，说明原因和剩余风险。

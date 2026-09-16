@@ -3,13 +3,11 @@ import {
   type JsonSchema, type PortableSpec,
 } from 'halfcode-cli-lite-skill-app-contract/resource';
 import { LIFECYCLE_ROOT_STATES } from './lifecycle';
-import { KNOWLEDGE_RESOURCE_KINDS, MODELING_SCHEMAS, type KnowledgeResourceProjection } from './knowledge';
 
 const ORIGINAL_RESOURCE_KINDS = Object.freeze([
-  'AttractorProfiles', 'Behavior', 'BehaviorPatch', 'decision', 'EngineeringConfig',
-  'Mission', 'ModelingConfig', 'OperationHooks', 'Track',
+  'AttractorProfiles', 'decision', 'Mission', 'OperationHooks', 'Track',
 ] as const);
-export const CODUMENT_RESOURCE_KINDS = Object.freeze([...ORIGINAL_RESOURCE_KINDS, ...KNOWLEDGE_RESOURCE_KINDS]);
+export const CODUMENT_RESOURCE_KINDS = Object.freeze([...ORIGINAL_RESOURCE_KINDS] as readonly string[]);
 export type CodumentResourceKind = typeof CODUMENT_RESOURCE_KINDS[number];
 
 export interface CodumentResourceView {
@@ -17,7 +15,6 @@ export interface CodumentResourceView {
   /** Structural admission is not full cross-resource domain validation. */
   readonly validationLevel: 'structural';
   readonly spec: PortableSpec;
-  readonly knowledge?: KnowledgeResourceProjection;
 }
 
 const OWNER = 'depa-codument-domain-contract';
@@ -36,16 +33,9 @@ function schemaFor(kind: CodumentResourceKind): JsonSchema {
     properties.status = status(LIFECYCLE_ROOT_STATES[kind === 'Track' ? 'track' : 'mission']);
     required.push('status');
   }
-  if (kind === 'EngineeringConfig' || kind === 'ModelingConfig') properties.enabled = { type: 'boolean' };
-  if (kind === 'ModelingRegistry') {
-    properties.modeling_schema = status(MODELING_SCHEMAS);
-    required.push('modeling_schema');
-  }
   return {
     type: 'object', required: ['properties', 'body', 'subdomains'],
     properties: {
-      // Extension values remain portable and intact. Full business validators
-      // are a separate gate, not an excuse to strip fields at structural read.
       properties: { type: 'object', properties, required, additionalProperties: true },
       body: { type: 'array' }, subdomains: { type: 'object' }, text: { type: 'string' },
     },
@@ -58,8 +48,7 @@ export const CODUMENT_KIND_CONTRACTS = Object.freeze(CODUMENT_RESOURCE_KINDS.map
   const directory = kind === 'Track' || kind === 'Mission';
   const owner = createKindSubjectOwner({
     kind, subjectFqn: `codument.resource_kind.${kind}`, ownerPackageId: OWNER,
-    // Adding a sibling Kind must not change the nine already admitted subjects.
-    ownerPackageFingerprint: digestCanonical({ authority: AUTHORITY, kinds: (ORIGINAL_RESOURCE_KINDS as readonly string[]).includes(kind) ? ORIGINAL_RESOURCE_KINDS : [kind] }),
+    ownerPackageFingerprint: digestCanonical({ authority: AUTHORITY, kinds: ORIGINAL_RESOURCE_KINDS }),
     sourceShapes: directory ? ['directory'] : ['single-file'],
     documentCardinality: kind === 'decision' ? 'many' : 'one',
     requiredFiles: directory ? ['proposal.md', 'design.md'] : [],

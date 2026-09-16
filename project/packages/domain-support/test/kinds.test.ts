@@ -6,7 +6,7 @@ import { CODUMENT_KIND_CONTRACTS, CODUMENT_RESOURCE_CONTRACT_REGISTRATIONS, type
 import { CODUMENT_RESOURCE_READER_REGISTRATIONS } from 'depa-codument-domain-logic/resources';
 import { createHostResourceContractRuntime } from 'halfcode-cli-lite-skill-app-support/resources/host-resource-contracts';
 import { createWorkspaceResourceCatalog } from 'halfcode-cli-lite-skill-app-support/resources/workspace-resource-catalog';
-import originalNine from './fixtures/nine-kind-contracts.json';
+import originalKindContracts from './fixtures/kind-contracts.json';
 
 const metadata = 'envelopeVersion="halfcode.resource-envelope/v1" specVersion=1';
 function contracts() {
@@ -22,7 +22,7 @@ describe('code-owned Codument Kind bootstrap', () => {
         const directory = owner.sourceContract.sourceShapes.includes('directory');
         const entry = directory ? kind.toLowerCase() + '.xnl' : 'resource.xnl';
         await fs.mkdir(path.join(root, kind));
-        const properties = kind === 'Track' ? '{ status = "in_progress" }' : kind === 'Mission' ? '{ status = "active" revision = 2 }' : kind === 'ModelingRegistry' ? '{ modeling_schema="data-topology/v1" }' : '{}';
+        const properties = kind === 'Track' ? '{ status = "in_progress" }' : kind === 'Mission' ? '{ status = "active" revision = 2 }' : '{}';
         let content = `<${kind} #Codument.Example.${kind} ${metadata} ${properties}`;
         if (kind === 'Track' || kind === 'Mission') content += ' (<TaskSpace #TS (<SubNodes [<TaskGroup #G1 { status = "ACTIVE" } (<SubNodes [<Task #T1 { status = "ACTIVE" }> ]>)> ]>)>)>';
         else if (kind === 'decision') content += ' [<decision #nested.child { status = "accepted" }>]> ' + `<decision #second.root ${metadata} { status = "accepted" }>`;
@@ -52,9 +52,9 @@ describe('code-owned Codument Kind bootstrap', () => {
 
   it('retains exact identity/case, portable extension data, owner locks and experimental status', () => {
     const runtime = contracts();
-    expect(CODUMENT_KIND_CONTRACTS).toHaveLength(11);
-    expect(CODUMENT_KIND_CONTRACTS.slice(0, 9) as unknown).toEqual(originalNine.contracts);
-    expect(CODUMENT_RESOURCE_READER_REGISTRATIONS.readers.slice(0, 9).map(({ read: _read, ...identity }) => identity) as unknown).toEqual(originalNine.readers);
+    expect(CODUMENT_KIND_CONTRACTS).toHaveLength(5);
+    expect(CODUMENT_KIND_CONTRACTS as unknown).toEqual(originalKindContracts.contracts);
+    expect(CODUMENT_RESOURCE_READER_REGISTRATIONS.readers.map(({ read: _read, ...identity }) => identity) as unknown).toEqual(originalKindContracts.readers);
     expect(CODUMENT_KIND_CONTRACTS.find((entry) => entry.kind === 'decision')!.owner.subjectFqn).toBe('codument.resource_kind.decision');
     expect(CODUMENT_KIND_CONTRACTS.every(({ revision }) => revision.stability === 'experimental')).toBe(true);
     const spec = { properties: { status: 'active', unknown: { flags: [true, 7] } }, body: [], subdomains: { Future: { opaque: 'keep' } } };

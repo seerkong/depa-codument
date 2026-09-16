@@ -1,6 +1,5 @@
 import type { CodumentResourceKind } from './resources';
 import type { DomainValidationSnapshot } from './validation';
-import type { KnowledgeFamily, KnowledgeMode } from './knowledge';
 export type MigrationGuideTopic = 'resource' | 'workspace' | 'decision' | 'track';
 
 /** Bootstrap observations are independent of successful SkillApp admission. */
@@ -67,7 +66,6 @@ export interface MigrationValidationSnapshot {
   readonly source?: string;
   readonly domain?: DomainValidationSnapshot;
   readonly decisions?: ReadonlyMap<string, string>;
-  readonly knowledge?: {family: KnowledgeFamily; mode: KnowledgeMode; sources: ReadonlyMap<string, string>};
 }
 export interface ResourceMigrationApplyResult {
   readonly path: string;

@@ -4,7 +4,7 @@ import * as path from 'node:path';
 import { verifyBlog, verifyEcommerce } from './extended-http';
 import { summarize } from './report';
 import { writeJson } from './runtime';
-import { resourceRoot, assertNestedSelection, trackValidationSelection, validateArchivedKnowledge, assertPromotedKnowledge, assertPromotedBehaviors, exhaustedGapReason } from './resource-oracle';
+import { resourceRoot, assertNestedSelection, trackValidationSelection, exhaustedGapReason } from './resource-oracle';
 import { checkRequirements, assertFreshThread, lockRun, sourceFingerprint, isFirstPass, isExecutedTestCommand } from './integrity';
 import { applicationEnvironment } from './application-state';
 import { sessionUsage } from './usage';
@@ -104,26 +104,7 @@ test('archive validation selects its exact lifecycle path without confusing dire
   expect(selected.selector).toBe('archived/2026-09/2026-09-12-example');
   expect(()=>trackValidationSelection('codument/tracks/active/other',source)).toThrow();
   expect(()=>trackValidationSelection('codument/backup/example',source)).toThrow();
-  expect(()=>validateArchivedKnowledge(new Map(),'modeling')).toThrow();
-  expect(()=>validateArchivedKnowledge(new Map([['domain/example.xnl','not XNL']]),'modeling')).toThrow();
 });
-test('archive promotion cannot be satisfied by unrelated or stale canonical facts', () => {
-  const envelope='envelopeVersion="halfcode.resource-envelope/v1" specVersion=1';
-  const knowledge=`<EngineeringRegistry #owner ${envelope} {} [<overview #global.overview.example.main {kind="overview"} (<desc ?>Example</?><mental-model ?>Actual structure</?>)>]>`;
-  const deltas=new Map([['global/overview/example.xnl',knowledge]]);
-  expect(()=>assertPromotedKnowledge(deltas,new Map(),'engineering')).toThrow();
-  expect(()=>assertPromotedKnowledge(deltas,new Map([['global/overview/other.xnl',knowledge.replaceAll('example','other')]]),'engineering')).toThrow();
-  expect(()=>assertPromotedKnowledge(deltas,new Map([['global/overview/example.xnl',knowledge.replace('Actual structure','Stale structure')]]),'engineering')).toThrow();
-  assertPromotedKnowledge(deltas,deltas,'engineering');
-  const requirement='<Requirement #R1 (<Statement ?>Required behavior.</?>)>';
-  const patch=`<BehaviorPatch #patch ${envelope} {capability="example"} (<Mutations [<Upsert {selector="behavior://example/requirements/R1"} (${requirement})>]>)>`;
-  const patches=new Map([['example.xnl',patch]]);
-  const behavior=`<Behavior #example ${envelope} (<Requirements [${requirement}]>)>`;
-  expect(()=>assertPromotedBehaviors(patches,new Map([['other.xnl',behavior.replace('#example','#other')]]))).toThrow();
-  expect(()=>assertPromotedBehaviors(patches,new Map([['example.xnl',behavior.replace('Required behavior.','Stale behavior.')]]))).toThrow();
-  assertPromotedBehaviors(patches,new Map([['example.xnl',behavior]]));
-});
-
 test('multiple valid sequential archives are unsupported by the snapshot oracle, not called bad business data', async () => {
   const run=createRun('/usr/bin/true','unit');
   run.bin=path.join(run.root,'bin/list-fixture');

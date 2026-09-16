@@ -1,8 +1,8 @@
 import type { LifecycleValidationContext, MigrationGuideTopic } from 'depa-codument-domain-contract';
-import { archiveDestinationPrefix, archiveTrackSelectors, assertArchiveRequest, createValidatedLifecycleSourceCodec, isCurrentStdDocumentation, knowledgeScaffoldFile, lifecycleSourceCodec, projectTrackVerificationContract, readAttractorProfileNames, readWorkspaceBindingSources } from 'depa-codument-domain-logic';
+import { archiveDestinationPrefix, archiveTrackSelectors, assertArchiveRequest, createValidatedLifecycleSourceCodec, isCurrentStdDocumentation, lifecycleSourceCodec, projectTrackVerificationContract, readAttractorProfileNames, readWorkspaceBindingSources } from 'depa-codument-domain-logic';
 import { CODUMENT_GLOBAL_GUIDANCE_ASSETS } from './global-guidance';
 import { createFileLifecycleRepository, createFileVerificationRuntime, createFileDecisionSourcePort, createFileDecisionWritePort, readAttractorProfilesSource,
-  readLocalWorkspaceBindingsSource, createCodumentContextGuard, createFileWorkspaceBindingRuntime, createFileDomainQuerySourcePort, createFileScaffoldSourcePort, createFileDomainValidationSourcePort, createFileStdDocumentationPort, createFileKnowledgeSourcePort, createFileKnowledgeScaffoldPort, createFileArtifactSyncPort, createFileArchiveSourcePort, createGitKnowledgeBaselinePort } from 'depa-codument-domain-support';
+  readLocalWorkspaceBindingsSource, createCodumentContextGuard, createFileWorkspaceBindingRuntime, createFileDomainQuerySourcePort, createFileScaffoldSourcePort, createFileDomainValidationSourcePort, createFileStdDocumentationPort, createFileArtifactSyncPort, createFileArchiveSourcePort } from 'depa-codument-domain-support';
 import { createDomainOwner } from 'depa-codument-domain-capsule';
 import { createCodumentDomainCommands } from 'depa-codument-host-adapter';
 import { createCommandHost } from 'halfcode-cli-lite-cli-host-capsule';
@@ -56,7 +56,6 @@ export function createCodumentDomainRuntime(workspaceRoot: string, bindings: Cod
     locateTrack: id => repository.load({ kind: 'track', id }, { includeArchived: false }),
     output: bindings.output, clock: bindings.clock,
   });
-  const knowledgeSources = createFileKnowledgeSourcePort(workspaceRoot, lifecycleSourceCodec);
   const archives = createFileArchiveSourcePort(workspaceRoot, {
     codec: createValidatedLifecycleSourceCodec(context?.validation ?? bindings.validation), projects: context?.projects,
     assertCurrent: context ? createCodumentContextGuard(workspaceRoot, context.sources) : undefined,
@@ -71,16 +70,16 @@ export function createCodumentDomainRuntime(workspaceRoot: string, bindings: Cod
     },
   });
   const domain = createDomainOwner({ repository, verification, contextSources: context?.sources, artifacts: createFileArtifactSyncPort(workspaceRoot), decisions: createFileDecisionSourcePort(workspaceRoot),
-    archive: {sources: archives, baseline: createGitKnowledgeBaselinePort({workspaceRoot, env: bindings.env})},
+    archive: {sources: archives},
     decisionWrites: createFileDecisionWritePort(workspaceRoot), projectBindings: createFileWorkspaceBindingRuntime(workspaceRoot),
-    queries: createFileDomainQuerySourcePort(workspaceRoot), scaffolds: createFileScaffoldSourcePort(workspaceRoot, lifecycleSourceCodec),
+    queries: createFileDomainQuerySourcePort(workspaceRoot), scaffolds: createFileScaffoldSourcePort(workspaceRoot),
     validationSources: createFileDomainValidationSourcePort(workspaceRoot), stdDocumentation: {
       observe: directory => directory
         ? createFileStdDocumentationPort(workspaceRoot, { include: isCurrentStdDocumentation }).observe(directory)
         : Promise.resolve({ root: 'resource:depa-codument/references/std', sources: new Map(CODUMENT_GLOBAL_GUIDANCE_ASSETS
           .filter(asset => asset.path.startsWith('references/std/')).map(asset => [asset.path.slice('references/std/'.length), asset.source])) }),
     },
-    knowledgeSources, knowledgeScaffolds: createFileKnowledgeScaffoldPort(workspaceRoot, {sources: knowledgeSources, fileFor: knowledgeScaffoldFile}), clock: bindings.clock });
+    clock: bindings.clock });
   return Object.freeze({ domain, migration: createCodumentResourceMigrator(workspaceRoot), trackMigration: createCodumentTrackMigrator(workspaceRoot),
     migrationGuidance: async (topic: MigrationGuideTopic) => (await import('./migration-guidance')).readCodumentMigrationGuidance(topic),
     domainJson: bindings.json === true, close: () => domain.close() });

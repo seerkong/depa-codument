@@ -1,7 +1,7 @@
 # Loop: Codument CLI Skill App 与可复用 Host 重构
 
 Status: active
-Round: 48
+Round: 49
 
 本轮模式：用户已授权检查点提交及依据E310自主优化。检查点ce0f2cb，author kongweixian <kong_weixian@163.com>。优先精确交接、只读执行上下文和前置真实行为验证；代码在原仓库，测试/构建在/tmp副本。Round45七个终态试次及限额保持，新候选使用fresh trials；不安装global或升级原dogfood。
 
@@ -10,6 +10,55 @@ Round: 48
 > 固定纪律（勿删）：节点完成 ≠ 回合结束。更新本文件后，同一回合继续取下一个「当前可做」节点；停点只认：验收全过 / 硬中断（工具·宿主·用户强制）/ 卡住（缺输入、不可逆选择）。不因「做了一段」而回头汇报。
 
 ## Work graph
+
+### 本地资源详情路径与 XNL VFS 投影
+
+- Status: done
+- After: none
+- Covers: 期望-3, 期望-4, 期望-11, 约束-3, 约束-4, 约束-22, 约束-23
+- Verify: Halfcode contract/unit/CLI tests + 独立 consumer fixture → 当前 local list 有已验证的绝对详情路径；未来 search 必须复用同一 admission/projector。XNL detail 保持原正文、仅替换安全 VFS；无 local material 和越界/symlink 失败关闭；JSON 不承载被改写的 XNL 正文。
+- Outcome: `fqn`/authored XNL 仍是资源 authority；物理绝对路径与 VFS 文本替换只是 local host presentation effect。通用实现只在 Halfcode 公共包，Codument 仅消费公开投影。
+- Done when: 同一 admission 路径驱动当前 list/detail，未来 search 被约束复用它；真实 XNL 原文、相对 VFS 和 nested local reference 均有正负例；不存在 `--range`/read CLI 或第二正文缓存。
+- Evidence: E358。
+
+### E2E agent 运行时适配：eidolon + deepseek-iqingwa
+
+- Status: done
+- After: none（用户 2026-09-13 决定：codex 额度不足，改用 eidolon harness 与 deepseek-iqingwa preset）
+- Covers: 期望-10, 约束-4, 约束-16, 约束-21
+- Verify: 现有 suite 加 agent 适配层（不 fork 第二套 harness）；`bun test e2e` + typecheck/lint + 无模型 smoke（eidolon/codex 各一次）+ 真实 `probe` 与 `review-probe` → 业务判据、验收边界与指纹门共用一套且未被削弱；缺证据的 runtime 失败关闭。
+- Outcome: `project/e2e/agent-runtime.ts` 把 codex 与 eidolon 收敛为同一 `AgentRuntime` 接口的两个实现，由 `E2E_AGENT` 选择；call site 只传 authored 边界，provider 延迟差异以声明式 `timeoutScale` 表达。
+- Done when: 替换后 harness 在无模型 smoke、真实 probe、真实 review-probe 上均通过；usage/模型身份/退出码投影诚实（estimated 与 unavailable 显式标记，不冒充实测）；工作区指纹不被私有 runtime 状态污染。
+- Evidence: E359。
+
+### 替换 harness 后的真实 E2E 试次与摩擦采集
+
+- Status: active
+- After: E2E agent 运行时适配：eidolon + deepseek-iqingwa
+- Covers: 期望-4, 期望-10, 约束-4, 约束-16, 约束-21
+- Verify: 隔离候选 + eidolon/deepseek-iqingwa 跑 smoke → todo → stream → blog → ecommerce → nested（todo/stream 各第二次）；每步环境/流程/业务独立门；失败与基础设施故障分别计数。
+- Outcome: 以替代 provider 取得真实工程交付数据面，暴露并修复 harness/协议摩擦，供下一轮迭代；不将基础设施故障计入业务分母。
+- Done when: 各场景终态有真实证据，business 与 infrastructure 分列，失败不冒报 PASS，成本只用可观测 bytes/turns/elapsed（该 provider usage 为 estimated 且无 completion 计数，不得用于跨模型比较）。
+- Evidence: E359–E366。已完成：适配层与四项 harness 缺陷的修复及其生产验证（E360/E361/E363 修复、E364/E365 效果与生效确认）、真实摩擦报告（`~/.depa-si/codex/reports/e2e-eidolon-friction-2026-09-13.md`）。未完成：todo 至今未业务通过（E366 定位到应用侧绝对 DATA_FILE 二次拼接的真实产品缺陷）；stream/blog/ecommerce/nested 四步与 todo/stream 第二次尚未观测。
+- Blocked on: 该 provider 在长 implementation 轮次（~35 分钟）多次主动断开 socket，试次常以 infrastructure 结束；需按约束-21 分别计数并保留失败，不以重试冒充通过。
+
+### 路径驱动的完整输入投影
+
+- Status: active
+- After: 本地资源详情路径与 XNL VFS 投影
+- Covers: 期望-4, 期望-10, 期望-11, 约束-4, 约束-21, 约束-23
+- Verify: Codument planner/implementation/reviewer forward fixtures + context-economy regression → 原始需求、acceptance、操作和适用标准以绝对路径/digest/section coverage 交接；不再把完整正文经 CLI 反复搬入对话。
+- Outcome: MaterialBundle 是 source projection 而不是正文 second authority；fresh 角色仍独立读取文件并判断，覆盖检查证明强制章节进入任务/验收映射。
+- Done when: 长需求后半段强制案例的正负例、来源变更失效、重复 phase 与缺 source 均过线；不新增模型 E2E 或削弱 GapLoop/Hook/AttractorCheck/fresh verify。
+
+### 外部发现的定向校准与协议成本收口
+
+- Status: pending
+- After: 路径驱动的完整输入投影
+- Covers: 期望-4, 期望-10, 约束-4, 约束-21
+- Verify: lifecycle/controller/operation contract tests + 现有无模型 E2E harness regression → 外部可复现 finding 在保留 round history 下获得一次定向复验；business/infrastructure/protocol-cost 分类、controller 清理和有界事件等待均可证伪。
+- Outcome: 不重置旧 budget 或把 infra 误送业务实现；临时目录由 controller lifecycle 回收，operation 禁止 agent `rm -rf`；等待只在新观察或 deadline 时返回。
+- Done when: 原 finding 修复后只针对该 finding 复验且没有全量 GapLoop 重置；错误分类、拒绝清理命令与短轮询负例通过；成本记录只报告可观测 bytes/turns/usage，不把它们虚称账单。
 
 ### 已批准数据流约束的路径证据
 
@@ -534,6 +583,8 @@ Round: 48
 
 ## 尚未看清
 
+- 本地绝对路径投影对不同 coding host 的实际 cache/billing 影响尚无统一承诺；本轮只度量重复 CLI 正文搬运、路径/摘要复用和已观察 usage，不把任一宿主私有缓存当 correctness 或成本事实。
+
 - ox1QMV的fresh子层在系统临时目录被拒后创建了多个workspace-local .gap-*/venv，最终Git仍列为untracked。尚未量化其对指纹/复制/目录读取的成本；不据此断言慢因、不自动删除验证产物或缩小完整性范围。当前优先完成被Ego阻塞的真实UI覆盖。
 
 - Round47追加观察：94Yims plan0为保存原始需求快照三次`base64 < request.md`（原生CommandExecution不同id，各输出28225字符），另一次acceptance编码输出3613字符，存在字节搬运经过模型上下文的额外成本。先前仅观察到两次，现按完整记录更正。尚未量化主导开销；现有原始快照规则要求自包含但不要求base64，未发现material导入CLI。后续按事实决定窄策略，不以此减少必要原文阅读或取消输入追溯。
@@ -580,19 +631,10 @@ Round: 48
 
 ## Last action
 
-- E357：在 `/tmp/depa-codument-ui-suite-MadLQi/project` 的新 suite copy 上，使用冻结候选 `0c6ce11b…` 对既有 Todo `ngMIIY` 与 Blog `0D692O` 运行 `ui-reverify`。两个新 root 均按 `requested → leased → server-ready → passed` 收敛：Todo `/private/tmp/depa-codument-e2e-0mGU8x`，Blog `/private/tmp/depa-codument-e2e-JsiCh6`。同一 Ego TaskSpace1/p1 实际完成注册、创建、编辑、查询和字面输入渲染；Todo另验证日期/标签过滤，Blog另验证发布后 reader 过滤。旧 result 仍为 infrastructure-failed，且 reverify 只读指针/源指纹守卫通过。
-- E356：用户明确要求修复测试套件并验收既已生成的 Todo、Blog；不重跑模型、不断言历史基础设施失败已通过，也不改动其 delivered source、历史 result、attempt、usage 或工作流资产。此前 6vxlTT 是用户要求停止后的中断试次，不作为业务或基础设施结论的样本。
-- 当前动作已收口：project/e2e 的 suite-owned UI controller、typed receipt、historical reverify 与报表隔离已落地；全 E2E harness 无模型回归通过。后续只处理 mission 的其余长期真实测量/兼容节点，不把本批复验变成新模型业务试次或重分类历史结果。
-- E354浏览器交还用户：TaskSpace1/p1确认Title prompt时acceptDialog及随后info Runtime.evaluate超时；底层dismiss报No dialog，Page.reload返回{}但尚未确认恢复。task.handOff已成功，等待用户手动恢复确认；不得自行夺回控制/新建space。Todo ngMIIY/session98866在awaiting-ui attempt1，server session90410/PID99725/origin54090，尚无UI receipt，runner有15分钟自然截止；Blog0D692O/session67010仍在implementation0。恢复先观察两个result/进程状态，不resume/reset终态；若Todo仍等UI且用户确认，takeOverTaskSpace(1)后重新观察实际页。
-- 当前活动Blog：/private/tmp/depa-codument-e2e-0D692O/session67010，冻结i8oyvm候选，日志/private/tmp/depa-codument-verification-i8oyvm/blog-ego-upgraded.log。独立run/home，规划实施与Todo复检重叠，UI按到达顺序串行复用TaskSpace1/p1；不改变任一预算，不重复启动。
-- 当前活动Todo：/private/tmp/depa-codument-e2e-ngMIIY，runner session98866，日志/private/tmp/depa-codument-verification-i8oyvm/todo-ego-upgraded.log。E353首轮因合法绝对DATA_FILE被拒绝而失败，现implementation1。等待phase/终态或ui-request；TaskSpace1/p1可用。不得重新启动同一试次。
-- E352用户明确批准替代测试空间；新TaskSpace1/p1（agent ownership）info成功。当前动作：在i8oyvm副本执行bun e2e/run.ts run todo --bin=<该副本>/dist/depa-codument-r47-contract-path --codex=/Users/kongweixian/.bun/bin/codex，日志todo-ego-upgraded.log。启动后记录run root/session；收到awaiting-ui则同一空间启动隔离server并实际UI验证，不重复启动活动runner。
-- E351：按用户批准正式升级Ego至0.5.0.32；重启后Node runtime正常，但listTaskSpaces()返回[]，原TaskSpace4未保留。没有创建替代空间、启动收费试次或改Codument安装。需要用户明确允许创建新TaskSpace，或恢复原空间。
-- 最新源码d196e87（author/committer kongweixian <kong_weixian@163.com>），E344完整694tests/typecheck/lint/native/smoke及独立情境通过。其后无业务源码变化，只有mission记录。
-- ox1QMV/session36345已自然exit0，firstPass=true，35.22分钟；候选/private/tmp/depa-codument-verification-i8oyvm/depa-codument/project/dist/depa-codument-r47-contract-path冻结。E347含四轮GapLoop、独立Attractor/verify/外评、全9会话模型审计、usage和auth清理。没有活动真实试次或待等runner。
-- 旧Q R0Pona保持BLOCKED（E345），W xFEjgk与L hY83QU首次PASS（E339/E342）；历史结果/预算不resume、不改判。最新真实读取成本尚不能证明稳定净下降，分组与统计见verification/terra-e2e-round47.md。
-- E348同一Ego TaskSpace4/p1只读info再次Runtime.evaluate超时、版本0.5.0.28提示更新。此前dialog/CDP/reload安全恢复失败见E313；不finish错误态、新建space或自行upgrade。Todo/Blog/Ecommerce和新版Todo重复仍缺完整UI证据。
-- E348最终原codument/完整指纹及旧global字节/元数据均同基线；没有安装global、push、npm发布或升级原dogfood。历史副本迁移仍review-required，长期mission未完成。
+- E364–E366：以 eidolon/deepseek-iqingwa 完成首轮真实试次与摩擦取证。**harness 侧四项缺陷已修复并在生产中验证**：E360 传输故障分类（`x11VDp` 中 socket 断开正确记为 `infrastructure-failed`，仅消耗 1 attempt 而非派生纠偏）、E361 沙箱隔离（按族拒绝 `/tmp/depa-codument-*` 并重开本 run 根；真实沙箱正负例 + 回归用例；plan-0 harness 读取由 31 次归零）、E362 交付 reason 契约、E363 封套错误分类（implementation 归业务、reviewer 归 infrastructure）。同策略前后对照：plan-0 由 1239s/121 命令/8.66M prompt 降至 620s/33 命令/3.08M，−50%/−73%/−64%（各 1 次样本，token 为 estimated，仅同 provider 相对比较）。
+- 业务面：todo 三轮 implementation 后真实交付并通过 22/22 测试、typecheck、build 与三条 workflow 门，但 `verifyHttp` 因应用把绝对 `DATA_FILE` 二次拼接（`/state//state/store.json` → `SQLITE_CANTOPEN`）而启动失败；已复现定位，属**真实产品缺陷**（E366），计为业务失败。六步中 stream/blog/ecommerce/nested 与重复用例尚未观测。
+- 摩擦报告：`~/.depa-si/codex/reports/e2e-eidolon-friction-2026-09-13.md`（含 TrialIdentity、7 条 finding 分类、修复效果对照、不可推出的结论）。原件指纹与旧 global 未变。
+- E359：完成 E2E agent 运行时适配层，使 codex 与 eidolon 可互换而共用同一套业务判据与验收门。新增 `project/e2e/agent-runtime.ts`（`AgentRuntime` 接口 + 两实现 + `E2E_AGENT` 选择）并对既有 call site 做等价改造；证据落点、退出码投影、usage 诚实性、模型身份、私有状态与结构化契约六处差异逐项处置，见 E359。验证：`bun test e2e` 53 pass/0 fail/296 assertions/10 files，typecheck/lint 通过；隔离候选 `dist/depa-codument-r49-eidolon` SHA256 `980fb9c60221de166564cde2d5b2fe177d0b457e7e63967b867d854b8536deb5`（已含 E358 detailPath）；eidolon 与 codex 的 smoke 各 10 项全过、真实 probe 与 review-probe 通过。原件指纹不变。
 
 ## Next
 

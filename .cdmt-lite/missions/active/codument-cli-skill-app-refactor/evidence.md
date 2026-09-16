@@ -1416,3 +1416,413 @@
 - 实际 Todo 复验：新 suite copy `/tmp/depa-codument-ui-suite-MadLQi/project` 使用冻结二进制 `0c6ce11b…` 创建 `/private/tmp/depa-codument-e2e-0mGU8x`。TaskSpace1/p1 在 `http://127.0.0.1:49752` 实际注册、创建含 `<img src=x onerror=window.uiInjected=1>` 的任务（可见为字面文本）、四个 edit dialogs 更新、标签+截止日期过滤；state 为 requested → leased → server-ready → passed。原 `ngMIIY/result.json` 仍为 infrastructure-failed。
 - 实际 Blog 复验：同 copy/candidate 创建 `/private/tmp/depa-codument-e2e-JsiCh6`。TaskSpace1/p1 在 `http://127.0.0.1:50259` 实际注册 editor、创建包含同一字面 HTML 的 draft、编辑两字段、发布到 reader、tag/category filter；一次 `waitForSelector(text=Edited literal story)` 因 reader/workbench 同名而报告 locator ambiguity，但 filter click 已发生，随后 full-page snapshot 直接确认过滤结果，未重试盲操作。state 同样收敛到 passed。原 `0D692O/result.json` 仍为 infrastructure-failed。
 - 四 root report 的业务分母为 0、历史 infrastructure exclusion 为 2；Todo/Blog 的两条 `uiReverifications` 都 passed。该结论是“冻结交付的后置真实 UI 验收通过”，不是改写历史 trial、首次通过、成本或纠偏率。
+
+### E358 — 本地资源详情路径、原样 XNL 与受限 VFS 投影
+
+- Halfcode 公共 `skill-app-support` 增加 filesystem-backed single-file admission：detail path 必须位于 package root、每层均非 symlink、最终为 regular file；XNL 内仅 lexical-safe `vfs://./…` 指向同一 admitted package 局部 file/directory 时替换为绝对路径。其它 VFS URI 保持作者原文，等待未来 host VFS resolver；FQN、digest 与 authored XNL 没有被改写或作为路径持久化。
+- `Kind list`、`Page list` 与 `SOP list` 给 `detailPath`；现无 search 命令，未来 search 被要求复用此 admission/projector。XNL `Kind detail` 的 human message 是原 XNL（不是 JSON 摘要），JSON 仅携带同一投影、VFS 映射和可观测 receipt：contentDigest、full-file coverage、returnedBytes。没有增加 `read` / `--range` CLI，也没有试图把无状态 CLI 伪装成跨 phase/repeat counter。
+- Halfcode 定向测试：local presentation 正反例（含 symlink 拒绝）及 Kind-native CLI 共 4 PASS / 84 assertions，随后 `bunx tsc --noEmit` PASS。以新本地 release set 中同为 `halfcode-cli-lite-skill-app-support@0.1.1` 的 content-addressed tarball 定点更新 consumer cache；`project` Kind-native consumer 2 PASS / 77 assertions，TypeScript 对新 resource command 无报错。clone 中既存 host clone 包缺失的 type exports 仍是独立前置缺口，未被本变更掩盖。
+- `depa-codument` global template 的 context-loading 协议现在要求优先使用 `detailPath` 由宿主直接读取，记录路径/digest/章节覆盖，避免将长 SOP/XNL 经 CLI 重复拼接；缺少本地路径时保留原有 detail/show 路径。
+
+### E359 — E2E agent 运行时适配层：eidolon + deepseek-iqingwa 替换 codex
+
+- 用户决定：codex 额度不足，后续测试改用 **eidolon** harness 与 **deepseek-iqingwa** preset（`deepseek-v4.1-flash`）。经用户确认采用「现有 suite 加 agent 适配层」而非 fork 第二套 harness；范围为本轮跑完整六步顺序。
+- 新增 `project/e2e/agent-runtime.ts`：把 codex 与 eidolon 收敛为同一 `AgentRuntime` 接口的两个实现，由 `E2E_AGENT` 选择。业务判据、验收边界、指纹与 report 语义共用一套，**未削弱任何门禁**：runtime 无法产出某门所需证据时，该门失败关闭，而不是跳过。
+- 关键差异与处置（均已读 eidolon 源码 `~/ai/eidolon/eidolon-anchor` 核实）：
+  - 调用：`eidolon exec --json -m <preset>/<model> --yolo -C <ws> --ephemeral --output-trace <path> -o <out> -c mcp_servers={} -s <name> -`，prompt 走 stdin（不落 argv）。
+  - **证据落点**：eidolon 自己写 trace，而沙箱可写根只有 `home/{cache,tmp}`；因此 `evidencePath()` 把 trace 放在 `home/tmp`，stdout log 保留为 harness 拥有的 transport 记录。`agentTurn` 从 evidencePath 读取，receipt 记录 `evidencePath`。
+  - **退出码**：eidolon trace 无 per-command `exit_code`。投影规则为 `isError===false ⇒ 0`；`isError===true` 时从 `resultText` 解析 `Process exited with exit code N.`，解析不到保持 `null`（**不假装成功**）。`probe`/reviewer 的「成功执行测试块」门因此仍可判定。
+  - **usage 诚实性**：provider 报 `is_estimated: true` 且 `completion_tokens: 0`。`AgentEvents` 增加 `usageEstimated` 与 `outputTokensUnavailable`；`usage.ts` 排除 estimated 记录，report 逐 run/逐 case 暴露两个标志并在 warning 中声明「不是实测用量、不能与实测 0 比较」。
+  - **模型身份**：eidolon trace 只有 provider-call identity。`modelIdentities` 同时接受 preset 引用与解析后的 bare id（同一模型两种写法，都不是 drift）；**effort 在该 runtime 不可观测，保持 unknown 而非假定匹配**。
+  - **工作区污染**：eidolon 在 workdir 建私有 `.eidolon/`（authority/locks）。`sourceFingerprint` 跳过它（与 `.git` 同类的非 authored bookkeeping）；read-only reviewer 模式下把 `workspace/.eidolon` 加入沙箱可写集，使评审不因私有状态被拒。
+  - **结构化契约**：eidolon 无 `--output-schema`（未知 flag 被静默忽略，已实测）。改为 prompt 携带**值模板**（非 schema 文本）+ 形状规则，并由新增的 `parseStructuredDelivery` 做同一严格 JSON 门。实测发现模型会把 schema 文本回显进答案、也会把 `checks` 填成对象，两者都被门禁正确拒绝。
+  - 二进制与全局根：`executable()` 在父进程解析绝对路径（沙箱 PATH 极简，且 `~/.local/bin` 在真实 home 下被拒绝读取）；`sandboxReadPaths()` 只为 eidolon 开放其 `dist` 根；`EIDOLON_GLOBAL_DIR` 指向隔离 home，凭据仅复制 provider catalog 与 preset 选择。
+- 验证：`bun test e2e` **50 pass / 0 fail / 275 assertions / 10 files**（含新增 `agent-runtime.test.ts` 15 例：未知 runtime 拒绝、estimated/缺失计数标记、非 completed 即失败、空/缺 trace 失败关闭、退出码投影与无配对 result 不伪造、schema 模板、技能根、prompt 不入 argv、模型审计边界）；`bunx tsc --noEmit` 与 `bunx eslint e2e` 通过（`scripts/clone.ts` 的既有 host clone type exports 缺口为独立前置问题，未被掩盖）。
+- 隔离候选：`/private/tmp/depa-codument-verification-itu2zf/depa-codument/project`，候选 `dist/depa-codument-r49-eidolon` SHA256 `980fb9c60221de166564cde2d5b2fe177d0b457e7e63967b867d854b8536deb5`；已验证含 E358 的 `localResourceDetailPath`。原件指纹不变（`codument/` `b631c719…`，旧 bin `05206bf0…`），`isolated-project.ts` 报告 protectedUnchanged=true。
+- 实际校准（`deepseek-iqingwa/deepseek-v4.1-flash`）：
+  - smoke（无模型，eidolon 与 codex 各一次）：10 项断言全过，`modelCalls=0`，全局 App 59 文件装入 `<home>/.eidolon/skills/depa-codument`，provenance 记录 `agent/model`。
+  - `probe`：真实模型轮次通过；观察到 `which depa-codument && depa-codument -h` 退出码 0，模型身份为 `deepseek-v4.1-flash`，usage 标 estimated。
+  - `review-probe`：真实 venv + pytest（退出码 0）后返回 `PASS`/findings 0/checks 6；`model-audit` 观测到预期模型；`businessAcceptance:false`。评审通过。
+- **摩擦发现（供下一轮迭代）**：
+  1. eidolon 的 `session_start.model` 为 `null`，模型身份只能从 `providerCacheObservations[].identity.model` 取；trace 无 effort 维度，跨 harness 的 effort 等价性无法断言。
+  2. eidolon 无 `--output-schema`，且未知 flag 被静默忽略——若不显式改为 prompt 契约，结构化 verdict 会「看起来配置了但实际未强制」。
+  3. 该 provider 的 usage 是 estimated 且 completion_tokens 恒 0，**不能用于跨模型 token 成本比较**；成本结论只能来自 harness 侧可观测的 bytes/turns/elapsed。
+  4. `deepseek-v4.1-flash` 在真实 reviewer 工作负载下两次违反 verdict/findings 互斥契约（PASS 携带 findings）；`deepseek-v4-pro` 在小 fixture 上遵守、在完整 review-probe 上仍违反。说明**替代模型在长上下文评审下的契约遵从度低于 Terra**，属真实观察，不据此降低门禁；`timeoutScale` 以声明式因子（eidolon=3）覆盖 provider 延迟差异，门禁语义与尝试次数不变。
+  5. eidolon 在 workdir 建 `.eidolon/` 私有状态；评审 scratch（venv）会引入 symlink，扫描需区分交付物与临时件。
+
+### E360 — provider 传输故障误分类为业务失败（真实试次暴露）
+
+- 现象：`todo` 首次真实 eidolon 试次（root `/private/tmp/depa-codument-e2e-qhpv4v`）plan-0 运行 2286s 后 `session_end.status=failed`，`failureSummary` 为 `Error: The socket connection was closed unexpectedly...`（provider 主动断开 socket）。该轮已完成 144 次真实工具调用、13 次 read、9 次 Skill，并已写出真实 Track（`tracks/pending/add-todo-app/track.xnl` 及 behavior/modeling deltas）。
+- 缺陷：`agentTurn` 只按 `result.code || events.failed` 抛 `AgentTurnFailure`，而 `runCase` 只在 `AgentTransportFailure` / `BrowserInfrastructureFailure` / `ReviewerInfrastructureFailure` 时判为 infrastructure。因此 **provider socket 断开被当成业务失败**，runner 随即进入 `plan-1` 纠偏，消耗了一次业务纠偏预算，并会污染该试次的首次通过率统计。这是适配层引入的真实缺陷，不是产品问题。
+- 修复：`AgentEvents` 增加 `transportFailure` 与 `failureSummary`；两个 runtime 各自从原生证据提取失败文本（codex 从 `error`/`turn.failed` 事件，eidolon 从 `session_end.failureSummary`），并用共享的 provider/transport 模式（socket closed、ECONNRESET/ETIMEDOUT/EPIPE/ENOTFOUND、fetch failed、429/5xx、context length 等）判定。`agentTurn` 命中时抛 `AgentTransportFailure`，因此正确进入 infrastructure 分支而不消耗纠偏预算。判定只在「非 completed 且失败文本匹配」时成立，真实 agent 侧失败仍为业务纠偏（负例已验证）。
+- 验证：新增用例覆盖 5 类 provider 故障（socket closed / fetch failed / ECONNRESET / 429 / 503）→ `transportFailure=true`；真实 agent 拒绝 → `false`；正常完成 → `false`。`bun test e2e` 51 pass / 0 fail / 289 assertions / 10 files，typecheck/lint 通过。
+- 处置：原 `qhpv4v` 试次作为被缺陷污染的 pilot 终止，不计入六步业务分母（其 token/时间成本保留可见）；含修复的 harness 已同步到隔离候选副本，重新发起 fresh `todo` 试次。
+- 意义：这是替换 harness 后**第一个由真实运行暴露并修复的摩擦点**，正是本轮迭代目标。同时记录了该 provider 的实际失败形态（长轮次中被断开），后续成本/pass-rate 结论必须区分此类 infrastructure 排除。
+
+### E361 — E2E 沙箱未隔离 /tmp 内的 harness 与其他验证副本
+
+- 现象：fresh `todo` 试次（root `/private/tmp/depa-codument-e2e-iZU7rF`）的 implementation-0 中，156 次工具调用有 **56 次引用 harness 源码或其他验证副本**：直接 `sed -n` 读 `e2e/workload.ts`、`e2e/resource-oracle.ts`，`grep` `auditModels`/`checkTrackPolicies`/`GapLoop`/`AttractorCheck`，并列举 `/private/tmp/depa-codument-verification-i6ECNV` 与 `depa-codument-ui-suite-*`。Agent 明确在反向推断自己将如何被判定。
+- 根因：Seatbelt profile 只 `(deny file-read* (subpath <realHome>))`，而 run root、harness 与其他验证副本都在 `/private/tmp` 下，属默认可读。因被测对象与 harness 同在 `/tmp`，原有「隔离 home」设计未覆盖同层目录。这与 MISSION 约束-16「源码、项目资产及测试运行状态不通过外部路径共享」及约束-21「不复制个人配置/插件/旧 Skill」的隔离意图相悖。
+- 影响：① 被测 agent 可读取判定逻辑，存在针对性拟合风险（本次未观察到篡改验收或伪造 receipt，仅读取）；② 读取 harness 正文消耗上下文，构成 protocol_cost；③ 可通过兄弟副本读取他人交付物，破坏试次独立性。**不据此改判本试次业务结果**，也不排除已发生的真实交付。
+- 已修复：`sandbox()` 现在先 `(deny file-read* (regex "^<tempParent>/depa-codument-"))`（Seatbelt 正则转义后按字面前缀匹配），再重开本 run 的 `root`、`workspace` 与 agent runtime 只读根；仍保留对真实 home 的读拒绝。Seatbelt 按最后匹配规则解析，故「先按族拒绝、再按本 run 放行」生效。
+- 验证：真实 `sandbox-exec` 下读取兄弟副本 `/private/tmp/depa-codument-verification-fakeother/workload.ts` 返回 `Operation not permitted`，同一命令读取本 run 的 `workspace/mine.txt` 正常。回归用例 `runtime.test.ts`「the agent sandbox denies sibling trials and harness copies under the same temp parent」覆盖该正负例。`bun test e2e` 53 pass / 0 fail / 296 assertions。
+
+### E362 — delivered 结果缺 reason 触发无意义纠偏 + 沙箱外读 harness
+
+- 现象（root `/private/tmp/depa-codument-e2e-iZU7rF`，eidolon/deepseek-v4.1-flash）：plan-0 completed（1239s）并通过 strict/modeling/engineering 门，产出真实 Track `add-multiuser-todo-app`；implementation-0 completed（5136s，185 次命令、5 次 RunDelegateActor 执行 GapLoop round1/round2 与 AttractorCheck），末消息为 `{"status":"delivered","reason":""}`。
+- 缺陷：`requireDeliveredImplementation` 要求 `reason` 非空（「Implementation outcome requires a reason」），但 implementation prompt 只说明「若 blocked 返回 status=blocked 与确切原因」，**未说明 delivered 也需要 reason**。结构化契约模板给出 `"reason": ""`，反而引导模型留空。结果：一次 86 分钟的真实交付被外层判为失败并进入 implementation-1 纠偏，属**协议表述缺口导致的无效纠偏**，不是产品缺陷。该次仍消耗了业务纠偏预算。
+- 处置方向（下一轮实施）：在 implementation prompt 与 schema 模板中明确「delivered 也必须给出非空 reason（交付摘要/证据指针）」，或把 reason 改为仅 blocked 必需并在校验中区分。本轮记录，不在运行中改候选。
+- 关联：同类 harness 已在 E361 记录沙箱未隔离 `/private/tmp` 内 harness 与其他验证副本，被测 agent 读取了 `e2e/workload.ts`/`resource-oracle.ts`（56/156 次调用），存在拟合风险；两处均为本轮 harness 侧摩擦，不改判业务结果。
+
+### E363 — 结构化解封失败被归为 infrastructure，且替代模型无法稳定产出封套
+
+- 试次终态（root `/private/tmp/depa-codument-e2e-iZU7rF`，eidolon/deepseek-v4.1-flash）：`status=infrastructure-failed`，`firstPass=false`，121 分钟。attempt0 → `Implementation outcome requires a reason`（E362 的提示缺口）；attempt1 → `Malformed structured delivery: content after the JSON object`，即模型在 JSON 对象之后又追加了说明文字，被严格解封器拒绝。
+- 缺陷：`parseStructuredDelivery` 对实现路径的封套格式错误统一抛 `ReviewerInfrastructureFailure`，被 `isInfrastructureFailure` 判为 infrastructure 并 `break`，**使一次真实的能力/协议失败被计入 infrastructure 排除而非真实失败**。这违反约束-21「真实失败和基础设施失败分别计数」，也掩盖了替代模型的真实契约遵从度。该分类本意只适用于 reviewer verdict（原 codex 设计下 schema 由 `--output-schema` 强制，实现路径几乎不可能出现格式错误；改用 prompt 契约后才暴露）。
+- 已修复：`parseStructuredDelivery` 增加 `classify` 参数。implementation 路径传 `'business'`（封套是 agent 自己的输出契约，格式错误是可纠正的真实失败，抛 `AgentTurnFailure`）；reviewer 路径保持默认 `'infrastructure'`（verdict 不可归因于交付）。所有解析失败分支统一走该分类器。回归用例「envelope malformation is business for implementation and infrastructure for review」以真实观察到的「JSON 后追加 `[End of advisor consultation]`」形态覆盖两条路径。
+- 实测确认：`deepseek-v4.1-flash` 无法稳定满足「整条末消息恰为一个 JSON 对象」的契约（E359 已记录其 verdict/findings 互斥违约，E362/E363 又记录 reason 空值与封套后追述）；且该试次的末消息显示 agent 曾直接阅读 `e2e/workload.ts` 并复述 `requireDeliveredImplementation` 断言——E361 的隔离缺口有真实行为后果。这是替代模型的真实限制，不据此降低门禁。
+- 本轮已发现并记录的 harness 侧摩擦合计：E360（传输故障误判业务）、E361（沙箱未隔离 /tmp 内 harness 与兄弟副本）、E362（delivered 缺 reason 导致无效纠偏）、E363（封套错误误判 infrastructure）。四项均属「替换 harness 后由真实运行暴露」的迭代输入，符合本轮目标。
+
+### E364 — 沙箱隔离修复的真实效果（同策略前后对照）
+
+- 修复后 fresh 试次（root `/private/tmp/depa-codument-e2e-x11VDp`，同候选同 provider 同策略）：plan-0 **completed 620s**，33 次命令，prompt 3,082,523；通过 strict（`✓ add-todo-app: track.xnl OK + 2 behavior delta(s)`）并写出 planning-handoff（`add-todo-app` + sourceSha256）。
+- 对照（修复前 fresh 试次 iZU7rF，同为 eidolon/deepseek-v4.1-flash、同候选、同 workflow policy）：
+
+| 指标 | 修复前 iZU7rF | 修复后 x11VDp | 变化 |
+|---|---|---|---|
+| plan-0 耗时 | 1239s | 620s | −50% |
+| plan-0 命令数 | 121 | 33 | −73% |
+| plan-0 prompt tokens（estimated） | 8,664,012 | 3,082,523 | −64% |
+| harness/兄弟副本读取 | 31 次（plan-0） | **0 次** | 归零 |
+| 规划质量 | strict 通过（3 behavior delta） | strict 通过（2 behavior delta） | 均有效 |
+
+- 结论：E361 的隔离缺口是**真实且可观的 protocol_cost**——被测 agent 在被允许读取 harness 时，把大量轮次（plan-0 31/554 记录、implementation-0 57/1094 记录，合计 88/617 = 14% 工具调用）用于推断判定逻辑。按族拒绝后该成本归零，规划阶段耗时与命令数大幅下降。
+- 排除项与限制：① 修复前的 88 次读取中 57 次属 implementation-0（其 5136s 时长另受交付规模影响），故此处只对**plan-0 同期对照**保守陈述，不外推到 implementation；② token 为 provider estimated 计数，**只作同 provider 同阶段的相对比较**，不作为账单或跨模型结论；③ 样本各 1 次，非统计结论，但方向与机制一致（隔离缺口 → 读取行为 → 上下文/轮次开销）。
+- 该结果同时回收了 E361 的「待确认」项：隔离修复的净收益已由同策略前后对照观测到。
+
+### E365 — 传输故障修复在真实试次中生效（不再浪费纠偏预算）
+
+- 试次 root `/private/tmp/depa-codument-e2e-x11VDp`（eidolon/deepseek-v4.1-flash，含 E360/E361/E363 修复的 harness）：plan-0 **completed 620s** 并通过 strict 门；implementation-0 在 2147s 后 provider 再次断开 socket（`The socket connection was closed unexpectedly`）。
+- 关键对照：修复前（qhpv4v）同类 socket 断开被判为业务失败 → 消耗 attempt 并进入 plan-1；修复后 `result.json` 为 `status=infrastructure-failed`、`attempts=[0 infrastructure-failed]`，**只消耗 1 次且不再派生纠偏轮次**，业务纠偏预算完整保留。
+- 该 provider 的长轮次稳定性是真实限制：两次真实试次的 implementation 阶段均在 ~35 分钟处被 provider 断开。此为 infrastructure 事实，按约束-21 单独计数，不进入业务分母，也不反馈为业务实现缺陷。
+- 同时确认为**同策略前后对照**：修复前 plan-0 1239s / 121 命令 / 31 次 harness 读取；修复后 620s / 33 命令 / 0 次读取（E364）。
+
+### E366 — todo 业务失败的真实根因：应用把绝对 DATA_FILE 二次拼接（产品缺陷，非 harness）
+
+- 试次 `/private/tmp/depa-codument-e2e-x11VDp`（resume 后）：plan-0 completed 620s → implementation-0 传输失败（infrastructure）→ implementation-1 封套格式错误（business）→ implementation-2 **delivered 1335s**，末消息给出真实证据（`bun run test` 22/22、typecheck、build 全部通过，另通过 strict/modeling/engineering 与 fresh 独立验证）→ `verifyHttp` 报 `Application exited early: 1` → 终态 `failed`。
+- 真实根因（已复现）：`workspace/src/db.ts` 写
+  ```ts
+  const dir = dataDir || process.env.E2E_DATA_DIR || ".";
+  const file = dataFile || process.env.DATA_FILE || "todo.db";
+  const path = `${dir}/${file}`;   // 二次拼接
+  ```
+  而 harness 的契约（`application-state.ts`）是 `E2E_DATA_DIR=<dir>`、`DATA_FILE=<dir>/store.json`（**绝对路径**）。因此应用构造出 `/state//state/store.json`，父目录不存在 → `SQLiteError: unable to open database file (SQLITE_CANTOPEN)` → `server.ts` 启动即退出 1。
+- 复现证据：同一环境变量下构造的路径为 `/tmp/dbfile-test/state//tmp/dbfile-test/state/store.json`，`isAbsolute(DATA_FILE)=true` 且父目录不存在。
+- 分类：**business_delivery**（生成应用未按其被告知的运行契约解析数据路径）。这与 E360–E365 的 harness 侧摩擦性质不同，是真实的产品/生成质量问题，应计入业务失败并触发业务纠偏——而它确实如此（attempt2 的失败被正确计为业务失败）。
+- 待修（属于下一轮产品或规范侧）：① `application-state.ts` 的契约应在提示中更显式（当前 `basePrompt` 只写「DATA_FILE names the per-phase JSON store」）；② 或明确二选一（给 `DATA_DIR` 就不给绝对 `DATA_FILE`），避免绝对/相对混用歧义；③ 应用侧应按绝对路径优先解析。本轮只记录与取证，不改运行中候选、不代修应用。
+- 意义：六步首用例至今**未产生一次业务通过**，但已把失败逐层归因到可复现的三类：provider 传输（infrastructure）、模型契约遵从（business，可纠偏）、应用数据路径解析（business，真实缺陷）。这正是「查看新的摩擦以便下一轮迭代」所需的证据。
+
+### E367 — 数据路径契约澄清 + 采用 eidolon 原生长轮次机制（不硬改 eidolon）
+
+- **用户边界（重要）**：本轮目标是打磨跑通 todo，并在遵循 DEPA 思想的前提下找出 depa-codument 重构后的问题与 eidolon harness 的问题。**修 eidolon harness 时必须格外注意：该项目基于 DEPA、设计较新，演进在 codument 中；不能用传统旧软件开发思路硬改 eidolon 项目。** 由此确立本轮实施纪律：`~/ai/eidolon/eidolon-anchor` 只读；所有改动只在消费方 `project/e2e/`（depa-codument 自己的 E2E 控制面），且优先**使用 eidolon 已设计的机制**而非绕开或改造它。
+- **E366 产品侧修复**：`basePrompt` 的数据路径契约原先只说「DATA_FILE names the per-phase JSON store」，与 `E2E_DATA_DIR` 格式不同（一个目录、一个绝对文件路径），诱导模型拼接（实测产物 `/state//state/store.json` → `SQLITE_CANTOPEN`）。权威来源核对为 `project/e2e/README.md:42` + `application-state.ts:11`，**契约本身无误，是提示表述有歧义**。现明确：两者都是已存在的绝对路径，E2E_DATA_DIR 是目录、DATA_FILE 是可直接使用的文件路径且父目录已存在，**不得互相拼接**。
+- **长轮次机制（采用 eidolon 原生设计，未改 eidolon）**：读源码确认 eidolon 已为长轮次设计了完整机制——`ExecProtocolGraph` 区分 `completed` / `failed` / `paused_with_progress`；`runtime_turn_unsettled:` 前缀表示「可恢复的未结算轮次」，由 `--auto-resume` 在同一次调用内续跑（默认上限 8 次）；而 provider 断连走 `runtime_actor_fiber_failed` → `graph.fail`，属真失败。
+  - 因此上一轮把 socket 断开判为 infrastructure 是**正确的**（不该续跑），未误判。
+  - 新增启用 `--auto-resume` 并设 `--timeout=2700s`。定标依据为实测：21 个已记录 implementation 轮次中位 21.5m、最大 44.8m；本 provider 一次在 35.8m 处断开。取 45 分钟使正常轮次不受打扰，同时让过长轮次获得**可恢复检查点**而非传输失败。
+  - 语义澄清：`--auto-resume` 不新增 attempt、不重置预算、不放宽门禁，只让**一次authoring 轮次跑完**；启用后若仍以 `paused_with_progress` 结束，表示续跑耗尽或已无进展，仍判 `failed`（已补测试断言）。
+- 验证：`bun test e2e` 53 pass / 0 fail / 296 assertions；新增两例覆盖「eidolon 调用含 --auto-resume 与定标 timeout、codex 不得静默获得该能力」「续跑耗尽仍判失败且非传输故障」；typecheck/lint 通过；smoke 10 项 exit0。
+
+### E368 — 切换到 deepseek 官方 provider（模型名歧义实测定位）
+
+- 用户指令：停止当时运行的 todo 试次，之后测试改用 `deepseek/deepseek-v4.1-flash`。已停止 `uZ3Y5u` 试次及其进程树。
+- **实测发现名字不存在**，三处口径不一致（均以实跑与接口查询取证，不靠推断）：
+  | 名字 | 结果 |
+  |---|---|
+  | `deepseek/deepseek-v4.1-flash`（用户指定） | ❌ `Runtime unavailable: Model not found under provider` |
+  | `deepseek/deepseek-flash`（用户在确认框中改选） | ❌ 同上 |
+  | `deepseek/deepseek-v4-flash` | ✅ completed，实测返回 READY，观察到模型身份 `deepseek-v4-flash` |
+  | `deepseek/deepseek-v4-pro` | ✅ completed |
+  - `llm-provider.json` 中 `deepseek` 声明 `['deepseek-v4-flash','deepseek-v4-pro']`；其服务端 `/models` 返回 `['deepseek-flash','deepseek-v4-pro']`（少 `v4`）。**eidolon 校验的是 provider catalog 的声明列表**，故只有 catalog 里的名字可用；失败的调用在发起任何 provider 请求前即终止（`providerFailures: 0`）。`v4.1-flash` 仅存在于 `deepseek-iqingwa` 中转站。
+- 处置：默认模型改为 `deepseek/deepseek-v4-flash`，并在常量处注释记录该命名歧义与「必须带 provider 限定名」。`modelIdentities` 自动派生裸名 `deepseek-v4-flash`，与实测身份一致。
+- 顺带修正：`agent-runtime.test.ts` 中「模型身份」用例原先硬编码旧模型名，改为从 runtime 派生断言，避免模型变更后留下过期字面量。
+- 验证：`bun test e2e` 55 pass / 0 fail / 304 assertions；typecheck 通过；smoke 10 项 exit0；新试次 `RwKBI2` 的 provenance 记录 `model: deepseek/deepseek-v4-flash`，规划阶段以真实工具活动推进。
+
+### E369 — eidolon 权限统一并重建；todo 试次转录诊断
+
+- **用户指令**：统一 `dangerous` 与 `full-auto` 三处差异（权限判定 / `sudo` Bash 守卫 / `sandbox_mode`），随后重建 eidolon 并重测 todo。
+- **改动（全部在 eidolon 源码）**：
+  1. `cell/.../permissions/LocalPermissionRuntime.ts` — 权限判定合并为同一段逻辑；`isDangerousExecProtocolMode` 语义扩展为「可信模式」（`dangerous || full-auto`，保留原函数名，确认无外部引用变动）；`sudo` 守卫随之统一放行。
+  2. `terminal/.../AIAgent/TerminalRuntime.ts` — `sandbox_mode` 推导改为两个可信模式共享 `danger-full-access`。
+  3. 两个测试文件 — 更新 4 处锁定旧行为的既有断言，扩展覆盖两种模式。
+  - 保留的边界（未放宽）：`rm -rf /`、`shutdown`、`reboot`、`> /dev/` 仍被拦；`permissions.json` 与 `workspace-access.json` 写入仍被 `protected_permission_config` 拒绝；`interactive`/`default` 路径不变。
+  - 验证：权限+沙箱测试 68 pass / 0 fail；TUI metadata 测试 7 pass / 0 fail；两包 typecheck 对改动文件零错误；全量套件 17 个失败经 `git stash` 基线对照确认为既有环境性失败（分层检查、会话恢复），与本次无关。
+- **重建**：`bun run build:terminal` exit 0，`dist/terminal/tui/eidolon` 21:17 更新（大小与旧版同为 81774434 字节，故不以大小判断，改用功能实测）。
+- **功能实测（真实模型）**：`--yolo` 读 `~/.eidolon/skills/test-skill/SKILL.md` → 成功返回 `MARKER-INSIDE-SKILL-7788`（改动生效）；对 `~/.eidolon/permissions.json` 追加写入 → 被 runtime guard 拦截，文件 SHA256 前后一致（保护仍有效）。
+- **todo 试次 `wDV1rU`**：plan-0 `failed`，405s，`failureSummary: Timeout after 1000ms`，`providerOpen: 1`。**6 个工具错误中无一个是 workspace_scope_violation**——权限修复在真实 E2E 中生效。错误为 `/tmp/plan-track.md: Operation not permitted`（沙箱 TMPDIR 边界）、`modeling scaffold: unsupported kind 'component'`、`engineering scaffold: unsupported kind 'troubleshooting'`（真实 CLI 能力表不符）。
+- **诊断**：`Timeout after 1000ms` 来自 `driverRuntime.ts` 的 `tickUntilForegroundSettled`（`maxWallMs = min(remainingMs, 1000)` 为刻意轮询上限），触发条件是该 tick 窗口内前台 fiber 未稳定。`providerOpen: 1` 表明有一个 provider 调用未完成。受控实验：加/不加 `--timeout` 的短用例均 completed；116s/14 轮次的长轮次也 completed。**故当前证据不足以断言 `--timeout` 是原因**，更可能是 provider 侧长轮不稳定；需更多样本区分。
+
+### E370 — UI 浏览器网关：ego-browser 放宽 + 采用 opencli 驱动
+
+- 背景：`wDV1rU` 在 `awaiting-ui` 阶段因 5 分钟 controller 获取窗口到期而 infrastructure-failed（无人启动 `ui-server`）。这是 harness 流程问题，不是产品问题；代码验收已通过（`review-2` PASS）。
+- 用户决定：重跑 todo 时优先 ego lite 浏览器，有问题切 opencli。
+- 探测结论（决定用 opencli）：
+  - **ego lite** 是 chromium GUI 应用，无 TCP/CDP 自动化端口（`9222` 是另一个 Google Chrome，非它）；仅人工可操作，无法被 harness 自动驱动。
+  - **opencli**（`/opt/homebrew/bin/opencli` v1.8.6）daemon + 浏览器扩展已连接，`browser <session>` 提供完整脚本化能力：open/clikc/fill/type/eval/state/verify。实测能打开本地页面、点 `#register`/`#add`、fill `#name` 并 eval 读回值。
+- harness 改动（`project/e2e/ui-gate.ts`）：把收据的浏览器身份校验从「仅 `ego-browser` + 强制 `spaceId>0`」放宽为三类——`ego-browser`（要求 spaceId>0）、`opencli`（要求非空 session 名）、其他（要求非空 browser 名）。**这是放宽浏览器识别，不是放宽 UI 验收**：5 类覆盖（authentication/business-create/business-update/business-query/literal-input）、每 action 的真实 observable 文本、leaseId/dataDirectory/sourceFingerprint 绑定校验全部保留。
+- 新增测试：`ui-gate.test.ts` 加入 opencli 正例（带 session 名 + 5 类 actions 通过，缺 session 被拒、覆盖不全被拒）。
+- 验证：`bun test e2e` 55 pass / 0 fail；typecheck 通过；smoke 10 项 exit0；opencli 真实驱动验证通过。
+- 后续：新试次 `3jCoRG` 启动，`awaiting-ui` 出现时立即启动 `ui-server` 并用 opencli 驱动。
+
+### E371 — todo `DlDzFo` 三轮 implementation 未到 UI；定位 eidolon provider 上下文持久化缺陷
+
+- 试次 `DlDzFo`（eidolon + `deepseek/deepseek-v4-flash`，候选 `980fb9c6…`）：plan-0 **首次通过 448s（7.5 分钟）**，零重试——纠正了此前"规划 10-30 分钟"的错误说法。
+- 三轮 implementation 全部失败，**从未到达 UI 阶段**：
+  | attempt | 时长 | 结果 |
+  |---|---|---|
+  | implementation-0 | 1013s | ❌ `provider_context_transition_unpersisted_predecessor_conflict` |
+  | implementation-1 | 299s | ✅ completed（trace 层），但封套解析失败：`Malformed structured delivery: no JSON object` |
+  | implementation-2 | 802s | ❌ 同一 `provider_context_transition_unpersisted_predecessor_conflict` |
+  - 终态 `failed`，42.7 分钟，3 次预算用尽，不 resume。
+- **eidolon 侧真实缺陷（高置信）**：错误来自 `AiAgentExecutor.ts:4604` 的 `persistCurrentProviderContextReceiptBeforeTransport`（`:4891` 在构造 provider 字节前调用）。守卫条件：`persistedDigest !== receipt.previousReceiptDigest` 且非修复 head → 拒绝。**特征：只在长轮次出现（1013s / 802s 失败；299s 成功）**，与 `wDV1rU` 的 `Timeout after 1000ms` 同属"长轮次 provider 上下文状态不稳定"。错误发生在 trace 正常结束之后，工具活动全程 0 权限错误，故与权限改动无关（已核对 implementation-0 的 442 条记录，权限相关错误 0）。
+- **模型侧问题（沿用 E362-F5）**：attempt 1 的 `Malformed structured delivery: no JSON object` 是 `deepseek-v4-flash` 未按 schema 输出封套 JSON，属该模型能力局限，非产品缺陷。
+- **产品侧观察**：implementation-0/2 已成功启动应用（`todo-app listening on http://127.0.0.1:18099`），说明业务代码可运行；失败点在交付封套与 eidolon 运行时，不是应用本身。
+- **沙箱边界观察**：多次出现 `/tmp/*.json: Operation not permitted`，即被测 agent 试图写 TMPDIR 之外（`E2E_DATA_DIR` 在 `home/tmp` 内）。属沙箱 TMPDIR 边界，非阻塞。
+- UI 网关改动（E370）本轮未被触发，opencli 接管路径仍需一次真正到达 `awaiting-ui` 的试次来验证。
+
+### E372 — TUI 卡住与权限改动无关（对照实验否定）
+
+- 现象：用户报告 eidolon TUI 中问"你是谁"长时间卡住（截图显示 `MCP 初始化完成 1/1`）。卡住进程 PID 6704，工作目录 `/Users/kongweixian/tmp`，启动于 06:55，持续 4h+，其 `authority.sqlite` 自启动后再未写入（末次修改 06:55，即启动时刻）。`sample` 采样显示主线程 2461/2561 样本停在 `kevent64`（事件循环空转等待），**无任何 TCP 连接**——不是卡在 provider 请求上。
+- 对照实验（同一份二进制 `417c6b78…`，即 21:17 含权限改动那份）：
+  | 场景 | 结果 |
+  |---|---|
+  | 隔离 HOME + `--yolo`（dangerous 路径） | ✅ completed，正确回答 |
+  | 隔离 HOME + 无 `--yolo`（interactive 路径，与 TUI 默认相同） | ✅ completed，正确回答 |
+  | 工作目录 `/Users/kongweixian/tmp` + `--yolo` | ✅ completed，正确回答 |
+- **结论：卡住与二进制及其权限改动无关。** 两条代码路径（dangerous / interactive）均在实测中正常；且 TUI 默认不传 `--yolo`（`buildTuiThreadRuntimeMetadata` 在无该标志时返回 `undefined`），走的是 `interactive`，而本次权限改动的三处（权限判定合并、`sudo` 守卫、`sandbox_mode`）**全部只在 `dangerous || full-auto` 分支生效**。
+- 卡住进程 6704 未被本次排查修改或终止，保留供用户处置。其环境（`/Users/kongweixian/tmp/.eidolon`）与会话状态为独立问题，未定位到单一根因。
+- 二进制状态：`dist/terminal/tui/eidolon` = `417c6b786b14617d4f40c1614324c7a863c1e6606b4d0563ac2b38e2e7ee8b9d`（未改动），备份在 `/tmp/eidolon-user-binary.bak`（同哈希）。源码 4 个改动完整保留，`git stash` 已清空（排查中曾临时 stash，已 pop 恢复并校验）。
+
+### E373 — 定向调查 `provider_context_transition_unpersisted_predecessor_conflict`
+
+- 报错点：`cell/packages/ai-organ-logic/src/exec/AiAgentExecutor.ts:4604`，位于 `persistCurrentProviderContextReceiptBeforeTransport`（`:4891` 在构造 provider 字节前调用）。
+- **守卫不变量**（已读全文逻辑并模拟）：`repairingTransitionHead = (persistedDigest === receipt.receiptDigest)`；当 `!repairingTransitionHead && persistedDigest !== receipt.previousReceiptDigest` 时抛错。三态模拟结果：
+  - `persistedDigest = null` → 必抛（无持久化即无法满足前驱）
+  - `persistedDigest = 其他值` → 必抛（链断裂）
+  - `persistedDigest = previousReceiptDigest` → 通过
+- **实测相关性（`DlDzFo` 三轮 implementation，同参数同业次）**：
+  | attempt | providerCalls | toolCalls | 时长 | 结果 |
+  |---|---|---|---|---|
+  | impl-0 | 123 | 160 | 1013s | ❌ 冲突 |
+  | impl-1 | 67 | 20 | 299s | ✅ completed |
+  | impl-2 | 188 | 258 | 802s | ❌ 冲突 |
+  → **失败全部发生在高调用量轮次（123/188），唯一成功的是低调用量轮次（67）**。这不是随机抖动，是与轮次累积状态相关的确定性边界。
+- **排除项**：
+  - `continuations = 0`（两个失败轮次）——`--auto-resume` 从未触发，与续跑机制无关。
+  - `--ephemeral` 在**所有**运行中都存在（含成功的 impl-1 与 `wDV1rU` 的 review-2），且经 `git log -S` 确认为**既有代码非本次新增**，故非充分原因。
+  - 权限相关错误 0（impl-0 的 442 条记录已核对），与 E369/E370 权限改动无关。
+- **机制线索**：`--ephemeral` 下 `persistSnapshots = runtimeConfig.ephemeral !== true`（`TerminalRuntime.ts:918`），`persistSnapshot` 因此提前返回（`:1126`），会话目录在结束时 `rmSync`（`:2071`）。而 `commitProviderContextTransitionGeneration` 走 `repository` 通道（独立于 `persistSnapshots`）。in-memory 适配器按 `sessionDir` 键控 store（`inMemory.ts:324-333`）并在同进程复用，故 `--auto-resume` 多轮次共享同一 store——该路径自洽，**故根因不在 store 键控**。
+- **未定项（不编造）**：未找到固定阈值常量；`persistedDigest` 落后于 `previousReceiptDigest` 的确切时序尚未在源码中复现。已定位到守卫、触发面与确定性边界，但**尚未定位导致链断裂的具体写入缺失点**。
+- 该缺陷属 eidolon 侧，不在本轮 `project/e2e` 适配层范围；修复需另开范围并有其自身验证。
+
+### E374 — 根因定位：内存域与持久仓的 provider epoch receipt 推进不对称
+
+- **完整调用链**（已逐层读取源码确认）：
+  1. `ensureActorProviderContextEpochBeforeTransport`（`AiAgentExecutor.ts:4851`）— 传输前统一入口
+  2. 内部先调 `activateActorProviderEpoch`（`:4875`，定义于 `conversation/ProviderEpoch.ts:75`）
+  3. 紧接着调 `persistCurrentProviderContextReceiptBeforeTransport`（`:4891`，定义于 `:4558`）— 该函数在 `:4604` 抛出目标错误
+- **根因（不对称写入）**：`activateActorProviderEpoch` 有两条写入分支（`ProviderEpoch.ts:173` / `:201`）：
+  - `currentV2` 存在 → `commitProviderContextTransition(...)`，写**内存域** `runtime.sessionStateSignal`
+  - `currentV2` 不存在（首次）→ `activateProviderEpochReceiptV2InConversationDomainRuntime(...)`（实现于 `conversationCapsule/internals/domainRuntime.ts:610`）
+  - **两条分支都只写内存域**（`runtime.sessionStateSignal.get()[sessionId].actorBindings[actorKey].providerEpochReceiptV2`），**都不写 repository**
+  - 唯一把内存态桥接到 repository 的是 `persistCurrentProviderContextReceiptBeforeTransport`（`:4656` 的 `repository.commitProviderContextTransitionGeneration`），它以 `expectedEpochReceiptDigest: persistedDigest`（持久态旧值）+ `nextEpochReceiptDigest: receipt.receiptDigest`（内存态新值）提交
+- **断裂机制**：守卫读 `persistedDigest`（repository 侧）与 `receipt.previousReceiptDigest`（内存侧）比较。只要出现**内存已推进、而桥接未成功提交**的一格，两者即错位，下一次守卫必然抛 `provider_context_transition_unpersisted_predecessor_conflict`。三态模拟已证实：`persistedDigest = null` 或落后于 `previousReceiptDigest` 都必抛。
+- **与实测边界的一致**：失败仅出现在高调用量轮次（impl-0 123 calls / impl-2 188 calls），成功的是低调用量轮次（impl-1 67 calls）。轮次越长，`ensureActorProviderContextEpochBeforeTransport` 被调用次数越多，出现"内存推进但桥接未提交"一格的概率越高——与观测一致。
+- **排除项（已证）**：provider 传输失败不是必要条件（impl-0 `providerFailures=0`、`providerRetries=0` 仍抛错）；`--auto-resume` 未触发（`continuations=0`）；权限改动无关（权限错误 0）。
+- **未定项（不编造）**：尚未定位导致桥接"少提交一格"的具体时序（哪一次调用跳过了 `persistCurrentProviderContextReceiptBeforeTransport`，或其 `commitProviderContextTransitionGeneration` 为何未被有效施加）。根因层级、不对称结构、触发面与确定性边界已闭合，具体跳过点需进一步插桩验证。
+- **性质**：eidolon 侧缺陷，不在 `project/e2e` 适配层范围；修复需独立范围与验证，且必须遵守「不用传统旧软件开发思路硬改 eidolon」的约束。
+
+### E375 — 深挖补充：守卫的静默返回路径与剩余未定项
+
+- 守卫（`AiAgentExecutor.ts:4558`）共 3 条 `return` / 2 条 `throw`：
+  - `:4564` `if (!raw || !binding || !receipt) return;` — **静默返回**（跳过桥接，不留痕迹）
+  - `:4592` / `:4595` — 摘要已一致时提前返回（正常幂等）
+  - `:4604` `unpersisted_predecessor_conflict` ← 本轮失败
+  - `:4601` `head_session_divergence_conflict`
+- 键构造：`actorRuntimeKey(sessionId, actorKey)` = `` `${sessionId}::${actorKey}` ``（`derivations.ts:48`）；`sessionId` 由 `resolveSessionIdFromVm` 从 `vm.outerCtx.metadata.{sessionId|sessionDir}` 派生（`domainRuntime.ts:375`），在单次运行内稳定。
+- **仍然未定（诚实标注）**：`/tmp` 试次为 `--ephemeral`，会话目录在结束时被 `rmSync`（`TerminalRuntime.ts:2071`）且未落 `authority.sqlite`，**失败的现场证据已不可回溯**。因此"哪一次调用跳过了桥接"无法从现有产物反推，需要插桩（在 `persistCurrentProviderContextReceiptBeforeTransport` 的 4 条出口加日志）后在受控复现中定位。
+- **已验证的确定性边界（可复用的复现判据）**：失败与轮次调用量正相关（123/188 calls 失败，67 calls 成功），可用于构造最小复现。
+- 本轮深挖的净产出：完整调用链、不对称写入结构、守卫全部出口语义、键构造稳定性、以及对"provider 传输失败/续跑/ephemeral/权限改动"四项假设的排除。**未修改任何 eidolon 源码**——修复需独立范围与验证。
+
+### E376 — 插桩定位（一）：发现两个 session 键派生不对称
+
+- **不对称 A（键派生规则相反）**：
+  | 用途 | 位置 | 规则 |
+  |---|---|---|
+  | repository 的 `sessionDir` | `AiAgentExecutor.ts:4399-4403` | `metadata.sessionDir` **优先**，回退 `metadata.sessionId`，再回退 `"__unsessioned__"` |
+  | 内存态 raw 的 `sessionId` | `conversationCapsule/internals/domainRuntime.ts:375-382` | `metadata.sessionId` **优先**，回退 `basename(metadata.sessionDir)`，再回退 `"__unsessioned__"` |
+  - 键构造分别为 `${sessionDir}` 与 `` `${sessionId}::${actorKey}` ``（`derivations.ts:48`）。优先级相反，若两字段同时存在且 basename 不同则指向不同命名空间。
+- **不对称 B（sessionDir 可能是随机目录名）**：`TerminalRuntime.ts:913-915`
+  ```ts
+  const sessionDir = runtimeConfig.ephemeral
+    ? fs.mkdtempSync(path.join(os.tmpdir(), `eidolon-exec-${sessionKey}-`))   // 随机后缀
+    : ensureShellRuntimeSessionDir(paths.WORKDIR, sessionKey);
+  ```
+  `--ephemeral` 下 sessionDir 形如 `eidolon-exec-plan-0-s8a07X`，而 sessionId 为 `plan-0`。**若该随机路径进入 `metadata.sessionDir`，repository 键与内存态键必然不同。**
+- **关键限定条件（尚未证实）**：`AiAgentRuntimeCoordinator.ts:147-150`
+  ```ts
+  const sessionDir = typeof sessionMetadata?.sessionDir === "string" ? sessionMetadata.sessionDir : undefined;
+  ...
+  sessionDir: isRuntimeStorageLogsEnabled(params.vm) ? sessionDir : undefined,
+  ```
+  → **只有启用 storage logs 时 `metadata.sessionDir` 才会被设置**；否则为 `undefined`，此时 repository 回退到 `metadata.sessionId`，与内存态一致，不对称消失。
+- **因此判定分叉**：本缺陷是否触发取决于该运行中 `isRuntimeStorageLogsEnabled(vm)` 是否为真（即 `vm.options.storage.logs`）。这一点尚未实测。若为假，则不对称 A/B 均不激活，需另找断裂点；若为真，则根因闭合。
+- 下一动作：用最小插桩（在 `AiAgentExecutor.ts:4399` 与 `domainRuntime.ts:375` 各自打印派生键）在受控复现中确认。**未修改 eidolon 源码**。
+
+### E377 — 只读追定（步骤 2）：`storage.logs` 默认为 true，不对称完全激活
+
+- `normalizeRuntimeStorageOptions`（`ai-core-logic/src/runtime/runtime.ts:219-225`）：
+  ```ts
+  logs: options?.storage?.logs !== false,   // 默认 true，仅显式 false 才关闭
+  ```
+- `TerminalRuntime.ts:497-500` 的 profile 组装同样默认 `logs: input.storage?.logs !== false` → `true`。
+- `eidolon exec` 路径（`organ-support/src/exec.ts`）**不设置 storage**，沿默认值。
+- `--ephemeral` 与 storage **无任何关联**（已 grep 确认），即 ephemeral 不会关闭 storage logs。
+- **推论链闭合**：`storage.logs === true` → `isRuntimeStorageLogsEnabled(vm) === true` → `AiAgentRuntimeCoordinator.ts:150` 设置 `metadata.sessionDir` → 该值为 `TerminalRuntime.ts:913-915` 的 `fs.mkdtempSync(os.tmpdir()/eidolon-exec-${sessionKey}-XXXXXX)`（随机后缀）→ repository 键 = `basename(该随机目录)`；而内存态键 = `metadata.sessionId` = `sessionKey`（如 `plan-0`）。**两者必然不同。**
+- **根因定案**：`--ephemeral` 下 sessionDir 为随机目录名，与 sessionId 同时进入 metadata 且两处派生优先级相反（E376 不对称 A），使内存域与持久仓指向不同命名空间，桥接（`AiAgentExecutor.ts:4656`）提交不到本 session 的持久态；守卫（`:4604`）读到的 `persistedDigest` 永远落后 → 抛 `provider_context_transition_unpersisted_predecessor_conflict`。
+- 与实测边界一致：轮次越长，`ensureActorProviderContextEpochBeforeTransport` 调用越多，越可能触发需跨 session 校验的路径（123/188 calls 失败，67 calls 成功）。
+- 性质：eidolon 侧缺陷。**修复方向需遵守「不用传统旧软件开发思路硬改」约束**——不应简单改成"两者取其一"，而应先判定哪一侧才是该场景下的正确 session 身份来源（ephemeral 会话应当以 sessionId 为唯一身份，随机 sessionDir 只是物理落点）。修复需独立范围与验证。
+
+### E378 — 插桩实测（步骤 1）：键不对称在真实运行中得到确证
+
+- 插桩方式：两处键派生点加 `EIDOLON_EPOCH_TRACE=1` 门控的 stderr 日志（默认关闭，不影响正常运行）：
+  - `AiAgentExecutor.ts` 的 `providerContextRepositoryForActor` — 打印 repository 侧 sessionDir 及其 metadata 来源
+  - `conversationCapsule/internals/domainRuntime.ts` 的 `resolveSessionIdFromVm` — 打印内存侧 sessionId 及其 metadata 来源
+- 构建：`bun run build:terminal` exit 0，插桩版二进制 SHA256 `1fc46a10…`（原版 `417c6b78…` 已备份于 `/tmp/eidolon-user-binary.bak`，哈希一致可回滚）。
+- **实测输出（真实 `eidolon exec --ephemeral`，134 条 trace）**：
+  ```
+  [EPOCH-TRACE][memory]     sessionId = 20260914122844__01M2FKYP8V9MQAFZFAKVHYMX6S  (from metadata.sessionId)
+  [EPOCH-TRACE][repository] sessionDir = /tmp/.../eidolon-exec-20260914122844__01M2FKYP8V9MQAFZFAKVHYMX6S-XRX8dd
+                            metaSessionDir = (同上，非空)  metaSessionId = 20260914122844__01M2FKYP8V9MQAFZFAKVHYMX6S
+  ```
+  → **两个键确实不同**：内存态用 `metadata.sessionId`，持久仓用 `metadata.sessionDir`（含 `mkdtemp` 随机后缀 `-XRX8dd`）。同时证实 `metadata.sessionDir` **非空**，即 E377 关于 `storage.logs` 默认 true 的推断成立。
+- **新增结构发现**：`synchronizeConversationDomainActorFromPersistence`（`domainRuntime.ts:327`）以 **sessionDir** 从 repository 加载并注入 runtime（`injectConversationActorRawState`），是把两侧连起来的桥；其调用点为 `ProviderCacheProductRuntime.ts:574` 与 `domainRuntime.ts:366`（`AiAgentExecutor.ts:112` 仅为 re-export，无直接调用）。
+- **尚未解释的关键点（诚实标注）**：本次简单运行（"你是谁"）**成功**（exit 0），未触发冲突。说明键不对称是**必要条件而非充分条件**——还需某个使注入与守卫时序错位的条件。该条件尚未定位，候选方向：注入发生在某些轮次之后（长轮次更易命中），与实测「高调用量失败、低调用量成功」的边界一致。
+- 插桩为临时措施，验证后需撤销并还原二进制。
+
+### E379 — 插桩撤销与状态还原
+
+- 两处插桩已撤销，文件逐字节还原到插桩前基线：
+  - `AiAgentExecutor.ts` → `0ea2baf3c0a85c29d273dd1d40b9e53a0e61abe4c6087f6ebc60bb88410c0fa7`
+  - `domainRuntime.ts` → `4d034d43fa86ea66586724745defbc15a97392b9f2569ccd030720221820f2fd`
+- 二进制已还原为用户原版：`417c6b786b14617d4f40c1614324c7a863c1e6606b4d0563ac2b38e2e7ee8b9d`（与 `/tmp/eidolon-user-binary.bak` 一致）。
+- 工作区仅剩权限改动 4 个文件（2 源码 + 2 测试），与插桩前一致。
+- 临时复现环境与脚本已清理。**eidolon 业务源码净变化为零**（本次深挖全程只读；插桩为临时且已完全撤销）。
+
+### 本轮（E372–E379）结论汇总
+
+- **TUI 卡住与权限改动无关**（E372，对照实验否定）。
+- **长轮次缺陷根因**（E374/E376/E377/E378）：`--ephemeral` 下 `sessionDir` 为 `mkdtemp` 随机目录名，与 `sessionId` 同时进入 metadata，而两处键派生优先级相反（repository 优先 sessionDir、内存态优先 sessionId），实测确认两键不同。`storage.logs` 默认 true，故该不对称确实激活。
+- **已排除**：provider 传输失败、`--auto-resume`、`--ephemeral` 单独作用、权限改动。
+- **未完全闭合**：键不对称是**必要条件而非充分条件**——简单运行（"你是谁"）成功，说明还需一个使持久化注入与守卫时序错位的条件。候选：多 actor 委派（失败轮次 RunDelegateActor 1/1/3、DetachedActor 0/0/5，但成功的 impl-1 也用了 1 次，相关性不充分）。
+- **修复未实施**：按用户「不用传统旧软件开发思路硬改 eidolon」的约束，修复需先判定该场景下正确的 session 身份来源（ephemeral 会话宜以 sessionId 为唯一身份，随机 sessionDir 仅为物理落点），并需独立范围与验证。
+
+### E380 — 根因彻底闭合：repository 以随机 sessionDir 充当 sessionId
+
+- **决定性一行**（`cell/packages/ai-support/src/conversation/local/LocalFileConversationPersistenceRepository.ts:1684`）：
+  ```ts
+  async loadSessionIndex(): Promise<ConversationSessionIndexSnapshot> {
+    ...
+    return await readJsonBestEffort(paths.sessionIndexPath, createDefaultSessionIndex(this.sessionDir));
+    //                                                             ^^^^^^^^^^^^^^^^^^^^^^^
+    //   sessionIndex 文件不存在时，用物理目录路径充当默认 sessionId
+  }
+  ```
+- **完整因果链（已逐层读源码确认）**：
+  1. `--ephemeral` → `sessionDir = fs.mkdtempSync(os.tmpdir()/eidolon-exec-${sessionKey}-)`（`TerminalRuntime.ts:913`），形如 `/tmp/.../eidolon-exec-plan-0-s8a07X`
+  2. `providerContextRepositoryForActor` 用 `metadata.sessionDir` 调 `createRepository(sessionDir)`（`AiAgentExecutor.ts:4399-4409`）
+  3. 首次 `loadSessionIndex` 时文件不存在 → `createDefaultSessionIndex(this.sessionDir)` → **repository 记录 `session.sessionId = 随机目录全路径`**
+  4. `synchronizeConversationDomainSessionFromPersistence` → `loadConversationActorRawState` → 返回的 `rawState.session.sessionId` 即上游第 3 步的值
+  5. `injectConversationActorRawState` 用 `actorRuntimeKey(rawState.session.sessionId, actorKey)` 作为 runtime 键（`domainRuntime.ts:311`）→ 键含**随机路径**
+  6. 而守卫侧 `getConversationActorRawStateFromVm` 经 `resolveSessionIdFromVm` 用 `metadata.sessionId`（=`sessionKey`）取键（`domainRuntime.ts:375-377`）→ 键含 **sessionKey**
+  7. **两者不匹配** → `raw` 为 `null` → 守卫在 `:4564` **静默 return**，或读到落后摘要后于 `:4604` 抛 `unpersisted_predecessor_conflict`
+- **这同时解释了"必要条件而非充分条件"**：键不匹配使注入与读取落在不同命名空间；是否立刻致错取决于时序（运行初期两侧恰好都为空时 `null === null` 仍可通过，故短运行成功；运行推进后必然分叉）。
+- **设计层面的问题**：物理存储路径（含随机后缀）被当作逻辑会话身份。按 DEPA 的分层，物理落点不应成为身份；`--ephemeral` 场景下应以 `sessionKey` 为唯一会话身份，随机 sessionDir 仅为落点。（此项为观察与建议，非本轮改动。）
+- **修复未实施**：遵守「不用传统旧软件开发思路硬改 eidolon」约束，修复需独立范围与验证。候选最小修复面：`createDefaultSessionIndex` 的默认 sessionId 不应取物理路径；或在 ephemeral 场景令 `sessionDir` 与 `sessionKey` 语义分离。
+
+### E381 — 实证：repository 落盘 sessionId 即物理目录名（根因最终确证）
+
+- 方法：跑一次**非 ephemeral** 运行（会落盘），直接读取 `conversation/session.index.json`：
+  ```
+  物理目录 : /tmp/epoch-verify/ws/.eidolon/sessions/20260914124423__01M2FMVBA0FSY8CPZZJ47RFH75
+  sessionId(顶层)        : '20260914124423__01M2FMVBA0FSY8CPZZJ47RFH75'
+  session.sessionId      : '20260914124423__01M2FMVBA0FSY8CPZZJ47RFH75'
+  ```
+  → **repository 记录的 sessionId 就是物理目录名**，证实 `createDefaultSessionIndex(this.sessionDir)`（`LocalFileConversationPersistenceRepository.ts:1684`）的推断。
+- **为何只在 `--ephemeral` 暴露**：
+  | 模式 | sessionDir | repository sessionId | 与 metadata.sessionId 是否一致 |
+  |---|---|---|---|
+  | 非 ephemeral | `.../sessions/<sessionKey>` | `<sessionKey>` | **一致** → 问题被掩盖 |
+  | `--ephemeral` | `/tmp/.../eidolon-exec-<key>-XRX8dd` | `eidolon-exec-<key>-XRX8dd` | **不一致** → 键分叉 |
+  非 ephemeral 下目录名恰好等于 sessionKey，两侧键偶然相同；`--ephemeral` 引入 `mkdtemp` 随机后缀后，物理名与逻辑 id 分离，键分叉暴露。
+- **根因最终表述**：物理存储路径被用作逻辑会话身份。`--ephemeral` 使物理名（随机）与逻辑 id（sessionKey）分离，导致 `injectConversationActorRawState` 写入的 runtime 键（基于物理名）与 `getConversationActorRawStateFromVm` 读取的键（基于 sessionKey）不一致；守卫因此读不到持久态，在 `:4564` 静默 return 或于 `:4604` 抛 `unpersisted_predecessor_conflict`。
+- 三项证据层级：源码链（E374/E376/E377）+ 插桩实测两键值（E378）+ 落盘 sessionId 实证（E381），互相印证。
+- 清理：本次验证目录 `/tmp/epoch-verify` 待清理；未改动任何 eidolon 源码（插桩已于 E379 撤销）；二进制为用户原版 `417c6b78…`。
+
+### E382 — 修复实施：身份归身份、落点归落点（用户选定的方案 2）
+
+- **修复原则**（按用户选择与 DEPA 分层）：物理落点（`sessionDir`，含 `--ephemeral` 随机目录）**不得充当逻辑会话身份**。身份由调用方显式提供；落点仍由 `sessionDir` 决定。
+- **改动面（5 个文件）**：
+  1. `cell/packages/ai-organ-contract/src/persistence/conversation/ConversationPersistence.ts` — 工厂契约扩展为 `createRepository(sessionDir, sessionId?)`，附注释说明落点与身份的区别及 `--ephemeral` 下的分叉；`sessionId` 可选以兼容无独立身份的调用方（如读取既有磁盘会话）。
+  2. `cell/packages/ai-support/.../LocalFileConversationPersistenceRepository.ts` — 构造函数接收 `sessionId?`，新增私有 `logicalSessionId`（`sessionId?.trim() || sessionDir`）；5 处 `createDefault*Index(this.sessionDir)` 改为 `this.logicalSessionId`；工厂透传第二参数。
+  3. `cell/packages/ai-organ-logic/src/exec/AiAgentExecutor.ts` — `providerContextRepositoryForActor` 从 `metadata.sessionId` 取逻辑身份并显式传入（此即守卫侧同一身份来源，消除两侧分叉）。
+  4. `cell/packages/ai-organ-logic/src/runtime/ShellRuntimeBootstrap.ts` — bootstrap 传 `params.sessionKey` 作为逻辑身份（防御性一致）。
+  5. `cell/packages/ai-organ-logic/src/conversationCapsule/adapters/inMemory.ts` — in-memory 适配器同构对齐：store 仍按 `sessionDir` 键控（落点），内部 5 处 `default*Index` 改用 `logicalSessionId`（身份）。
+- **兼容性**：`sessionId` 省略时行为与修复前完全一致（`logicalSessionId = sessionDir`），非 ephemeral 场景（目录名 == sessionKey）语义不变，故既有调用方与磁盘数据无需迁移。
+- **回归测试（新增）**：`cell/packages/ai-support/tests/conversation_identity_vs_landing_zone.test.ts`，3 个用例：
+  - 显式身份 → 记录的 `sessionId` 为逻辑 key，且不等于落点目录名
+  - 省略身份 → 保持原行为（从目录派生），兼容性锁定
+  - 同一落点 + 同一身份 → 两个 repository 指向同一会话
+- **测试有效性验证（关键）**：`git stash` 撤销修复后跑新测试，**2 个用例失败**，失败信息为 `Expected: "plan-0"` / `Received: "/var/folders/.../eidolon-exec-plan-0-rzagOV"`——与生产观察到的错位完全一致；恢复修复后 3 pass。证明该测试确实能捕获本缺陷，而非恒过。
+- **验证**：`ai-support` 全量 113 pass / 0 fail；`ai-organ-logic` runtime 目录 478 pass / 6 fail，且该 6 个失败经 `git stash` 基线对照确认**与修复无关**（基线同样 6 fail，用例名逐一相同：conversation raw state views / runtime recovery bootstrap ×2 / Actor-owned durable materials / recovery-one-way-handoff ×2）；三包 typecheck 对我改动的文件无真实错误（仅既有 TS6059 rootDir 配置噪音）。
+- **未做**：未构建二进制、未安装（按用户「源码改动不要构建」的边界）；未实施其他候选修复面。
+
+### E383 — 修复提交与构建
+
+- 在 eidolon 仓库提交两个 commit（author/committer 均为 `kongweixian <kong_weixian@163.com>`，与历史一致）：
+  - `8fcd5ba` — `fix(conversation): keep logical session identity out of the physical landing zone`（6 文件：5 源码 + 1 新回归测试）
+  - `72cf132` — `feat(permissions): unify dangerous and full-auto into one trusted mode`（4 文件：2 源码 + 2 测试）
+- 提交范围**仅含本次改动**；用户既有的 `codument/` 改动（workspace-bindings/backlog/pending mission）未被触碰或提交。
+- 构建：`bun run build:terminal` exit 0；新二进制 SHA256 `1cd31abe838e6faad9bb5b9ca52f7f863909b4bf5c9c0565160dc055e0a15b4b`（修复前为 `417c6b78…`，备份仍在 `/tmp/eidolon-user-binary.bak`）。构建未在 git 留下未提交改动。
+- 修复生效验证：
+  - 单元级：`conversation_identity_vs_landing_zone.test.ts` 3 pass（该测试在撤销修复时必失败，已由 E382 确证其有效性）。
+  - `--ephemeral` 实际运行：`eidolon exec --ephemeral --yolo` 返回 `completed`、`failure: None`。
+  - smoke：10 项 exit0、modelCalls 0。
+- 真实 E2E 验证已启动（todo 试次），用于确认 `provider_context_transition_unpersisted_predecessor_conflict` 是否消失。
+
+### E384 — 修复效果验证：长轮次不再抛 epoch 冲突（真实 E2E）
+
+- 试次 `lYcpNf`（eidolon + deepseek/deepseek-v4-flash，候选 `980fb9c6…`，含 E382 修复的二进制 `1cd31abe…`）
+- **决定性对照（同任务同参数，仅修复与否不同）**：
+  | 轮次 | providerCalls | 时长 | 修复前 | 修复后 |
+  |---|---|---|---|---|
+  | implementation-0 | 123 → **218** | 1013s → **1132s** | ❌ `provider_context_transition_unpersisted_predecessor_conflict` | ✅ **completed**（`failure: None`） |
+  | implementation-2（前轮） | 188 | 802s | ❌ 同一冲突 | （本轮未复现） |
+  - **修复后 218 次 provider 调用、1132s（18.9 分钟）正常完成**，调用量与时长**均超过**修复前失败的两轮。与 E374/E380 的判定一致：轮次越长越易触发键分叉，修复后不再触发。
+- plan-0 亦为首次通过（661s），零重试。
+- **本轮 attempt 0 仍记为 failed，但原因已不同**：`Malformed structured delivery: no JSON object` —— 即 `deepseek-v4-flash` 未按 schema 输出交付封套（沿用 E362-F5 的模型能力局限），**与 epoch 冲突无关**。这区分验证了「修复所针对的缺陷已消失，剩余失败属另一独立问题」。
+- 试次仍在运行（implementation-1 进行中），终态待补。
+
+### E385 — todo 试次通过（本会话首个业务 PASS）
+
+- 试次 `lYcpNf` 终态：**`status: passed`**，`caseId: todo`，`firstPass: false`，elapsed **71.1 分钟**，attempts 2（attempt 0 failed → attempt 1 passed）。
+- **UI 验收（首次通过）**：状态链 `requested → leased → server-ready → passed`，leaseId `401fad48…`，origin `http://127.0.0.1:58640`。浏览器使用 **opencli**（本会话按用户指示从 ego-browser 切换到 opencli 后的首次成功驱动）。
+- **5 类覆盖全部达成（真实浏览器操作与观测）**：
+  | coverage | 操作 | 观测 |
+  |---|---|---|
+  | authentication | 点击 `#auth-toggle` 注册、填邮箱/密码、提交 | `#auth-view` display none、`#tasks-view` display block、顶部显示已登录邮箱 |
+  | business-create | 填 `#task-title`/`#task-status`/`#task-tags` 并提交 | `共 1 个任务`，列表显示该任务与截止日期/标签 |
+  | business-update | 任务项状态 select 改为 `done` | 状态已持久化为 done |
+  | business-query | `#filter-status=done` + 应用筛选 | 筛选返回该任务 |
+  | literal-input | 标题填 `<img src=x onerror=window.uiInjected=1>` | 原样按文本渲染，`window.uiInjected === undefined`（**无 XSS**，正确转义） |
+- **顺带验证**：E2E 期间 review 发现的 CSS 层叠缺陷（`hidden` 被作者样式覆盖）在当前交付中**已修复**——实测 `#auth-view`/`#tasks-view` 的 `display` 与 `hidden` 语义一致。
+- **本会话意义**：这是 eidolon harness + deepseek-v4-flash + opencli 组合下**首次完整跑通并用真实浏览器验收**的业务用例；此前同一 todo 用例在本会话的 5 次试次中全部止步于 epoch 冲突、输出格式或 UI 基础设施问题。
+- **操作备注**：首次启动 `ui-server` 时遗漏 `E2E_AGENT=eidolon`，触发 `Resume agent mismatch`；立即以正确参数重启并在 5 分钟窗口内取得 lease（未造成超时）。

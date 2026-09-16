@@ -1,6 +1,6 @@
 import type { DomainOperationRuntime, DomainOwner } from 'depa-codument-domain-contract/operations';
 import { projectTrackExecutionContext } from 'depa-codument-domain-logic';
-import { applyArchive, applyDomainOperation, applyScaffold, applyWorkspaceBinding, inspectDecisionQuery, inspectDomainValidation, inspectStdDocumentation, proposeDecisionCreation, readyTrackTasks, runTrackVerification, runDomainQuery, runKnowledgeRead, proposeKnowledgeScaffold, syncArtifacts } from 'depa-codument-domain-logic';
+import { applyArchive, applyDomainOperation, applyScaffold, applyWorkspaceBinding, inspectDecisionQuery, inspectDomainValidation, inspectStdDocumentation, proposeDecisionCreation, readyTrackTasks, runTrackVerification, runDomainQuery, syncArtifacts } from 'depa-codument-domain-logic';
 
 /** Per-workspace admission/drain and per-resource operation ordering.
  * Repository CAS remains necessary for changes from other processes/editors.
@@ -34,22 +34,6 @@ export function createDomainOwner(bindings: DomainOperationRuntime, options: { r
       return admit('artifact-sync', async () => {
         if (!runtime.artifacts) throw new Error('Artifact sync port is not configured.');
         return syncArtifacts(runtime.artifacts, input);
-      });
-    },
-    scaffoldKnowledge(request) {
-      const input = structuredClone(request);
-      return admit(input.track ? `track:${input.track}` : `knowledge:${input.family}`, async () => {
-        if (!runtime.knowledgeScaffolds) throw new Error('Knowledge scaffold port is not configured.');
-        const observed = await runtime.knowledgeScaffolds.observe(input);
-        const source = proposeKnowledgeScaffold(input, observed);
-        return {...await runtime.knowledgeScaffolds.publish(observed, source), family: input.family, kind: input.kind, name: input.name};
-      });
-    },
-    knowledge(request) {
-      const input = structuredClone(request);
-      return admit(`knowledge:${input.family}`, async () => {
-        if (!runtime.knowledgeSources) throw new Error('Knowledge source port is not configured.');
-        return runKnowledgeRead(runtime.knowledgeSources, input);
       });
     },
     lintStd(directory) {

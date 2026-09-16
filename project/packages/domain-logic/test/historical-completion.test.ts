@@ -32,9 +32,8 @@ test('legacy archived declaration preserves body and status, binds source, and r
   expect(planResourceMigration({ path: file, source: output }).status).toBe('noop');
   expect(projectTrackQuery({ id: 'example', file, absolutePath: '/' + file, source: output }).metadata.historicalCompletion?.currentVerification).toBe('not-reverified');
   const inspected = inspectDomainValidation({ findings: [], units: [{ kind: 'Track', id: 'example', file, directory: file.slice(0, -10),
-    source: output, missingFiles: [], patches: new Map(), decisionForests: [], findings: [] }] }, { strict: true });
+    source: output, missingFiles: [], decisionForests: [], findings: [] }] }, { strict: true });
   expect(inspected.units[0].historicalCompletion?.currentVerification).toBe('not-reverified');
-  expect(inspected.findings.some(f => f.rule === 'track.behavior-delta.missing')).toBe(true);
   expect(() => transitionLifecycleResource({ kind: 'track', id: 'example', stage: 'archived', root }, 'in_progress', '2026-09-08')).toThrow('Historical completion');
 });
 

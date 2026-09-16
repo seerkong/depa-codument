@@ -1,4 +1,5 @@
 import { parseXnl, stringifyLineBlock, wordToString, XnlParseError, type DataElementNode, type ElementNode, type XnlNode, type XnlWord } from 'xnl-core';
+import { explainXnlParseError } from './xnl-diagnostics';
 import type {
   RegistryIndexBindings, RegistryIndexIssue, RegistryIndexSpec, RegistryNodePathSegment,
   RegistryTraversalContext, XnlRegistryIndex, XnlRegistryNodeRef,
@@ -29,7 +30,7 @@ export function indexXnlRegistry(
       nodes = parsed.nodes;
     } catch (error) {
       if (!(error instanceof XnlParseError)) throw error;
-      state.issues.push({kind: 'syntax', file, line: error.line, message: error.message});
+      state.issues.push({kind: 'syntax', file, line: error.line, message: explainXnlParseError(content, error)});
       continue;
     }
     files.set(file, nodes);

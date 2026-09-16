@@ -27,17 +27,9 @@ export async function readResourceMigrationValidation(root: string, plan: Resour
     if (directSource !== undefined) decisions.set(direct, directSource);
     return {source, decisions};
   }
-  if (plan.targetKind === 'ModelingRegistry' || plan.targetKind === 'EngineeringRegistry') {
-    const family = plan.targetKind === 'ModelingRegistry' ? 'modeling' : 'engineering';
-    const parts = file.split('/'), at = parts.findIndex(part => part === family || part === family + '_deltas');
-    if (at < 0) throw new Error('Knowledge migration has no canonical registry scope.');
-    const directory = parts.slice(0, at + 1).join('/');
-    return {source, knowledge: {family, mode: parts[at].endsWith('_deltas') ? 'deltas' : 'registry',
-      sources: await readXnlRegistrySources(join(root, directory), {rejectLegacy: true})}};
-  }
-  if (['Track', 'Mission', 'Behavior', 'BehaviorPatch'].includes(plan.targetKind ?? '')) {
-    const parent = plan.targetKind === 'BehaviorPatch' ? file.slice(0, file.indexOf('/behavior_deltas/')) : posix.dirname(file);
-    const target = plan.targetKind === 'Behavior' ? file.slice('codument/behaviors/'.length, -4) : posix.basename(parent);
+  if (['Track', 'Mission'].includes(plan.targetKind ?? '')) {
+    const parent = posix.dirname(file);
+    const target = posix.basename(parent);
     return {source, domain: await createFileDomainValidationSourcePort(root, {includeArchivedTracks: true}).observe(target)};
   }
   return {source};

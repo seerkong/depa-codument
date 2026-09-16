@@ -1,15 +1,15 @@
 import { expect, it } from 'bun:test';
 import { inspectStdDocumentation, isCurrentStdDocumentation } from '../src/std';
 
-it('preserves all thirteen rules, deterministic file/line/rule order and repeatable inspection', () => {
+it('preserves all fifteen rules, deterministic file/line/rule order and repeatable inspection', () => {
   const source = ['std/actions', 'cdt:Task', 'child-mode', '<Task id=', '<Needs>', 'Metadata.Status',
     'ADDED vs MODIFIED', 'behavior delta 继续使用 XML', '兼容 fallback', 'Move an approved track',
-    '更新根属性 updated_at', 'Task 标记为 DONE', '每个顶层 decision 使用 apiVersion'].join('\r\n');
+    '更新根属性 updated_at', 'Task 标记为 DONE', '每个顶层 decision 使用 apiVersion', 'fill --input'].join('\r\n');
   const input = { root: '/docs', sources: new Map([['z.md', 'std/actions'], ['a.md', source]]) };
   const result = inspectStdDocumentation(input);
-  expect(result.findings).toHaveLength(14);
-  expect(new Set(result.findings.map(item => item.rule)).size).toBe(13);
-  expect(result.findings.slice(0, 13).map(item => item.line)).toEqual(Array.from({ length: 13 }, (_, index) => index + 1));
+  expect(result.findings).toHaveLength(16);
+  expect(new Set(result.findings.map(item => item.rule)).size).toBe(15);
+  expect(result.findings.map(item => item.line)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 10, 11, 12, 13, 14, 1]);
   expect(result.findings[0]).toEqual({ file: 'a.md', line: 1, rule: 'std.legacy.actions-path', message: 'current skill and operation routes must use std/operations' });
   expect(result.findings.at(-1)?.file).toBe('z.md');
   expect(inspectStdDocumentation(input)).toEqual(result);

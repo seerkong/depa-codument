@@ -4,10 +4,16 @@ import { LIFECYCLE_ROOT_STATES, type LifecycleValidationContext } from 'depa-cod
 import { isDataElement } from './registry';
 import { patchLifecycleSource } from './source-patch';
 import { validateLifecycleTree } from './lifecycle-validation';
+import { explainXnlParseError } from './xnl-diagnostics';
 
 /** Recovery discovery admits identity/envelope only, never task/state validity. */
 export function inspectLifecycleIdentity(source: string, kind: 'track' | 'mission') {
-  const parsed = parseXnl(source, { textBlockStyle: true });
+  let parsed;
+  try {
+    parsed = parseXnl(source, { textBlockStyle: true });
+  } catch (cause) {
+    throw new Error(explainXnlParseError(source, cause));
+  }
   const root = parsed.nodes[0];
   const tag = kind === 'track' ? 'Track' : 'Mission';
   if (parsed.warnings?.length || parsed.nodes.length !== 1 || !isDataElement(root) || root.tag !== tag) {

@@ -6,10 +6,11 @@ import { historicalCompletion } from './historical-completion';
 type Report = (rule: string, message: string, severity?: 'error' | 'warning') => void;
 const ACTOR_ROLES = ['MissionPlanner', 'MissionObserver', 'MissionReconciler', 'MissionApplier'];
 const HOOK_POINTS = ['track:before', 'track:after', 'phase:before', 'phase:after', 'task:before', 'task:after'];
+export const TRACK_MATERIAL_DOMAINS = ['code', 'test', 'docs', 'artifact', 'memory'] as const;
 
 /** Semantic checks on an admitted current XNL tree, without conversion to XML,
  * source rewriting, filesystem discovery or implicit profile loading. Companion
- * files, BehaviorPatch and cross-workspace graph checks are separate gates. */
+ * files and cross-workspace graph checks are separate gates. */
 export function validateLifecycleTree(root: DataElementNode, context: LifecycleValidationContext): DomainValidationFinding[] {
   const findings: DomainValidationFinding[] = [];
   const report: Report = (rule, message, severity = 'error') => {
@@ -180,7 +181,9 @@ function validateTrackPorts(root: DataElementNode, report: Report): void {
   if (attr(ports, 'scope') !== 'track') report('track.ports.scope', '<Ports> scope 必须是 track');
   for (const bundle of children(ports).filter((node) => node.tag === 'MaterialBundle')) {
     if (!['input', 'output'].includes(attr(bundle, 'role') ?? '')) report('track.ports.role', '<MaterialBundle> role 非法（input|output）');
-    if (!['code', 'test', 'behavior', 'docs', 'modeling', 'engineering', 'artifact', 'memory'].includes(attr(bundle, 'domain') ?? '')) report('track.ports.domain', '<MaterialBundle> domain 非法，Track 不接受 JSON 端口');
+    if (!(TRACK_MATERIAL_DOMAINS as readonly string[]).includes(attr(bundle, 'domain') ?? '')) {
+      report('track.ports.domain', `<MaterialBundle> domain 非法（${TRACK_MATERIAL_DOMAINS.join('|')}），Track 不接受 JSON 端口`);
+    }
     if (!attr(bundle, 'name')) report('track.ports.name', '<MaterialBundle> 缺少 name');
     if (!attr(bundle, 'path')?.startsWith('vfs://')) report('track.ports.path', '<MaterialBundle> path 必须使用 vfs://');
   }

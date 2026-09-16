@@ -44,7 +44,6 @@ export function projectTrackExecutionContext(source: OwnedLifecycleSnapshot, pro
     attractors,
     requiredSources: [
       `${directory}/proposal.md`, `${directory}/design.md`,
-      `${directory}/behavior_deltas/`, `${directory}/modeling_deltas/`, `${directory}/engineering_deltas/`,
       'codument/config/', 'codument/attractors/',
       ...attractors.references.filter(profile => profile.enabled).flatMap(profile => profile.refs),
     ],

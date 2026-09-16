@@ -10,7 +10,7 @@ test('every original Skill remains discoverable and becomes an admitted CommandO
   const original = join(import.meta.dir, '../src/workspace-assets/skills');
   const description = parse(CODUMENT_GLOBAL_SKILL.split('---')[1]!).description;
   const operations = await createCodumentGuidanceOperations();
-  expect(operations).toHaveLength(15);
+  expect(operations).toHaveLength(14);
   for (const route of CODUMENT_OPERATION_ROUTES) {
     const old = parse((await readFile(join(original, route.legacySkill, 'SKILL.md'), 'utf8')).split('---')[1]!);
     expect(description).toContain(old.name);
@@ -36,7 +36,7 @@ test('installed global guidance is an independent resource-first App without cop
     const snapshot = await createWorkspaceResourceCatalog(root, [{ root: '.', scope: 'root', origin: 'isolated-global' }]).snapshot();
     expect(snapshot.diagnostics).toEqual([]);
     expect(snapshot.ready).toBe(true);
-    expect(snapshot.resources.filter(item => item.kind === 'CommandOperation')).toHaveLength(15);
+    expect(snapshot.resources.filter(item => item.kind === 'CommandOperation')).toHaveLength(14);
     expect(snapshot.resources.some(item => item.fqn === 'Codument.Guidance')).toBe(true);
   } finally { await rm(root, { recursive: true, force: true }); }
 });

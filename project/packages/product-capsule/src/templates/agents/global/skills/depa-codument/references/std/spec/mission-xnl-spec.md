@@ -15,11 +15,11 @@ missions/<state>/<id>/
   memory/             # 可选 durable candidate
 ```
 
-`proposal.md` 与 `design.md` 是 required files。Mission Kind 由产品包内置，不在 workspace 复制定义。资源 envelope 与 specVersion 独立于包版本，由 CLI scaffold 维护。
+`proposal.md` 与 `design.md` 是 required files。Mission Kind 由产品包内置，不在 workspace 复制定义。资源 envelope 与 specVersion 独立于包版本，由 CLI scaffold 维护。槽位片段权威打印：`depa-codument schema mission`（stdout 是 XNL，不要从片段复制 `#id` / envelope）。
 
 ## 2. Canonical DSL
 
-下例是 `depa-codument mission create` 生成骨架并经过执行更新后的完整投影。`#id`、`envelopeVersion`、`specVersion`、初始状态与时间字段由 CLI 写入；作者只保留这些 receipt 值，不从示例复制。
+下例是 `depa-codument mission create` 生成骨架并经过执行更新后的完整投影，**不要复制 `#id` / envelope**。`#id`、`envelopeVersion`、`specVersion`、初始状态与时间字段由 CLI 写入；作者只保留这些 receipt 值。槽位片段以 `depa-codument schema mission` 为准。
 
 ```xnl
 <Mission #adopt-kind-system envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {

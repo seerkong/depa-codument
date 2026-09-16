@@ -4,12 +4,12 @@ ContextView 是可丢弃的导航，不是新资源、任务状态或语义 verd
 
 ## L0 → L1 → L2
 
-- L0：用现有 `list/show --json`、`track ready --json`、`decisions frontier` 定位目标、当前 frontier、阻塞和路径。正文通过 `show --include-content` 或直接读来源展开。不要默认注入全 workspace、archive 或全 std。
-- L1：**行动前完整读取当前 operation 明确要求的合同**：当前目标/Acceptance、proposal/design、behavior、MaterialBundle、前置产物、相关代码测试、有效配置与其引用闭包。不能只摘“有利章节”；缺源、冲突、缺 acceptance 必须记录并协调，不能靠 L0 猜测。
+- L0：用现有 `list/show --json`、`track ready --json`、`decisions frontier` 定位目标、当前 frontier、阻塞和路径。filesystem-backed Resource/SOP 列表若给出 `detailPath`，把它作为一次本地读取 effect，直接用宿主文件工具展开；不要再调用 detail 把同一长正文搬回 CLI。`detailPath` 不是 FQN、authoring authority 或可持久化引用；无该字段时才通过 `show --include-content` 或既有 detail 展开。不要默认注入全 workspace、archive 或全 std。
+- L1：**行动前完整读取当前 operation 明确要求的合同**：当前目标/Acceptance、proposal/design、MaterialBundle、前置产物、相关代码测试、有效配置与其引用闭包。不能只摘“有利章节”；缺源、冲突、缺 acceptance 必须记录并协调，不能靠 L0 猜测。
   对选定的原始需求文件先确认长度/章节边界，分块覆盖到 EOF；明确批准只处理某章节时完整覆盖该章节并记录范围。固定读取前 N 行、搜索命中几段、或带 truncated/omitted 标记的输出，都不证明输入已读完整；补读缺失部分后才能完成规划或完整验收。不要把多个长文件合进一次会被截断的输出。
 - L2：历史推理/归档全文按实际信息缺口展开；当前决定依赖历史来源时，该来源升级为 L1。完整历史始终保留，不设 decision/lesson 数量配额。短索引只放路径、主题与来源锚点，不覆盖原文。
 
-每条阅读记录可用现有 findings/report：路径+内容 SHA256、当前用途、版本、展开依赖；当前目标/task/frontier、已知冲突、下一硬边界、证据引用。无需新状态文件。索引漏掉的真实来源必须加入；预算只报告，不截断 L1。
+每条阅读记录可用现有 findings/report：绝对读取路径（若宿主提供）或 authority-relative 路径、内容 SHA256、当前用途、版本、展开依赖与已覆盖章节；当前目标/task/frontier、已知冲突、下一硬边界、证据引用。无需新状态文件。索引漏掉的真实来源必须加入；预算只报告，不截断 L1。XNL detail 本身仍返回 XNL 原文；当前本地 host 仅把已准入的 `vfs://./…` 投影为绝对路径，不能解析的 VFS URI 保持原样。
 
 原始用户需求、已批准取舍与其输入 MaterialBundle 是目标约束来源；proposal、行为增量和 Acceptance 不能因概述遗漏而取消原要求。有原始输入时按引用展开本 scope 的相关原文，并核对原文明确保留的测试/接口/文件名和边界条件。局部 phase 的结论只覆盖其范围；最终交付须检查已批准交付范围内原始硬要求到验收的完整对应，不包含其它 Track 或未选 backlog，不能拿若干局部 PASS 代替缺失的覆盖。
 

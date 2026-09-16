@@ -8,7 +8,7 @@
 @delimiter: --
 -- #loop ?tdd until="Acceptance 全部满足 且测试通过"
 ---- #step ?red
-写测试：据 BehaviorPatch 的 Suite/Case（Given/When/Then）与 Acceptance 写失败测试
+写测试：据 Task 的 Acceptance/Criterion 与设计意图写失败测试
 ---- /?red
 ---- #step ?green
 实现：写最小实现让测试通过

@@ -20,7 +20,7 @@ export function formatDomainValidation(result: DomainValidationResult): string {
     const fileName = unit.file.split('/').at(-1);
     if (errors) lines.push(`✗ ${label}: ${errors} error(s)`);
     else if (unit.historicalCompletion) lines.push(`⚠ ${label}: historical completion declaration; NOT reverified under current rules`);
-    else lines.push(`✓ ${label}: ${fileName} OK${unit.patchCount ? ` + ${unit.patchCount} behavior delta(s)` : ''}${warnings ? ` (${warnings} warning)` : ''}`);
+    else lines.push(`✓ ${label}: ${fileName} OK${warnings ? ` (${warnings} warning)` : ''}`);
     for (const finding of unit.findings) lines.push(findingLine(finding, unit.directory));
   }
   return lines.join('\n');
@@ -28,7 +28,7 @@ export function formatDomainValidation(result: DomainValidationResult): string {
 
 export function createValidationCommand<R extends CodumentDomainCommandRuntime>(): CommandDefinition<R> {
   const usage = 'codument validate [item|all] [--strict] [--json]';
-  return { name: 'validate', summary: 'Validate current Codument process and behavior sources.', usage: [usage], examples: [],
+  return { name: 'validate', summary: 'Validate current Codument Track, Mission and Decision sources.', usage: [usage], examples: [],
     doc: { summary: usage, usage: [usage], examples: [], options: ['--strict', '--json'] },
     schema: createArgvSchema<R>(usage, [usage], [{ name: 'strict', kind: 'boolean' }, { name: 'json', kind: 'boolean' }]),
     execution: CODUMENT_DOMAIN_EXECUTION.registry,

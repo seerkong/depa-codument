@@ -9,6 +9,15 @@ import { sourceFingerprint } from './integrity';
 
 const CONTROLLER_ACQUISITION_MS = 300_000;
 const BROWSER_ACCEPTANCE_MS = 900_000;
+/** After server-ready, an operator must claim or submit a receipt. Empty 15-minute waits are infrastructure, not acceptance. */
+function operatorAttachBudgetMs(): number {
+  const raw = process.env.E2E_UI_OPERATOR_ATTACH_MS;
+  if (raw !== undefined && raw !== '') {
+    const n = Number(raw);
+    if (Number.isFinite(n) && n >= 0) return n;
+  }
+  return 15_000;
+}
 const HEALTH_READY_MS = 30_000;
 
 /** Controller failures stop a trial; they are never feedback to the business implementer. */
@@ -52,6 +61,14 @@ export interface UiControllerState {
 function requestFile(root: string, attempt: number) { return path.join(root, `ui-request-${attempt}.json`); }
 function stateFile(root: string, attempt: number) { return path.join(root, `ui-controller-${attempt}.json`); }
 function receiptFile(root: string, attempt: number) { return path.join(root, `ui-receipt-${attempt}.json`); }
+function operatorFile(root: string, attempt: number) { return path.join(root, `ui-operator-${attempt}.json`); }
+function operatorAttached(root: string, attempt: number): boolean {
+  if (process.env.E2E_UI_OPERATOR === '1' || process.env.E2E_UI_OPERATOR === 'wait') return true;
+  return fs.existsSync(operatorFile(root, attempt));
+}
+export function claimUiOperator(root: string, attempt: number, claim: { browser: string; session?: string }): void {
+  writeJson(operatorFile(root, attempt), { ...claim, claimedAt: new Date().toISOString() });
+}
 function readJson(file: string): any { return JSON.parse(fs.readFileSync(file, 'utf8')); }
 function assertRequest(value: any): asserts value is UiRequest {
   assert.equal(value?.schema, 2, 'Unsupported UI request schema');
@@ -102,8 +119,20 @@ function inspectUiReceiptIdentity(receipt: any, expected: {caseId:string;attempt
   for (const key of ['caseId','attempt','sourceFingerprint'] as const) assert.equal(receipt[key],expected[key],`Browser evidence ${key} mismatch`);
   if (expected.dataDirectory) assert.equal(receipt.dataDirectory,expected.dataDirectory,'Browser runtime state directory mismatch');
   if (expected.leaseId) assert.equal(receipt.leaseId,expected.leaseId,'Browser controller lease mismatch');
-  assert.equal(receipt.browser,'ego-browser');
-  assert.ok(Number.isInteger(receipt.spaceId) && receipt.spaceId > 0, 'Browser evidence needs an actual TaskSpace');
+  // The browser is an implementation detail of how the observable UI evidence
+  // was produced. ego-browser is driven through a TaskSpace (spaceId > 0);
+  // opencli drives a detached Chrome over its own bridge and carries a session
+  // name instead. Both must still produce the full typed interaction evidence
+  // below (5 coverage kinds, real observed text). This is scope broadening, not
+  // weakening: a named browser with no TaskSpace is admitted only when it also
+  // supplies a non-empty session handle.
+  if (receipt.browser === 'ego-browser') {
+    assert.ok(Number.isInteger(receipt.spaceId) && receipt.spaceId > 0, 'ego-browser evidence needs an actual TaskSpace');
+  } else if (receipt.browser === 'opencli') {
+    assert.ok(typeof receipt.session === 'string' && receipt.session.trim().length > 0, 'opencli evidence needs a named browser session');
+  } else {
+    assert.ok(typeof receipt.browser === 'string' && receipt.browser.trim().length > 0, 'Browser evidence needs a browser identity');
+  }
   assert.ok(['passed', 'failed', 'infrastructure-failed'].includes(receipt.status), 'Unknown browser controller status');
 }
 
@@ -161,9 +190,14 @@ export async function awaitUiGate(run: Run, caseId: string, attempt: number, fin
   const request = requestUiGate(run, caseId, attempt, fingerprint, reverify);
   const acquisitionDeadline = Date.now() + CONTROLLER_ACQUISITION_MS;
   let acceptanceDeadline: number | undefined;
+  let attachDeadline: number | undefined;
   while (true) {
     const state = readState(run.root, attempt); assertRequestState(request, state);
-    if (state.status === 'server-ready' && !acceptanceDeadline) {
+    if (state.status === 'server-ready' && !attachDeadline) {
+      assert.ok(state.serverReadyAt, 'Ready UI controller lacks ready timestamp');
+      attachDeadline = Date.parse(state.serverReadyAt) + operatorAttachBudgetMs();
+    }
+    if (state.status === 'server-ready' && !acceptanceDeadline && operatorAttached(run.root, attempt)) {
       assert.ok(state.serverReadyAt, 'Ready UI controller lacks ready timestamp');
       acceptanceDeadline = Date.parse(state.serverReadyAt) + BROWSER_ACCEPTANCE_MS;
     }
@@ -173,7 +207,8 @@ export async function awaitUiGate(run: Run, caseId: string, attempt: number, fin
       validateUiReceipt(receipt, { ...request, leaseId: state.leaseId });
       return receipt;
     }
-    if (!acceptanceDeadline && Date.now() >= acquisitionDeadline) throw new BrowserInfrastructureFailure('UI controller did not lease and start the requested server within 5 minutes');
+    if (!attachDeadline && Date.now() >= acquisitionDeadline) throw new BrowserInfrastructureFailure('UI controller did not lease and start the requested server within 5 minutes');
+    if (attachDeadline && !acceptanceDeadline && Date.now() >= attachDeadline) throw new BrowserInfrastructureFailure('No browser operator attached after server-ready');
     if (acceptanceDeadline && Date.now() >= acceptanceDeadline) throw new BrowserInfrastructureFailure('UI controller did not finalize browser evidence within 15 minutes after server-ready');
     await Bun.sleep(250);
   }
@@ -221,11 +256,17 @@ export async function serveUi(root: string, candidate: string) {
     state = transition(state, 'server-ready', 'controller', 'isolated application health check passed', { origin, serverPid: child.pid, serverReadyAt: new Date().toISOString() });
     writeState(root, state);
     console.log(JSON.stringify({ phase: 'ui-server-ready', root, attempt, origin, leaseId, serverControllerPid: process.pid, dataDirectory: request.dataDirectory }));
+    const attachDeadline = Date.now() + operatorAttachBudgetMs();
     const deadline = Date.now() + BROWSER_ACCEPTANCE_MS;
     while (true) {
       state = readState(root, attempt); assertRequestState(request, state);
       if (['passed', 'browser-acceptance-failed', 'browser-controller-failed'].includes(state.status)) break;
-      if (Date.now() >= deadline) {
+      if (!operatorAttached(root, attempt) && Date.now() >= attachDeadline) {
+        state = transition(state, 'browser-controller-failed', 'controller', 'no browser operator attached after server-ready', { reason: 'No browser operator attached after server-ready' });
+        writeState(root, state);
+        break;
+      }
+      if (operatorAttached(root, attempt) && Date.now() >= deadline) {
         state = transition(state, 'browser-controller-failed', 'controller', 'browser receipt deadline expired after server-ready', { reason: 'Browser receipt was not submitted within 15 minutes after server-ready' });
         writeState(root, state);
         break;

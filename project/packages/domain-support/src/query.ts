@@ -4,7 +4,6 @@ import type { DomainQuerySource, DomainQuerySourcePort } from 'depa-codument-dom
 import { createWorkspaceEffect } from 'halfcode-cli-lite-skill-app-support/workspace';
 
 const COMPANIONS = ['proposal.md', 'track.xnl', 'track.xml', 'design.md', 'decisions.xnl', 'decisions.md'];
-const DELTA_ROOTS = ['behavior_deltas', 'spec_deltas', 'spec-deltas'];
 
 /** Bounded filesystem snapshots only; syntax and display semantics stay in logic. */
 export function createFileDomainQuerySourcePort(workspaceRoot: string): DomainQuerySourcePort {
@@ -24,16 +23,6 @@ export function createFileDomainQuerySourcePort(workspaceRoot: string): DomainQu
     if (id.startsWith('decision://')) return false;
     if (!id || id.includes('\\') || path.isAbsolute(id) || id.split('/').some(part => !part || part === '.' || part === '..')) throw new Error('Query ID must be a portable relative identity.');
     return true;
-  }
-  async function deltaFiles(directory: string, prefix: string): Promise<string[]> {
-    const files: string[] = [];
-    for (const name of await entries(directory + '/' + prefix)) {
-      const relative = prefix + '/' + name;
-      const kind = await workspace.kind(directory + '/' + relative);
-      if (kind === 'directory') files.push(...await deltaFiles(directory, relative));
-      else if (kind === 'file' && /\.(xnl|xml)$/i.test(name)) files.push(relative);
-    }
-    return files.sort();
   }
   return {
     async ensureWorkspace() {
@@ -57,8 +46,6 @@ export function createFileDomainQuerySourcePort(workspaceRoot: string): DomainQu
         if (options.detail) {
           files = [];
           for (const companion of COMPANIONS) if (await workspace.kind(directory + '/' + companion) === 'file') files.push(companion);
-          const deltas = (await Promise.all(DELTA_ROOTS.map(prefix => deltaFiles(directory, prefix)))).flat().sort();
-          files.push(...deltas);
           if (options.includeContent) {
             contents = {};
             for (const relative of files) contents[relative] = relative === 'track.xnl' ? source : await read(directory + '/' + relative);
@@ -67,35 +54,6 @@ export function createFileDomainQuerySourcePort(workspaceRoot: string): DomainQu
         results.push({ id, file, absolutePath: path.join(root, file), source, files, contents });
       }
       return results;
-    },
-    async behaviors(id) {
-      if (id !== undefined && !safeIdentity(id)) return [];
-      const sources = new Map<string, DomainQuerySource>();
-      async function visit(directory: string, prefix: string): Promise<void> {
-        for (const name of await entries(directory)) {
-          const file = directory + '/' + name, kind = await workspace.kind(file);
-          if (kind === 'directory') await visit(file, prefix + name + '/');
-          else if (kind === 'file' && name.toLowerCase().endsWith('.xnl')) {
-            const key = prefix + name.slice(0, -4);
-            if (id !== undefined && key !== id) continue;
-            const existing = sources.get(key);
-            if (existing) {
-              if (existing.file.startsWith('codument/behaviors/') && file.startsWith('codument/specs/')) continue;
-              throw new Error(`Conflicting Behavior authority: ${existing.file}, ${file}`);
-            }
-            sources.set(key, { id: key, file, absolutePath: path.join(root, file), source: await read(file) });
-          } else if (kind === 'file' && (/\.xml$/i.test(name) || name === 'spec.md')) {
-            const key = name === 'spec.md' ? prefix.slice(0, -1) : prefix + name.slice(0, -4);
-            const canonical = sources.get(key)?.file.startsWith('codument/behaviors/') && file.startsWith('codument/specs/');
-            if (!canonical && (id === undefined || id === key)) throw new Error(`Behavior requires migration or review: ${file}`);
-          }
-        }
-      }
-      for (const registry of ['codument/behaviors', 'codument/specs']) await visit(registry, '');
-      return [...sources.values()].sort((a, b) => {
-        if (a.id === b.id) return 0;
-        return a.id < b.id ? -1 : 1;
-      });
     },
   };
 }

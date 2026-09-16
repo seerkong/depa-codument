@@ -34,17 +34,13 @@ it('exposes the original root archive command with local-only placement and stab
   expect((await fs.readdir(test.root)).sort()).toEqual(['codument']);
   expect((await fs.readdir(path.join(test.root, 'codument'))).sort()).toEqual(['tracks']);
 }, 30_000);
-it('requires confirmation, supports -y and JSON receipts, and never treats skip-specs as a global safety bypass', async () => {
-  const test = await fixture('Track', false);
-  expect((await invoke(test.root, ['archive', 'work', '--json'])).code).toBe(1);
-  await fs.writeFile(path.join(test.root, test.directory, 'spec.md'), '# legacy delta');
-  expect((await invoke(test.root, ['archive', 'work', '-y'])).code).toBe(1);
-  const result = await invoke(test.root, ['archive', 'work', '-y', '--skip-specs', '--json']);
+it('requires confirmation and supports -y with JSON receipts', async () => {
+  const test = await fixture('Track');
+  const result = await invoke(test.root, ['archive', 'work', '-y', '--json']);
   expect(result.code).toBe(0); expect(result.stderr).toBe('');
   const receipt = JSON.parse(result.stdout);
-  expect(receipt.kind).toBe('track'); expect(receipt.warnings).toHaveLength(1);
+  expect(receipt.kind).toBe('track');
   expect(receipt.directory).toBe('codument/tracks/archived/2026-09/2026-09-06-1003-work');
-  expect(await fs.readFile(path.join(test.root, receipt.directory, 'spec.md'), 'utf8')).toBe('# legacy delta');
 }, 30_000);
 it('binds mission archive and the Mission alias to the same local owner without merging paused commands', async () => {
   for (const group of ['mission', 'Mission']) {
@@ -59,6 +55,6 @@ it('binds mission archive and the Mission alias to the same local owner without 
     expect((await fs.readdir(test.root)).sort()).toEqual(['codument']);
   }
   const test = await fixture('Mission');
-  for (const args of [['archive'], ['archive', 'work', 'extra'], ['mission', 'archive', 'work', '--skip-specs'], ['archive', 'work', '--unknown']]) expect((await invoke(test.root, args)).code).toBe(1);
+  for (const args of [['archive'], ['archive', 'work', 'extra'], ['archive', 'work', '--unknown']]) expect((await invoke(test.root, args)).code).toBe(1);
   expect(commandExecutionPolicy(['init'])).not.toEqual({placement: 'local', runtimeProfile: 'domain'});
 }, 30_000);

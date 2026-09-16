@@ -1,10 +1,10 @@
 # Project Memory Attractor（references/std/attractors/project-memory.md）
 
-> 当 `memory` profile（`config/attractor-profiles.xnl`）启用时，本文件定义**长期项目记忆**如何提升。它是 `memory/` tier 的吸引子，地位与 `model-driven-docs.md`（docs tier 吸引子）并列。分层与晋升总览见 [knowledge-tiers.md](./knowledge-tiers.md)。
+> 当 `memory` profile（`config/attractor-profiles.xnl`）启用时，本文件定义**长期项目记忆**如何提升。它是 `memory/` tier 的吸引子，地位与 `knowledge-tiers.md`（知识分层总览）并列。分层与晋升总览见 [knowledge-tiers.md](./knowledge-tiers.md)。
 
 ## 目的
 
-项目记忆**不替代** behaviors、docs、源码。它记录**跨 track 应当影响未来工作**的耐久教训。
+项目记忆**不替代** docs、源码与 decisions。它记录**跨 track 应当影响未来工作**的耐久教训。
 
 ## 记忆类别
 
@@ -27,7 +27,7 @@ Good：
 Bad：
 
 - 把普通任务日志拷进记忆。
-- 存本应在 behaviors/docs/源码/测试里的事实。
+- 存本应在 decisions/docs/源码/测试里的事实。
 - 建一个所有分支都要改的中心 `index.md`。
 - 把未解决的猜测当耐久教训提升。
 

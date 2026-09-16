@@ -37,10 +37,13 @@
 - 新增 CLI-first 要求见期望-8、约束-12…14；[CLI-first 设计](design/cli-first-runtime.md) 替代原三命令自动组合的当前实施方案。Omni 为只读参考，不是本项目状态或代码真源。
 - Bun 实际路径 `/Users/kongweixian/.bun/bin/bun`。脚本含子进程时将该目录加入本次进程 PATH；不以 PATH 缺失判定本机没安装 Bun。
 - 最新跨仓库方向取代临时的“不回写 Halfcode / 所有新包均 depa-codument-*”前提。入口：[跨仓库设计](design/cross-repo-host.md)、[分析状态](analysis/cross-repo-host/manifest.md)。通用能力的最终源码 owner 是 Halfcode；两仓源码按已确认方案逐项改造，示例 App 不改。
+- 2026-09-13用户纠正资源读取投影：本地文件来源的 `list`/`search` 必须直接给 agent 可读的绝对详情路径；XNL 的 `detail` 必须仍返回原 XNL 文本，但将其中已解析的 `vfs://` 资源引用投影为绝对本地路径。不得以 JSON 摘要取代 XNL 正文，也不得新增 CLI 行范围读取命令。未来由宿主提供 VFS 时再保留 `vfs://`，本轮不做 FQN 替换。
 
 ## 期望结果
 
 - 期望-10: 新版真实E2E覆盖已批准六步，模型固定Terra；独立环境/流程/业务验收、有界纠偏及复跑报告，首次和纠偏后通过率、token与耗时可追溯，不将Agent自述或smoke当业务通过。
+
+- 期望-11: Halfcode 的可复用资源 presentation 在本地 filesystem host 上，把资源详情的实际文件绝对路径暴露给 `list`/`search` 消费者；XNL `detail` 维持原文件正文且仅将已校验的 `vfs://` 引用解析为绝对路径。Codument 的长需求/验收上下文使用这些路径与输入覆盖投影，减少大文本 CLI 搬运而不删减必要原文、fresh 验证或检查轮数。
 
 - 期望-1: 已克隆骨架成为产品实际构建和运行入口；新建 workspace 的 `codument/` 可被 CLI 发现、解析、验证为 SkillApp，支持 resource-first 主体与 code-first 资源混合；Kinds 内置、不复制到每个 App。
 - 期望-2: 产品与 Host 的 authority、显式 runtime、effect contracts、Processor、capsule 和按需 Actor 边界符合 AT1；包依赖无环，核心逻辑不直接依赖具体 IO。
@@ -55,6 +58,9 @@
 ## 约束
 
 - 约束-21: E2E临时项目/home/session/验收证据隔离，明确固定CLI和Skill哈希、模型及配置；不复制个人配置/插件/旧Skill，不回退旧bin。不关闭产品质量机制，不由被测Agent改验收或框架源码，不将质量分数抵消失败。真实调用已授权但不购买额度；凭据不进日志。关键用例todo与stream各重复至少一次，真实失败和基础设施失败分别计数，缺usage不按0计。两次外部纠偏为默认上限，耗尽保留失败而非重置首次结果。
+
+- 约束-22: `detailPath` 与被替换的 `vfs://` 路径只能由 Halfcode 已 admission 的本地 regular file、真实 package root 与现有越界/symlink 守卫生成；绝对路径是当前 host 的 effect projection，不得写回 authored XNL、FQN、content digest 或跨宿主持久状态。没有 local filesystem material 的 host 必须保持 `vfs://` 并明确声明不可解析，不得猜路径。
+- 约束-23: 不新增 `Resource read`、`--range`、行范围或另一份正文缓存 CLI；`list`/`search` 返回紧凑 metadata 与绝对文件入口，`detail` 对 XNL 返回替换后的原文本。Agent 的本地文件工具负责实际阅读。现有 JSON 调用方须保留可判定的兼容路径，不能默默把 XNL 文本塞进 JSON resource 摘要。
 
 - 约束-17: global完整资产必须对应Halfcode原有直接加载VFS的文件夹机制；安装仅复制，不能从workspace模板拼接/改写文档生成另一App。固定根的选择属于Effect，解析/校验/CommandOperation复用公共机制；禁止扫描发现替代固定加载、代码内置表与资源双authority。构建字节打包不算语义生成。
 - 约束-18: global App根有SKILL.md、manifest、operations/、references/std/compat/operation-alias.md和references/；std迁入references/std，退役std/operations、std/commands及kernel-pointer，std/skill的有效指南按职责迁位。旧skill详细映射只在compact别名文档，SKILL引导按需读取；保留最初description历史名称/简介的发现要求，但不重复展开完整映射或当前动态能力表。全部有效链接、配置URI及CLI正文同步调整。
@@ -82,6 +88,7 @@
 
 - [ ] 期望-10、约束-21 → 隔离副本中bun test e2e与bun e2e/run.ts smoke --bin=<candidate> → 无模型路径/安装/日志/错误退出/超时和伪PASS负例通过。
 - [ ] 期望-10、约束-4、约束-16、约束-21 → 隔离副本bun e2e/run.ts run <case> --bin=<candidate>及关键用例重复 → 六步真实证据，环境/流程/业务独立门、固定模型、首次/最终通过率和成本；失败不可冒报PASS。
+- [ ] 期望-11、约束-22、约束-23 → Halfcode resource presentation contract tests + 独立 product consumer fixture + Codument context forward tests → list/search 给本地绝对详情路径；XNL detail 保留正文且只替换已校验 VFS 引用；无本地 material、越界/symlink、JSON/正文混淆与未替换场景失败关闭。
 
 - [ ] 期望-9、约束-17 → 固定根VFS真实加载/资源变更驱动help与dispatch/缺失损坏及无关App负例（隔离；具体测试入口在实施节点补齐） → 单一完整资产与公共解析链，不回退硬编码清单。
 - [ ] 期望-9、约束-18 → 安装资产链接与manifest/URI闭包、compact别名路由和全部15操作实测（隔离） → 新目录无旧残余，历史映射按需读取，真实资源与命令一致。

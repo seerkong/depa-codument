@@ -13,7 +13,7 @@ spec:
 
 # skill: codument-archive-mission（归档 Mission）
 
-归档 completed、cancelled 或 superseded Mission。Mission 不提升 behavior；各落地 Track 在自己的归档事务中维护 behavior authority。
+归档 completed、cancelled 或 superseded Mission。Mission 不提升决策或知识；各落地 Track 在自己的归档事务中维护其 authority。
 
 ## 主流程
 

@@ -20,14 +20,14 @@ spec:
 - artifact id，或触发它的 `ArtifactSync { use = "..." }` hook；
 - Track 的 output MaterialBundle；
 - artifact 规则的 workflow、skill、attractor profile、targets 与 policy；
-- docs 类制品所需的 modeling、engineering、behavior 和 provenance。
+- docs 类制品所需的 docs、artifact 与 provenance。
 
 没有唯一 artifact id 时先澄清，不根据目录存在与否隐式同步。
 
 ## 主流程
 
 1. 解析一个 artifact 及其 source、targets、policy；验证 source 确实属于 Track output MaterialBundle。
-2. 读取生成内容所需的业务上下文。docs 类制品按 `references/std/attractors/model-driven-docs.md` 做内容选择、路由、质量和晋升判断。
+2. 读取生成内容所需的业务上下文。docs 类制品按 `references/std/attractors/knowledge-tiers.md` 做内容选择、晋升与真源判断。
 3. 在 Track 的 staging 目录中生成一套完整相对文件树。多个 target 复用同一树，target-specific 差异必须来自 artifact 规则。
 4. 对每个 target 先运行：
 

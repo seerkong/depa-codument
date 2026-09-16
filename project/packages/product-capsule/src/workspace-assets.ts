@@ -12,8 +12,6 @@ import asset2 from "./workspace-assets/codument/attractors/product.md" with { ty
 import asset3 from "./workspace-assets/codument/attractors/project.md" with { type: "text" };
 import asset4 from "./workspace-assets/codument/backlog/README.md" with { type: "text" };
 import asset5 from "./workspace-assets/codument/config/attractor-profiles.xnl" with { type: "text" };
-import asset6 from "./workspace-assets/codument/config/engineering.xnl" with { type: "text" };
-import asset7 from "./workspace-assets/codument/config/modeling.xnl" with { type: "text" };
 import asset8 from "./workspace-assets/codument/config/operation-hooks.xnl" with { type: "text" };
 import asset9 from "./workspace-assets/codument/memory/README.md" with { type: "text" };
 import asset10 from "./workspace-assets/codument/missions/README.md" with { type: "text" };
@@ -21,10 +19,8 @@ import asset11 from "./workspace-assets/codument/sop/README.md" with { type: "te
 import asset12 from "./workspace-assets/codument/std/AGENTS.md" with { type: "text" };
 import asset13 from "./workspace-assets/codument/std/attractors/depa-attractor.md" with { type: "text" };
 import asset14 from "./workspace-assets/codument/std/attractors/knowledge-tiers.md" with { type: "text" };
-import asset15 from "./workspace-assets/codument/std/attractors/model-driven-docs.md" with { type: "text" };
 import asset16 from "./workspace-assets/codument/std/attractors/project-memory.md" with { type: "text" };
 import asset17 from "./workspace-assets/codument/std/commands/archive-track.md" with { type: "text" };
-import asset18 from "./workspace-assets/codument/std/commands/modeling-engineering.md" with { type: "text" };
 import asset19 from "./workspace-assets/codument/std/commands/upgrade-workspace.md" with { type: "text" };
 import asset20 from "./workspace-assets/codument/std/compat/README.md" with { type: "text" };
 import asset21 from "./workspace-assets/codument/std/kernel-pointer.md" with { type: "text" };
@@ -37,7 +33,6 @@ import asset27 from "./workspace-assets/codument/std/operations/archive-mission.
 import asset28 from "./workspace-assets/codument/std/operations/archive-track.md" with { type: "text" };
 import asset29 from "./workspace-assets/codument/std/operations/artifact-sync.md" with { type: "text" };
 import asset30 from "./workspace-assets/codument/std/operations/discuss.md" with { type: "text" };
-import asset31 from "./workspace-assets/codument/std/operations/docs-bootstrap.md" with { type: "text" };
 import asset32 from "./workspace-assets/codument/std/operations/gap-loop.md" with { type: "text" };
 import asset33 from "./workspace-assets/codument/std/operations/impl-mission.md" with { type: "text" };
 import asset34 from "./workspace-assets/codument/std/operations/impl-quick.md" with { type: "text" };
@@ -53,20 +48,10 @@ import asset43 from "./workspace-assets/codument/std/protocols/cybernetic-loop.m
 import asset44 from "./workspace-assets/codument/std/protocols/decision-tree.md" with { type: "text" };
 import asset45 from "./workspace-assets/codument/std/protocols/questioning.md" with { type: "text" };
 import asset46 from "./workspace-assets/codument/std/protocols/validation.md" with { type: "text" };
-import asset47 from "./workspace-assets/codument/std/skill/docs-engineering-fractal/index.md" with { type: "text" };
-import asset48 from "./workspace-assets/codument/std/skill/docs-modeling-fractal/index.md" with { type: "text" };
-import asset49 from "./workspace-assets/codument/std/spec/behavior-delta.md" with { type: "text" };
-import asset50 from "./workspace-assets/codument/std/spec/behavior-registry.md" with { type: "text" };
 import asset51 from "./workspace-assets/codument/std/spec/decision-registry.md" with { type: "text" };
-import asset52 from "./workspace-assets/codument/std/spec/engineering-delta.md" with { type: "text" };
-import asset53 from "./workspace-assets/codument/std/spec/engineering-node-schema.md" with { type: "text" };
-import asset54 from "./workspace-assets/codument/std/spec/engineering-registry.md" with { type: "text" };
 import asset55 from "./workspace-assets/codument/std/spec/flow-notation.md" with { type: "text" };
 import asset56 from "./workspace-assets/codument/std/spec/folder-manifest.md" with { type: "text" };
 import asset57 from "./workspace-assets/codument/std/spec/mission-xnl-spec.md" with { type: "text" };
-import asset58 from "./workspace-assets/codument/std/spec/modeling-delta.md" with { type: "text" };
-import asset59 from "./workspace-assets/codument/std/spec/modeling-node-schema.md" with { type: "text" };
-import asset60 from "./workspace-assets/codument/std/spec/modeling-registry.md" with { type: "text" };
 import asset61 from "./workspace-assets/codument/std/spec/track-xnl-spec.md" with { type: "text" };
 import asset62 from "./workspace-assets/codument/std/spec/xnl-format.md" with { type: "text" };
 import asset63 from "./workspace-assets/codument/tracks/active/README.md" with { type: "text" };
@@ -78,7 +63,6 @@ import asset68 from "./workspace-assets/skills/codument-archive-mission/SKILL.md
 import asset69 from "./workspace-assets/skills/codument-archive-track/SKILL.md" with { type: "text" };
 import asset70 from "./workspace-assets/skills/codument-artifact-sync/SKILL.md" with { type: "text" };
 import asset71 from "./workspace-assets/skills/codument-discuss/SKILL.md" with { type: "text" };
-import asset72 from "./workspace-assets/skills/codument-docs-bootstrap/SKILL.md" with { type: "text" };
 import asset73 from "./workspace-assets/skills/codument-gap-loop/SKILL.md" with { type: "text" };
 import asset74 from "./workspace-assets/skills/codument-impl-mission/SKILL.md" with { type: "text" };
 import asset75 from "./workspace-assets/skills/codument-impl-quick/SKILL.md" with { type: "text" };
@@ -100,8 +84,6 @@ export const CODUMENT_WORKSPACE_ASSETS = Object.freeze([
   Object.freeze({ path: "codument/attractors/project.md", source: asset3 }),
   Object.freeze({ path: "codument/backlog/README.md", source: asset4 }),
   Object.freeze({ path: "codument/config/attractor-profiles.xnl", source: asset5 }),
-  Object.freeze({ path: "codument/config/engineering.xnl", source: asset6 }),
-  Object.freeze({ path: "codument/config/modeling.xnl", source: asset7 }),
   Object.freeze({ path: "codument/config/operation-hooks.xnl", source: asset8 }),
   Object.freeze({ path: "codument/memory/README.md", source: asset9 }),
   Object.freeze({ path: "codument/missions/README.md", source: asset10 }),
@@ -109,10 +91,8 @@ export const CODUMENT_WORKSPACE_ASSETS = Object.freeze([
   Object.freeze({ path: "codument/std/AGENTS.md", source: asset12 }),
   Object.freeze({ path: "codument/std/attractors/depa-attractor.md", source: asset13 }),
   Object.freeze({ path: "codument/std/attractors/knowledge-tiers.md", source: asset14 }),
-  Object.freeze({ path: "codument/std/attractors/model-driven-docs.md", source: asset15 }),
   Object.freeze({ path: "codument/std/attractors/project-memory.md", source: asset16 }),
   Object.freeze({ path: "codument/std/commands/archive-track.md", source: asset17 }),
-  Object.freeze({ path: "codument/std/commands/modeling-engineering.md", source: asset18 }),
   Object.freeze({ path: "codument/std/commands/upgrade-workspace.md", source: asset19 }),
   Object.freeze({ path: "codument/std/compat/README.md", source: asset20 }),
   Object.freeze({ path: "codument/std/kernel-pointer.md", source: asset21 }),
@@ -125,7 +105,6 @@ export const CODUMENT_WORKSPACE_ASSETS = Object.freeze([
   Object.freeze({ path: "codument/std/operations/archive-track.md", source: asset28 }),
   Object.freeze({ path: "codument/std/operations/artifact-sync.md", source: asset29 }),
   Object.freeze({ path: "codument/std/operations/discuss.md", source: asset30 }),
-  Object.freeze({ path: "codument/std/operations/docs-bootstrap.md", source: asset31 }),
   Object.freeze({ path: "codument/std/operations/gap-loop.md", source: asset32 }),
   Object.freeze({ path: "codument/std/operations/impl-mission.md", source: asset33 }),
   Object.freeze({ path: "codument/std/operations/impl-quick.md", source: asset34 }),
@@ -141,20 +120,10 @@ export const CODUMENT_WORKSPACE_ASSETS = Object.freeze([
   Object.freeze({ path: "codument/std/protocols/decision-tree.md", source: asset44 }),
   Object.freeze({ path: "codument/std/protocols/questioning.md", source: asset45 }),
   Object.freeze({ path: "codument/std/protocols/validation.md", source: asset46 }),
-  Object.freeze({ path: "codument/std/skill/docs-engineering-fractal/index.md", source: asset47 }),
-  Object.freeze({ path: "codument/std/skill/docs-modeling-fractal/index.md", source: asset48 }),
-  Object.freeze({ path: "codument/std/spec/behavior-delta.md", source: asset49 }),
-  Object.freeze({ path: "codument/std/spec/behavior-registry.md", source: asset50 }),
   Object.freeze({ path: "codument/std/spec/decision-registry.md", source: asset51 }),
-  Object.freeze({ path: "codument/std/spec/engineering-delta.md", source: asset52 }),
-  Object.freeze({ path: "codument/std/spec/engineering-node-schema.md", source: asset53 }),
-  Object.freeze({ path: "codument/std/spec/engineering-registry.md", source: asset54 }),
   Object.freeze({ path: "codument/std/spec/flow-notation.md", source: asset55 }),
   Object.freeze({ path: "codument/std/spec/folder-manifest.md", source: asset56 }),
   Object.freeze({ path: "codument/std/spec/mission-xnl-spec.md", source: asset57 }),
-  Object.freeze({ path: "codument/std/spec/modeling-delta.md", source: asset58 }),
-  Object.freeze({ path: "codument/std/spec/modeling-node-schema.md", source: asset59 }),
-  Object.freeze({ path: "codument/std/spec/modeling-registry.md", source: asset60 }),
   Object.freeze({ path: "codument/std/spec/track-xnl-spec.md", source: asset61 }),
   Object.freeze({ path: "codument/std/spec/xnl-format.md", source: asset62 }),
   Object.freeze({ path: "codument/tracks/active/README.md", source: asset63 }),
@@ -166,7 +135,6 @@ export const CODUMENT_WORKSPACE_ASSETS = Object.freeze([
   Object.freeze({ path: "skills/codument-archive-track/SKILL.md", source: asset69 }),
   Object.freeze({ path: "skills/codument-artifact-sync/SKILL.md", source: asset70 }),
   Object.freeze({ path: "skills/codument-discuss/SKILL.md", source: asset71 }),
-  Object.freeze({ path: "skills/codument-docs-bootstrap/SKILL.md", source: asset72 }),
   Object.freeze({ path: "skills/codument-gap-loop/SKILL.md", source: asset73 }),
   Object.freeze({ path: "skills/codument-impl-mission/SKILL.md", source: asset74 }),
   Object.freeze({ path: "skills/codument-impl-quick/SKILL.md", source: asset75 }),

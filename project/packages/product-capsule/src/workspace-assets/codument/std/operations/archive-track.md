@@ -1,6 +1,6 @@
 # skill: codument-archive-track（归档 Track）
 
-归档完成或经用户明确确认终止的 Track。CLI 负责 behavior/modeling/engineering/decision registry transaction、冲突检测、rollback、目标路径、Track move 与条件 memory 提升；operation 只编排 hook、命令和语义复核。
+归档完成或经用户明确确认终止的 Track。CLI 负责 decision registry transaction、冲突检测、rollback、目标路径、Track move 与条件 memory 提升；operation 只编排 hook、命令和语义复核。
 
 ## 主流程
 
@@ -20,7 +20,7 @@
 
 主流程第 3 步按固定小节产出复盘；只使用 Track authority、实现 diff、验证 receipt 和现有 report：
 
-1. **负载/改动面**：本 track 触碰的行为增量（behavior_deltas）、文件与 MaterialBundle 清单、晋升的决策（decisions）、验收/验证记录。
+1. **负载/改动面**：本 track 触碰的文件与 MaterialBundle 清单、晋升的决策（decisions）、验收/验证记录。
 2. **摩擦面**：阻塞与失败证据、确实发生的回退复盘、重复劳动、验证缺口和计划漂移。
 3. **沉淀候选**：
    - 符合 knowledge tier 的 lessons / incidents / patterns / summaries，进入现有 `memory/<type>/` 候选；

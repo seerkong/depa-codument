@@ -9,10 +9,6 @@ test('legacy XML resource families have explicit current targets and retain sour
     ['codument/missions/active/example/mission.xml', '<Mission id="example" version="1"><Metadata><Status>active</Status><Revision>1</Revision></Metadata><TaskSpace id="space_example"><SubNodes/></TaskSpace><ProjectRefs><cdt:ProjectRef id="external" path="../related"/></ProjectRefs></Mission>', 'Mission'],
     ['codument/config/action-hooks.xml', '<ActionHooks version="1"><Action name="gap-loop"><cdt:GapLoopDefaults verify-round="true"/></Action></ActionHooks>', 'OperationHooks'],
     ['codument/config/attractor-profiles.xml', '<AttractorProfiles version="1"><Profile name="depa" enabled="true"><Description>my DEPA</Description><Attractor href="vfs://./attractors/depa.md"/></Profile></AttractorProfiles>', 'AttractorProfiles'],
-    ['codument/config/modeling.xml', '<Modeling enabled="false"><MergePolicy><Conflict type="same-field" resolve="human"/></MergePolicy></Modeling>', 'ModelingConfig'],
-    ['codument/config/engineering.xml', '<Engineering enabled="true"><Lint max-lines="400" max-nodes="8"/></Engineering>', 'EngineeringConfig'],
-    ['codument/specs/orders.xml', '<behaviors capability="orders" custom="preserve"><requirement id="r1"><statement>Must retain</statement><suite id="s1"><case id="c1"><given>x</given><when>y</when><then>z</then></case></suite></requirement></behaviors>', 'Behavior'],
-    ['codument/tracks/active/example/behavior-deltas/orders.xml', '<behavior-patch capability="orders"><upsert selector="behavior://orders/requirement/r1"><requirement id="r1"><statement>Updated</statement></requirement></upsert></behavior-patch>', 'BehaviorPatch'],
   ] as const;
   for (const [path, source, kind] of fixtures) {
     const result = planResourceMigration({path, source});

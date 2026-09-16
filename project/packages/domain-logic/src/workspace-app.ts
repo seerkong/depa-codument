@@ -2,9 +2,7 @@ import { CODUMENT_APP_CATALOGS, CODUMENT_RESOURCE_KINDS, type WorkspaceAppInspec
   type WorkspaceAppInspectionInput, type WorkspaceAppSourceSnapshot } from 'depa-codument-domain-contract';
 import { digestCanonical } from 'halfcode-cli-lite-skill-app-contract/resource';
 import { inspectDomainValidation } from './validate';
-import { indexKnowledgeSources, validateKnowledgeIndex } from './knowledge';
 import { validateDecisionSources } from './decisions';
-import { readKnowledgeSettings } from './knowledge-read';
 import { readAttractorProfileNames } from './config';
 
 /** Authored initial membership, not a periodically rewritten discovery cache. */
@@ -73,19 +71,9 @@ export function inspectCodumentWorkspaceApp(input: WorkspaceAppInspectionInput):
     }
   }
   findings.push(...inspectDomainValidation(observed.lifecycle, { strict: true }).findings);
-  for (const knowledge of observed.knowledge) {
-    const index = indexKnowledgeSources(knowledge.sources, knowledge.family, knowledge.mode);
-    findings.push(...validateKnowledgeIndex(index).map(finding => ({ file: knowledge.directory + '/' + finding.file,
-      severity: finding.severity, rule: finding.rule ?? 'knowledge.' + finding.layer, message: finding.message })));
-  }
   findings.push(...validateDecisionSources(observed.decisions).map(finding => ({ file: finding.file,
     severity: finding.severity, rule: 'decision.' + (finding.layer ?? 'validation'), message: finding.message })));
   const sourceAt = (file: string) => observed.authorities.find(item => item.file === file)?.source;
-  for (const family of ['modeling', 'engineering'] as const) {
-    const file = `codument/config/${family}.xnl`;
-    try { readKnowledgeSettings(sourceAt(file), family); }
-    catch (cause) { error(file, 'workspace.config', String(cause)); }
-  }
   try { readAttractorProfileNames(sourceAt('codument/config/attractor-profiles.xnl')); }
   catch (cause) { error('codument/config/attractor-profiles.xnl', 'workspace.config', String(cause)); }
   return { ready: catalog.ready && findings.every(item => item.severity !== 'error'), appId: app?.fqn,

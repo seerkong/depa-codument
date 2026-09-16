@@ -5,7 +5,7 @@ import {WORKSPACE_BINDINGS_PATH, type ArchiveCalendar, type ArchiveRegistry, typ
 import {observeFileLifecycle} from './lifecycle-observation';
 import {commitArchiveFiles, observeArchiveFiles, readArchiveFile, type ArchiveFiles, type ArchiveFileEffects} from './archive-files';
 
-const registries: readonly ArchiveRegistry[] = ['behaviors', 'modeling', 'engineering', 'decisions', 'memory'];
+const registries: readonly ArchiveRegistry[] = ['decisions', 'memory'];
 interface Context {codec: LifecycleSourceCodec; assertCurrent?: () => Promise<void>}
 export interface FileArchiveBindings extends Context {
   readonly projects?: Readonly<Record<string, string>>;
@@ -78,7 +78,7 @@ export function createFileArchiveSourcePort(workspaceRoot: string, supplied: Fil
       const files = await observeArchiveFiles([...new Set(roots)]);
       for (const file of files.entries.keys()) if (/\.[^/]+\.write-lock(?:\/|$)/.test(file)) throw new Error('An observed archive source has a retained writer lock.');
       const configSources = textSources(files, path.join(root, 'codument/config'), file => /\.(xnl|xml)$/i.test(file));
-      for (const name of ['attractor-profiles', 'modeling', 'engineering']) if (configSources.has(name + '.xml')) throw new Error('Legacy archive configuration requires migration or review.');
+      if (configSources.has('attractor-profiles.xml')) throw new Error('Legacy archive configuration requires migration or review.');
       const processSources = textSources(files, path.join(root, process.directory), file => /\.(xnl|xml|md)$/i.test(file));
       if (processSources.get(input.kind + '.xnl') !== process.content) throw new Error('Process source changed during archive observation.');
       const canonical = Object.fromEntries(registries.map(name => [name, textSources(files, path.join(root, 'codument/' + name), file => !file.split('/').some(segment => segment.startsWith('.')) && (name === 'memory' ? file.endsWith('.md') : /\.(xnl|xml)$/i.test(file)))])) as Record<ArchiveRegistry, Map<string, string>>;
@@ -87,7 +87,7 @@ export function createFileArchiveSourcePort(workspaceRoot: string, supplied: Fil
         return {...link.selector, stage: link.found?.stage ?? 'missing'};
       });
       const {content: _content, ...owned} = process;
-      const snapshot: ArchiveSourceSnapshot = {request: input, process: owned, processSources, registries: canonical, configs: {profiles: configSources.get('attractor-profiles.xnl'), modeling: configSources.get('modeling.xnl'), engineering: configSources.get('engineering.xnl')}, linkedTracks, nowIso, calendar, destination, sourceRevision: randomUUID()};
+      const snapshot: ArchiveSourceSnapshot = {request: input, process: owned, processSources, registries: canonical, configs: {profiles: configSources.get('attractor-profiles.xnl')}, linkedTracks, nowIso, calendar, destination, sourceRevision: randomUUID()};
       await unlocked(root); await bindings.assertCurrent?.();
       // No map/AST handed to callers is the private commit authority.
       const handle = Object.freeze(structuredClone(snapshot));
@@ -123,7 +123,7 @@ export function createFileArchiveSourcePort(workspaceRoot: string, supplied: Fil
       return {kind: snapshot.request.kind, id: snapshot.request.id, directory: snapshot.destination,
         updated: Object.fromEntries(Object.entries(publication.registryUpdates).filter(([, updates]) => updates.size).map(([name, updates]) => [name, [...updates.keys()]])),
         ...(publication.processUpdates.has('summary.md') ? {summary: snapshot.destination + '/summary.md'} : {}), warnings: publication.warnings,
-        behaviorCapabilities: publication.behaviorCapabilities, promotedMemory: publication.promotedMemory, ...receipt};
+        promotedMemory: publication.promotedMemory, ...receipt};
     },
   };
 }

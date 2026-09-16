@@ -25,7 +25,6 @@
 | `codument-impl-mission/` | `@/codument/std/operations/impl-mission.md` |
 | `codument-archive-mission/` | `@/codument/std/operations/archive-mission.md` |
 | `codument-artifact-sync/` | `@/codument/std/operations/artifact-sync.md` |
-| `codument-docs-bootstrap/` | `@/codument/std/operations/docs-bootstrap.md` |
 | `codument-migrate/` | `@/codument/std/operations/migrate.md` |
 
 CLI 辅助命令 `codument init` / `codument status` 不再提供 agent skill 壳；它们作为普通 CLI 命令使用。

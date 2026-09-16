@@ -4,9 +4,7 @@ import { isDataElement } from './registry';
 
 export function validateScaffoldRequest(request: ScaffoldRequest): void {
   if (!/^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/.test(request.id)) throw new Error(`Invalid ${request.kind} id '${request.id}': expected lowercase kebab-case`);
-  if (request.kind === 'BehaviorPatch') {
-    if (!/^[a-z][a-z0-9-]*(?:\.[a-z][a-z0-9-]*)*$/.test(request.capability)) throw new Error('Invalid BehaviorPatch capability: expected lowercase kebab or dotted name');
-  } else if (!['Track', 'Mission'].includes(request.kind) || !['pending', 'active'].includes(request.stage)) {
+  if (!['Track', 'Mission'].includes(request.kind) || !['active', 'pending'].includes(request.stage)) {
     throw new Error('Scaffold requires Track or Mission and stage pending|active.');
   }
 }
@@ -18,9 +16,6 @@ export function proposeScaffold(location: ScaffoldLocation, timestamp: string): 
   validateScaffoldRequest(input);
   if (!timestamp || Number.isNaN(Date.parse(timestamp))) throw new Error('Scaffold requires an observed ISO timestamp.');
   const envelope = 'envelopeVersion="halfcode.resource-envelope/v1" specVersion=1';
-  if (input.kind === 'BehaviorPatch') {
-    return { 'delta.xnl': `<BehaviorPatch #track.${input.id}.behavior_patch.${input.capability} ${envelope} {capability=${JSON.stringify(input.capability)}} (<Mutations []>)>\n` };
-  }
   const kind = input.kind, id = input.id;
   let status: string = input.stage;
   if (kind === 'Track') status = input.stage === 'active' ? 'in_progress' : 'new';
@@ -31,7 +26,6 @@ export function proposeScaffold(location: ScaffoldLocation, timestamp: string): 
   ];
   if (kind === 'Track' && location.gitHead) {
     if (!/^[a-f0-9]{40,64}$/.test(location.gitHead)) throw new Error('Invalid observed Git HEAD.');
-    fields.push(`  modeling_base_commit = "${location.gitHead}"`, `  engineering_base_commit = "${location.gitHead}"`);
   }
   const slots = [`  <Ports { scope = "${kind.toLowerCase()}" }>`];
   if (kind === 'Mission') {
@@ -52,11 +46,9 @@ export async function applyScaffold(runtime: Pick<DomainOperationRuntime, 'scaff
   if (!runtime.scaffolds) throw new Error('Scaffold source port is not configured.');
   const location = await runtime.scaffolds.observe(input);
   const observed = location.request;
-  if (observed.kind !== input.kind || observed.id !== input.id
-    || (input.kind === 'BehaviorPatch' && (observed.kind !== 'BehaviorPatch' || observed.capability !== input.capability))
-    || (input.kind !== 'BehaviorPatch' && (observed.kind === 'BehaviorPatch' || observed.stage !== input.stage))) throw new Error('Scaffold location returned a mismatched request.');
+  if (observed.kind !== input.kind || observed.id !== input.id || observed.stage !== input.stage) throw new Error('Scaffold location returned a mismatched request.');
   const files = proposeScaffold(location, runtime.clock.nowIso());
   const receipt = await runtime.scaffolds.publish(location, files);
-  return { kind: input.kind === 'Mission' ? 'Mission' : 'Track', id: input.id, stage: location.stage, directory: location.directory,
+  return { kind: input.kind, id: input.id, stage: location.stage, directory: location.directory,
     specVersion: 1, files: Object.keys(files), ...receipt };
 }

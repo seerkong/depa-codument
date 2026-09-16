@@ -11,12 +11,11 @@ export interface DomainQuerySource {
 export interface DomainQuerySourcePort {
   ensureWorkspace(): Promise<void>;
   tracks(options: { readonly id?: string; readonly detail?: boolean; readonly includeContent?: boolean }): Promise<readonly DomainQuerySource[]>;
-  behaviors(id?: string): Promise<readonly DomainQuerySource[]>;
 }
 export type DomainQuery =
   | { readonly operation: 'status' }
-  | { readonly operation: 'list'; readonly behaviors?: boolean }
-  | { readonly operation: 'show'; readonly id: string; readonly type?: 'track' | 'spec' | 'decision'; readonly includeContent?: boolean };
+  | { readonly operation: 'list' }
+  | { readonly operation: 'show'; readonly id: string; readonly type?: 'track' | 'decision'; readonly includeContent?: boolean };
 export interface TrackQueryView {
   readonly id: string;
   readonly metadata: {
@@ -32,15 +31,10 @@ export interface TrackQueryView {
   readonly files?: readonly string[];
   readonly contents?: Readonly<Record<string, string>>;
 }
-export interface BehaviorQueryView {
-  readonly id: string; readonly path: string; readonly requirements: number; readonly scenarios: number; readonly format: 'xnl'; readonly content?: string;
-}
 export type DomainQueryResult =
   | { readonly kind: 'status'; readonly value: ProjectStatusView }
   | { readonly kind: 'tracks'; readonly value: readonly TrackQueryView[] }
-  | { readonly kind: 'specs'; readonly value: readonly BehaviorQueryView[] }
   | { readonly kind: 'track'; readonly value: TrackQueryView }
-  | { readonly kind: 'spec'; readonly value: BehaviorQueryView }
   | { readonly kind: 'decision'; readonly value: Readonly<Record<string, unknown>> };
 
 export interface ProjectStatusView {

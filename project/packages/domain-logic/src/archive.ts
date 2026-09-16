@@ -1,22 +1,17 @@
 import {parseXnl, type DataElementNode} from 'xnl-core';
-import type {ArchiveCalendar, ArchivePublication, ArchiveRegistry, ArchiveRequest, ArchiveSourcePort, ArchiveSourceSnapshot, ArchiveTrackSelector, KnowledgeBaselinePort} from 'depa-codument-domain-contract';
+import type {ArchiveCalendar, ArchivePublication, ArchiveRegistry, ArchiveRequest, ArchiveSourcePort, ArchiveSourceSnapshot, ArchiveTrackSelector} from 'depa-codument-domain-contract';
 import {archiveMissionState} from './lifecycle';
 import {lifecycleSourceCodec} from './lifecycle-source';
 import {patchLifecycleSource} from './source-patch';
 import {readAttractorProfileEnabled, readAttractorProfileNames} from './config';
 import {validateLifecycleTree} from './lifecycle-validation';
-import {readKnowledgeSettings} from './knowledge-read';
-import {selectKnowledgeArchiveBaseline} from './archive-baseline';
-import {proposeArchiveKnowledge} from './archive-knowledge';
-import {proposeArchiveBehaviors} from './archive-behavior';
 import {proposeArchiveDecisions} from './archive-decisions';
 import {formatArchiveCalendar, proposeArchiveMemory, proposeArchiveSummary} from './archive-memory';
 import {attr, descendants, id} from './validation-tree';
 
 export function assertArchiveRequest(input: ArchiveRequest): void {
   if (!['track', 'mission'].includes(input.kind) || !/^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/.test(input.id)) throw new Error('Archive requires a valid process kind and identity.');
-  if (input.yes !== undefined && typeof input.yes !== 'boolean' || input.skipSpecs !== undefined && typeof input.skipSpecs !== 'boolean') throw new Error('Archive confirmation and skip-specs must be boolean.');
-  if (input.kind === 'mission' && input.skipSpecs !== undefined) throw new Error('skip-specs applies only to Track archive.');
+  if (input.yes !== undefined && typeof input.yes !== 'boolean') throw new Error('Archive confirmation must be boolean.');
 }
 
 export function archiveDestinationPrefix(input: ArchiveRequest, observed: ArchiveCalendar): string {
@@ -44,7 +39,7 @@ export function archiveTrackSelectors(root: DataElementNode): readonly ArchiveTr
 
 /** Inspect all proposals before a single publication. Git historical blobs and
  * source snapshots stay observations; only the injected port may commit them. */
-export async function proposeArchive(snapshot: ArchiveSourceSnapshot, baselinePort: KnowledgeBaselinePort): Promise<ArchivePublication> {
+export async function proposeArchive(snapshot: ArchiveSourceSnapshot): Promise<ArchivePublication> {
   const observed = structuredClone(snapshot), input = observed.request;
   assertArchiveRequest(input);
   const authority = observed.process;
@@ -89,30 +84,6 @@ export async function proposeArchive(snapshot: ArchiveSourceSnapshot, baselinePo
   const decisions = proposeArchiveDecisions({processSources: decisionSources, canonicalSources: observed.registries.decisions});
   warnings.push(...decisions.warnings.map(finding => `${finding.file}: ${finding.message}`));
   const registryUpdates: Partial<Record<ArchiveRegistry, ReadonlyMap<string, string>>> = {decisions: decisions.updates};
-  const baselines: {family: 'modeling' | 'engineering'; commit: string; blobIds: ReadonlyMap<string, string>}[] = [];
-  let behaviorCapabilities: readonly string[] = [];
-  if (input.kind === 'track') {
-    if (!input.skipSpecs) {
-      const patches = new Map([...observed.processSources].filter(([file]) => /^(behavior_deltas|behavior-deltas)\//.test(file) && /\.(xnl|xml)$/i.test(file)));
-      if (!patches.size && [...observed.processSources.keys()].some(file => /^(spec_deltas|spec-deltas)\//.test(file) || ['spec.xml', 'spec.patch.xml', 'patch.xml', 'spec.md'].includes(file))) throw new Error('Legacy spec delta requires migration review; no pretend behavior promotion is performed.');
-      const behavior = proposeArchiveBehaviors({canonicalSources: observed.registries.behaviors, patchSources: patches});
-      registryUpdates.behaviors = behavior.updates; behaviorCapabilities = behavior.capabilities;
-    }
-    for (const family of ['modeling', 'engineering'] as const) {
-      const settings = readKnowledgeSettings(observed.configs[family], family);
-      if (!settings.enabled) continue;
-      const deltas = new Map([...select(`${family}_deltas/`)].filter(([file]) => /\.(xnl|xml)$/i.test(file)));
-      if (!deltas.size) continue;
-      const choice = selectKnowledgeArchiveBaseline(admitted.root, family, observed.registries[family]);
-      const baseline = choice.kind === 'empty' ? undefined : await baselinePort.read({family, commit: choice.commit});
-      if (baseline && baseline.family !== family) throw new Error('Archive Git baseline belongs to another knowledge family.');
-      if (baseline) baselines.push({family, commit: baseline.commit, blobIds: new Map(baseline.blobIds)});
-      const knowledge = proposeArchiveKnowledge({family, baseSources: baseline?.sources ?? new Map(), canonicalSources: observed.registries[family], deltaSources: deltas, policy: settings.mergePolicy});
-      if (knowledge.conflicts.length) throw new Error(`${family} delta merge conflicts: ${knowledge.conflicts.map(conflict => `${conflict.id}:${conflict.type}`).join(', ')}. Resolve sources or the configured merge policy.`);
-      registryUpdates[family] = knowledge.updates;
-      warnings.push(...knowledge.findings.map(finding => `${finding.file}: ${finding.message}`));
-    }
-  }
   const memory = proposeArchiveMemory({enabled: readAttractorProfileEnabled(observed.configs.profiles, 'memory'), archiveId: observed.destination.split('/').at(-1)!, calendar: observed.calendar,
     candidates: select('memory/'), canonicalSources: observed.registries.memory});
   registryUpdates.memory = memory.updates;
@@ -124,14 +95,14 @@ export async function proposeArchive(snapshot: ArchiveSourceSnapshot, baselinePo
     const summary = proposeArchiveSummary({processId: input.id, decisionSources, existingSource: observed.processSources.get('summary.md')});
     if (summary !== undefined) processUpdates.set('summary.md', summary);
   }
-  return {registryUpdates, processUpdates, warnings, behaviorCapabilities, promotedMemory: memory.promoted, baselines};
+  return {registryUpdates, processUpdates, warnings, promotedMemory: memory.promoted};
 }
 
-export async function applyArchive(runtime: {readonly sources: ArchiveSourcePort; readonly baseline: KnowledgeBaselinePort}, request: ArchiveRequest) {
+export async function applyArchive(runtime: {readonly sources: ArchiveSourcePort}, request: ArchiveRequest) {
   const input = structuredClone(request);
   assertArchiveRequest(input);
   const observed = await runtime.sources.observe(input);
   if (JSON.stringify(observed.request) !== JSON.stringify(input)) throw new Error('Archive observer returned a different request.');
-  const proposal = await proposeArchive(observed, runtime.baseline);
+  const proposal = await proposeArchive(observed);
   return runtime.sources.publish(observed, proposal);
 }

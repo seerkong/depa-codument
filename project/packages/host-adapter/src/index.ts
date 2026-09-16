@@ -6,8 +6,8 @@ import { createProjectCommands } from './project';
 import { createQueryCommands } from './query';
 import { createScaffoldCommand } from './scaffold';
 import { createValidationCommand } from './validate';
+import { createSchemaCommand } from './schema';
 import { createStdCommands } from './std';
-import { createKnowledgeCommands } from './knowledge';
 import { createArtifactCommands } from './artifact';
 import { createArchiveCommand } from './archive';
 import { createMigrationCommands } from './migration';
@@ -97,5 +97,5 @@ export function createCodumentDomainCommands<R extends CodumentDomainCommandRunt
     return [group(kind, children), group(kind[0].toUpperCase() + kind.slice(1), children)];
   });
   return [...lifecycle, createDecisionCommands<R>(), createProjectCommands<R>(), ...createQueryCommands<R>(),
-    ...['behavior-patch', 'BehaviorPatch'].map(name => group(name, [createScaffoldCommand<R>('BehaviorPatch')])), createValidationCommand<R>(), createStdCommands<R>(), ...createKnowledgeCommands<R>(), createArtifactCommands<R>(), createArchiveCommand<R>('track'), ...createMigrationCommands<R>()];
+    createValidationCommand<R>(), createSchemaCommand<R>(), createStdCommands<R>(), createArtifactCommands<R>(), createArchiveCommand<R>('track'), ...createMigrationCommands<R>()];
 }

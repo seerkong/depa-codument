@@ -10,10 +10,25 @@ XNL（Extensible Notation Language）
 - 唯一子节点块（extend）：`( <child1> <child2> )` → 存入 `extend`，同名覆盖旧值并警告，保持出现顺序。
 - 文本块：`<name metadata {attr} ?marker> ... </?marker>`，允许 metadata/`{}`，禁止 `[]`/`()`；标记可选但**必须首尾逐字相同**。
 - ⚠️ **文本块闭合规则（硬约束）**：
-  1. 没有自定义 marker 时，闭合永远是 `</?>`，不能用 XML 风格 `</tagname>`。
+  1. 没有自定义 marker 时，闭合永远是 `</?>`，不能用 XML 风格 `</tagname>`（例如 `</Given>`、`</Description>`）。validate 会报 `expected </?>, got </Given>`。
   2. 有自定义 marker 时，opening `?marker` 与 closing `</?marker>` 必须逐字相同；禁止 `<desc ?foo>...</desc>` 这类“前半有 marker、后半回退 XML 标签名”的混合写法。
   3. 文本内容中也不要出现 `</?` 字面量（会被当成提前闭合）。
+  4. 不要把 `</?>` 写成 `?</?>`。这是差一个字符的突变，解析器常按空 marker 吞掉并“看起来写成功了”。注意它与「正文以 `?` 结尾 + 正常闭合」字节相同（`</?>` 前的 `?` 可能属于正文），所以只有解析**失败**时才由 `explainXnlParseError` 报 `expected </?>, got ?</?>`；解析通过就不按突变处理。
 - 无其它块时直接以 `>` 结束节点。
+
+## 磁盘格式不得降级
+
+- track / mission / decision 等资源**必须**以 `.xnl` 落盘，正文必须是 XNL。禁止改写成纯文本、Markdown、JSON 或 XML 来“图省事”。
+- JSON 不是资源作者语言，也不要为了“一次改多字段”发明第二套填写格式。
+- 不要用编辑器整文件 Write、`perl` / `sed` / `strings` 去改 `.xnl`。先 `depa-codument track|mission|decisions create` 建骨架，再对 scaffold 原地编辑。
+
+## 填写清单（agent）
+
+1. `depa-codument track create` / `mission create` / `decisions create` 拿带 `envelopeVersion` / `specVersion` / `#id` 的骨架。
+2. `depa-codument schema track|mission|decision` 打印该 Kind 的根形状与槽位片段（stdout 是 XNL，不是 JSON）。字段表见对应 Kind spec。不要从片段复制 `#id` / envelope。
+3. 对照片段对 scaffold 原地编辑。`proposal.md` / `design.md` 仍可手写 Markdown。
+4. `depa-codument validate <id>`。看到 `expected </?>, got </Given>` 时改闭合，不要重写整文件。
+5. Track `<MaterialBundle>` 的 `domain` 只能是 `code|test|docs|artifact|memory`，`role` 只能是 `input|output`，`path` 必须是 `vfs://`。不是 `doc` / `config` / `json`，也不是已废弃的 `behavior|modeling|engineering`。
 
 ## metadata 与 attributes 的语义边界
 
@@ -49,84 +64,7 @@ XNL 的 `()` 与 `[]` 也不是随意替换的“子节点容器”：
 - serializer / archive / migration 必须保存完整 XNL AST、未知字段与 nested decision hierarchy，不得先投影为摘要 DTO 或 `decision.md` 再重建。
 - `decision://<id>` 只表达 stable identity，与 owner file、目录、archive 时间戳无关；duplicate id 必须 fail closed。
 - legacy Markdown 和 summary 只作显式兼容/迁移输入或派生视图，不参与 XNL registry merge/index。完整规则见 `references/std/spec/decision-registry.md`。
-
-决策树示例（展示 `depa-codument decisions create` 生成骨架后的填写结果；`envelopeVersion` / `specVersion` 保留 CLI receipt 值，不从示例复制）：
-
-```xnl
-<decision #track.foo.root envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
-  status = "pending"
-  priority = "P0"
-  blocks = ["design.md"]
-}
-(
-  <question ?>是否采用 decisions.xnl？</?>
-  <recommendation ?>采用；legacy decisions.md 只读兼容。</?>
-  <options { } [
-    <option { key = "A" recommended = true }
-    (
-      <title ?>采用 decisions.xnl</?>
-      <description ?>新建 track/mission 使用 XNL 保存结构化决策。</?>
-      <tradeoff ?>需要同步 CLI、模板和历史兼容逻辑。</?>
-    )
-    >
-    <option { key = "B" }
-    (
-      <title ?>继续使用 decisions.md</?>
-      <description ?>继续通过 Markdown 标题和列表记录决策。</?>
-      <tradeoff ?>迁移成本低，但结构化读取和集成能力较弱。</?>
-    )
-    >
-  ]>
-  <answer { }
-  (
-    <raw-answer ?>待确认。</?>
-    <decision-text ?>待确认。</?>
-    <rationale ?>待补充。</?>
-    <evidence ?>用户要求将过程决策结构化。</?>
-  )
-  >
-)
-[
-  <decision #track.foo.child {
-    status = "accepted"
-    priority = "P1"
-  }
-  (
-    <question ?>是否保留 legacy fallback？</?>
-    <answer { }
-    (
-      <raw-answer ?>保留。</?>
-      <decision-text ?>保留 legacy decisions.md 读取兼容。</?>
-      <rationale ?>避免破坏历史资产。</?>
-      <evidence ?>已有历史 track 使用 decisions.md。</?>
-    )
-    >
-  )
-  >
-]>
-```
-
-已解决记录示例（同样保留 `depa-codument decisions create` 写入的版本字段）：
-
-```xnl
-<decision #track.add_help_gate.upgrade_workspace_help envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
-  priority = "P0"
-  status = "accepted"
-  blocks = ["track.xnl" "implementation" "tests"]
-}
-(
-  <question ?>upgrade-workspace --help 是否必须短路且无副作用？</?>
-  <answer { }
-  (
-    <raw-answer ?>是。</?>
-    <decision-text ?>所有子命令都必须支持 -h/--help，且 help 必须无副作用。</?>
-    <rationale ?>避免查看帮助时误触发高副作用操作。</?>
-    <evidence ?>用户曾遇到 upgrade-workspace --help 误触发升级。</?>
-  )
-  >
-)
->
-```
+- 可复制的 pending / accepted 槽位片段由 `depa-codument schema decision` 打印（stdout 是 XNL）。先 `depa-codument decisions create`，再对 scaffold 原地编辑；不要从片段复制 `#id` / envelope，也不要把整棵树抄进仓库。
 
 ## 字面量与节点
 - `ValueLiteral` 仅包含：字符串（单双引号，支持 `\\`、`\"`、`\'`、`\n`、`\t`、`\r`）、布尔、null、数值（保留整数/浮点种类）。
@@ -411,7 +349,7 @@ export type XnlNode = ValueLiteral | ContainerNode | CommentNode;
 
 
 ### 元素标签名含冒号
-XNL 元素标签名**禁含冒号**。命名空间 / 领域前缀（如 depa-codument modeling 的 shell kind `backend:endpoint`、`surface:route`）应放进 `kind` **属性块**表达，**不要写进标签名或 metadata**——标签名写冒号会触发 XNL 语法错（如 `Expected metadata key`）。
+XNL 元素标签名**禁含冒号**。命名空间 / 领域前缀应放进 `kind` **属性块**表达，**不要写进标签名或 metadata**——标签名写冒号会触发 XNL 语法错（如 `Expected metadata key`）。
 
 #### ❌ 错误示例
 
@@ -423,28 +361,5 @@ XNL 元素标签名**禁含冒号**。命名空间 / 领域前缀（如 depa-cod
 
 ```xnl
 <endpoint #place_order { kind = "backend:endpoint" }> ✅ 正确！标签名是普通词 `endpoint`，命名空间 kind 放进 `{}` 属性块
-```
-
-
-### component 四块未用裸标签
-（codument modeling 约定）`component` 节点的 runtime / input / config / output 四块**用裸标签** `<runtime>` / `<input>` / `<config>` / `<output>`（canonical / 推荐）。`<types { role = "runtime" }>` 这类 role 写法 `validate` 也兼容接受，但**裸标签为推荐形式**。
-
-#### ❌ 不推荐（accepted-but-discouraged）
-
-```xnl
-<component #place_order_proc { kind = "component" } (
-  <types { role = "runtime" } ?r>type Runtime = { clock: Clock }</?r>
-)>
-```
-
-#### ✅ 推荐（canonical）
-
-```xnl
-<component #place_order_proc { kind = "component" } (
-  <runtime ?r>type Runtime = { clock: Clock }</?r>
-  <input ?i>interface Input { cartId: string }</?i>
-  <config ?c>interface Config { maxLines: number }</?c>
-  <output ?o>interface Output { orderId: string }</?o>
-)>
 ```
 

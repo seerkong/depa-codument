@@ -1,6 +1,6 @@
 ---
 name: codument-plan-track
-description: 创建 codument 变更追踪（track）——起草 behavior delta + proposal + track.xnl（TaskSpace/Schedule/Hooks）。新增能力、破坏性变更、架构/模式调整、改变行为的性能/安全工作时使用；纯 bug 修复/拼写/配置跳过。
+description: 创建 codument 变更追踪（track）——起草 proposal + design + track.xnl（TaskSpace/Schedule/Hooks）。新增能力、破坏性变更、架构/模式调整、改变行为的性能/安全工作时使用；纯 bug 修复/拼写/配置跳过。
 ---
 
 # Codument · plan-track

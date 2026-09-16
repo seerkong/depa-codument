@@ -1,6 +1,7 @@
 import { parseXnl, XnlParseError, type DataElementNode, type TextElementNode, type XnlNode } from 'xnl-core';
 import { RESOLVED_DECISION_STATUS as RESOLVED_STATUS_VALUES, type DecisionFinding, type DecisionFrontierEntry, type XnlDecisionOption, type XnlDecisionRecord } from 'depa-codument-domain-contract';
 import { readStableNodeId } from './registry';
+import { explainXnlParseError } from './xnl-diagnostics';
 
 const RESOLVED_DECISION_STATUS = new Set(RESOLVED_STATUS_VALUES);
 
@@ -628,17 +629,15 @@ function inspectDecisionSources(sources: ReadonlyMap<string, string>): { finding
       if (parsed.warnings?.length) throw new Error(parsed.warnings.map((warning) => warning.message).join('; '));
       nodes = parsed.nodes;
     } catch (err) {
-      const message = err instanceof XnlParseError ? err.message : String(err);
       findings.push({
         file: file,
         severity: 'error',
         decision: '(file)',
         layer: 'syntax',
-        message: `invalid XNL: ${message}（提示：XNL 文本块闭合应为 </?>，检查是否误写为 </tagname> 的 XML 风格闭合）`,
+        message: `invalid XNL: ${explainXnlParseError(content, err instanceof XnlParseError ? err : err)}`,
       });
       continue;
     }
-
     for (const node of nodes) {
       if (!isDataElement(node) || node.tag !== 'decision') {
         findings.push({file, severity: 'error', decision: '(file)', layer: 'schema', message: 'decision forest top-level roots must use <decision>'});

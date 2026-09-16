@@ -102,7 +102,7 @@ codument/missions/pending/<mission-id>/
 写 design.md：控制目标、事实源、plan vs track 区分、受控重规划、人工介入和风险；标准 actor 协议引用 Mission XNL spec，不复制定义。
 ---- /?design
 ---- #step ?xnl
-在 CLI 已生成的 mission.xnl 骨架内填写根 `{}`、Ports、ProjectRefs、ActorSets、TaskSpace、Schedule 与 Hooks；保留 scaffold 写入的 `#id`、`envelopeVersion`、`specVersion` 和 XNL 通道。只有真实 track 生命周期任务才挂 TrackLink。
+在 CLI 已生成的 mission.xnl 骨架内填写根 `{}`、Ports、ProjectRefs、ActorSets、TaskSpace、Schedule 与 Hooks；保留 scaffold 写入的 `#id`、`envelopeVersion`、`specVersion` 和 XNL 通道。先运行 `codument schema mission` 取根形状与 ActorSet/TrackLink/MissionLink/Hook 槽位片段，对 scaffold 原地编辑；不要整文件 Write `.xnl`，也不要用 JSON / `perl` / `sed` 改字节。只有真实 track 生命周期任务才挂 TrackLink。
 ---- /?xnl
 ---- #step ?validate
 运行 `codument validate <mission-id> --strict`，校验 Mission Kind 与领域规则。

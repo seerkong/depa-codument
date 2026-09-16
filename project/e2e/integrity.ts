@@ -22,7 +22,10 @@ export function sourceFingerprint(run: Run): string {
   const rows: string[] = [];
   function visit(directory: string): void {
     for (const entry of fs.readdirSync(directory,{withFileTypes:true})) {
-      if (['.git','__pycache__','.pytest_cache'].includes(entry.name)) continue;
+      // .eidolon is the agent runtime's private project state (authority/locks),
+      // the same class of non-authored bookkeeping as .git; it is never delivered
+      // source, so it must not be readable as reviewer contamination.
+      if (['.git','__pycache__','.pytest_cache','.eidolon'].includes(entry.name)) continue;
       if (entry.name.startsWith('.e2e-') && entry.name !== '.e2e-venv') continue;
       const file = path.join(directory,entry.name);
       const relative = path.relative(run.workspace,file);

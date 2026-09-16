@@ -5,7 +5,7 @@ ContextView 是可丢弃的导航，不是新资源、任务状态或语义 verd
 ## L0 → L1 → L2
 
 - L0：用现有 `list/show --json`、`track ready --json`、`decisions frontier` 定位目标、当前 frontier、阻塞和路径。正文通过 `show --include-content` 或直接读来源展开。不要默认注入全 workspace、archive 或全 std。
-- L1：**行动前完整读取当前 operation 明确要求的合同**：当前目标/Acceptance、proposal/design、behavior、MaterialBundle、前置产物、相关代码测试、有效配置与其引用闭包。不能只摘“有利章节”；缺源、冲突、缺 acceptance 必须记录并协调，不能靠 L0 猜测。
+- L1：**行动前完整读取当前 operation 明确要求的合同**：当前目标/Acceptance、proposal/design、MaterialBundle、前置产物、相关代码测试、有效配置与其引用闭包。不能只摘“有利章节”；缺源、冲突、缺 acceptance 必须记录并协调，不能靠 L0 猜测。
 - L2：历史推理/归档全文按实际信息缺口展开；当前决定依赖历史来源时，该来源升级为 L1。完整历史始终保留，不设 decision/lesson 数量配额。短索引只放路径、主题与来源锚点，不覆盖原文。
 
 每条阅读记录可用现有 findings/report：路径+内容 SHA256、当前用途、版本、展开依赖；当前目标/task/frontier、已知冲突、下一硬边界、证据引用。无需新状态文件。索引漏掉的真实来源必须加入；预算只报告，不截断 L1。

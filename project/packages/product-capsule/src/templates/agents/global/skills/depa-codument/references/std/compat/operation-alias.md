@@ -13,7 +13,6 @@ For an old skill name, find its command below and run `depa-codument <command>` 
 | codument-impl-mission | impl-mission |
 | codument-archive-mission | archive-mission |
 | codument-impl-quick | impl-quick |
-| codument-docs-bootstrap | docs-bootstrap |
 | codument-artifact-sync | artifact-sync |
 | codument-migrate | migrate-operation |
 | codument-validate | validate-operation |

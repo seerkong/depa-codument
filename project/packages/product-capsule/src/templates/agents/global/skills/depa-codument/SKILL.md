@@ -11,7 +11,6 @@ description: >
   codument-impl-mission（持续执行或恢复 mission）；
   codument-archive-mission（归档及决策记忆晋升）；
   codument-impl-quick（小改动与验证）；
-  codument-docs-bootstrap（建立领域及工程 registry）；
   codument-artifact-sync（显式产物同步与冲突检查）；
   codument-migrate（确定性迁移与旧版语义兜底）；
   codument-validate（结构与语义审查）；
@@ -23,8 +22,10 @@ description: >
 # depa-codument
 
 全局 CLI 指导 SkillApp；项目 `codument/` 是独立资产 App。保持目标项目 cwd，`@/` 表示项目根。
-`references/`、`operations/` 相对本 Skill；裸 config/、backlog/、missions/、tracks/、behaviors/、modeling/、engineering/、memory/ 相对项目 codument/。
+`references/`、`operations/` 相对本 Skill；裸 config/、backlog/、missions/、tracks/、decisions/、memory/ 相对项目 codument/。
 CLI 固定读取发行包中的同一 App；安装按 agent 复制到 skill 目录，CODUMENT_HOME 改安装 home，不扫描项目寻找全局指导。`skill://depa-codument/references/std/...` 指向本全局标准。
+
+**XNL 是磁盘真源，不可降级。** 语法与文本闭合高优先级见 [XNL 格式](references/std/spec/xnl-format.md)。不要把 track / mission / decision 改成纯文本、Markdown、JSON 或 XML，也不要整文件手写 `.xnl`。先 `depa-codument track|mission|decisions create` 建骨架，再运行 `depa-codument schema track|mission|decision` 取该 Kind 的根形状与槽位片段，对 scaffold 原地编辑。字段协议在 `references/std/spec/{track,mission}-xnl-spec.md` 与 `decision-registry.md`。
 
 先运行 `depa-codument -h`，再调用所需命令读取完整操作。旧 skill 名按需查 [映射](references/std/compat/operation-alias.md)；标准按需读 [入口](references/std/AGENTS.md)，不展开全部操作。
 `depa-codument <command> [arguments...]` 交付完整指导，由当前 Agent 执行。阅读操作时优先默认文本，避免 JSON 的 `operation.markdown` 与 `message` 重复正文；需要机器解析、参数或来源元数据时再用 `--json`，不重复读取两份正文。此选择只针对指导操作，不改变资源查询/状态写入的 JSON 用法。exit 0 不是业务完成。未知业务选项放在 `--` 后。
@@ -41,3 +42,7 @@ GapLoop、Hook、AttractorCheck、fresh verify 按操作及配置执行，不因
 fresh reviewer/worker 尚在运行且没有其它可做工作时，使用宿主的事件等待工具；显式选择较长的有界等待（通常 60 秒；宿主上限、沟通时限或已知更近的截止时间更短时从其约束）。结果或新输入可提前唤醒。不用连续 1–10 秒轮询代替等待，也不通过反复读取日志、完整合同或旧报告填充空闲回合。
 
 等待超时只说明本次尚无新结果，不是 GAP、任务失败或重开 reviewer 的理由。无新观察则继续等待；出现结果、输入、真实错误或截止时间后再调和。等待长度不改变 fresh 身份、hook 顺序、GapLoop 轮数、验证要求或人工 gate，也不能把尚未完成的检查记为 PASS。
+
+## 临时目录与交付目录
+
+临时 run、浏览器控制器、隔离 build 与日志由其 runner/controller lifecycle 创建和回收。Agent 不得对交付 workspace、应用目录或 `codument/` 使用 `rm -rf`（也不得用等效递归删除）来处理验收、依赖或临时文件；清理失败是 infrastructure/effect 事实，交回 owner 处理，不能通过删除已交付内容消失。

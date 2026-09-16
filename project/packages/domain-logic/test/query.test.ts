@@ -1,5 +1,5 @@
 import { expect, it } from 'bun:test';
-import { projectBehaviorQuery, projectTrackQuery, projectStatusQuery, runDomainQuery } from '../src';
+import { projectTrackQuery, projectStatusQuery, runDomainQuery } from '../src';
 import type { DomainQuerySource } from 'depa-codument-domain-contract';
 
 const envelope = 'envelopeVersion="halfcode.resource-envelope/v1" specVersion=1';
@@ -31,21 +31,11 @@ it('projects legacy Track metadata/status totals directly from the complete curr
   expect(() => projectTrackQuery({ ...source, id: 'foreign' })).toThrow('identity');
   expect(() => projectTrackQuery(snapshot('<Track #example {status="new"}>'))).toThrow('migration');
 });
-it('counts Behavior requirements/cases while keeping content explicit and rejecting ambiguous envelopes', () => {
-  const source = snapshot(`<Behavior #behavior.id ${envelope} (<Requirements [<Requirement #R1 (<Statement ?>Preserved</?> <Suites [<Suite #S (<Cases [<Case #C1><Case #C2>]>)>]>)>]>)>`);
-  expect(projectBehaviorQuery(source)).toEqual({ id: 'example', path: source.absolutePath, requirements: 1, scenarios: 2, format: 'xnl' });
-  expect(projectBehaviorQuery(source, true).content).toBe(source.source);
-  expect(() => projectBehaviorQuery(snapshot(source.source.replace('specVersion=1', 'specVersion=2')))).toThrow('migration');
-  expect(() => projectBehaviorQuery(snapshot(source.source + source.source))).toThrow('ambiguous');
-});
 it('queries acquire only the required observation port and never treat invalid Decision sources as an empty successful view', async () => {
   const calls: string[] = [];
-  const queries = { async ensureWorkspace() { calls.push('workspace'); }, async tracks() { calls.push('tracks'); return []; }, async behaviors() { calls.push('behaviors'); return []; } };
+  const queries = { async ensureWorkspace() { calls.push('workspace'); }, async tracks() { calls.push('tracks'); return []; } };
   expect(await runDomainQuery({ queries }, { operation: 'list' })).toEqual({ kind: 'tracks', value: [] });
   expect(calls).toEqual(['workspace', 'tracks']);
-  calls.length = 0;
-  expect(await runDomainQuery({ queries }, { operation: 'list', behaviors: true })).toEqual({ kind: 'specs', value: [] });
-  expect(calls).toEqual(['workspace', 'behaviors']);
   const decisions = { async read() { return { display: 'decisions', sources: new Map([['bad.xnl', '<decision #old>']]), findings: [] }; } };
   await expect(runDomainQuery({ queries, decisions }, { operation: 'show', id: 'old', type: 'decision' })).rejects.toThrow('migration');
 });

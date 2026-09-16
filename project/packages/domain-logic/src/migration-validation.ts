@@ -3,8 +3,6 @@ import type { MigrationValidationSnapshot, ResourceMigrationPlan } from 'depa-co
 import { isDataElement, orderedElementChildren } from './registry';
 import { inspectDomainValidation } from './validate';
 import { validateDecisionSources } from './decisions';
-import { indexKnowledgeSources, validateKnowledgeIndex } from './knowledge';
-import { readKnowledgeSettings } from './knowledge-read';
 import { readAttractorProfileNames } from './config';
 
 /** Complete existing domain validators, not a second permissive migration
@@ -22,13 +20,11 @@ export function validateResourceMigration(snapshot: MigrationValidationSnapshot,
       if (plan.targetKind !== 'decision' && parsed.nodes.length !== 1) throw new Error('Migration candidate cardinality mismatch.');
     } else if (snapshot.source !== undefined) throw new Error('Retired source still exists in the validation view.');
     if (snapshot.domain) {
-      if (!snapshot.domain.units.length) throw new Error('Migration target has no canonical lifecycle/Behavior owner.');
+      if (!snapshot.domain.units.length) throw new Error('Migration target has no canonical lifecycle owner.');
       return inspectDomainValidation(snapshot.domain, {strict: true}).findings;
     }
     if (snapshot.decisions) return validateDecisionSources(snapshot.decisions);
-    if (snapshot.knowledge) return validateKnowledgeIndex(indexKnowledgeSources(snapshot.knowledge.sources, snapshot.knowledge.family, snapshot.knowledge.mode));
-    if (plan.targetKind === 'ModelingConfig' || plan.targetKind === 'EngineeringConfig') readKnowledgeSettings(snapshot.source, plan.targetKind === 'ModelingConfig' ? 'modeling' : 'engineering');
-    else if (plan.targetKind === 'AttractorProfiles') readAttractorProfileNames(snapshot.source);
+    if (plan.targetKind === 'AttractorProfiles') readAttractorProfileNames(snapshot.source);
     else if (plan.targetKind === 'OperationHooks') {
       const root = parseXnl(snapshot.source!, {textBlockStyle: true}).nodes[0];
       if (!isDataElement(root)) throw new Error('OperationHooks requires a data root.');

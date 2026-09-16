@@ -1,6 +1,5 @@
 import type { CodumentResourceKind } from './resources';
 import type { DomainValidationFinding, DomainValidationSnapshot } from './validation';
-import type { KnowledgeFamily, KnowledgeMode } from './knowledge';
 import type { WorkspaceResourceSnapshot } from 'halfcode-cli-lite-skill-app-contract/catalog';
 
 /** Product membership policy. Host mechanics know neither this path nor these Kinds. */
@@ -20,12 +19,10 @@ export const CODUMENT_APP_CATALOGS: readonly CodumentAppCatalog[] = Object.freez
     shape: 'directory' as const, entry: `${kind.toLowerCase()}.xnl`, recursive: true,
   }))),
   ...([
-    ['behaviors', 'Behavior'], ['decisions', 'decision'],
-    ['modeling', 'ModelingRegistry'], ['engineering', 'EngineeringRegistry'],
+    ['decisions', 'decision'],
   ] as const).map(([root, kind]) => ({ id: root, kind, root, shape: 'single-file' as const, recursive: true })),
   ...([
     ['operation_hooks', 'OperationHooks', 'operation-hooks.xnl'], ['attractor_profiles', 'AttractorProfiles', 'attractor-profiles.xnl'],
-    ['modeling_config', 'ModelingConfig', 'modeling.xnl'], ['engineering_config', 'EngineeringConfig', 'engineering.xnl'],
   ] as const).map(([id, kind, entry]) => ({ id, kind, root: 'config', shape: 'single-file' as const, entry, recursive: false })),
 ].map(value => Object.freeze(value)));
 
@@ -47,8 +44,6 @@ export interface WorkspaceAppSourceSnapshot {
   readonly skillSource: string;
   readonly authorities: readonly WorkspaceAppAuthority[];
   readonly lifecycle: DomainValidationSnapshot;
-  readonly knowledge: readonly { readonly family: KnowledgeFamily; readonly mode: KnowledgeMode;
-    readonly directory: string; readonly sources: ReadonlyMap<string, string> }[];
   readonly decisions: ReadonlyMap<string, string>;
   readonly findings: readonly DomainValidationFinding[];
 }

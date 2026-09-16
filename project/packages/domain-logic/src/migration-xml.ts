@@ -136,24 +136,6 @@ function metadata(root: LegacyXmlNode): {attributes: Record<string, XnlNode>; ch
 }
 
 const pascal = (value: string) => strip(value).split(/[-_]/u).map(part => part[0].toUpperCase() + part.slice(1)).join('');
-function behaviorNode(node: LegacyXmlNode): ElementNode {
-  if (node.children.some(child => child.tag === 'Metadata')) throw new Error('Nested Behavior Metadata needs review.');
-  const id = node.attrs.id, identity = id && word(id) ? id : undefined;
-  const base = data(pascal(node.tag), identity, attributes(node, identity ? ['id'] : [], true));
-  if (!node.children.length && node.text.length) return {...base, kind: 'TextElement', text: node.text};
-  const grouped: Record<string, string> = {suite: 'Suites', case: 'Cases', and: 'Ands'};
-  const ordinary = node.children.filter(child => !Object.hasOwn(grouped, child.tag)).map(behaviorNode);
-  for (const [tag, plural] of Object.entries(grouped)) {
-    const members = node.children.filter(child => child.tag === tag).map(behaviorNode);
-    if (members.length) ordinary.push(collection(plural, members));
-  }
-  children(base, ordinary); return base;
-}
-function safeSegment(value: string): string {
-  if (/^[A-Za-z_][A-Za-z0-9_-]*$/u.test(value)) return value;
-  const encoded = [...value].map(char => /[A-Za-z0-9_-]/u.test(char) ? char : `u${char.codePointAt(0)!.toString(16)}`).join('_');
-  return /^[A-Za-z_]/u.test(encoded) ? encoded : 'r_' + encoded;
-}
 
 /** Explicit shape conversion. Full semantic validation is still mandatory at
  * apply; unsupported historical structures retain their original source. */
@@ -169,12 +151,12 @@ export function convertMigrationXml(input: MigrationSource): {kind: CodumentReso
     converted = data(root.tag, root.attrs.id, attrs);
     if (!converted.id) throw new Error('Legacy lifecycle resource has no stable ID.');
     children(converted, meta.children.map(generic));
-  } else if (['ActionHooks', 'OperationHooks', 'AttractorProfiles', 'Modeling', 'Engineering'].includes(root.tag)) {
-    const expectedFile = ({ActionHooks: 'action-hooks.xml', OperationHooks: 'operation-hooks.xml', AttractorProfiles: 'attractor-profiles.xml', Modeling: 'modeling.xml', Engineering: 'engineering.xml'} as Record<string, string>)[root.tag];
+  } else if (['ActionHooks', 'OperationHooks', 'AttractorProfiles'].includes(root.tag)) {
+    const expectedFile = ({ActionHooks: 'action-hooks.xml', OperationHooks: 'operation-hooks.xml', AttractorProfiles: 'attractor-profiles.xml'} as Record<string, string>)[root.tag];
     if (filename !== expectedFile || !input.path.endsWith('/config/' + filename)) throw new Error('XML config path and kind disagree.');
     if (Object.keys(meta.attributes).length) throw new Error('Unknown config Metadata must be preserved for review.');
-    const tag = root.tag === 'ActionHooks' ? 'OperationHooks' : ['Modeling', 'Engineering'].includes(root.tag) ? root.tag + 'Config' : root.tag;
-    const ids: Record<string, string> = {OperationHooks: 'operation_hooks', AttractorProfiles: 'attractor_profiles', ModelingConfig: 'modeling', EngineeringConfig: 'engineering'};
+    const tag = root.tag === 'ActionHooks' ? 'OperationHooks' : root.tag;
+    const ids: Record<string, string> = {OperationHooks: 'operation_hooks', AttractorProfiles: 'attractor_profiles'};
     converted = data(tag, 'codument.config.' + ids[tag], attributes(root, ['version', 'apiVersion']));
     if (tag === 'OperationHooks') {
       if (meta.children.some(node => !['Action', 'Operation'].includes(node.tag))) throw new Error('Unknown OperationHooks XML child requires review.');
@@ -203,27 +185,6 @@ export function convertMigrationXml(input: MigrationSource): {kind: CodumentReso
       if (node.children.some(child => child.tag !== 'Conflict')) throw new Error('Unknown MergePolicy XML child requires review.');
       const value = data('MergePolicy', undefined, attributes(node)); children(value, [collection('Conflicts', node.children.map(generic))]); return value;
     }));
-  } else if (root.tag === 'behaviors' && /\/(?:behaviors|specs)\/[^/]+\.xml$/u.test(input.path)) {
-    if (!root.attrs.capability || Object.keys(meta.attributes).length || meta.children.some(node => node.tag !== 'requirement')) throw new Error('Behavior XML identity or extension requires review.');
-    converted = data('Behavior', root.attrs.capability, attributes(root, ['capability', 'version', 'apiVersion'], true));
-    children(converted, [collection('Requirements', meta.children.map(behaviorNode))]);
-    targetPath = targetPath.replace('/specs/', '/behaviors/');
-  } else if (['behavior-patch', 'spec-patch'].includes(root.tag)) {
-    const owner = input.path.match(/\/([^/]+)\/(?:behavior_deltas|behavior-deltas)\/([^/]+)\.xml$/u);
-    if (!owner || Object.keys(meta.attributes).length || meta.children.some(node => !['upsert', 'delete', 'move'].includes(node.tag))) throw new Error('BehaviorPatch XML owner or mutation extension requires review.');
-    const capability = root.attrs.capability ?? owner[2];
-    converted = data('BehaviorPatch', ['track', safeSegment(owner[1]), 'behavior_patch', ...capability.split('.').map(safeSegment)].join('.'),
-      {...attributes(root, ['version', 'apiVersion', 'capability'], true), capability});
-    const mutations = meta.children.map(node => {
-      const target = data(pascal(node.tag), undefined, attributes(node, [], true));
-      if (node.tag === 'upsert') {
-        if (node.children.length !== 1) throw new Error('XML Upsert requires exactly one target.');
-        children(target, [behaviorNode(node.children[0])]);
-      } else if (node.children.length || node.text.trim()) throw new Error('Unexpected XML mutation contents require review.');
-      return target;
-    });
-    children(converted, [collection('Mutations', mutations)]);
-    targetPath = targetPath.replace('/behavior-deltas/', '/behavior_deltas/');
   } else throw new Error('This historical XML shape requires a dedicated conversion or semantic review.');
   converted.metadata = {envelopeVersion: 'halfcode.resource-envelope/v1', specVersion: 1};
   let marker = 'CODUMENT_XML_MIGRATION';

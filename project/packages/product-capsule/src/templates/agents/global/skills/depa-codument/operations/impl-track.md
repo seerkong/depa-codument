@@ -51,7 +51,7 @@ candidate TrackLink 由 MissionApplier 先 `track transition <track-id> in_progr
 
 宣布目标，幂等 `track transition <track-id> in_progress`。完整读取：
 
-- Track 当前完整合同（已完整读取且仍有效的 context AST 可直接使用，否则读 `track.xnl`；需源注释/原文细节时再展开），以及 `proposal.md`、`design.md`（当前 Kind 必需）、`behavior_deltas/**/*.xnl`。不为形式重复装载同一合同的两种表示。
+- Track 当前完整合同（已完整读取且仍有效的 context AST 可直接使用，否则读 `track.xnl`；需源注释/原文细节时再展开），以及 `proposal.md`、`design.md`（当前 Kind 必需）。不为形式重复装载同一合同的两种表示。
 - `analysis/findings.md`、`analysis/knowledge.md`（如存在）；根 `decisions.xnl` 与递归 `decisions/**/*.xnl`（如存在）。
 - `references/std/methods/tdd.md`、`references/std/methods/dag-execution.md`。
 - 本次实际适用的 input MaterialBundle、前置产物、代码测试、hooks/profile/attractors；按 `references/std/protocols/context-loading.md` 保留来源索引。
@@ -91,7 +91,7 @@ auto 模式门控成功创建 phase 检查点 commit + Git Notes（§9）；追�
 
 ### 6.2 任务执行契约
 
-两种策略都读 input MaterialBundle、前置产物、behavior deltas、Acceptance、tdd、findings、根与递归 decisions。按 TDD 实现；重构/类型/迁移先做 characterization 或等价行为冻结。由 Acceptance、MaterialBundle、proposal/design、目标模块和工作区现状推导预期改动面，逐项取证。保留用户及其它工作流改动；外部不可逆操作缺权限按 §8 协调。
+两种策略都读 input MaterialBundle、前置产物、Acceptance、tdd、findings、根与递归 decisions。按 TDD 实现；重构/类型/迁移先做 characterization 或等价行为冻结。由 Acceptance、MaterialBundle、proposal/design、目标模块和工作区现状推导预期改动面，逐项取证。保留用户及其它工作流改动；外部不可逆操作缺权限按 §8 协调。
 
 worker 不写 track.xnl、acceptance checkmarks、findings，不创建 task/phase commit；只返回产物、真实命令、未验证项和 blocker。子流程返回不是父 mission 的停点。
 
@@ -110,7 +110,7 @@ worker 不写 track.xnl、acceptance checkmarks、findings，不创建 task/phas
 
 ### 6.4 Executor completion verification（所有策略必做）
 
-1. 重读当前 Acceptance、相关 behavior case、执行证据、git diff；检查范围与每条预期语义。
+1. 重读当前 Acceptance、执行证据、git diff；检查范围与每条预期语义。
    按 `references/std/protocols/context-loading.md` 对照本任务适用的原始硬要求与契约示例的原样输入；明确要求保留的测试需检查实际 test collection，未被收集的必需用例不能由其它测试 exit 0 代替。
 2. 逐条把本Task Acceptance映射到可重复的行为验证命令及断言，再执行。UI能力必须触发真实用户事件并检查可见状态；HTTP能力启动真实边界并含权限/错误/状态负例；stream能力验证逐事件时序和迭代建立前、迭代中异常；跨服务能力观察两侧真实状态变化。只检查源码字符串、文件存在、编译成功或内存替身，不足以证明这些运行行为。与本任务无关的场景不强行增加；缺少相关真实验证就是证据不足，应在DONE和最终hook前补齐。
    文件、工具或其它能力若声明资源范围/权限隔离，用隔离测试资源验证允许与越界拒绝；“安全/低风险”等承诺需落实到可检查的边界，不能由一个成功用例证明。只检查当前任务实际承诺，不扩展为通用安全审计。
@@ -161,9 +161,7 @@ commit_mode=auto 时逐任务 commit+Git Notes、逐 phase 检查点；manual �
 
 ## 11.0 同步与清理（条件触发）
 
-- modeling 缺配置默认启用，enabled=false 跳过。对象/状态机/policy/边界/事实源/actor IO 等结构变化才写 `modeling_deltas/<plane>/<context>.xnl`；无变化不造 delta/空 registry。写后 `depa-codument modeling validate --deltas <track-id>` 到零 error；missing/empty 仅 warning，非空仍要求 domain plane。
-- engineering 按 config/engineering.xnl 启用；长期 howto/rule/reference/troubleshooting/runbook/code-map/example/overview 写 `engineering_deltas/<plane>/<category>/<topic>.xnl`，写后同族 validate --deltas 到零 error。
-- 两族规范见 `references/std/spec/{modeling,engineering}-{registry,delta,node-schema}.md`；描述/注释/pseudo/mermaid 标签中文，标识符英文。不要直接写 owner registry；由归档 base/ours/theirs 三方合并、统一 staging+可恢复 commit 晋升。
+- 制品与长期知识的晋升规范见 `references/std/spec/folder-manifest.md`、`references/std/attractors/knowledge-tiers.md`；描述/注释/pseudo/mermaid 标签中文，标识符英文。不要直接写 owner registry，也不在本 operation 内另造晋升通道。
 - ArtifactSync 仅 operation-hooks.xnl 当前点显式配置才运行；读取 output MaterialBundle 和所引用规则，执行 artifact-sync.md。docs profile 本身不构成隐式同步。
-- behavior deltas 显著影响产品/架构吸引子时，提出 diff 并明确人工确认后才改 `codument/attractors/`。
+- 实现显著影响产品/架构吸引子时，提出 diff 并明确人工确认后才改 `codument/attractors/`。
 - Track 清理交 archive-track（归档/删除/保留），本 operation 不删目录。

@@ -117,7 +117,11 @@ describe('pure Track and Mission semantic validation', () => {
 
   it('retains material port and MissionReconcile policies', () => {
     expect(rules(track.replace('scope="track"', 'scope="mission"'))).toContain('track.ports.scope');
-    expect(rules(track.replace('role="output" domain="docs" path="vfs://./docs/"', 'role="both" domain="json" path="/absolute"'))).toEqual(expect.arrayContaining(['track.ports.role', 'track.ports.domain', 'track.ports.path']));
+    const illegalPort = findings(track.replace('role="output" domain="docs" path="vfs://./docs/"', 'role="both" domain="json" path="/absolute"'));
+    expect(illegalPort.map((finding) => finding.rule)).toEqual(expect.arrayContaining(['track.ports.role', 'track.ports.domain', 'track.ports.path']));
+    expect(illegalPort.find((finding) => finding.rule === 'track.ports.domain')?.message).toBe(
+      '<MaterialBundle> domain 非法（code|test|docs|artifact|memory），Track 不接受 JSON 端口',
+    );
     expect(rules(mission.replace('max_tracks=10 on_limit="checkpoint" on_drift="replan-or-block"', 'max_tracks=0 on_limit="forget" on_drift="ignore"'))).toEqual(expect.arrayContaining(['mission.reconcile.max-tracks', 'mission.reconcile.on-limit', 'mission.reconcile.on-drift']));
   });
 

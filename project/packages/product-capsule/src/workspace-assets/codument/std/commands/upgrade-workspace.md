@@ -1,6 +1,6 @@
 # `codument upgrade-workspace`
 
-Refresh the managed Codument standards and installed skill shells in an existing workspace while preserving project-owned tracks, attractors, behaviors, modeling, engineering, decisions, and memory. The command creates a full backup first, then migrates legacy `tracks/<id>/` directories to `tracks/active/<id>/` and legacy `archive/` history to `tracks/archived/`; an existing destination is never overwritten.
+Refresh the managed Codument standards and installed skill shells in an existing workspace while preserving project-owned tracks, attractors, decisions, and memory. The command creates a full backup first, then migrates legacy `tracks/<id>/` directories to `tracks/active/<id>/` and legacy `archive/` history to `tracks/archived/`; an existing destination is never overwritten.
 
 ```bash
 codument upgrade-workspace

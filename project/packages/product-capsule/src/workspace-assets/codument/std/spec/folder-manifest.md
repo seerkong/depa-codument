@@ -1,6 +1,6 @@
 # 外部文档目录职责自描述（std/spec/folder-manifest.md）
 
-> 本规范只适用于输出到项目 `docs/` 等位置的 Markdown 文档制品。`codument/modeling/` 与 `codument/engineering/` 是 XNL registry，不创建 Markdown `index.md`，其目录和节点职责分别由 registry/node schema 定义。
+> 本规范只适用于输出到项目 `docs/` 等位置的 Markdown 文档制品。`codument/decisions/` 是 XNL registry，不创建 Markdown `index.md`，其目录与语义由 decision registry 规范定义。
 >
 > 外部 artifact definition 决定目录树、默认类目和分发目标；本规范只定义 Markdown 文档树中可选的就地职责块。层级与晋升语义见 [std/attractors/knowledge-tiers.md](../attractors/knowledge-tiers.md)。
 

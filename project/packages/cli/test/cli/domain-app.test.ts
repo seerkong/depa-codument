@@ -13,7 +13,7 @@ async function invoke(root: string, explicit = true) {
   const [code, stdout, stderr] = await Promise.all([child.exited, new Response(child.stdout).text(), new Response(child.stderr).text()]);
   return { code, stdout, stderr };
 }
-test('real Resource validate enforces formal App membership and complete knowledge semantics locally', async () => {
+test('real Resource validate enforces formal App membership locally', async () => {
   const root = await mkdtemp(join(tmpdir(), 'codument-app-cli-'));
   try {
     const blueprint = createCodumentWorkspaceBlueprint();
@@ -31,33 +31,17 @@ test('real Resource validate enforces formal App membership and complete knowled
       expect(result.stderr).toBe('');
       expect(JSON.parse(result.stdout)).toMatchObject({ valid: true, domain: { ready: true, appId: 'codument.workspace' } });
     }
-    const file = join(root, 'codument/modeling/domain/orders/index.xnl');
-    await mkdir(join(root, 'codument/modeling/domain/orders'), { recursive: true });
-    const invalid = `<ModelingRegistry #knowledge.orders ${envelope} {modeling_schema="data-topology/v1"} [
-      <object #domain.orders.order {kind="entity" semantic_role=["value"] authority_model="immutable_value" relations=[]}>
-    ]>`;
-    await writeFile(file, invalid);
-    const semantic = await invoke(root);
-    expect(semantic.code).toBe(1);
-    expect(JSON.parse(semantic.stdout)).toMatchObject({ valid: false, domain: { ready: false } });
-    expect(await readFile(file, 'utf8')).toBe(invalid);
-    await writeFile(join(root, 'codument/manifest.xnl'), source.split('\n').filter(line => !line.includes('#modeling {')).join('\n'));
     const orphan = await invoke(root);
-    expect(orphan.code).toBe(1);
-    expect(JSON.parse(orphan.stdout).domain.findings.some((item: { rule: string }) => item.rule === 'workspace.orphan')).toBe(true);
+    expect(orphan.code).toBe(0);
     expect(await readdir(root)).toEqual(['codument']);
   } finally { await rm(root, { recursive: true, force: true }); }
 }, 30_000);
 
-test('installed formal App combines recursive knowledge with executable resources and rejects unknown Kinds', async () => {
+test('installed formal App combines recursive registries with executable resources and rejects unknown Kinds', async () => {
   const root = await mkdtemp(join(await realpath(tmpdir()), 'codument-app-mixed-'));
   try {
     await createCodumentWorkspaceInstaller(root).install({ agents: ['codex'] });
     const app = join(root, 'codument');
-    await mkdir(join(app, 'modeling/domain/orders'), { recursive: true });
-    await writeFile(join(app, 'modeling/domain/orders/index.xnl'), `<ModelingRegistry #knowledge.orders ${envelope} {modeling_schema="data-topology/v1"} [
-      <object #domain.orders.order {kind="entity" semantic_role="value" authority_model="immutable" relations=[]} (<types ?>type Order = string</?>)>
-    ]>`);
     await writeBundleResources(app, 'Codument.Mixed.Bundle', `const api = globalThis.Codument;
 export const echo = api.defineLocalFunction({fqn: 'Codument.Mixed.Echo', operation: 'query', inputSchema: {}, configSchema: {}, outputSchema: {}, handler: (_runtime, input) => input});`);
     const valid = await invoke(root);

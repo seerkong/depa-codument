@@ -3,9 +3,12 @@ import * as path from 'node:path';
 import * as os from 'node:os';
 import { createHash } from 'node:crypto';
 import { spawn } from 'node:child_process';
+import { resolveAgentRuntime, type AgentRuntime } from './agent-runtime';
 
-export const MODEL = 'gpt-5.6-terra';
-export const EFFORT = 'medium';
+/** Default agent identity; the run's provenance records which runtime actually ran. */
+export const AGENT: AgentRuntime = resolveAgentRuntime(process.env.E2E_AGENT);
+export const MODEL = AGENT.model;
+export const EFFORT = AGENT.effort;
 export const sha = (file: string) => createHash('sha256').update(fs.readFileSync(file)).digest('hex');
 export const writeJson = (file: string, data: unknown) => fs.writeFileSync(file, JSON.stringify(data, null, 2) + '\n');
 export function files(root: string): string[] {
@@ -69,13 +72,13 @@ export function createRun(candidate: string, caseId: string): Run {
   fs.copyFileSync(source, bin); fs.chmodSync(bin, 0o755);
   // Deliberately fail old-name fallback rather than silently exercising old sessions.
   fs.writeFileSync(path.join(root, 'bin/codument'), '#!/bin/sh\necho "E2E: legacy codument is forbidden" >&2\nexit 89\n', { mode: 0o755 });
-  const env = isolatedEnvironment(root);
-  writeJson(path.join(root, 'provenance.json'), { source, sha256: sha(source), harnessSha256: treeHash(import.meta.dir), model: MODEL, effort: EFFORT, caseId });
+  const env = isolatedEnvironment(root, AGENT);
+  writeJson(path.join(root, 'provenance.json'), { source, sha256: sha(source), harnessSha256: treeHash(import.meta.dir), agent: AGENT.id, model: MODEL, effort: EFFORT, caseId });
   return { root, workspace, home, bin, env };
 }
-function isolatedEnvironment(root: string): NodeJS.ProcessEnv {
+function isolatedEnvironment(root: string, agent: AgentRuntime): NodeJS.ProcessEnv {
   const home = path.join(root,'home');
-  return {
+  const env: NodeJS.ProcessEnv = {
     PATH: `${root}/bin:${path.dirname(process.execPath)}:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin`,
     HOME: home, CODUMENT_HOME: home, CODEX_HOME: path.join(home, '.codex'),
     TMPDIR: path.join(home, 'tmp'), XDG_CACHE_HOME: path.join(home, 'cache'),
@@ -84,10 +87,17 @@ function isolatedEnvironment(root: string): NodeJS.ProcessEnv {
     LANG: 'en_US.UTF-8', TERM: 'dumb', GIT_CONFIG_NOSYSTEM: '1', GIT_CONFIG_GLOBAL: '/dev/null',
     GIT_AUTHOR_NAME: 'E2E', GIT_AUTHOR_EMAIL: 'e2e@example.invalid', GIT_COMMITTER_NAME: 'E2E', GIT_COMMITTER_EMAIL: 'e2e@example.invalid',
   };
+  // The eidolon runtime resolves its global root from this variable, so an
+  // isolated trial never reads or writes the operator's real ~/.eidolon assets.
+  if (agent.id === 'eidolon') env.EIDOLON_GLOBAL_DIR = path.join(home, '.eidolon');
+  return env;
 }
 export function loadRun(root: string, candidate: string, caseId: string): Run {
   root = assertTemporary(root);
   const provenance = JSON.parse(fs.readFileSync(path.join(root,'provenance.json'),'utf8'));
+  // An absent agent field is a pre-adapter trial; it can only have been codex.
+  const observedAgent = provenance.agent ?? 'codex';
+  if (observedAgent !== AGENT.id) throw new Error(`Resume agent mismatch: trial ran ${observedAgent}, current run is ${AGENT.id}`);
   if(provenance.caseId!==caseId || provenance.model!==MODEL || provenance.sha256!==sha(candidate)) throw new Error('Resume identity mismatch');
   const bin = path.join(root,'bin/depa-codument');
   if(sha(bin)!==provenance.sha256) throw new Error('Candidate drift');
@@ -97,7 +107,7 @@ export function loadRun(root: string, candidate: string, caseId: string): Run {
     if (typeof workspace !== 'string' || !path.isAbsolute(workspace) || !fs.existsSync(workspace)) throw new Error('Invalid historical UI re-verification workspace');
     if (!/^\/(private\/)?tmp\/depa-codument-e2e-[^/]+\/workspace$/.test(fs.realpathSync(workspace))) throw new Error('Unsafe historical UI re-verification workspace');
   }
-  return { root, workspace, home:path.join(root,'home'), bin, env:isolatedEnvironment(root), readonlyWorkspace: reverify };
+  return { root, workspace, home:path.join(root,'home'), bin, env:isolatedEnvironment(root, AGENT), readonlyWorkspace: reverify };
 }
 /** macOS outer boundary also constrains verifier commands and Codex internal writes. */
 export function sandbox(run: Run, argv: string[], mode: boolean | 'setup' | 'review' = false): string[] {
@@ -107,16 +117,44 @@ export function sandbox(run: Run, argv: string[], mode: boolean | 'setup' | 'rev
   if (mode !== 'review' && !run.readonlyWorkspace) writable.push(run.workspace);
   const agent = mode === true || mode === 'review';
   if (agent) writable.push(path.join(run.home, '.codex'));
+  // eidolon keeps its own private project state (authority/locks) in a
+  // workdir `.eidolon`; in read-only reviewer mode the delivered workspace is
+  // not writable, so that state must live inside the isolated tmp instead.
+  if (AGENT.id === 'eidolon') writable.push(path.join(run.workspace, '.eidolon'));
   if (mode === 'setup') writable.push(run.home);
   const realHome = os.homedir();
-  const runtimePaths = ['.bun/bin', '.bun/install/global/node_modules', '.local/bin', '.local/share/uv/python'].map(p => path.join(realHome,p));
+  // Agent runtimes live under the real home but are part of the harness, not
+  // workspace content; only their exact runtime roots are readable.
+  const runtimePaths = ['.bun/bin', '.bun/install/global/node_modules', '.local/bin', '.local/share/uv/python'].map(p => path.join(realHome,p))
+    .concat(AGENT.sandboxReadPaths());
+  // The whole agent tree and every sibling trial copy live under the same /tmp
+  // parent, so isolating the real home alone is not enough: without this deny the
+  // agent can read the harness source and other trials' workspaces, which both
+  // leaks how it will be judged and breaks trial independence. The run's own root
+  // and the agent runtime's read-only roots are re-allowed afterwards (Seatbelt
+  // resolves by last matching rule).
+  // Sibling trials, verification copies and ui-suite clones all share the
+  // `depa-codument-` prefix under the same temp parent; deny that family and
+  // re-allow only this run's own root below.
+  const tempParent = path.dirname(run.root);
+  const familyPrefix = path.join(tempParent, 'depa-codument-');
   const profile = `(version 1)(allow default)(deny file-write*)` +
     `(allow file-write* (literal "/dev/null") (literal "/dev/tty") ${writable.map(p => `(subpath ${JSON.stringify(p)})`).join(' ')})` +
     `(deny file-read* (subpath ${JSON.stringify(realHome)}))` +
     `(allow file-read-metadata (subpath ${JSON.stringify(realHome)}))` +
     `(allow file-read* ${runtimePaths.map(p => `(subpath ${JSON.stringify(p)})`).join(' ')})` +
+    `(deny file-read* (regex ${JSON.stringify('^' + escapeForSeatbeltRegex(familyPrefix))}))` +
+    `(allow file-read* (subpath ${JSON.stringify(run.root)}))` +
+    `(allow file-read* (subpath ${JSON.stringify(run.workspace)}))` +
     (agent ? '' : `(deny file-read* (subpath ${JSON.stringify(path.join(run.home,'.codex'))}))`);
   return ['/usr/bin/sandbox-exec', '-p', profile, ...argv];
+}
+/**
+ * Seatbelt regexes are POSIX EREs; escape anything that would otherwise be a
+ * metacharacter so a literal filesystem prefix stays literal.
+ */
+function escapeForSeatbeltRegex(value: string): string {
+  return value.replace(/[.^$*+?()\[\]{}|\\]/g, '\\$&');
 }
 export async function setup(run: Run, nested = false): Promise<void> {
   const repos = nested ? ['main-repo', 'inventory-repo'].map(p => path.join(run.workspace, p)) : [run.workspace];
@@ -124,7 +162,7 @@ export async function setup(run: Run, nested = false): Promise<void> {
     fs.mkdirSync(cwd, { recursive: true });
     for (const [name, argv] of [
       ['git', ['git', '-c', 'init.templateDir=', 'init', '-q']],
-      ['init', [run.bin, 'init', '--agent=codex', '--json']],
+      ['init', [run.bin, ...AGENT.initArgs()]],
     ] as const) {
       const result = await execute({ argv: sandbox(run, [...argv], 'setup'), cwd, env: run.env, log: path.join(run.root, `logs/setup-${i}-${name}.log`) });
       if (result.code) throw new Error(`Setup ${name} failed: ${result.code}`);
@@ -133,64 +171,31 @@ export async function setup(run: Run, nested = false): Promise<void> {
     if (!fs.existsSync(path.join(cwd, 'codument/SKILL.md'))) throw new Error('Workspace SkillApp missing');
     const profiles = fs.readFileSync(path.join(cwd,'codument/config/attractor-profiles.xnl'),'utf8');
     for (const match of profiles.matchAll(/skill:\/\/depa-codument\/([^"\s]+)/g)) {
-      if (!fs.existsSync(path.join(run.home,'.agents/skills/depa-codument',match[1]!))) throw new Error('Dangling initialized global reference: '+match[1]);
+      if (!fs.existsSync(path.join(AGENT.skillRoot(run),match[1]!))) throw new Error('Dangling initialized global reference: '+match[1]);
     }
   }
-  const skill = path.join(run.home, '.agents/skills/depa-codument');
+  const skill = AGENT.skillRoot(run);
   if (!fs.existsSync(path.join(skill, 'references/std/compat/operation-alias.md'))) throw new Error('Global App alias missing');
   for (const retired of ['std', 'references/std/operations', 'references/std/commands', 'references/std/kernel-pointer.md']) {
     if (fs.existsSync(path.join(skill, retired))) throw new Error(`Retired global asset: ${retired}`);
   }
   writeJson(path.join(run.root, 'installation.json'), { skill, hash: treeHash(skill), files: files(skill).length });
 }
-export function installAuthentication(run: Run, authSource: string): void {
-  // Copy only the auth file, never config, history, plugins or personal instructions.
-  const auth = path.join(run.home, '.codex/auth.json');
-  fs.copyFileSync(authSource, auth); fs.chmodSync(auth, 0o600);
+export function installAuthentication(run: Run, authSource: string | undefined): void {
+  AGENT.prepare(run, authSource);
 }
 export function removeAuthentication(run: Run): void {
-  const auth = path.join(run.home, '.codex/auth.json');
-  if (fs.existsSync(auth)) fs.unlinkSync(auth);
+  AGENT.cleanup(run);
 }
-export function codexArgs(run: Run, codex: string, prompt: string, name: string, outputFile = path.join(run.workspace, `.e2e-${name}-last.md`)): string[] {
-  return [codex, 'exec', '--ignore-user-config', '--ignore-rules', '--json',
-    '-m', MODEL, '-c', `model_reasoning_effort="${EFFORT}"`,
-    '-c', 'approval_policy="never"', '-c', 'sandbox_workspace_write.network_access=true',
-    '-c', 'sandbox_workspace_write.exclude_slash_tmp=true', '-c', 'sandbox_workspace_write.exclude_tmpdir_env_var=true',
-    '-c', 'shell_environment_policy.inherit="all"',
-    // Seatbelt is already applied to the whole process tree; macOS rejects reapplying it.
-    '--sandbox', 'danger-full-access', '-C', run.workspace, '--skip-git-repo-check',
-    '-o', outputFile, prompt];
+/**
+ * Build one agent turn invocation. The prompt travels via stdin for runtimes
+ * that read it there, so a long prompt never lands in the process argv.
+ */
+export function agentInvocation(run: Run, prompt: string, name: string, outputFile: string, log: string, extraArgs: string[] = []) {
+  return AGENT.invocation(run, prompt, name, outputFile, log, extraArgs);
 }
-export interface Usage { input: number; cached: number; output: number }
-export interface CommandExecution { command: string; argv?: readonly string[]; exitCode: number | null }
-export function readEvents(file: string): { usage: Usage | null; failed: boolean; completed: boolean; reconnects: string[]; threadId?: string; commands: string[]; executions: CommandExecution[] } {
-  const result: ReturnType<typeof readEvents> = { usage: null, failed: false, completed: false, reconnects: [], commands: [], executions:[] };
-  for (const line of fs.readFileSync(file, 'utf8').split('\n')) {
-    let e; try { e = JSON.parse(line); } catch { continue; }
-    if (e.type === 'thread.started') result.threadId = e.thread_id;
-    if (e.type === 'turn.started') result.completed = false;
-    if (e.type === 'turn.failed') result.failed = true;
-    if (e.type === 'error') {
-      // Codex emits reconnect notifications as error events even when the same
-      // turn subsequently completes. Only this observed nonterminal shape is
-      // recoverable; unknown errors and terminal failures remain failures.
-      if (typeof e.message === 'string' && /^Reconnecting\.\.\. \d+\/\d+ \(/.test(e.message)) result.reconnects.push(e.message);
-      else result.failed = true;
-    }
-    if (e.type === 'turn.completed') result.completed = true;
-    if (e.type === 'turn.completed' && e.usage) {
-      result.usage ??= { input: 0, cached: 0, output: 0 };
-      result.usage.input += e.usage.input_tokens;
-      result.usage.cached += e.usage.cached_input_tokens ?? 0;
-      result.usage.output += e.usage.output_tokens;
-    }
-    if (e.type === 'item.completed' && e.item?.type === 'command_execution') {
-      result.commands.push(e.item.command);
-      result.executions.push({command:e.item.command,exitCode:e.item.exit_code ?? null});
-    }
-  }
-  if (!result.completed) result.failed = true;
-  return result;
-}
-export const defaultAuth = () => path.join(os.homedir(), '.codex/auth.json');
+export function readEvents(file: string) { return AGENT.readEvents(file); }
+export type AgentEvents = ReturnType<typeof readEvents>;
+/** Re-exported so report.ts keeps one Usage/CommandExecution shape across runtimes. */
+export type { Usage, CommandExecution } from './agent-runtime';
+export const defaultAuth = () => AGENT.defaultAuth();

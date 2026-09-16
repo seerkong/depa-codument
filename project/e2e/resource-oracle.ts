@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { lifecycleSourceCodec, readStableNodeId, indexKnowledgeSources, validateKnowledgeIndex, knowledgeArchiveOwnerFile, proposeArchiveBehaviors, indexXnlRegistry } from 'depa-codument-domain-logic';
+import { lifecycleSourceCodec, readStableNodeId } from 'depa-codument-domain-logic';
 
 type Element = ReturnType<typeof lifecycleSourceCodec.inspect>['root'];
 /** Reuse the public syntax codec, but keep acceptance decisions in this oracle. */
@@ -19,48 +19,6 @@ export function trackValidationSelection(relativeDirectory: string, source: stri
   return {root,id,archived,selector:archived ? `archived/${match[2]}` : id};
 }
 
-export function validateArchivedKnowledge(sources: ReadonlyMap<string,string>, family: 'modeling'|'engineering') {
-  assert.ok(sources.size > 0, `Missing archived ${family} deltas`);
-  const findings = validateKnowledgeIndex(indexKnowledgeSources(sources,family,'deltas'));
-  assert.equal(findings.filter(f => f.severity === 'error').length,0,`Archived ${family} delta errors: ${JSON.stringify(findings)}`);
-  return findings;
-}
-function semanticJson(value: unknown): string {
-  return JSON.stringify(value, (_key,item) => {
-    if (!item || typeof item !== 'object' || Array.isArray(item)) return item;
-    return Object.fromEntries(Object.keys(item).sort().filter(key => !(item.kind === 'TextElement' && key === 'textMarker')).map(key => [key,item[key]]));
-  });
-}
-
-/** Fresh-app delivery snapshots must be present in their actual promoted owner. */
-export function assertPromotedKnowledge(deltas: ReadonlyMap<string,string>, canonical: ReadonlyMap<string,string>, family: 'modeling'|'engineering'): void {
-  validateArchivedKnowledge(deltas,family);
-  const expected = indexKnowledgeSources(deltas,family,'deltas');
-  const actual = indexKnowledgeSources(canonical,family);
-  assert.ok(actual.ready, 'Invalid promoted knowledge registry');
-  assert.ok(expected.registry.index.size > 0, 'Empty archived knowledge cannot prove delivery');
-  for (const [id,member] of expected.registry.index) {
-    const promoted = actual.registry.index.get(id);
-    assert.ok(promoted, `Archived ${family} member ${id} was not promoted`);
-    assert.equal(promoted.file,knowledgeArchiveOwnerFile(member.file,family),'Promoted knowledge owner mismatch');
-    assert.equal(semanticJson(promoted.node),semanticJson(member.node),`Promoted ${family} member ${id} differs from delivered snapshot`);
-  }
-}
-
-export function assertPromotedBehaviors(patches: ReadonlyMap<string,string>, canonical: ReadonlyMap<string,string>): void {
-  assert.ok(patches.size > 0 && canonical.size > 0, 'Missing behavior promotion sources');
-  // These fresh application cases author Upsert delivery patches. Reapplying
-  // them must not change any semantic fact. Non-idempotent historical mutations
-  // require baseline-aware verification rather than an unqualified PASS here.
-  const proposal = proposeArchiveBehaviors({canonicalSources:canonical,patchSources:patches});
-  for (const [file,source] of proposal.updates) {
-    assert.ok(canonical.has(file),`Behavior ${file} was not promoted`);
-    const parse = (text: string) => indexXnlRegistry(new Map([[file,text]]),{registryName:'e2e-behavior'},{shouldIndex:()=>false});
-    const before = parse(canonical.get(file)!); const after = parse(source);
-    assert.ok(before.ready && after.ready,'Invalid promoted Behavior source');
-    assert.equal(semanticJson(before.files.get(file)),semanticJson(after.files.get(file)),`Behavior ${file} does not contain its archived delivery`);
-  }
-}
 function elements(value: unknown): Element[] {
   if(!value || typeof value!=='object') return [];
   if(Array.isArray(value)) return value.flatMap(elements);

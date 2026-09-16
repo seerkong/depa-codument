@@ -23,7 +23,7 @@ GapLoop 让父层编排器控制轮次，每轮由 fresh 子代理独立比较�
 
 ## 输入与目标态
 
-Track/phase scope 读取 `track.xnl`、proposal、design、behavior deltas、Acceptance、相关代码测试和上一轮报告。Mission scope读取 `mission.xnl`、proposal、design、reports、ProjectRef binding 及 bound Track 的真实 authority。
+Track/phase scope 读取 `track.xnl`、proposal、design、Acceptance、相关代码测试和上一轮报告。Mission scope读取 `mission.xnl`、proposal、design、reports、ProjectRef binding 及 bound Track 的真实 authority。
 
 同时按 `references/std/protocols/context-loading.md` 读取本 scope 适用的原始需求和批准取舍；派生 Acceptance 的遗漏本身也是差距。局部 phase 检查不宣称覆盖其它 phase，也不代替最终交付的原始需求完整性核对；不因此新增或重复配置 hook。
 
@@ -55,6 +55,10 @@ CLI 负责根属性、时间和 Mission revision 的一致写回。
 - `NO_GAP`：通常收口；当 `verify_round=true` 且这是无历史首轮时，再运行一轮轻量确认。
 - `BLOCKED`：记录 blocker。若当前属于 Mission 子 Track，先交还 MissionApplier 尝试重规划或其他 ready 分支；只有 mission 也无法继续时才向用户返回 blocked。
 - 达到 `max_rounds`：执行 `on_exhausted` 定义的状态，并报告仍未闭合的差距。
+
+### 外部验收的定向校准
+
+已耗尽且 `on_exhausted=block` 后，**不能**重置 `gap_round`、提高 `max_rounds`、抹去原报告或把普通 retry 伪装成新 GapLoop。若外部验收提供了可复现的具体 finding，父层可将 finding 的原文、来源、受影响 Track、source digest 和可复现命令写入该 Track 的 `reports/`，并只允许一次独立的“最小修复 diff → 原 finding 定向复验”。该例外的 receipt 必须绑定同一 finding digest；它不代替全量新 GapLoop，也不能放行其它未审查范围。finding 不可复现、基础设施故障或复验仍失败时保留 block，交回 controller/用户；不得把 UI receipt 超时反馈为业务实现修复。
 
 轻量确认只读取上一轮报告、相关 diff 和必要验证，不重复全量分析。
 

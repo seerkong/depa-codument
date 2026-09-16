@@ -2,7 +2,7 @@
 
 `codument/tracks/{pending,active}/<id>/track.xnl` 是 Track 的结构、状态、调度与 hook 真源；归档后位于 `codument/tracks/archived/YYYY-MM/<timestamp>-<id>/track.xnl`。新文件必须由 `depa-codument track create <id> --stage pending|active` 生成骨架，调用方不得自行填写 `envelopeVersion` / `specVersion`。
 
-Track Kind 由产品包内置，不在 workspace 复制定义。当前资源使用 `envelopeVersion="halfcode.resource-envelope/v1"` 与 `specVersion=1`；包版本独立演进。XNL 通用语法遵循 `xnl-format.md`。
+Track Kind 由产品包内置，不在 workspace 复制定义。当前资源使用 `envelopeVersion="halfcode.resource-envelope/v1"` 与 `specVersion=1`；包版本独立演进。XNL 通用语法遵循 `xnl-format.md`。槽位片段权威打印：`depa-codument schema track`（stdout 是 XNL，不要从片段复制 `#id` / envelope）。
 
 ## 1. 目录约定
 
@@ -16,7 +16,6 @@ tracks/
   track.xnl
   proposal.md
   design.md
-  behavior_deltas/<capability>/delta.xnl  # CLI 生成的版本化 BehaviorPatch
   decisions.xnl                 # 首个真实决策出现时才创建
   decisions/**/*.xnl            # 可选分片
   analysis/                      # 可选迭代期记忆
@@ -30,7 +29,7 @@ tracks/
 
 ## 2. Canonical DSL
 
-下例是 `depa-codument track create` 生成骨架并填写语义后的完整投影。`#id`、`envelopeVersion`、`specVersion`、初始状态与时间字段由 CLI 写入；作者只保留这些 receipt 值，不从示例复制。
+下例是 `depa-codument track create` 生成骨架并填写语义后的完整投影，**不要复制 `#id` / envelope**。`#id`、`envelopeVersion`、`specVersion`、初始状态与时间字段由 CLI 写入；作者只保留这些 receipt 值。槽位片段以 `depa-codument schema track` 为准。
 
 ```xnl
 <Track #add-csv-export envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
@@ -108,9 +107,8 @@ tracks/
 | `commit_mode` | `auto\|manual` |
 | `created_at` / `updated_at` | ISO 8601 |
 | `gap_round` | 可选非负整数；gap-loop 父层运行 `depa-codument track gap-round`，由 CLI 维护 |
-| `modeling_base_commit` / `engineering_base_commit` | 可选归档基线 |
 
-根状态是可恢复的生命周期状态，不是永久锁。`completed | cancelled` Track 在用户明确续跑或补充任务时，可运行 `depa-codument track transition <id> in_progress` 恢复；若唯一 authority 已归档，CLI 将其移动回 `tracks/active/<id>/`。恢复不会撤销归档时已提升的 behavior、modeling、engineering、decision 或 artifact；再次进入 `completed` 仍必须通过当前任务树的 completion gate。若 archived 中存在多个同 id authority，CLI 必须拒绝猜测并要求先消除歧义。
+根状态是可恢复的生命周期状态，不是永久锁。`completed | cancelled` Track 在用户明确续跑或补充任务时，可运行 `depa-codument track transition <id> in_progress` 恢复；若唯一 authority 已归档，CLI 将其移动回 `tracks/active/<id>/`。恢复不会撤销归档时已提升的 decision、memory 或 artifact；再次进入 `completed` 仍必须通过当前任务树的 completion gate。若 archived 中存在多个同 id authority，CLI 必须拒绝猜测并要求先消除歧义。
 
 ## 4. 结构轴
 
@@ -176,7 +174,6 @@ GapLoop 默认归属 phase 的 `phase:after` hook。一个 Track 若已在任一
 6. 所有 DAG 作用域、节点和前驱引用可解析且无环。
 7. Hook 的 `on`、操作类型和 profile 引用合法。
 8. `priority`、`blocker`、`commit` 与 `Schedule.max_concurrent/spot_check` 取值合法，且不存在 root/phase 重复 GapLoop。
-9. `behavior_deltas/**/*.xnl` 按 BehaviorPatch Kind 独立校验；骨架由 `depa-codument behavior-patch create <track-id> <capability>` 生成。legacy XML 只作兼容输入。
 
 CLI 校验：
 

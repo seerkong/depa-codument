@@ -52,3 +52,25 @@ test('reconnect diagnostics require a real completion and cannot mask terminal o
   expect(read([{ type: 'error', message: 'Authentication failed' }, completed]).failed).toBe(true);
   expect(read([{ type: 'error' }, completed]).failed).toBe(true);
 });
+
+test('the agent sandbox denies sibling trials and harness copies under the same temp parent', async () => {
+  const { createRun, sandbox, execute } = await import('./runtime');
+  const run = createRun(process.execPath, 'unit');
+  const sibling = path.join(path.dirname(run.root), 'depa-codument-verification-fixture');
+  fs.mkdirSync(sibling, { recursive: true });
+  fs.writeFileSync(path.join(sibling, 'harness.ts'), 'judging logic');
+  fs.writeFileSync(path.join(run.workspace, 'mine.txt'), 'own content');
+  try {
+    const result = await execute({
+      argv: sandbox(run, ['/bin/sh', '-c', `cat ${sibling}/harness.ts 2>&1; echo '---'; cat ${run.workspace}/mine.txt 2>&1`]),
+      cwd: run.workspace, env: run.env, log: path.join(run.root, 'logs/isolation.log'),
+    });
+    expect(result.code).toBe(0);
+    const output = fs.readFileSync(path.join(run.root, 'logs/isolation.log'), 'utf8');
+    // The judging logic of another trial is not readable...
+    expect(output).toContain('Operation not permitted');
+    expect(output).not.toContain('judging logic');
+    // ...while the run's own workspace still is.
+    expect(output).toContain('own content');
+  } finally { fs.rmSync(sibling, { recursive: true, force: true }); fs.rmSync(run.root, { recursive: true, force: true }); }
+});

@@ -9,9 +9,8 @@ import type { DomainQuery, DomainQueryResult, DomainQuerySourcePort } from './qu
 import type { ScaffoldReceipt, ScaffoldRequest, ScaffoldSourcePort } from './scaffold';
 import type { DomainValidationRequest, DomainValidationResult, DomainValidationSourcePort } from './validation';
 import type { StdDocumentationPort, StdLintResult } from './std';
-import type { KnowledgeReadRequest, KnowledgeReadResult, KnowledgeSourcePort, KnowledgeScaffoldRequest, KnowledgeScaffoldReceipt, KnowledgeScaffoldPort } from './knowledge';
 import type { ArtifactSyncPort, ArtifactSyncRequest, ArtifactSyncResult } from './artifact';
-import type {ArchiveRequest, ArchiveReceipt, ArchiveSourcePort, KnowledgeBaselinePort} from './archive';
+import type {ArchiveRequest, ArchiveReceipt, ArchiveSourcePort} from './archive';
 
 /** Pure authoring bindings. Storage never owns a second parser or writer. */
 export interface LifecycleSourceCodec {
@@ -77,10 +76,8 @@ export type DomainOperation = LifecycleRef & (
 export interface DomainOperationRuntime {
   /** Guarded invocation snapshot, not a second editable profile configuration. */
   readonly contextSources?: { readonly profiles?: string };
-  readonly archive?: {readonly sources: ArchiveSourcePort; readonly baseline: KnowledgeBaselinePort};
+  readonly archive?: {readonly sources: ArchiveSourcePort};
   readonly artifacts?: ArtifactSyncPort;
-  readonly knowledgeScaffolds?: KnowledgeScaffoldPort;
-  readonly knowledgeSources?: KnowledgeSourcePort;
   readonly stdDocumentation?: StdDocumentationPort;
   readonly validationSources?: DomainValidationSourcePort;
   readonly scaffolds?: ScaffoldSourcePort;
@@ -107,8 +104,6 @@ export interface DomainOperationReceipt {
 export interface DomainOwner {
   archive(input: ArchiveRequest): Promise<ArchiveReceipt>;
   syncArtifacts(input: ArtifactSyncRequest): Promise<ArtifactSyncResult>;
-  scaffoldKnowledge(input: KnowledgeScaffoldRequest): Promise<KnowledgeScaffoldReceipt>;
-  knowledge(input: KnowledgeReadRequest): Promise<KnowledgeReadResult>;
   lintStd(directory?: string): Promise<StdLintResult>;
   validate(input: DomainValidationRequest): Promise<DomainValidationResult>;
   scaffold(input: ScaffoldRequest): Promise<ScaffoldReceipt>;

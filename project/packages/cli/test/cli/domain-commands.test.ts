@@ -75,7 +75,7 @@ describe('Codument lifecycle command compatibility boundary', () => {
       ['track', 'task', 'complete', 'example', 'T1', '--'], ['track', 'ready', 'example', '--unknown'],
     ]) await expect(executeCommand(commands, args, runtime)).rejects.toThrow();
     expect(trace).toHaveLength(before);
-    expect(commands.map(command => command.name)).toEqual(['track', 'Track', 'mission', 'Mission', 'decisions', 'project', 'list', 'show', 'behavior-patch', 'BehaviorPatch', 'validate', 'std', 'modeling', 'engineering', 'artifact', 'archive', 'migrate', 'upgrade-resource', 'upgrade-track']);
+    expect(commands.map(command => command.name)).toEqual(['track', 'Track', 'mission', 'Mission', 'decisions', 'project', 'list', 'show', 'validate', 'schema', 'std', 'artifact', 'archive', 'migrate', 'upgrade-resource', 'upgrade-track']);
   });
 
   it('actual CLI preserves raw JSON, verification argv, source bytes and failed-verifier admission', async () => {

@@ -1,6 +1,6 @@
 # Decision Registry 规范
 
-`codument/decisions/` 是长期承重决策的 canonical XNL registry。它保存 track / mission decision forest 中符合晋升条件的完整节点，而不是从节点投影出的 Markdown 摘要。
+`codument/decisions/` 是长期承重决策的 canonical XNL registry。它保存 track / mission decision forest 中符合晋升条件的完整节点，而不是从节点投影出的 Markdown 摘要。可复制的 pending / accepted 槽位由 `depa-codument schema decision` 打印（stdout 是 XNL）；物理/merge 规则以本文为准，不要把片段整棵写入仓库。
 
 ## 1. Canonical 物理形态
 
@@ -60,7 +60,7 @@ archive、migration、serializer 和 merge 直接操作 XNL AST，不得通过�
 
 ## 6. Archive transaction
 
-decision registry 与 behavior、modeling、engineering registries 共享：
+decision registry 的归档事务：
 
 ```text
 collect all deltas and decision sources

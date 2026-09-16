@@ -1,5 +1,5 @@
 import { parseXnl, wordToString, type XnlWord } from 'xnl-core';
-import type { BehaviorQueryView, DomainOperationRuntime, DomainQuery, DomainQueryResult, DomainQuerySource, TrackQueryView, ProjectStatusView } from 'depa-codument-domain-contract';
+import type { DomainOperationRuntime, DomainQuery, DomainQueryResult, DomainQuerySource, TrackQueryView, ProjectStatusView } from 'depa-codument-domain-contract';
 import { lifecycleSourceCodec } from './lifecycle-source';
 import { attr, children, descendants, first } from './validation-tree';
 import { indexXnlRegistry, isDataElement, requireReadyRegistry } from './registry';
@@ -36,36 +36,16 @@ export function projectTrackQuery(source: DomainQuerySource): TrackQueryView {
   return { id, metadata, taskSummary, ...(source.files ? { files: source.files } : {}), ...(source.contents ? { contents: source.contents } : {}) };
 }
 
-export function projectBehaviorQuery(source: DomainQuerySource, includeContent = false): BehaviorQueryView {
-  const parsed = parseXnl(source.source, { textBlockStyle: true });
-  const root = parsed.nodes[0];
-  if (parsed.warnings?.length || parsed.nodes.length !== 1 || !isDataElement(root) || root.tag !== 'Behavior') throw new Error(`Behavior authority is ambiguous: ${source.file}`);
-  if (!wordToString(root.id)) throw new Error(`Behavior requires a stable ID: ${source.file}`);
-  if (root.metadata.envelopeVersion !== 'halfcode.resource-envelope/v1' || root.metadata.specVersion !== 1
-    || 'apiVersion' in root.metadata || 'version' in root.metadata) throw new Error(`Behavior requires migration or review: ${source.file}`);
-  const nodes = descendants(root);
-  return { id: source.id, path: source.absolutePath, requirements: nodes.filter(node => node.tag === 'Requirement').length,
-    scenarios: nodes.filter(node => node.tag === 'Case').length, format: 'xnl', ...(includeContent ? { content: source.source } : {}) };
-}
-
 export async function runDomainQuery(runtime: Pick<DomainOperationRuntime, 'queries' | 'decisions'>, input: DomainQuery): Promise<DomainQueryResult> {
   const port = runtime.queries;
   if (!port) throw new Error('Domain query source port is not configured.');
   await port.ensureWorkspace();
   if (input.operation === 'status') return { kind: 'status', value: projectStatusQuery(await port.tracks({})) };
-  if (input.operation === 'list') {
-    if (input.behaviors) return { kind: 'specs', value: (await port.behaviors()).map(source => projectBehaviorQuery(source)) };
-    return { kind: 'tracks', value: (await port.tracks({})).map(projectTrackQuery) };
-  }
+  if (input.operation === 'list') return { kind: 'tracks', value: (await port.tracks({})).map(projectTrackQuery) };
   if (!input.type || input.type === 'track') {
     const source = (await port.tracks({ id: input.id, detail: true, includeContent: input.includeContent }))[0];
     if (source) return { kind: 'track', value: projectTrackQuery(source) };
     if (input.type) throw new Error(`Track not found: ${input.id}`);
-  }
-  if (!input.type || input.type === 'spec') {
-    const source = (await port.behaviors(input.id))[0];
-    if (source) return { kind: 'spec', value: projectBehaviorQuery(source, true) };
-    if (input.type) throw new Error(`Spec not found: ${input.id}`);
   }
   if (!runtime.decisions) throw new Error('Decision source port is not configured.');
   const source = await runtime.decisions.read('codument/decisions');

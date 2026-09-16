@@ -1,6 +1,6 @@
 # skill: codument-verify（独立验证 · fresh-subagent 实跑）
 
-以**独立验证模式**确认 track 的实现真正达成目标：fresh-spawn 一个独立子代理，**实际运行**应用/测试、复现验收用例，对照 `Acceptance`/`Gate` 与 behavior 验收用例从目标倒推，逐条给 PASS/FAIL + 证据，落 `track://reports/verify-report.md`。**只判定不修复**；有 FAIL 则列差距并建议回 `implement`/`gap-loop`。
+以**独立验证模式**确认 track 的实现真正达成目标：fresh-spawn 一个独立子代理，**实际运行**应用/测试、复现验收用例，对照 `Acceptance`/`Gate` 从目标倒推，逐条给 PASS/FAIL + 证据，落 `track://reports/verify-report.md`。**只判定不修复**；有 FAIL 则列差距并建议回 `implement`/`gap-loop`。
 
 > 程序化流程使用 ` ```text ` + `@delimiter: --` 的流程标记块。当前 Track authority 是 `track.xnl`；legacy 输入先交给 `codument upgrade-resource`，verify 不教授迁移写法。
 
@@ -44,7 +44,6 @@
 
 3. **读取上下文文件：**
    - `codument/tracks/active/<track_id>/track.xnl`
-   - `codument/tracks/active/<track_id>/behavior_deltas/**/*.xnl`
    - `codument/tracks/active/<track_id>/proposal.md`
    - `codument/tracks/active/<track_id>/design.md`（如存在）
    - `codument/tracks/active/<track_id>/decisions.xnl`、递归 `decisions/**/*.xnl` / `analysis/`（如存在，迭代期背景）
@@ -61,7 +60,6 @@
    - 需要哪些代码/配置/文件存在。
    - 需要哪些行为可达。
    - 需要哪些测试或证据支持。
-3. 可选补充：从 `behavior_deltas/**/*.xnl` 的行为 case（suite/case）取验收用例作复现依据。
 
 ### 3.2 三级验证
 
@@ -99,15 +97,15 @@ verify 的核心是**派发 fresh-subagent 实际运行**——不是父代理�
 @delimiter: --
 -- #sequence ?verify
 ---- #step ?v1
-父代理：从 track.xnl 收集所有 Acceptance、Gate，以及 behavior_deltas 的验收用例（suite/case），按范围（整 track / phase / wave）圈定目标集
+父代理：从 track.xnl 收集所有 Acceptance 与 Gate，按范围（整 track / phase / wave）圈定目标集
 ---- /?v1
 ---- #step ?v2
-父代理：建立 evidence plan，把可由同一测试 / 启动 / smoke 命令证明的目标归组；以规范化命令与运行前提作为唯一键，明确每条唯一命令映射哪些 Acceptance / Gate / behavior case
+父代理：建立 evidence plan，把可由同一测试 / 启动 / smoke 命令证明的目标归组；以规范化命令与运行前提作为唯一键，明确每条唯一命令映射哪些 Acceptance / Gate
 ---- /?v2
 ---- #spawn ?run as=fresh-subagent inject="注入验证范围、输入路径、输出报告要求和必要禁止事项"
 独立上下文：按 evidence plan 对每条唯一命令运行 `codument track verify <track-id> --fresh -- <verification-command>`，实跑测试 / 启动应用 / 复现用例并保存 receipt、退出码与关键输出；同一结果可映射到多个目标，但不得因复用而省略逐项语义判断
 ---- /?run
----- #loop ?items for="每条 Acceptance / Gate / behavior case"
+---- #loop ?items for="每条 Acceptance / Gate"
 ------ #step ?ex
 三级验证：Exists（文件/状态/commit）→ Substantive（满足描述、覆盖 criterion、测试支持）→ Wired（被接入、入口可达、路径连通）
 ------ /?ex

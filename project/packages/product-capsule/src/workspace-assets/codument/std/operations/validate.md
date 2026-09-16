@@ -1,6 +1,6 @@
 # skill: codument-validate（校验 Codument 资源）
 
-校验 Track、Mission、BehaviorPatch、Behavior、Decision 及相关 registry。CLI 是语法、Kind 版本、结构、引用、DAG 与 hook 规则的确定性 authority；AI 只补充程序无法证明的语义审查。
+校验 Track、Mission、Decision 及相关 registry。CLI 是语法、Kind 版本、结构、引用、DAG 与 hook 规则的确定性 authority；AI 只补充程序无法证明的语义审查。
 
 ## 主流程
 
@@ -28,16 +28,13 @@ CLI 已覆盖的结构规则以当前 KindDefinition 和以下规范为准，不
 
 - `std/spec/track-xnl-spec.md`
 - `std/spec/mission-xnl-spec.md`
-- `std/spec/behavior-delta.md`
 - `std/spec/decision-registry.md`
-- `std/spec/modeling-node-schema.md`
-- `std/spec/engineering-node-schema.md`
 
 AI 审查聚焦：
 
 - proposal 的背景、目标、非目标和影响是否完整；
 - design 是否覆盖关键风险、迁移和回退；
-- behavior 与 Acceptance 是否表达真实、可验证的结果；
+- proposal 与 Acceptance 是否表达真实、可验证的结果；
 - TaskSpace、Schedule 和物料是否覆盖目标，而非只在结构上合法；
 - Decision 的问题、选项、推荐、反馈与证据是否能解释真实取舍。
 

@@ -23,14 +23,10 @@ test('formal product App membership covers deep canonical registries and archive
     await mkdir(join(root, owner), { recursive: true });
     await writeFile(join(root, owner, 'track.xnl'), `<Track #example ${envelope} {status="completed"}>`);
     for (const file of ['proposal.md', 'design.md']) await writeFile(join(root, owner, file), '# Kept');
-    await mkdir(join(root, 'codument/modeling/domain/orders'), { recursive: true });
-    await writeFile(join(root, 'codument/modeling/domain/orders/index.xnl'), `<ModelingRegistry #knowledge.orders ${envelope}
-      {modeling_schema="data-topology/v1"} [<object #domain.orders.order {kind="entity" semantic_role=["value"] authority_model="immutable_value" relations=[]} (<types ?>type Order = string</?>)>]>`);
     const snapshot = await host.resourceCatalog.snapshot();
     expect(snapshot.diagnostics).toEqual([]);
     expect(snapshot.resources.filter(item => item.kind === 'SkillApp').map(item => item.fqn)).toEqual(['codument.workspace']);
     expect(snapshot.resources.find(item => item.fqn === 'example')?.logicalPath).toBe(owner.slice('codument/'.length) + '/track.xnl');
-    expect(snapshot.resources.find(item => item.fqn === 'knowledge.orders')?.logicalPath).toBe('modeling/domain/orders/index.xnl');
     expect(snapshot.resources.every(item => item.sourceRoot === 'codument')).toBe(true);
     expect(snapshot.resources.some(item => item.kind === 'KindDefinition')).toBe(false);
     expect(await readFile(join(root, 'codument/manifest.xnl'), 'utf8')).toBe(source);
@@ -40,7 +36,7 @@ test('formal product App membership covers deep canonical registries and archive
   } finally { await host.close(); await rm(root, { recursive: true, force: true }); }
 });
 
-test('product inspector rejects orphan membership and full knowledge errors even with the feature disabled', async () => {
+test('product inspector rejects orphan membership and reports domain findings', async () => {
   const root = await mkdtemp(join(tmpdir(), 'codument-app-inspection-'));
   const host = createCodumentResourceHost(root);
   try {
@@ -54,17 +50,9 @@ test('product inspector rejects orphan membership and full knowledge errors even
     }
     const inspector = createCodumentWorkspaceInspector(root);
     expect(await inspector.inspect()).toMatchObject({ ready: true, appId: 'codument.workspace' });
-    const file = 'codument/modeling/domain/orders/index.xnl';
-    await mkdir(join(root, 'codument/modeling/domain/orders'), { recursive: true });
-    const valid = `<ModelingRegistry #knowledge.orders ${envelope} {modeling_schema="data-topology/v1"} [
-      <object #domain.orders.order {kind="entity" semantic_role=["value"] authority_model="immutable_value" relations=[]}
-        (<types ?>type Order = string</?>)>
-    ]>`;
-    await writeFile(join(root, file), valid);
     const complete = await inspector.inspect();
     expect(complete.findings.filter(item => item.severity === 'error')).toEqual([]);
     expect(complete.ready).toBe(true);
-    expect(complete.memberFiles).toContain(file);
     const observed = await createFileWorkspaceAppSourcePort(root, lifecycleSourceCodec).observe();
     const resources = await host.resourceCatalog.snapshot();
     const drifted = { ...observed, authorities: observed.authorities.map((item, index) => index ? item : { ...item, digest: 'sha256:changed' }) };
@@ -72,18 +60,6 @@ test('product inspector rejects orphan membership and full knowledge errors even
     expect(drift.ready).toBe(false);
     expect(drift.findings.some(item => item.rule === 'workspace.drift')).toBe(true);
     expect(drift.findings.some(item => item.rule === 'workspace.source-drift')).toBe(true);
-    await writeFile(join(root, 'codument/manifest.xnl'), source.split('\n').filter(line => !line.includes('#modeling {')).join('\n'));
-    expect((await host.resourceCatalog.snapshot()).ready).toBe(true);
-    const orphan = await inspector.inspect();
-    expect(orphan.ready).toBe(false);
-    expect(orphan.findings.some(item => item.file === file && item.rule === 'workspace.orphan')).toBe(true);
-    await writeFile(join(root, 'codument/manifest.xnl'), source);
-    await writeFile(join(root, file), valid.replace('(<types ?>type Order = string</?>)', ''));
-    expect((await host.resourceCatalog.snapshot()).ready).toBe(true);
-    const invalid = await inspector.inspect();
-    expect(invalid.ready).toBe(false);
-    expect(invalid.findings.some(item => item.file === file && item.rule.startsWith('knowledge.'))).toBe(true);
-    await writeFile(join(root, file), valid);
     await writeFile(join(root, 'codument/decisions/old.xml'), '<decision/>');
     expect((await inspector.inspect()).findings.some(item => item.message.includes('Legacy registry'))).toBe(true);
     expect(await readdir(root)).toEqual(['codument']);

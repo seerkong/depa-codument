@@ -6,7 +6,7 @@
         "kind": "AttractorProfiles",
         "subjectFqn": "codument.resource_kind.AttractorProfiles",
         "ownerPackageId": "depa-codument-domain-contract",
-        "ownerPackageFingerprint": "sha256:19ab94c4c969ed7d50b10bc1d52ffa0382230cea091592e4f9dd11f82f80696c",
+        "ownerPackageFingerprint": "sha256:e59e71ad8d12da20efec39e7513326c2c3571054462b95596993db7bd933a681",
         "sourceContract": {
           "sourceShapes": [
             "single-file"
@@ -58,126 +58,12 @@
       }
     },
     {
-      "kind": "Behavior",
-      "owner": {
-        "kind": "Behavior",
-        "subjectFqn": "codument.resource_kind.Behavior",
-        "ownerPackageId": "depa-codument-domain-contract",
-        "ownerPackageFingerprint": "sha256:19ab94c4c969ed7d50b10bc1d52ffa0382230cea091592e4f9dd11f82f80696c",
-        "sourceContract": {
-          "sourceShapes": [
-            "single-file"
-          ],
-          "documentCardinality": "one",
-          "requiredFiles": [],
-          "sourceContractFingerprint": "sha256:a1a54a1c1626cfed2a83ebd04252002d7e8243b6539b1bda3fe79f03729b1711"
-        }
-      },
-      "revision": {
-        "kind": "Behavior",
-        "subjectFqn": "codument.resource_kind.Behavior",
-        "specVersion": 1,
-        "specSchema": {
-          "additionalProperties": false,
-          "properties": {
-            "body": {
-              "type": "array"
-            },
-            "properties": {
-              "additionalProperties": true,
-              "properties": {},
-              "required": [],
-              "type": "object"
-            },
-            "subdomains": {
-              "type": "object"
-            },
-            "text": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "properties",
-            "body",
-            "subdomains"
-          ],
-          "type": "object"
-        },
-        "semanticContract": {
-          "semanticValidatorFingerprint": "sha256:4dca06c36223a60c1c11b0ab92c9cb1d7a25074b8a7db506c04f9a2d88902c57",
-          "referenceProjectionFingerprint": "sha256:6c7fdf0ff54bb189c1c3574f3e7307c8f1160ac3d9753816c1904ba51677332f",
-          "compilerInputFingerprint": "sha256:cd241a5c3167d1aad3ccbc46df6d6f89bd0a7d571941b070f9632edba3a1dbf5"
-        },
-        "sourceContractFingerprint": "sha256:a1a54a1c1626cfed2a83ebd04252002d7e8243b6539b1bda3fe79f03729b1711",
-        "schemaFingerprint": "sha256:15f034d6dc95bc8314b99b204e24ff91f740cbeb0a873278375e0cf55e58831d",
-        "contractFingerprint": "sha256:aa4ff659cd97536f9a667a6e4ed4e287115954a98e27ca682b6a2ecb69e354cd",
-        "stability": "experimental"
-      }
-    },
-    {
-      "kind": "BehaviorPatch",
-      "owner": {
-        "kind": "BehaviorPatch",
-        "subjectFqn": "codument.resource_kind.BehaviorPatch",
-        "ownerPackageId": "depa-codument-domain-contract",
-        "ownerPackageFingerprint": "sha256:19ab94c4c969ed7d50b10bc1d52ffa0382230cea091592e4f9dd11f82f80696c",
-        "sourceContract": {
-          "sourceShapes": [
-            "single-file"
-          ],
-          "documentCardinality": "one",
-          "requiredFiles": [],
-          "sourceContractFingerprint": "sha256:a1a54a1c1626cfed2a83ebd04252002d7e8243b6539b1bda3fe79f03729b1711"
-        }
-      },
-      "revision": {
-        "kind": "BehaviorPatch",
-        "subjectFqn": "codument.resource_kind.BehaviorPatch",
-        "specVersion": 1,
-        "specSchema": {
-          "additionalProperties": false,
-          "properties": {
-            "body": {
-              "type": "array"
-            },
-            "properties": {
-              "additionalProperties": true,
-              "properties": {},
-              "required": [],
-              "type": "object"
-            },
-            "subdomains": {
-              "type": "object"
-            },
-            "text": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "properties",
-            "body",
-            "subdomains"
-          ],
-          "type": "object"
-        },
-        "semanticContract": {
-          "semanticValidatorFingerprint": "sha256:36d6532731c753db83815de691c18275052bf53ef6bc3736ab14fab102ee8477",
-          "referenceProjectionFingerprint": "sha256:ffa31070942379259323e79a10cc7e350816c122def9bf8e61ee130b8c0cd360",
-          "compilerInputFingerprint": "sha256:cd241a5c3167d1aad3ccbc46df6d6f89bd0a7d571941b070f9632edba3a1dbf5"
-        },
-        "sourceContractFingerprint": "sha256:a1a54a1c1626cfed2a83ebd04252002d7e8243b6539b1bda3fe79f03729b1711",
-        "schemaFingerprint": "sha256:15f034d6dc95bc8314b99b204e24ff91f740cbeb0a873278375e0cf55e58831d",
-        "contractFingerprint": "sha256:c6c1f0409084a22e7aa089489f36f98b0de1ec2accb90fad2fac5ca886eda18d",
-        "stability": "experimental"
-      }
-    },
-    {
       "kind": "decision",
       "owner": {
         "kind": "decision",
         "subjectFqn": "codument.resource_kind.decision",
         "ownerPackageId": "depa-codument-domain-contract",
-        "ownerPackageFingerprint": "sha256:19ab94c4c969ed7d50b10bc1d52ffa0382230cea091592e4f9dd11f82f80696c",
+        "ownerPackageFingerprint": "sha256:e59e71ad8d12da20efec39e7513326c2c3571054462b95596993db7bd933a681",
         "sourceContract": {
           "sourceShapes": [
             "single-file"
@@ -229,73 +115,12 @@
       }
     },
     {
-      "kind": "EngineeringConfig",
-      "owner": {
-        "kind": "EngineeringConfig",
-        "subjectFqn": "codument.resource_kind.EngineeringConfig",
-        "ownerPackageId": "depa-codument-domain-contract",
-        "ownerPackageFingerprint": "sha256:19ab94c4c969ed7d50b10bc1d52ffa0382230cea091592e4f9dd11f82f80696c",
-        "sourceContract": {
-          "sourceShapes": [
-            "single-file"
-          ],
-          "documentCardinality": "one",
-          "requiredFiles": [],
-          "sourceContractFingerprint": "sha256:a1a54a1c1626cfed2a83ebd04252002d7e8243b6539b1bda3fe79f03729b1711"
-        }
-      },
-      "revision": {
-        "kind": "EngineeringConfig",
-        "subjectFqn": "codument.resource_kind.EngineeringConfig",
-        "specVersion": 1,
-        "specSchema": {
-          "additionalProperties": false,
-          "properties": {
-            "body": {
-              "type": "array"
-            },
-            "properties": {
-              "additionalProperties": true,
-              "properties": {
-                "enabled": {
-                  "type": "boolean"
-                }
-              },
-              "required": [],
-              "type": "object"
-            },
-            "subdomains": {
-              "type": "object"
-            },
-            "text": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "properties",
-            "body",
-            "subdomains"
-          ],
-          "type": "object"
-        },
-        "semanticContract": {
-          "semanticValidatorFingerprint": "sha256:eaf5f7da945b53b5088314bb92646337b37504ced9eb1ab54e748db3c03873ec",
-          "referenceProjectionFingerprint": "sha256:71f348ffa10a131a5159e6416d7cf797baa4fc9964b51342a7ef05470ec80083",
-          "compilerInputFingerprint": "sha256:cd241a5c3167d1aad3ccbc46df6d6f89bd0a7d571941b070f9632edba3a1dbf5"
-        },
-        "sourceContractFingerprint": "sha256:a1a54a1c1626cfed2a83ebd04252002d7e8243b6539b1bda3fe79f03729b1711",
-        "schemaFingerprint": "sha256:55d635efa30ddc5699b86a59718b85607d44204b6e80029803aaf2ba95b14cca",
-        "contractFingerprint": "sha256:4f760aa8582ff0d01afdb022d6aa7f950b8271645d1563f56f356583ddcc00e3",
-        "stability": "experimental"
-      }
-    },
-    {
       "kind": "Mission",
       "owner": {
         "kind": "Mission",
         "subjectFqn": "codument.resource_kind.Mission",
         "ownerPackageId": "depa-codument-domain-contract",
-        "ownerPackageFingerprint": "sha256:19ab94c4c969ed7d50b10bc1d52ffa0382230cea091592e4f9dd11f82f80696c",
+        "ownerPackageFingerprint": "sha256:e59e71ad8d12da20efec39e7513326c2c3571054462b95596993db7bd933a681",
         "sourceContract": {
           "sourceShapes": [
             "directory"
@@ -384,73 +209,12 @@
       }
     },
     {
-      "kind": "ModelingConfig",
-      "owner": {
-        "kind": "ModelingConfig",
-        "subjectFqn": "codument.resource_kind.ModelingConfig",
-        "ownerPackageId": "depa-codument-domain-contract",
-        "ownerPackageFingerprint": "sha256:19ab94c4c969ed7d50b10bc1d52ffa0382230cea091592e4f9dd11f82f80696c",
-        "sourceContract": {
-          "sourceShapes": [
-            "single-file"
-          ],
-          "documentCardinality": "one",
-          "requiredFiles": [],
-          "sourceContractFingerprint": "sha256:a1a54a1c1626cfed2a83ebd04252002d7e8243b6539b1bda3fe79f03729b1711"
-        }
-      },
-      "revision": {
-        "kind": "ModelingConfig",
-        "subjectFqn": "codument.resource_kind.ModelingConfig",
-        "specVersion": 1,
-        "specSchema": {
-          "additionalProperties": false,
-          "properties": {
-            "body": {
-              "type": "array"
-            },
-            "properties": {
-              "additionalProperties": true,
-              "properties": {
-                "enabled": {
-                  "type": "boolean"
-                }
-              },
-              "required": [],
-              "type": "object"
-            },
-            "subdomains": {
-              "type": "object"
-            },
-            "text": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "properties",
-            "body",
-            "subdomains"
-          ],
-          "type": "object"
-        },
-        "semanticContract": {
-          "semanticValidatorFingerprint": "sha256:a2d915b048e9e40c8f074455ed699e2047d7820174aaa821ab88452055a3fc25",
-          "referenceProjectionFingerprint": "sha256:c52e979b2c54b3482732dd5ab7d929dd1b554bc0a181a58170e53b10c3ede706",
-          "compilerInputFingerprint": "sha256:cd241a5c3167d1aad3ccbc46df6d6f89bd0a7d571941b070f9632edba3a1dbf5"
-        },
-        "sourceContractFingerprint": "sha256:a1a54a1c1626cfed2a83ebd04252002d7e8243b6539b1bda3fe79f03729b1711",
-        "schemaFingerprint": "sha256:55d635efa30ddc5699b86a59718b85607d44204b6e80029803aaf2ba95b14cca",
-        "contractFingerprint": "sha256:c58d20c1af520d4a72c840f4744686b602db66c838066022d02c6eede7adb3a6",
-        "stability": "experimental"
-      }
-    },
-    {
       "kind": "OperationHooks",
       "owner": {
         "kind": "OperationHooks",
         "subjectFqn": "codument.resource_kind.OperationHooks",
         "ownerPackageId": "depa-codument-domain-contract",
-        "ownerPackageFingerprint": "sha256:19ab94c4c969ed7d50b10bc1d52ffa0382230cea091592e4f9dd11f82f80696c",
+        "ownerPackageFingerprint": "sha256:e59e71ad8d12da20efec39e7513326c2c3571054462b95596993db7bd933a681",
         "sourceContract": {
           "sourceShapes": [
             "single-file"
@@ -507,7 +271,7 @@
         "kind": "Track",
         "subjectFqn": "codument.resource_kind.Track",
         "ownerPackageId": "depa-codument-domain-contract",
-        "ownerPackageFingerprint": "sha256:19ab94c4c969ed7d50b10bc1d52ffa0382230cea091592e4f9dd11f82f80696c",
+        "ownerPackageFingerprint": "sha256:e59e71ad8d12da20efec39e7513326c2c3571054462b95596993db7bd933a681",
         "sourceContract": {
           "sourceShapes": [
             "directory"
@@ -604,22 +368,6 @@
       "compatibilityPolicy": "exact"
     },
     {
-      "readerId": "codument.Behavior.reader/v1",
-      "subjectFqn": "codument.resource_kind.Behavior",
-      "readerSpecVersion": 1,
-      "contractFingerprint": "sha256:aa4ff659cd97536f9a667a6e4ed4e287115954a98e27ca682b6a2ecb69e354cd",
-      "readerImplementationFingerprint": "sha256:1b4cbf014cd26bdecfd91daf73ba3f6a8ebb523252787572f4dc3cd15e169b62",
-      "compatibilityPolicy": "exact"
-    },
-    {
-      "readerId": "codument.BehaviorPatch.reader/v1",
-      "subjectFqn": "codument.resource_kind.BehaviorPatch",
-      "readerSpecVersion": 1,
-      "contractFingerprint": "sha256:c6c1f0409084a22e7aa089489f36f98b0de1ec2accb90fad2fac5ca886eda18d",
-      "readerImplementationFingerprint": "sha256:2573c3d6e07c8e140b0196b0514892847aa41bb292c7c9ae8fa36a4f52f42352",
-      "compatibilityPolicy": "exact"
-    },
-    {
       "readerId": "codument.decision.reader/v1",
       "subjectFqn": "codument.resource_kind.decision",
       "readerSpecVersion": 1,
@@ -628,27 +376,11 @@
       "compatibilityPolicy": "exact"
     },
     {
-      "readerId": "codument.EngineeringConfig.reader/v1",
-      "subjectFqn": "codument.resource_kind.EngineeringConfig",
-      "readerSpecVersion": 1,
-      "contractFingerprint": "sha256:4f760aa8582ff0d01afdb022d6aa7f950b8271645d1563f56f356583ddcc00e3",
-      "readerImplementationFingerprint": "sha256:ae6b435fb1f8e139c2685c981589137e94248a0e60a9130f242c26a1baa52c7f",
-      "compatibilityPolicy": "exact"
-    },
-    {
       "readerId": "codument.Mission.reader/v1",
       "subjectFqn": "codument.resource_kind.Mission",
       "readerSpecVersion": 1,
       "contractFingerprint": "sha256:d4f214edc4ca85614eb651f0eefbe549ec588bb7dd3380e061977ada533453f6",
       "readerImplementationFingerprint": "sha256:993820db72185fa690e3ce94039f4d678070a659b1541594e83153f0602affc2",
-      "compatibilityPolicy": "exact"
-    },
-    {
-      "readerId": "codument.ModelingConfig.reader/v1",
-      "subjectFqn": "codument.resource_kind.ModelingConfig",
-      "readerSpecVersion": 1,
-      "contractFingerprint": "sha256:c58d20c1af520d4a72c840f4744686b602db66c838066022d02c6eede7adb3a6",
-      "readerImplementationFingerprint": "sha256:7d46285ba8028c33dd16c0f610a9f90d430265cf6a614ccc1ea17b134d025a64",
       "compatibilityPolicy": "exact"
     },
     {

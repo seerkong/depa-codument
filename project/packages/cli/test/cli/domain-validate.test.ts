@@ -8,7 +8,6 @@ const track = `<Track #example ${envelope} {status="in_progress" goal="Validate"
 <Ports {scope="track"} [<MaterialBundle {name="docs" role="output" domain="docs" path="vfs://./docs/"}>]>
 <TaskSpace #TS (<SubNodes [<TaskGroup #G1 {status="ACTIVE" child_mode="sequential"} (<SubNodes [<Task #T1 {status="DONE"} (<Acceptance [<Criterion #C1 {checked=false} ?>Keep gate</?>]>)>]>)>]>)>
 <Schedule []><Hooks []>)>`;
-const patch = `<BehaviorPatch #track.example.behavior_patch.cli ${envelope} {capability="cli"} (<Mutations [<Delete {selector="behavior://cli/requirements/old"}>]>)>`;
 async function invoke(root: string, args: string[]) {
   const child = Bun.spawn([process.execPath, path.resolve(import.meta.dir, '../../src/cli/index.ts'), '-w', root, ...args], { stdout: 'pipe', stderr: 'pipe' });
   const [code, stdout, stderr] = await Promise.all([child.exited, new Response(child.stdout).text(), new Response(child.stderr).text()]);
@@ -24,14 +23,13 @@ it('historical completion is visible in real CLI validation and show, never an u
   const root = await fs.mkdtemp(path.join(os.tmpdir(), 'codument-history-cli-'));
   const directory = 'codument/tracks/archived/2026-01/example', file = directory + '/track.xnl';
   try {
-    await fs.mkdir(path.join(root, directory, 'behavior_deltas'), { recursive: true });
+    await fs.mkdir(path.join(root, directory), { recursive: true });
     const legacy = track.replace(envelope, 'apiVersion="codument.tech/v1alpha1"')
       .replace('status="in_progress"', 'status="completed"').replace('status="ACTIVE"', 'status="DONE"').replace('checked=false', '');
     const plan = planResourceMigration({ path: file, source: legacy });
     expect(plan.status).toBe('planned');
     await fs.writeFile(path.join(root, file), plan.proposal!.source!);
     for (const name of ['proposal.md', 'design.md']) await fs.writeFile(path.join(root, directory, name), 'Original material');
-    await fs.writeFile(path.join(root, directory, 'behavior_deltas/delta.xnl'), patch);
     const result = await invoke(root, ['validate', 'archived/2026-01/example', '--strict', '--json']);
     expect(result.code, result.stdout + result.stderr).toBe(0);
     expect(result.stdout).toContain('NOT reverified');
@@ -56,13 +54,13 @@ it('validates complete process closures and preserves strict severity, text/JSON
     const directory = 'codument/tracks/active/example';
     await write(directory + '/track.xnl', track);
     for (const file of ['proposal.md', 'design.md']) await write(directory + '/' + file, 'keep');
-    await write(directory + '/behavior_deltas/nested/delta.xnl', patch);
+
     const decision = `<decision #same ${envelope} {status="accepted"}>`;
     await write(directory + '/decisions.xnl', decision);
     await write(directory + '/analysis/decision-tree.xnl', decision);
     const normal = await invoke(root, ['validate', 'example', '--json']);
     expect(normal.code).toBe(0); expect(normal.stderr).toBe('');
-    expect(normal.stdout).toStartWith('✓ example: track.xnl OK + 1 behavior delta(s) (1 warning)\n');
+    expect(normal.stdout).toStartWith('✓ example: track.xnl OK (1 warning)\n');
     expect(findings(normal.stdout).map(finding => [finding.rule, finding.severity])).toEqual([['track.lifecycle.done-criterion', 'warning']]);
     const strict = await invoke(root, ['validate', 'example', '--strict', '--json']);
     expect(strict.code).toBe(1); expect(findings(strict.stdout)[0].severity).toBe('error');
@@ -70,16 +68,10 @@ it('validates complete process closures and preserves strict severity, text/JSON
     const missing = await invoke(root, ['validate', 'example', '--json']);
     expect(missing.code).toBe(1); expect(findings(missing.stdout).map(finding => finding.rule)).toContain('track.required-file');
     await write(directory + '/design.md', 'keep');
-    await write(directory + '/behavior_deltas/nested/delta.xnl', patch.replace('<Delete {selector="behavior://cli/requirements/old"}>', ''));
-    const emptyPatch = await invoke(root, ['validate', 'example', '--json']);
-    expect(emptyPatch.code).toBe(1); expect(findings(emptyPatch.stdout).map(finding => finding.rule)).toContain('behavior.patch.mutations');
-    await write(directory + '/behavior_deltas/nested/delta.xnl', patch);
+
     await write(directory + '/analysis/decision-tree.xnl', '<decision #old>');
     expect((await invoke(root, ['validate', 'example', '--json'])).code).toBe(1);
     await write(directory + '/analysis/decision-tree.xnl', decision);
-    await write('codument/behaviors/nested/feature.xnl', `<Behavior #feature ${envelope} (<Requirements [<Requirement #R1 (<Statement ?>Keep</?>)>]>)>`);
-    const behavior = await invoke(root, ['validate', 'nested/feature', '--json']);
-    expect(behavior.code).toBe(0); expect(findings(behavior.stdout)).toEqual([]);
     const created = await invoke(root, ['mission', 'create', 'unfinished', '--stage', 'pending']);
     expect(created.code).toBe(0);
     const draft = await invoke(root, ['validate', 'unfinished', '--json']);

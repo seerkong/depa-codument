@@ -20,12 +20,6 @@ export function formatDomainQuery(result: DomainQueryResult): string {
       ...result.value.map(track => `  ${status(track.metadata.status)}   ${track.id.padEnd(32)}${track.metadata.type.padEnd(10)}${track.taskSummary ? progress(track.taskSummary) : '-'}`),
       `\nTotal: ${result.value.length} track(s)\n`].join('\n');
   }
-  if (result.kind === 'specs') {
-    if (!result.value.length) return 'No specifications found.';
-    return ['\nSpecifications:\n', '  ID                          Format      Requirements  Scenarios', '  ' + '-'.repeat(72),
-      ...result.value.map(spec => `  ${spec.id.padEnd(28)}${spec.format.padEnd(12)}${String(spec.requirements).padStart(8)}${String(spec.scenarios).padStart(10)}`),
-      `\nTotal: ${result.value.length} spec(s)\n`].join('\n');
-  }
   if (result.kind === 'track') {
     const track = result.value, metadata = track.metadata;
     const lines = [...heading('Track', track.id), `\nStatus:      ${status(metadata.status)} ${metadata.status}`, `Type:        ${metadata.type}`,
@@ -38,13 +32,9 @@ export function formatDomainQuery(result: DomainQueryResult): string {
     const standard = ['proposal.md', 'track.xnl', 'track.xml', 'design.md', 'decisions.xnl', 'decisions.md'];
     for (const file of standard) lines.push(`  ${track.files?.includes(file) ? '✓' : '✗'} ${file}`);
     const deltas = track.files?.filter(file => !standard.includes(file)) ?? [];
-    lines.push(...(deltas.length ? deltas.map(file => `  ✓ ${file}`) : ['  ✗ behavior_deltas/**/*.xnl']), '');
+    if (deltas.length) lines.push(...deltas.map(file => `  ✓ ${file}`));
+    lines.push('');
     return lines.join('\n');
-  }
-  if (result.kind === 'spec') {
-    const spec = result.value;
-    return [...heading('Spec', spec.id), '\nFormat: XNL', `Requirements: ${spec.requirements}`, `Scenarios: ${spec.scenarios}`,
-      '\nFiles:', `  ✓ ${spec.id}.xnl`, ''].join('\n');
   }
   if (result.kind !== 'decision') throw new Error('Status requires the product status presentation.');
   const value = result.value;
@@ -59,9 +49,9 @@ export function formatDomainQuery(result: DomainQueryResult): string {
 
 export function createQueryCommands<R extends CodumentDomainCommandRuntime>(): CommandDefinition<R>[] {
   return (['list', 'show'] as const).map((operation): CommandDefinition<R> => {
-    const usage = operation === 'list' ? 'codument list [--behaviors|--specs] [--json]' : 'codument show <id|decision://id> [--type track|spec|decision] [--json] [--include-content]';
+    const usage = operation === 'list' ? 'codument list [--json]' : 'codument show <id|decision://id> [--type track|decision] [--json] [--include-content]';
     const options = operation === 'list'
-      ? [{ name: 'behaviors', kind: 'boolean' as const }, { name: 'specs', kind: 'boolean' as const }]
+      ? []
       : [{ name: 'type', kind: 'value' as const }, { name: 'include-content', kind: 'boolean' as const }];
     return { name: operation, summary: `Query Codument ${operation === 'list' ? 'resources' : 'resource details'}.`, usage: [usage], examples: [],
       doc: { summary: usage, usage: [usage], examples: [], options: [...options.map(option => `--${option.name}`), '--json'] },
@@ -70,9 +60,9 @@ export function createQueryCommands<R extends CodumentDomainCommandRuntime>(): C
         if (positional.length !== (operation === 'list' ? 0 : 1)) throw new Error(`Usage: ${usage}`);
         if (!runtime.domain) throw new Error('Codument domain runtime is not configured.');
         const type = options.type;
-        if (type !== undefined && type !== 'track' && type !== 'spec' && type !== 'decision') throw new Error('Unknown item type; expected track, spec or decision.');
+        if (type !== undefined && type !== 'track' && type !== 'decision') throw new Error('Unknown item type; expected track or decision.');
         const result = operation === 'list'
-          ? await runtime.domain.query({ operation, behaviors: options.behaviors === true || options.specs === true })
+          ? await runtime.domain.query({ operation })
           : await runtime.domain.query({ operation, id: positional[0], type, includeContent: options['include-content'] === true });
         return { code: 0, domainOutput: result.value, message: formatDomainQuery(result) };
       },
