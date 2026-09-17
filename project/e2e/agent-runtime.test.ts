@@ -3,6 +3,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { resolveAgentRuntime, skeletonFromSchema } from './agent-runtime';
 import { parseStructuredDelivery } from './workload';
+import type { Run } from './runtime';
 
 function traceFile(records: unknown[]): string {
   const dir = fs.mkdtempSync('/tmp/depa-codument-e2e-unit-');
@@ -215,7 +216,7 @@ test('review verdict is a file; chat is not the implementation envelope', async 
   const { readReviewVerdict, reviewVerdictPath } = await import('./workload');
   const { ReviewerInfrastructureFailure } = await import('./integrity');
   const home = fs.mkdtempSync('/tmp/depa-codument-e2e-unit-');
-  const run = { root: home, workspace: home, home, env: {} };
+  const run: Run = { root: home, workspace: home, home, bin: path.join(home, 'bin/depa-codument'), env: {} };
   try {
     const missing = () => readReviewVerdict(run, 'review-0', path.join(home, 'missing-last.md'), '/s');
     expect(missing).toThrow(ReviewerInfrastructureFailure);
