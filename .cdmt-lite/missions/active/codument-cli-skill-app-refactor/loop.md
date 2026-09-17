@@ -600,6 +600,8 @@ Round: 49
 
 ## Actual state
 
+- Round46（XNL 作者面专项收口，E386）：用户会话 `f76ab893` 昨日被打断，三个问题未答；本轮先补答再续做。（1）确认 `?</?>` 独立 lint 拆除方向正确（字节不可判定，只保留解析失败提示），三处文档/实现一致；（2）需求第 2 条 SKILL.md 高优引用已核实落地；（3）清除 products 层中文残留（workspace SKILL/install 仍宣称维护已退役的 behavior/modeling/engineering），根因是 abandoned-domain 守卫 ASCII-only 且只扫 codument/std/**；（4）clone `Cannot find module` 缺口**不是产品缺陷**——`bun.lock` 所钉制品本含 `./clone`，是 node_modules/bun store 陈旧（Sep 6 < lock Sep 13），按 lock 起本地制品 registry 并清 store 后重装即复原。当前 `bun run check` = 670 pass / 0 fail / exit 0，`tsc` 0 error（原 11），lint 0。回滚点 592be14 / e3e6a46 / b8093bd。
+
 - Round45：用户确认执行真实E2E六步。旧runner调用旧bin/Skill、隔离不足、score不以失败退出，不能直接复用。开始project/e2e新runner；旧源/global保护不变。
 - Round45新增观察：临时新workspace的docs profile仍引用已移走的references/std/skill/*/index.md，真实全局App只有references/std/methods/*.md。初始化宽泛替换遗漏重定位，既有migration也漏了此中间版本URI。先共享精确映射修复init/upgrade并补悬空链接负例，重建新candidate；原候选试跑只作为校准，不冒充新二进制验收。编码AttractorCheck路径正确，其停滞命令在外层187ms复现成功，暂按Codex子代理执行通道漂移观察，不删除检查。
 

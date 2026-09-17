@@ -1826,3 +1826,46 @@
 - **顺带验证**：E2E 期间 review 发现的 CSS 层叠缺陷（`hidden` 被作者样式覆盖）在当前交付中**已修复**——实测 `#auth-view`/`#tasks-view` 的 `display` 与 `hidden` 语义一致。
 - **本会话意义**：这是 eidolon harness + deepseek-v4-flash + opencli 组合下**首次完整跑通并用真实浏览器验收**的业务用例；此前同一 todo 用例在本会话的 5 次试次中全部止步于 epoch 冲突、输出格式或 UI 基础设施问题。
 - **操作备注**：首次启动 `ui-server` 时遗漏 `E2E_AGENT=eidolon`，触发 `Resume agent mismatch`；立即以正确参数重启并在 5 分钟窗口内取得 lease（未造成超时）。
+
+### E386 — XNL 作者面专项收口 + clone 安装缺口（根因：node_modules 陈旧）
+
+**A. XNL 作者面专项三个未答问题收口**（源会话 `f76ab893` 被打断，`Q1/Q2/Q3` 未曾正面回答）
+
+- Q3 `jsonl` 绝对路径 = `/Users/kongweixian/.claude/projects/-Users-kongweixian-infra-dev-depa-codument/f76ab893-ff84-43c0-a087-8e5c95876583.jsonl`（3316 行 / 11.3 MB）。
+- Q1「是在做 xnl 的 schema 校验系统吗」= **不是**。`schema` 是只读作者面提示（`renderKindSchema`，stdout 为 XNL），当时已测过；被打断时在做的事是**拆除**专项早期引入的 `?</?>` 独立 lint，理由是字节层不可判定：`text?` + `</?>`（合法）与 `text` + `?</?>`（突变）完全相同，故对任何以 `?` 结尾的正文误报，并已致 3 个测试变红。修法为只保留解析失败路径的 `explainXnlParseError` 提示。核实：三个位置（诊断器 / `xnl-format.md` / `SKILL.md`）一致，且新 lint 引用已清零。
+- Q2「问题看到了吗」= **当时确实没答**；本轮回补。
+- 核实需求第 2 条（`xnl-format.md` 在 SKILL.md 高优显示）**已落地**：`SKILL.md:28` 有「XNL 是磁盘真源，不可降级」段落并链到 `references/std/spec/xnl-format.md`。
+
+**B. 退役域残留清除**（新证据，非会话自称）
+
+`behavior|modeling|engineering` 已从代码与 60 个文件退役，但新产品的 workspace 层仍对外宣称维护这些域：
+
+- `workspace-assets/codument/SKILL.md` description 称维护「行为、决策与工程知识」，而该 App 不再发行 `behaviors/`、`engineering/`。
+- `workspace-install.ts` 安装的 `codument/SKILL.md` 正文称「Track、Mission、行为、决策、配置与知识」。
+- `domain-contract/archive.ts` 的 `configs` 声明 `modeling`/`engineering`；实际只有 `profiles` 被写入。
+- 根因：`std.legacy.abandoned-domain` 守卫是 **ASCII-only**，且只扫 `codument/std/**`，因此 workspace 层资产里的中文域名词逃逸。已在源头改正（未放宽守卫以免误报通用模板 prose）。
+
+**C. clone module-resolution 缺口 — 根因是安装陈旧，不是产品缺陷**
+
+- 症状：`bun test packages` 报 `Cannot find module 'halfcode-cli-lite-cli-host-logic/clone'`，2 fail / 2 error；`tsc` 另报 7 处。
+- **决定性证据**：`bun.lock` 钉的 `69f561bc…` 制品**本身含** `./clone` + `./clone-scaffold`；解包 `verification/host-release-round-44-contract-011-final/69f561bc…tgz` 得 exports 含 clone、`src/clone.ts` 存在。而 `node_modules` 内副本（Sep 6）**早于** `bun.lock`（Sep 13），缺 3 个 clone 文件，其余文件逐字节相同。
+- 锁覆盖：该 round-44 制品集含 lock 引用的**全部 157/157** 制品。
+- 修复：以本地制品集起 registry（钉回 lock 的 `127.0.0.1:65415`），清除 bun store 中 3 个陈旧条目后 `bun install --frozen-lockfile`。Bun 的 store 按 `name@version` 键控，故仅删 node_modules 或仅重装都不会重新拉取——必须同时清 store 条目。
+- 结果：clone 8 测试全过；`tsc --noEmit` 归零（原 11 处，其中 4 处为 `e2e/agent-runtime.test.ts` 的 `Run` 缺 `bin` 类型缺陷，已按规范补 `<home>/bin/depa-codument`）。
+
+**D. 本轮验证（真实命令）**
+
+| 命令 | 结果 |
+|---|---|
+| `bun test packages` | 612 pass / 0 fail（原 604/2/2err） |
+| `bun test e2e` | 58 pass / 0 fail |
+| `bunx tsc --noEmit` | 0 error（原 11） |
+| `bunx eslint packages scripts e2e` | exit 0 |
+| `bun run check`（官方） | **670 pass / 0 fail，exit 0** |
+| 重装后再验 clone exports | 仍在（修复持久） |
+
+**E. 回滚点**
+
+- `592be14` XNL 作者面专项 227 项改动 checkpoint（含 fill 废弃、schema CLI、三域退役）
+- `e3e6a46` 退役域残留清除
+- `b8093bd` e2e `Run` 类型修正
