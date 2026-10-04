@@ -58,6 +58,10 @@ try {
     if (await fs.exists(join(source, lock)) && !await fs.exists(join(target, lock))) await copy(join(source, lock));
   }
   await copy(join(source, 'project/node_modules'));
+  if(process.argv.includes('--legacy-deps')) {
+    await copy(join(source,'node_modules'));
+    if(await fs.exists(join(source,'bun.lock'))) await copy(join(source,'bun.lock'));
+  }
   for (const name of await fs.readdir(join(source, 'project/packages'))) {
     const packageRoot = join(source, 'project/packages', name);
     if (await fs.exists(join(target, 'project/packages', name, 'package.json')) && await fs.exists(join(packageRoot, 'node_modules'))) await copy(join(packageRoot, 'node_modules'));

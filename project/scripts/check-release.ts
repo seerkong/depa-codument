@@ -29,7 +29,9 @@ const contractManifest = JSON.parse(readFileSync(
   'utf8',
 )) as { name: string; version: string };
 const expectedBuilderDependencies = {
-  'halfcode-cli-lite-page-builder-vue-support': '0.1.0',
+  'halfcode-cli-lite-page-builder-vue-support': JSON.parse(readFileSync(
+    resolve(repoRoot, 'packages/page-builder-vue/package.json'), 'utf8',
+  )).dependencies['halfcode-cli-lite-page-builder-vue-support'],
   [contractManifest.name]: contractManifest.version,
   '@module-federation/runtime': '2.8.1',
   '@module-federation/vite': '1.20.1',
@@ -197,7 +199,7 @@ for (const target of RELEASE_TARGETS) {
   const builderSource = resolve(repoRoot, 'packages', 'page-builder-vue');
   const builderFiles = new Set(['package.json', 'README.md', ...collectFiles(resolve(builderSource, 'src')).map(file => relative(builderSource, file).split(sep).join('/'))]);
   const nestedManifest = JSON.parse(readFileSync(resolve(packageRoot, 'builder-vue/package.json'), 'utf8'));
-  assert.equal(nestedManifest.dependencies['halfcode-cli-lite-page-builder-vue-support'], '0.1.0');
+  assert.equal(nestedManifest.dependencies['halfcode-cli-lite-page-builder-vue-support'], expectedBuilderDependencies['halfcode-cli-lite-page-builder-vue-support']);
   assert.ok(!JSON.stringify(nestedManifest).includes('workspace:'));
   for (const required of [
     'package.json', 'README.md', expectedBin,

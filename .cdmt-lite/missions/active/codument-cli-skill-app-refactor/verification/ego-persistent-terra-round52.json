@@ -1,0 +1,287 @@
+{
+  "runs": [
+    {
+      "root": "/private/tmp/depa-codument-e2e-cq3qL4",
+      "kind": "business-trial",
+      "sourceRunRoot": null,
+      "caseId": "todo",
+      "status": "infrastructure-failed",
+      "rawStatus": "infrastructure-failed",
+      "terminalPolicy": null,
+      "resumed": false,
+      "firstPass": false,
+      "elapsedMs": 4223951,
+      "harness": {
+        "initialSha256": "166b0a5940c1c85be3a3b7ec19219441d02749938bc25ddf19b300bd96088656",
+        "acceptancePolicy": null,
+        "resumes": []
+      },
+      "workflowPolicy": {
+        "version": 2,
+        "commitMode": "manual",
+        "scope": "final-first-level-task-group",
+        "event": "phase:after",
+        "independentVerify": true,
+        "unselectedBacklog": "declare-only",
+        "hooks": {
+          "GapLoop": {
+            "enabled": false,
+            "attributes": {
+              "max_rounds": 5,
+              "on_exhausted": "block",
+              "verify_round": false
+            }
+          },
+          "AttractorCheck": {
+            "enabled": false,
+            "attributes": {
+              "use": "coding"
+            }
+          },
+          "HumanConfirm": {
+            "enabled": false,
+            "attributes": {}
+          }
+        }
+      },
+      "gateCoverage": {
+        "immutableRequirements": true,
+        "observedModels": false,
+        "uiReceipts": [
+          "ui-receipt-0.json"
+        ],
+        "baseline": "recorded"
+      },
+      "usage": {
+        "input": 6651215,
+        "cached": 6305280,
+        "output": 67157
+      },
+      "sessionAccounting": {
+        "usage": {
+          "input": 6651215,
+          "cached": 6305280,
+          "output": 67157
+        },
+        "responseCount": 159,
+        "sessionCount": 6,
+        "sessionsWithUsage": 6,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+      },
+      "topLevelUsage": {
+        "input": 5500735,
+        "cached": 5249536,
+        "output": 40044
+      },
+      "topLevelUsageComplete": true,
+      "usageEstimated": false,
+      "outputTokensUnavailable": false,
+      "moneyCost": null
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-9wSfzQ",
+      "kind": "ui-reverification",
+      "sourceRunRoot": "/private/tmp/depa-codument-e2e-cq3qL4",
+      "caseId": "todo",
+      "status": "infrastructure-failed",
+      "rawStatus": "infrastructure-failed",
+      "terminalPolicy": null,
+      "resumed": false,
+      "firstPass": null,
+      "elapsedMs": null,
+      "harness": {
+        "initialSha256": "16b917f1a739fa5a8c3c171de291060af0fe421a992669b548b12a467d799342",
+        "acceptancePolicy": "fresh-agent-semantic-v1",
+        "resumes": []
+      },
+      "workflowPolicy": null,
+      "gateCoverage": {
+        "immutableRequirements": false,
+        "observedModels": false,
+        "uiReceipts": [
+          "ui-receipt-0.json"
+        ],
+        "baseline": "recorded"
+      },
+      "usage": {
+        "input": 1548153,
+        "cached": 1466368,
+        "output": 11368
+      },
+      "sessionAccounting": {
+        "usage": {
+          "input": 1548153,
+          "cached": 1466368,
+          "output": 11368
+        },
+        "responseCount": 60,
+        "sessionCount": 1,
+        "sessionsWithUsage": 1,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+      },
+      "topLevelUsage": {
+        "input": 1548153,
+        "cached": 1466368,
+        "output": 11368
+      },
+      "topLevelUsageComplete": true,
+      "usageEstimated": false,
+      "outputTokensUnavailable": false,
+      "moneyCost": null
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-Fq8mwC",
+      "kind": "ui-reverification",
+      "sourceRunRoot": "/private/tmp/depa-codument-e2e-cq3qL4",
+      "caseId": "todo",
+      "status": "failed",
+      "rawStatus": "failed",
+      "terminalPolicy": null,
+      "resumed": false,
+      "firstPass": null,
+      "elapsedMs": null,
+      "harness": {
+        "initialSha256": "01d6d0e6b60c6dedc3a2e43fa1234553176e5ba15b0f6b23ee05700193fb4c50",
+        "acceptancePolicy": "fresh-agent-semantic-v1",
+        "resumes": []
+      },
+      "workflowPolicy": null,
+      "gateCoverage": {
+        "immutableRequirements": false,
+        "observedModels": false,
+        "uiReceipts": [
+          "ui-receipt-0.json"
+        ],
+        "baseline": "recorded"
+      },
+      "usage": {
+        "input": 1679894,
+        "cached": 1598976,
+        "output": 11946
+      },
+      "sessionAccounting": {
+        "usage": {
+          "input": 1679894,
+          "cached": 1598976,
+          "output": 11946
+        },
+        "responseCount": 63,
+        "sessionCount": 1,
+        "sessionsWithUsage": 1,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+      },
+      "topLevelUsage": {
+        "input": 1679894,
+        "cached": 1598976,
+        "output": 11946
+      },
+      "topLevelUsageComplete": true,
+      "usageEstimated": false,
+      "outputTokensUnavailable": false,
+      "moneyCost": null
+    }
+  ],
+  "denominator": 0,
+  "excludedInfrastructureOrIncomplete": 1,
+  "uiReverifications": [
+    {
+      "root": "/private/tmp/depa-codument-e2e-9wSfzQ",
+      "sourceRunRoot": "/private/tmp/depa-codument-e2e-cq3qL4",
+      "caseId": "todo",
+      "status": "infrastructure-failed",
+      "gateCoverage": {
+        "immutableRequirements": false,
+        "observedModels": false,
+        "uiReceipts": [
+          "ui-receipt-0.json"
+        ],
+        "baseline": "recorded"
+      }
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-Fq8mwC",
+      "sourceRunRoot": "/private/tmp/depa-codument-e2e-cq3qL4",
+      "caseId": "todo",
+      "status": "failed",
+      "gateCoverage": {
+        "immutableRequirements": false,
+        "observedModels": false,
+        "uiReceipts": [
+          "ui-receipt-0.json"
+        ],
+        "baseline": "recorded"
+      }
+    }
+  ],
+  "byCase": [
+    {
+      "caseId": "todo",
+      "runs": 3,
+      "denominator": 0,
+      "firstPassRate": null,
+      "correctedPassRate": null,
+      "knownUsage": {
+        "input": 9879262,
+        "cached": 9370624,
+        "output": 90471
+      },
+      "knownUsageIsEstimated": false,
+      "outputTokensUnavailable": false,
+      "unknownUsageRuns": 0,
+      "includesExcludedTrialCosts": true
+    }
+  ],
+  "firstPassRate": null,
+  "correctedPassRate": null,
+  "usageIsEstimated": false,
+  "outputTokensUnavailable": false,
+  "warning": "Small-sample observed rates, not population guarantees. Null is unknown, never zero. Different or unrecorded workflow policies are not equal-strength cost comparisons.No API-price estimate is presented as a ChatGPT account bill.",
+  "observations": {
+    "scope": "Harness reliability and read-only review of the already-delivered Todo; no application regeneration or repair.",
+    "realReview": {
+      "root": "/private/tmp/depa-codument-e2e-Fq8mwC",
+      "model": "gpt-5.6-terra",
+      "effort": "medium",
+      "officialStatus": "failed",
+      "commands": 55,
+      "statuses": {
+        "ok": 53,
+        "error": 2
+      },
+      "recoverableErrors": [
+        "Invalid browser command: args object instead of array",
+        "Stale ref; reviewer observed a fresh snapshot and continued"
+      ],
+      "finding": "After Log out the page returns to Register or login but still displays Signed in. Display inconsistency; not proof of authentication/security failure.",
+      "sourceFingerprint": "70344e78644e33f2faa4e3368a7152515e127736bfd48d2b013228e55ddc26b9",
+      "sourceUnchanged": true,
+      "workerEndpointReleased": true
+    },
+    "latestNoModelProbe": {
+      "root": "/private/tmp/depa-codument-e2e-YoHKIY",
+      "rounds": 3,
+      "status": "passed",
+      "workerReleased": true
+    },
+    "ownerLossProbe": {
+      "root": "/private/tmp/depa-codument-e2e-6vzYC4",
+      "heartbeatTimeoutMs": 90000,
+      "endpointUnreachableAfterDeadline": true
+    },
+    "regression": {
+      "testsPassed": 74,
+      "testsFailed": 0,
+      "assertions": 411,
+      "files": 12,
+      "typecheckExit": 0,
+      "lintExit": 0
+    },
+    "limitations": [
+      "No proof of universal browser/tool/application reliability; only Ego adapter and reproduced paths verified.",
+      "No other generated application rerun. Historical Blog root not present in current /private/tmp inventory.",
+      "Pre-fix experimental remote listeners are not covered by new watchdog or cleanup; shared Ego NodeService was not killed.",
+      "9wSfzQ original infrastructure terminal remains unchanged; offline replay is not a new official receipt or PASS.",
+      "Actual Terra run preceded private-config/timer-effect/idempotent-close hardening; latest-source real fixture and regressions verify those final transport changes."
+    ]
+  }
+}

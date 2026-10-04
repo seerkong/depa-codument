@@ -6,9 +6,12 @@ import { spawn } from 'node:child_process';
 import { writeJson, loadRun, sandbox, assertTemporary, createRun, sha, type Run } from './runtime';
 import { applicationEnvironment } from './application-state';
 import { sourceFingerprint } from './integrity';
+import type { AcceptanceResult, UiAcceptanceContext } from './ui-acceptance';
+import { validateUiActions, UI_BUDGETS } from './ui-contract';
 
 const CONTROLLER_ACQUISITION_MS = 300_000;
-const BROWSER_ACCEPTANCE_MS = 900_000;
+// One lease encloses all bounded stages; never kill the app during receipt repair.
+const BROWSER_ACCEPTANCE_MS = Object.values(UI_BUDGETS).reduce((a,b)=>a+b,0);
 /** After server-ready, an operator must claim or submit a receipt. Empty 15-minute waits are infrastructure, not acceptance. */
 function operatorAttachBudgetMs(): number {
   const raw = process.env.E2E_UI_OPERATOR_ATTACH_MS;
@@ -21,8 +24,10 @@ function operatorAttachBudgetMs(): number {
 const HEALTH_READY_MS = 30_000;
 
 /** Controller failures stop a trial; they are never feedback to the business implementer. */
-export class BrowserInfrastructureFailure extends Error {}
-class BrowserAcceptanceFailure extends Error {}
+export class BrowserInfrastructureFailure extends Error {
+  constructor(message: string, readonly failureClass = 'infrastructure') { super(message); }
+}
+export class BrowserAcceptanceFailure extends Error {}
 
 type UiStatus = 'requested' | 'leased' | 'server-ready' | 'passed' | 'browser-acceptance-failed' | 'browser-controller-failed';
 type UiEvent = { at: string; status: UiStatus; actor: 'runner' | 'controller' | 'browser-operator'; detail: string };
@@ -62,10 +67,22 @@ function requestFile(root: string, attempt: number) { return path.join(root, `ui
 function stateFile(root: string, attempt: number) { return path.join(root, `ui-controller-${attempt}.json`); }
 function receiptFile(root: string, attempt: number) { return path.join(root, `ui-receipt-${attempt}.json`); }
 function operatorFile(root: string, attempt: number) { return path.join(root, `ui-operator-${attempt}.json`); }
+/**
+ * `1` means a person is already attached, so the 15-minute clock may start.
+ * `wait` only suppresses the acceptance agent; the operator file is still required,
+ * and a missing claim stays an infrastructure failure.
+ */
 function operatorAttached(root: string, attempt: number): boolean {
-  if (process.env.E2E_UI_OPERATOR === '1' || process.env.E2E_UI_OPERATOR === 'wait') return true;
+  if (process.env.E2E_UI_OPERATOR === '1') return true;
   return fs.existsSync(operatorFile(root, attempt));
 }
+/** A watching person, an external controller, or a claim that already exists. The harness must not also launch an agent. */
+function humanOperatorPath(root: string, attempt: number): boolean {
+  if (process.env.E2E_UI_OPERATOR === '1' || process.env.E2E_UI_OPERATOR === 'wait') return true;
+  if (process.env.E2E_UI_CONTROLLER === 'external') return true;
+  return fs.existsSync(operatorFile(root, attempt));
+}
+export type UiAcceptanceAccept = (ctx: UiAcceptanceContext) => Promise<AcceptanceResult>;
 export function claimUiOperator(root: string, attempt: number, claim: { browser: string; session?: string }): void {
   writeJson(operatorFile(root, attempt), { ...claim, claimedAt: new Date().toISOString() });
 }
@@ -119,17 +136,9 @@ function inspectUiReceiptIdentity(receipt: any, expected: {caseId:string;attempt
   for (const key of ['caseId','attempt','sourceFingerprint'] as const) assert.equal(receipt[key],expected[key],`Browser evidence ${key} mismatch`);
   if (expected.dataDirectory) assert.equal(receipt.dataDirectory,expected.dataDirectory,'Browser runtime state directory mismatch');
   if (expected.leaseId) assert.equal(receipt.leaseId,expected.leaseId,'Browser controller lease mismatch');
-  // The browser is an implementation detail of how the observable UI evidence
-  // was produced. ego-browser is driven through a TaskSpace (spaceId > 0);
-  // opencli drives a detached Chrome over its own bridge and carries a session
-  // name instead. Both must still produce the full typed interaction evidence
-  // below (5 coverage kinds, real observed text). This is scope broadening, not
-  // weakening: a named browser with no TaskSpace is admitted only when it also
-  // supplies a non-empty session handle.
+  if (receipt.status !== 'infrastructure-failed') assert.equal(receipt.browser, 'ego-browser', 'UI acceptance requires Ego Lite');
   if (receipt.browser === 'ego-browser') {
-    assert.ok(Number.isInteger(receipt.spaceId) && receipt.spaceId > 0, 'ego-browser evidence needs an actual TaskSpace');
-  } else if (receipt.browser === 'opencli') {
-    assert.ok(typeof receipt.session === 'string' && receipt.session.trim().length > 0, 'opencli evidence needs a named browser session');
+    assert.match(receipt.session, /^[1-9]\d*$/, 'Ego evidence needs its assigned TaskSpace id');
   } else {
     assert.ok(typeof receipt.browser === 'string' && receipt.browser.trim().length > 0, 'Browser evidence needs a browser identity');
   }
@@ -141,25 +150,14 @@ export function validateUiReceipt(receipt: any, expected: {caseId:string;attempt
     inspectUiReceiptIdentity(receipt, expected);
     if (receipt.status === 'infrastructure-failed') {
       assert.ok(typeof receipt.reason === 'string' && receipt.reason.trim(), 'Infrastructure failure requires a diagnostic reason');
-      throw new BrowserInfrastructureFailure(receipt.reason);
+      throw new BrowserInfrastructureFailure(receipt.reason,receipt.failureClass ?? 'infrastructure');
     }
     if (receipt.status === 'failed') {
       assert.ok(Array.isArray(receipt.findings) && receipt.findings.length > 0 && receipt.findings.every((finding: unknown) => typeof finding === 'string' && finding.trim()), 'Business failure requires observed findings');
       throw new BrowserAcceptanceFailure(`Browser acceptance failed: ${JSON.stringify(receipt.findings)}`);
     }
     assert.ok(Array.isArray(receipt.findings) && receipt.findings.length===0,'PASS cannot retain unresolved findings');
-    assert.ok(Array.isArray(receipt.actions) && receipt.actions.length >= 5,'Require actual UI interaction observations, not a bare HTML response');
-    const covered = new Set<string>();
-    for (const action of receipt.actions) {
-      assert.ok(['click','fill','select','dialog','observe'].includes(action.operation));
-      assert.match(action.url,/^http:\/\/127\.0\.0\.1:\d+(\/|$)/);
-      assert.ok(typeof action.target==='string' && action.target.length>0);
-      assert.ok(typeof action.observed==='string' && action.observed.length>0);
-      assert.ok(typeof action.expected==='string' && action.expected.length>0);
-      assert.ok(action.observed.includes(action.expected),'Visible browser assertion failed');
-      covered.add(action.coverage);
-    }
-    for (const coverage of ['authentication','business-create','business-update','business-query','literal-input']) assert.ok(covered.has(coverage),`Missing browser coverage: ${coverage}`);
+    validateUiActions(receipt.actions);
   } catch (error) {
     if (error instanceof BrowserAcceptanceFailure || error instanceof BrowserInfrastructureFailure) throw error;
     throw new BrowserInfrastructureFailure(`Invalid browser controller evidence: ${String(error)}`);
@@ -174,7 +172,7 @@ export function requestUiGate(run: Run, caseId: string, attempt: number, fingerp
   const request: UiRequest = {
     schema: 2, requestId: randomUUID(), caseId, attempt, sourceFingerprint: fingerprint,
     dataDirectory: env.E2E_DATA_DIR!, status: 'awaiting-ui', workspace: run.workspace,
-    serverCommand: config.command, controllerCommand: ['bun', 'e2e/run.ts', 'ui-server', run.root, '--bin=' + run.bin],
+    serverCommand: config.command, controllerCommand: [process.execPath, path.join(import.meta.dir, 'run.ts'), 'ui-server', run.root, '--bin=' + run.bin],
     createdAt: new Date().toISOString(), ...(reverify ? { reverify } : {}),
   };
   assertRequest(request);
@@ -185,33 +183,105 @@ export function requestUiGate(run: Run, caseId: string, attempt: number, fingerp
   return request;
 }
 
-/** The runner only waits; the controller itself owns lease/ready/terminal transitions. */
-export async function awaitUiGate(run: Run, caseId: string, attempt: number, fingerprint: string, reverify?: UiRequest['reverify']) {
+/**
+ * Runner starts the documented controller, then either waits for a watching person
+ * or launches the acceptance agent. It still cannot lease a server. The official
+ * receipt is written only after the agent's proposal is admitted against a browser trace.
+ */
+export async function awaitUiGate(run: Run, caseId: string, attempt: number, fingerprint: string, reverify?: UiRequest['reverify'], accept?: UiAcceptanceAccept) {
   const request = requestUiGate(run, caseId, attempt, fingerprint, reverify);
+  const controller = startRequestedController(run, request);
   const acquisitionDeadline = Date.now() + CONTROLLER_ACQUISITION_MS;
   let acceptanceDeadline: number | undefined;
   let attachDeadline: number | undefined;
-  while (true) {
-    const state = readState(run.root, attempt); assertRequestState(request, state);
-    if (state.status === 'server-ready' && !attachDeadline) {
-      assert.ok(state.serverReadyAt, 'Ready UI controller lacks ready timestamp');
-      attachDeadline = Date.parse(state.serverReadyAt) + operatorAttachBudgetMs();
+  let acceptanceStarted = false;
+  try {
+    while (true) {
+      const state = readState(run.root, attempt); assertRequestState(request, state);
+      if (controller && controller.exitCode() !== null && state.status === 'requested') throw new BrowserInfrastructureFailure(`UI controller exited before leasing the server: ${controller.tail()}`);
+      if (state.status === 'server-ready' && !acceptanceStarted && !humanOperatorPath(run.root, attempt)) {
+        acceptanceStarted = true;
+        await launchAcceptanceAgent(run, request, state, accept);
+        continue;
+      }
+      if (state.status === 'server-ready' && !attachDeadline) {
+        assert.ok(state.serverReadyAt, 'Ready UI controller lacks ready timestamp');
+        attachDeadline = Date.parse(state.serverReadyAt) + operatorAttachBudgetMs();
+      }
+      if (state.status === 'server-ready' && !acceptanceDeadline && operatorAttached(run.root, attempt)) {
+        assert.ok(state.serverReadyAt, 'Ready UI controller lacks ready timestamp');
+        acceptanceDeadline = Date.parse(state.serverReadyAt) + BROWSER_ACCEPTANCE_MS;
+      }
+      if (['passed', 'browser-acceptance-failed', 'browser-controller-failed'].includes(state.status)) {
+        if (!state.receiptFile) throw new BrowserInfrastructureFailure(state.reason ?? 'UI controller reached terminal state without a receipt');
+        const receipt = readJson(state.receiptFile);
+        validateUiReceipt(receipt, { ...request, leaseId: state.leaseId });
+        return receipt;
+      }
+      if (!attachDeadline && Date.now() >= acquisitionDeadline) throw new BrowserInfrastructureFailure('UI controller did not lease and start the requested server within 5 minutes');
+      if (attachDeadline && !acceptanceDeadline && Date.now() >= attachDeadline) throw new BrowserInfrastructureFailure('No browser operator attached after server-ready');
+      if (acceptanceDeadline && Date.now() >= acceptanceDeadline) throw new BrowserInfrastructureFailure('UI controller did not finalize browser evidence within 15 minutes after server-ready');
+      await Bun.sleep(250);
     }
-    if (state.status === 'server-ready' && !acceptanceDeadline && operatorAttached(run.root, attempt)) {
-      assert.ok(state.serverReadyAt, 'Ready UI controller lacks ready timestamp');
-      acceptanceDeadline = Date.parse(state.serverReadyAt) + BROWSER_ACCEPTANCE_MS;
-    }
-    if (['passed', 'browser-acceptance-failed', 'browser-controller-failed'].includes(state.status)) {
-      if (!state.receiptFile) throw new BrowserInfrastructureFailure(state.reason ?? 'UI controller reached terminal state without a receipt');
-      const receipt = readJson(state.receiptFile);
-      validateUiReceipt(receipt, { ...request, leaseId: state.leaseId });
-      return receipt;
-    }
-    if (!attachDeadline && Date.now() >= acquisitionDeadline) throw new BrowserInfrastructureFailure('UI controller did not lease and start the requested server within 5 minutes');
-    if (attachDeadline && !acceptanceDeadline && Date.now() >= attachDeadline) throw new BrowserInfrastructureFailure('No browser operator attached after server-ready');
-    if (acceptanceDeadline && Date.now() >= acceptanceDeadline) throw new BrowserInfrastructureFailure('UI controller did not finalize browser evidence within 15 minutes after server-ready');
-    await Bun.sleep(250);
+  } finally { controller?.stop(); }
+}
+
+/** Claim before the model call. The controller's attach window does not wait for an agent. */
+async function launchAcceptanceAgent(run: Run, request: UiRequest, state: UiControllerState, accept?: UiAcceptanceAccept): Promise<void> {
+  if (!state.origin || !state.leaseId) throw new BrowserInfrastructureFailure('Ready UI controller lacks lease or origin');
+  const session = String((await import('./ego-tools')).egoSpace());
+  claimUiOperator(run.root, request.attempt, { browser: 'acceptance-agent', session });
+  const ctx: UiAcceptanceContext = {
+    run, caseId: request.caseId, attempt: request.attempt, origin: state.origin, leaseId: state.leaseId,
+    sourceFingerprint: request.sourceFingerprint, dataDirectory: request.dataDirectory, session,
+  };
+  console.log(JSON.stringify({ phase: 'ui-acceptance-agent', root: run.root, attempt: request.attempt, origin: state.origin, session }));
+  try {
+    const acceptance = accept ?? (async (context: UiAcceptanceContext) => {
+      const { runUiAcceptance } = await import('./ui-acceptance');
+      return runUiAcceptance(context);
+    });
+    const { proposal, trace, scenario } = await acceptance(ctx);
+    ctx.scenario = scenario;
+    const { admitAcceptance } = await import('./ui-acceptance');
+    submitUiReceipt(run.root, run.bin, admitAcceptance(proposal, ctx, trace));
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : String(error);
+    const failureClass = (error as {failureClass?: string}).failureClass ?? 'infrastructure';
+    if (!(error instanceof BrowserInfrastructureFailure)) submitAcceptanceInfrastructure(run, ctx, reason, failureClass);
+    if (error instanceof BrowserInfrastructureFailure) throw error;
+    throw new BrowserInfrastructureFailure(reason,failureClass);
   }
+}
+
+function submitAcceptanceInfrastructure(run: Run, ctx: UiAcceptanceContext, reason: string, failureClass: string): void {
+  try {
+    submitUiReceipt(run.root, run.bin, {
+      caseId: ctx.caseId, attempt: ctx.attempt, sourceFingerprint: ctx.sourceFingerprint,
+      dataDirectory: ctx.dataDirectory, leaseId: ctx.leaseId, browser: 'acceptance-agent',
+      status: 'infrastructure-failed', failureClass, reason: reason.trim() || 'Acceptance infrastructure failure',
+    });
+  } catch { /* a terminal controller still leaves this trial as infrastructure */ }
+}
+
+/** `E2E_UI_CONTROLLER=external` leaves the lease to a process the caller starts. The default must not wait for a human to type ui-server. */
+function startRequestedController(run: Run, request: UiRequest): { exitCode: () => number | null; tail: () => string; stop: () => void } | undefined {
+  if (process.env.E2E_UI_CONTROLLER === 'external') return undefined;
+  const command = request.controllerCommand;
+  assert.ok(command.length > 0 && command.every(part => part.length > 0), 'Invalid UI controller command');
+  const logPath = path.join(run.root, 'logs', `ui-controller-${request.attempt}.log`);
+  fs.mkdirSync(path.dirname(logPath), { recursive: true });
+  const out = fs.openSync(logPath, 'wx', 0o600);
+  let spawnError: Error | undefined;
+  const child = spawn(command[0]!, command.slice(1), { cwd: path.resolve(import.meta.dir, '..'), env: process.env, stdio: ['ignore', out, out] });
+  fs.closeSync(out);
+  child.unref();
+  child.on('error', (error) => { spawnError = error; });
+  return {
+    exitCode: () => spawnError ? 1 : child.exitCode,
+    tail: () => { try { return fs.readFileSync(logPath, 'utf8').slice(-2000); } catch { return spawnError ? String(spawnError) : ''; } },
+    stop: () => { if (child.pid && child.exitCode === null && !child.killed) try { child.kill('SIGTERM'); } catch { /* already stopped */ } },
+  };
 }
 
 function waitForHealth(origin: string, deadline: number): Promise<void> {
@@ -248,6 +318,7 @@ export async function serveUi(root: string, candidate: string) {
   const argv = sandbox(run, request.serverCommand);
   const child: import('node:child_process').ChildProcess = spawn(argv[0]!, argv.slice(1), { cwd: run.workspace, env: { ...env, PORT: String(port) }, detached: true, stdio: ['ignore', out, out] as any });
   fs.closeSync(out);
+  const disarm = armAppStop(() => child.pid);
   try {
     await waitForHealth(origin, Date.now() + HEALTH_READY_MS);
     state = readState(root, attempt); assertRequestState(request, state);
@@ -281,7 +352,16 @@ export async function serveUi(root: string, candidate: string) {
       writeState(root, state);
     }
     throw error;
-  } finally { stopProcessGroup(child.pid); }
+  } finally { disarm(); stopProcessGroup(child.pid); }
+}
+function armAppStop(pid: () => number | undefined): () => void {
+  const onStop = () => {
+    stopProcessGroup(pid());
+    if (process.argv.includes('ui-server')) process.exit(1);
+  };
+  process.on('SIGTERM', onStop);
+  process.on('SIGINT', onStop);
+  return () => { process.off('SIGTERM', onStop); process.off('SIGINT', onStop); };
 }
 
 /** Browser actor submits a typed terminal receipt through the suite authority, never by hand-writing a run file. */
@@ -309,7 +389,7 @@ export function createUiReverification(sourceRunRoot: string, candidate: string)
   sourceRunRoot = assertTemporary(sourceRunRoot);
   const sourceProvenance = readJson(path.join(sourceRunRoot, 'provenance.json'));
   const sourceResult = readJson(path.join(sourceRunRoot, 'result.json'));
-  assert.ok(['todo', 'blog'].includes(sourceProvenance.caseId), 'Only completed Todo and Blog workspaces are eligible for historical UI re-verification');
+  assert.ok(['todo', 'blog', 'ecommerce'].includes(sourceProvenance.caseId), 'Only supported completed browser workspaces are eligible for historical UI re-verification');
   assert.equal(sourceResult.status, 'infrastructure-failed', 'Historical UI re-verification preserves only infrastructure-failed trials');
   assert.equal(sourceProvenance.sha256, sha(candidate), 'Historical candidate identity mismatch');
   const requests = fs.readdirSync(sourceRunRoot).flatMap(file => /^ui-request-(\d+)\.json$/.test(file) ? [normalizeHistoricalRequest(readJson(path.join(sourceRunRoot, file)))] : []).sort((a, b) => b.attempt - a.attempt);

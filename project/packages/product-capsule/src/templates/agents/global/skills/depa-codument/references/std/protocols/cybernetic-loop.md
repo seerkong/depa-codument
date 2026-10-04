@@ -6,6 +6,8 @@ mission 不是「算一个答案」，而是当控制器：把**实际态**持�
 
 规划期（`plan-mission`）主要由 **MissionPlanner** 把期望态写出来；执行期（`impl-mission`）进入闭环。缺下面任一要素，就不要当 mission 硬跑。
 
+共同的目标理解、未知处理、观察选择与失败反馈遵循 [workflow 的“目标—观察—行动”](../methods/workflow.md)。用户意图与已确认约束决定终点，DAG/技术路线只是实现假设；调和不得以测试绿色或路线失效反向缩小目标。
+
 ```text
 期望态 ──┐     mission.xnl DAG、proposal 成功判据、design 控制目标
          ▼
@@ -49,4 +51,3 @@ mission 不是「算一个答案」，而是当控制器：把**实际态**持�
 | `MissionApplier` | 幂等执行叶子操作，并在动作内验证 |
 
 顺序：Observer → Reconciler →（ready 则）Applier → Observer。Planner 只在建档或计划失效时上场。不要在观察阶段改代码或 DAG，不要在应用阶段凭记忆改期望态。
-

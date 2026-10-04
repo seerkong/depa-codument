@@ -120,7 +120,8 @@ export const CODUMENT_LEGACY_MANAGED_FINGERPRINTS: Readonly<Record<string, reado
   ],
   "codument/std/operations/plan-track.md": [
     "sha256:db4ac8d8b2c49a6cf448fbd75f790c9bcf0b201f4edcb0fcc2788333373265c7",
-    "sha256:09659e135f01ee0eb6b2164a43d0c66e5047b7fd212323f201519e571b9f6970"
+    "sha256:09659e135f01ee0eb6b2164a43d0c66e5047b7fd212323f201519e571b9f6970",
+    "sha256:6b21dc87801f3ed128af074f177d5494d79615cb7105fa3e960a090c50846578"
   ],
   "codument/std/operations/validate.md": [
     "sha256:f979de176f6aa76e5a6938c604162708d7f3675e01b2125876a94dd5b984d43b"
@@ -190,6 +191,7 @@ export const CODUMENT_LEGACY_MANAGED_FINGERPRINTS: Readonly<Record<string, reado
     "sha256:bc0e6863e6e0d2ce7ff15f440e5e8fda6580f41b0f169451b593f4a52d119f44"
   ],
   "codument/std/spec/xnl-format.md": [
-    "sha256:dde1ac3aa8f715e62d4531bee89f6762780de0e6963245a6c8965613f99487bd"
+    "sha256:dde1ac3aa8f715e62d4531bee89f6762780de0e6963245a6c8965613f99487bd",
+    "sha256:c254abbced19a400da854da68775adb9b0825b31e7eb964c99583811d8e23a43"
   ]
 };

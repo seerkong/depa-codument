@@ -1,0 +1,39 @@
+{
+  "kind": "read-only native-trace contract replay, NOT official trial/UI results",
+  "harnessSha256": "416ab3f61baaf563886f94c91fa4775e8fd64b5c06850d6a9b7f2e523e0bb5d9",
+  "rows": [
+    {
+      "root": "/private/tmp/depa-codument-e2e-xlaauc",
+      "caseId": "todo",
+      "historicalStatus": "infrastructure-failed",
+      "projectedStatus": "passed",
+      "error": null,
+      "proposalDigest": "468f8d333737334c0a11282fb295316469be75da4bfc48f8597d1bbc86951b9f",
+      "nativeDigest": "3f19883ef594c6645655d801f073b486a0b0a419e0f9d9cb56dd1aae73ae2c6f",
+      "resultDigest": "ba60aaeaac032292196692106df14781f7ecd2793a6a74f1734fe03d5ada078f",
+      "immutable": true
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-1O5t6J",
+      "caseId": "blog",
+      "historicalStatus": "infrastructure-failed",
+      "projectedStatus": "passed",
+      "error": null,
+      "proposalDigest": "71461229355b96aaf8f4b58f52edad08ff78258ab2c084fc266ffdda2ffbf650",
+      "nativeDigest": "72372428886f46beb181a46a6c7b5d6325802b840f18e6eec305be6edd564bb9",
+      "resultDigest": "1380ab7a8a3da7d13023a554b593997bc7e8fd87e668dad89d108fbdbe2284a1",
+      "immutable": true
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-AjdBoR",
+      "caseId": "ecommerce",
+      "historicalStatus": "infrastructure-failed",
+      "projectedStatus": "passed",
+      "error": null,
+      "proposalDigest": "44ab80fc07eb378f923b5cc3d38edad002fd5bdfe6156fd5b297afcc5814a72d",
+      "nativeDigest": "e7b39feea1c896bec10d9da569d58d4abc4dcf265d38ac956a12812b8f238d11",
+      "resultDigest": "6a5ab14e39a3b68f311ab73babe86bc8e20afc83126cfc960fcd0d8cfeac8916",
+      "immutable": true
+    }
+  ]
+}

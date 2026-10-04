@@ -1,0 +1,52 @@
+{
+  "round": 58,
+  "status": "completed",
+  "productVersion": "0.6.0",
+  "model": "gpt-5.6-terra",
+  "effort": "medium",
+  "batch": "/private/tmp/depa-codument-e2e-batch-CKnlv2",
+  "rawObservation": "/private/tmp/depa-codument-e2e-batch-CKnlv2/observation.json",
+  "rawSupplement": "/private/tmp/depa-codument-e2e-batch-CKnlv2/supplement-observation.json",
+  "candidateSha256": "688dca806b2cb6206ec0e4446f775e60d19ed236e132321f9f89bf9c48ae1c2d",
+  "formalHarnessSha256": "3ac3d42dce799b3173c5b49efbd9deae8ff53f8ec17244ad5cadbdbf19ec1af7",
+  "latestHarnessSha256": "b89fb6107853207794d8dd6592e92a762678ee04fa9ec444cabccc00055394be",
+  "appSha256": "452fe6aed91b3b6f6936be51bcda32d9b0e903b3e3f90aff24fdf36987f1b80e",
+  "formal": {
+    "sampleSize": 5,
+    "firstPass": 2,
+    "finalPassed": 4,
+    "infrastructure": 1,
+    "elapsedMs": 9697051,
+    "usage": {"input": 31317924, "cached": 29186304, "output": 330808},
+    "modelContexts": 42,
+    "observedSessions": 40,
+    "rows": [
+      {"caseId": "todo", "root": "/private/tmp/depa-codument-e2e-6RHPUl", "status": "infrastructure-failed", "attempts": 2, "firstPass": false, "elapsedMs": 2710207},
+      {"caseId": "stream-pipeline-ai-agent", "root": "/private/tmp/depa-codument-e2e-GmC9IB", "status": "passed", "attempts": 2, "firstPass": false, "elapsedMs": 1538052},
+      {"caseId": "blog", "root": "/private/tmp/depa-codument-e2e-AgLN3A", "status": "passed", "attempts": 1, "firstPass": true, "elapsedMs": 1373680},
+      {"caseId": "ecommerce", "root": "/private/tmp/depa-codument-e2e-wrDe62", "status": "passed", "attempts": 2, "firstPass": false, "elapsedMs": 2971790},
+      {"caseId": "nested-mission-agent", "root": "/private/tmp/depa-codument-e2e-fwEKS5", "status": "passed", "attempts": 1, "firstPass": true, "elapsedMs": 1103322}
+    ]
+  },
+  "supplement": {
+    "kind": "ui-reverification",
+    "root": "/private/tmp/depa-codument-e2e-qoSE4C",
+    "sourceRunRoot": "/private/tmp/depa-codument-e2e-6RHPUl",
+    "status": "failed",
+    "failureClass": "business",
+    "finding": "A Todo remains listed after reapplying combined status/tag/due-date filters despite its changed tags and later due date.",
+    "usage": {"input": 734905, "cached": 684288, "output": 13081},
+    "modelContexts": 2,
+    "sourceUnchanged": true,
+    "historicalResultUnchanged": true,
+    "includedInFormalRates": false
+  },
+  "preflightModelUsage": {"input": 153342, "cached": 104704, "output": 2436},
+  "allObservedTestModelUsage": {"input": 32206171, "cached": 29975296, "output": 346325},
+  "history": {
+    "round55Current": {"sampleSize": 5, "firstPass": 1, "finalPassed": 4, "infrastructure": 1, "elapsedMs": 8649324, "usage": {"input": 34229946, "cached": 31895552, "output": 354516}},
+    "round55Legacy": {"sampleSize": 5, "firstPass": 1, "finalPassed": 4, "infrastructure": 1, "elapsedMs": 9667913, "usage": {"input": 45065742, "cached": 42372096, "output": 452117}}
+  },
+  "verification": {"narrowPassed": 39, "widestPassed": 732, "widestFailed": 0, "assertions": 7730, "typecheck": "passed", "lint": "passed", "nativeFixture": "passed", "taskSpaceId": 5, "finishResolvedExactlyOnce": true, "protectedUnchanged": true, "authenticationRemoved": true, "ownedEndpointsReleased": true},
+  "warning": "One fresh trial per case; descriptive history, not causal A/B. First outer pass can include internal fresh verification and repair. Input includes cached tokens; parent/child per-response deltas are not an account bill. Calibration/read-only re-verification never reset formal results or budgets. No npm publication or original workspace migration."
+}

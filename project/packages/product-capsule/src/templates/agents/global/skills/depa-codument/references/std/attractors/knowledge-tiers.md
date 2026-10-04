@@ -1,11 +1,11 @@
-# Knowledge Tiers & 信息晋升（std/attractors/knowledge-tiers.md）
+# Knowledge Tiers & 信息晋升（references/std/attractors/knowledge-tiers.md）
 
 > codument 的**知识分层地图 + 信息晋升阶梯 + 真源优先级**。它回答三个问题：
 > 1. 一条信息该落到哪个目录（**分层与职责**）；
 > 2. 它什么时候、怎样从临时记录**晋升**为长期真源（**晋升阶梯**）；
 > 3. 事实冲突时谁说了算（**真源优先级**）。
 >
-> 借鉴 attractor-guided-engineering 的"目录职责 + 源真优先级 + 信息晋升"纪律，按 codument 的 **track 中心**模型重构。具体文件级目录规范见 [std/spec/folder-manifest.md](../spec/folder-manifest.md)。
+> 借鉴 attractor-guided-engineering 的"目录职责 + 源真优先级 + 信息晋升"纪律，按 codument 的 **track 中心**模型重构。具体文件级目录规范见 [folder-manifest.md](../spec/folder-manifest.md)。
 
 ## 1. 心法：attractor / carrier / projection 三层
 
@@ -27,7 +27,7 @@
 | 迭代工作面 | `tracks/{pending,active}/<id>/` | proposal、design、discussion、`track.xnl`、`analysis/`、`decisions*`、`reports/` | **带日期·迭代内可变** | "本次要建什么 / 怎么收口 / 发生了什么" |
 | 轨迹历史 | `tracks/archived/YYYY-MM/...` | 已完成 track | **带日期·归档期间只读** | "历史上做过什么" |
 
-> 工具性目录（`std/`、`config/`、`workflows/`、`sop/`）不是知识层，不在晋升阶梯内。
+> global SkillApp 的 `references/std/` / `operations/` 与项目的 `config/`、`workflows/`、`sop/` 是工具性资产，不是上述知识层；不能因项目晋升再创建一份通用标准副本。
 
 ## 3. 信息晋升阶梯（核心）
 
@@ -43,9 +43,11 @@ tracks/{pending,active}/<id>/ ── proposal.md · design.md · discussion · t
    │
    └─[可复用教训 / gap 模式]──▶ memory/         （lessons/incidents/patterns）
          │
-         └─[同类问题跨多 track 复发]──▶ 方法层：std/methods/ · std/operations/ · attractor-profile check · operation-hook · validation 守卫
+         └─[同类问题跨多 track 复发]──▶ 方法层：项目 SOP/profile/hook · 通用 references/std/methods/ / operations/ · validation 守卫
                （codument 版 "prose 教训 → 可复用方法 → 固化检查"；先 sop/prompt，再考虑固化为 check/hook）
 ```
+
+项目特有规程与检查留在项目资产 App。通用方法/操作的修改进入 global SkillApp 的源码维护流程，需其相应授权，不在普通项目执行中直接改已安装的 global Skill 或复制通用标准到项目。
 
 ## 4. 何时晋升（触发条件表）
 
@@ -80,5 +82,5 @@ tracks/{pending,active}/<id>/ ── proposal.md · design.md · discussion · t
 ## 7. 路由
 
 - decision registry、递归 source、stable-id merge 与 URI：[decision-registry.md](../spec/decision-registry.md)。
-- 每个标准文件夹"装什么"的自描述与补齐：[std/spec/folder-manifest.md](../spec/folder-manifest.md)。
-- 晋升操作落在流程里：归档晋升见 `std/operations/archive-track.md`；docs 同步见 `std/operations/artifact-sync.md`；澄清期实时更新见 `std/protocols/questioning.md`。
+- 每个标准文件夹"装什么"的自描述与补齐：[folder-manifest.md](../spec/folder-manifest.md)。
+- 晋升操作落在流程里：运行 `depa-codument archive-track` 获取[归档指导](../../../operations/archive-track.md)；显式同步运行 `depa-codument artifact-sync` 获取[制品指导](../../../operations/artifact-sync.md)；澄清遵循[questioning](../protocols/questioning.md)。

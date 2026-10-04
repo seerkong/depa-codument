@@ -11,7 +11,7 @@ spec:
 
 执行位置保持目标项目；@/ 表示项目根。references/std/、operations/、references/ 相对全局 depa-codument Skill（默认 ~/.agents/skills/depa-codument，CODUMENT_HOME 可覆盖 home）；裸 config/、tracks/ 等相对项目 codument/。以下是当前 Agent 要执行的指导，不是已经完成的业务结果。
 
-# skill: codument-archive-track（归档 Track）
+# archive-track（归档 Track）
 
 归档完成或经用户明确确认终止的 Track。CLI 负责 decision registry transaction、冲突检测、rollback、目标路径、Track move 与条件 memory 提升；operation 只编排 hook、命令和语义复核。
 
@@ -24,7 +24,7 @@ spec:
 5. 运行 `depa-codument validate <track-id> --strict`。结构或 registry 问题按 diagnostics 修正后重跑。
 6. 对 completed Track 运行 `depa-codument archive <track-id>`。只有用户明确同意归档非 completed Track 时才加 `--yes`。
 7. 接受 CLI 返回的事务结果，不再人工重复 apply mutation、merge registry、提升 candidate 或移动目录。
-8. 执行显式 `archive-track:after` hook；其中的 ArtifactSync 按 `codument-artifact-sync` 处理。after hook 必须把已归档 authority 视为只读，不得补写 retrospective、decision、memory 或其他 Track 文件。
+8. 执行显式 `archive-track:after` hook；其中的 ArtifactSync 按 `depa-codument artifact-sync` 处理。after hook 必须把已归档 authority 视为只读，不得补写 retrospective、decision、memory 或其他 Track 文件。
 9. 报告 archive 路径、晋升的 registry、跳过项、冲突和后续动作。
 
 若当前 Track 是 Mission 子流程，归档结果和未完成 Track 的裁决都交还 MissionApplier；Mission 随后继续自己的完成判定与 ready operation，不把 archive 子流程收口当作 invocation 终点。

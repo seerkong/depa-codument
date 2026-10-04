@@ -39,3 +39,7 @@ Mission Lite 内置 DEPA 参考文有旧七级阶梯、事件回放普遍化及 
 - Browser provider、Vue 编译器、HTTP session 的全部内部状态机：本次先定包归属与回归入口，执行到对应包时再审计其内部 lifecycle。
 - 每个历史版本的真实 release artifact：尚未建立全矩阵；现有 XML/Decision fixtures 已定位，完整来源和缺口由“冻结基线与验收夹具”节点调查。
 - 真实账单 token 数：目前只量文件字节和行数；无当前会话 usage 数据，不声称已经降低 token。
+
+## 2026-10-04：通用 Spec Coding 方法论追问
+
+[general-spec-convergence.md](general-spec-convergence.md) 记录用户对 Web 场景过拟合的纠正、当前 global SkillApp 选定协议与 cdmt-lite 的对照，以及通用的意图—观察—行动收敛建议。此轮为架构指导/协议审查，不是新的全仓 scan 或实施；不覆盖上文 dated 分析、不新增工作图、不改产品、不重跑 E2E。Round55 的实际对照及限制见 `../verification/paired-e2e-round55-findings.md`；已确认约束不能以“计划是假说”为由删除，改造效果尚未验证。

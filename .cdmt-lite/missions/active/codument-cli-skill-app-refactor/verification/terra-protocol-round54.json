@@ -1,0 +1,2241 @@
+{
+  "round": 54,
+  "createdAt": "2026-10-03T18:03:06.292Z",
+  "scope": "existing generated apps, UI-only read-only verification; not full E2E success rates",
+  "project": "/private/tmp/depa-codument-verification-TCfQTo/depa-codument/project",
+  "harnessSha256": "416ab3f61baaf563886f94c91fa4775e8fd64b5c06850d6a9b7f2e523e0bb5d9",
+  "batches": [
+    {
+      "round": 54,
+      "status": "completed",
+      "pid": 44612,
+      "project": "/private/tmp/depa-codument-verification-rcvoVC/depa-codument/project",
+      "harnessSha256": "b7ec64ae0da7945bcd102490a770146df9068ab5d101bbaeb3a1d57eb59d299c",
+      "model": "gpt-5.6-terra",
+      "effort": "medium",
+      "rows": [
+        {
+          "caseId": "todo",
+          "source": "/private/tmp/depa-codument-e2e-cq3qL4",
+          "candidate": "/private/tmp/depa-codument-e2e-cq3qL4/bin/depa-codument",
+          "candidateSha256": "372fe0befcf0717277199b5417fd6f0af00446b3d06a0d69a1f3409144b0cf61",
+          "state": "infrastructure-failed",
+          "log": "/private/tmp/depa-codument-e2e-batch-QtLEYt/todo.log",
+          "pid": 44620,
+          "root": "/private/tmp/depa-codument-e2e-sQoe5c",
+          "exitCode": 1,
+          "result": {
+            "status": "infrastructure-failed",
+            "kind": "ui-reverification",
+            "root": "/private/tmp/depa-codument-e2e-sQoe5c",
+            "sourceRunRoot": "/private/tmp/depa-codument-e2e-cq3qL4",
+            "error": "Error: Missing UI requirement coverage from admitted scope plan",
+            "failureClass": "protocol-cost"
+          }
+        },
+        {
+          "caseId": "blog",
+          "source": "/private/tmp/depa-codument-e2e-DC1eur",
+          "candidate": "/private/tmp/depa-codument-e2e-DC1eur/bin/depa-codument",
+          "candidateSha256": "372fe0befcf0717277199b5417fd6f0af00446b3d06a0d69a1f3409144b0cf61",
+          "state": "infrastructure-failed",
+          "log": "/private/tmp/depa-codument-e2e-batch-QtLEYt/blog.log",
+          "pid": 54000,
+          "root": "/private/tmp/depa-codument-e2e-Kd8Nhb",
+          "exitCode": 1,
+          "result": {
+            "status": "infrastructure-failed",
+            "kind": "ui-reverification",
+            "root": "/private/tmp/depa-codument-e2e-Kd8Nhb",
+            "sourceRunRoot": "/private/tmp/depa-codument-e2e-DC1eur",
+            "error": "Error: Native browser timeout; outcome uncertain, session fenced: Error: page.fill failed: element is not an input, textarea, or contenteditable element",
+            "failureClass": "infrastructure"
+          }
+        },
+        {
+          "caseId": "ecommerce",
+          "source": "/private/tmp/depa-codument-e2e-2L0ERN",
+          "candidate": "/private/tmp/depa-codument-e2e-2L0ERN/bin/depa-codument",
+          "candidateSha256": "372fe0befcf0717277199b5417fd6f0af00446b3d06a0d69a1f3409144b0cf61",
+          "state": "failed",
+          "log": "/private/tmp/depa-codument-e2e-batch-QtLEYt/ecommerce.log",
+          "pid": 57543,
+          "root": "/private/tmp/depa-codument-e2e-0tb86m",
+          "exitCode": 1,
+          "result": {
+            "status": "failed",
+            "kind": "ui-reverification",
+            "root": "/private/tmp/depa-codument-e2e-0tb86m",
+            "sourceRunRoot": "/private/tmp/depa-codument-e2e-2L0ERN",
+            "error": "Error: Browser acceptance failed: [\"\\\"Order d0c21c82-9c7e-418d-9ff4-b687d20b40b0 is pending; total $25.99\\\" — After a successful shopper checkout, the full-page storefront leaves the order pending and exposes no payment/local-simulator action, cancellation action, or order-detail control. Consequently the storefront cannot complete the required payment and order-lifecycle workflow or surface the eventual paid state.\"]",
+            "failureClass": "business"
+          }
+        }
+      ],
+      "updatedAt": "2026-10-03T16:57:42.140Z"
+    },
+    {
+      "round": 54,
+      "status": "completed",
+      "pid": 64877,
+      "project": "/private/tmp/depa-codument-verification-Iv0LZU/depa-codument/project",
+      "harnessSha256": "798f7e63c50f06328ea6537afc9e6037413dbcece9d9d8c57efe3ccd72ccf177",
+      "model": "gpt-5.6-terra",
+      "effort": "medium",
+      "rows": [
+        {
+          "caseId": "todo",
+          "source": "/private/tmp/depa-codument-e2e-cq3qL4",
+          "candidate": "/private/tmp/depa-codument-e2e-cq3qL4/bin/depa-codument",
+          "candidateSha256": "372fe0befcf0717277199b5417fd6f0af00446b3d06a0d69a1f3409144b0cf61",
+          "state": "infrastructure-failed",
+          "log": "/private/tmp/depa-codument-e2e-batch-fGMJBu/todo.log",
+          "pid": 64889,
+          "root": "/private/tmp/depa-codument-e2e-b0KLdQ",
+          "exitCode": 1,
+          "result": {
+            "status": "infrastructure-failed",
+            "kind": "ui-reverification",
+            "root": "/private/tmp/depa-codument-e2e-b0KLdQ",
+            "sourceRunRoot": "/private/tmp/depa-codument-e2e-cq3qL4",
+            "error": "Error: Requirement scope remains unspecified; not a business defect",
+            "failureClass": "scope-unresolved"
+          }
+        },
+        {
+          "caseId": "blog",
+          "source": "/private/tmp/depa-codument-e2e-DC1eur",
+          "candidate": "/private/tmp/depa-codument-e2e-DC1eur/bin/depa-codument",
+          "candidateSha256": "372fe0befcf0717277199b5417fd6f0af00446b3d06a0d69a1f3409144b0cf61",
+          "state": "infrastructure-failed",
+          "log": "/private/tmp/depa-codument-e2e-batch-fGMJBu/blog.log",
+          "pid": 69947,
+          "root": "/private/tmp/depa-codument-e2e-HX3cnR",
+          "exitCode": 1,
+          "result": {
+            "status": "infrastructure-failed",
+            "kind": "ui-reverification",
+            "root": "/private/tmp/depa-codument-e2e-HX3cnR",
+            "sourceRunRoot": "/private/tmp/depa-codument-e2e-DC1eur",
+            "error": "Error: Scenario preparation failed before UI grading: Error: Agent ui-scenario-0 failed: exit=124; see /private/tmp/depa-codument-e2e-HX3cnR/logs/ui-scenario-0.jsonl",
+            "failureClass": "setup-failed"
+          }
+        },
+        {
+          "caseId": "ecommerce",
+          "source": "/private/tmp/depa-codument-e2e-2L0ERN",
+          "candidate": "/private/tmp/depa-codument-e2e-2L0ERN/bin/depa-codument",
+          "candidateSha256": "372fe0befcf0717277199b5417fd6f0af00446b3d06a0d69a1f3409144b0cf61",
+          "state": "infrastructure-failed",
+          "log": "/private/tmp/depa-codument-e2e-batch-fGMJBu/ecommerce.log",
+          "pid": 73291,
+          "root": "/private/tmp/depa-codument-e2e-IfPEI3",
+          "exitCode": 1,
+          "result": {
+            "status": "infrastructure-failed",
+            "kind": "ui-reverification",
+            "root": "/private/tmp/depa-codument-e2e-IfPEI3",
+            "sourceRunRoot": "/private/tmp/depa-codument-e2e-2L0ERN",
+            "error": "Error: Scenario preparation failed before UI grading: Error: Agent ui-scenario-0 failed: exit=124; see /private/tmp/depa-codument-e2e-IfPEI3/logs/ui-scenario-0.jsonl",
+            "failureClass": "setup-failed"
+          }
+        }
+      ],
+      "updatedAt": "2026-10-03T17:13:43.353Z"
+    },
+    {
+      "round": 54,
+      "status": "completed",
+      "pid": 79515,
+      "project": "/private/tmp/depa-codument-verification-x87Mvq/depa-codument/project",
+      "harnessSha256": "d008fe0e16b2d6a17936f234a5fe1a6c497ddcdbe6bf5edac913f92853cfcc4a",
+      "model": "gpt-5.6-terra",
+      "effort": "medium",
+      "rows": [
+        {
+          "caseId": "todo",
+          "source": "/private/tmp/depa-codument-e2e-cq3qL4",
+          "candidate": "/private/tmp/depa-codument-e2e-cq3qL4/bin/depa-codument",
+          "candidateSha256": "372fe0befcf0717277199b5417fd6f0af00446b3d06a0d69a1f3409144b0cf61",
+          "state": "infrastructure-failed",
+          "log": "/private/tmp/depa-codument-e2e-batch-H2sTW8/todo.log",
+          "pid": 79523,
+          "root": "/private/tmp/depa-codument-e2e-xlaauc",
+          "exitCode": 1,
+          "result": {
+            "status": "infrastructure-failed",
+            "kind": "ui-reverification",
+            "root": "/private/tmp/depa-codument-e2e-xlaauc",
+            "sourceRunRoot": "/private/tmp/depa-codument-e2e-cq3qL4",
+            "error": "Error: Missing UI requirement coverage from admitted scope plan; not repairable by receipt formatting",
+            "failureClass": "scope-unresolved"
+          }
+        },
+        {
+          "caseId": "blog",
+          "source": "/private/tmp/depa-codument-e2e-DC1eur",
+          "candidate": "/private/tmp/depa-codument-e2e-DC1eur/bin/depa-codument",
+          "candidateSha256": "372fe0befcf0717277199b5417fd6f0af00446b3d06a0d69a1f3409144b0cf61",
+          "state": "infrastructure-failed",
+          "log": "/private/tmp/depa-codument-e2e-batch-H2sTW8/blog.log",
+          "pid": 84765,
+          "root": "/private/tmp/depa-codument-e2e-1O5t6J",
+          "exitCode": 1,
+          "result": {
+            "status": "infrastructure-failed",
+            "kind": "ui-reverification",
+            "root": "/private/tmp/depa-codument-e2e-1O5t6J",
+            "sourceRunRoot": "/private/tmp/depa-codument-e2e-DC1eur",
+            "error": "Error: Missing UI requirement coverage from admitted scope plan; not repairable by receipt formatting",
+            "failureClass": "scope-unresolved"
+          }
+        },
+        {
+          "caseId": "ecommerce",
+          "source": "/private/tmp/depa-codument-e2e-2L0ERN",
+          "candidate": "/private/tmp/depa-codument-e2e-2L0ERN/bin/depa-codument",
+          "candidateSha256": "372fe0befcf0717277199b5417fd6f0af00446b3d06a0d69a1f3409144b0cf61",
+          "state": "infrastructure-failed",
+          "log": "/private/tmp/depa-codument-e2e-batch-H2sTW8/ecommerce.log",
+          "pid": 89866,
+          "root": "/private/tmp/depa-codument-e2e-AjdBoR",
+          "exitCode": 1,
+          "result": {
+            "status": "infrastructure-failed",
+            "kind": "ui-reverification",
+            "root": "/private/tmp/depa-codument-e2e-AjdBoR",
+            "sourceRunRoot": "/private/tmp/depa-codument-e2e-2L0ERN",
+            "error": "Error: Missing UI requirement coverage from admitted scope plan; not repairable by receipt formatting",
+            "failureClass": "scope-unresolved"
+          }
+        }
+      ],
+      "updatedAt": "2026-10-03T17:35:09.556Z"
+    },
+    {
+      "round": 54,
+      "status": "completed",
+      "pid": 98189,
+      "project": "/private/tmp/depa-codument-verification-TCfQTo/depa-codument/project",
+      "harnessSha256": "416ab3f61baaf563886f94c91fa4775e8fd64b5c06850d6a9b7f2e523e0bb5d9",
+      "model": "gpt-5.6-terra",
+      "effort": "medium",
+      "rows": [
+        {
+          "caseId": "todo",
+          "source": "/private/tmp/depa-codument-e2e-cq3qL4",
+          "candidate": "/private/tmp/depa-codument-e2e-cq3qL4/bin/depa-codument",
+          "candidateSha256": "372fe0befcf0717277199b5417fd6f0af00446b3d06a0d69a1f3409144b0cf61",
+          "state": "passed",
+          "log": "/private/tmp/depa-codument-e2e-batch-7baUFB/todo.log",
+          "pid": 98192,
+          "root": "/private/tmp/depa-codument-e2e-hw66Uc",
+          "exitCode": 0,
+          "result": {
+            "status": "passed",
+            "kind": "ui-reverification",
+            "root": "/private/tmp/depa-codument-e2e-hw66Uc",
+            "sourceRunRoot": "/private/tmp/depa-codument-e2e-cq3qL4",
+            "receipt": {
+              "browser": "ego-browser",
+              "session": "3",
+              "status": "passed",
+              "findings": [],
+              "actions": [
+                {
+                  "operation": "observe",
+                  "coverage": "The root route presents a browser-operable entry surface for the Todo application.",
+                  "requirementIds": [
+                    "req-product-ui",
+                    "req-runtime-ui"
+                  ],
+                  "url": "http://127.0.0.1:52860/",
+                  "target": "Unauthenticated root page",
+                  "expected": "Register or login",
+                  "observed": "Register or login",
+                  "observationId": "ui-review-snapshot-landing"
+                },
+                {
+                  "operation": "click",
+                  "coverage": "A user can register through the Web UI and reach the authenticated task workspace.",
+                  "requirementIds": [
+                    "req-product-ui",
+                    "req-runtime-ui",
+                    "req-ui-api-consistency"
+                  ],
+                  "url": "http://127.0.0.1:52860/",
+                  "target": "Register button after valid email and password entry",
+                  "expected": "Signed in",
+                  "observed": "Signed in",
+                  "observationId": "ui-review-snapshot-authenticated-empty"
+                },
+                {
+                  "operation": "click",
+                  "coverage": "The authenticated UI creates and displays a task with its selected status, due date, and comma-separated tags.",
+                  "requirementIds": [
+                    "req-product-ui",
+                    "req-ui-api-consistency"
+                  ],
+                  "url": "http://127.0.0.1:52860/",
+                  "target": "Add task button for UI review task Alpha",
+                  "expected": "UI review task Alpha — doing — due 2030-06-15 [work, urgent]",
+                  "observed": "UI review task Alpha — doing — due 2030-06-15 [work, urgent]",
+                  "observationId": "ui-review-snapshot-created-task"
+                },
+                {
+                  "operation": "click",
+                  "coverage": "Combined status, tag, and inclusive due-date filtering retains the matching task in the displayed task state.",
+                  "requirementIds": [
+                    "req-product-ui",
+                    "req-ui-api-consistency"
+                  ],
+                  "url": "http://127.0.0.1:52860/",
+                  "target": "Apply filters button with doing, work, and 2030-06-15",
+                  "expected": "UI review task Alpha — doing — due 2030-06-15 [work, urgent]",
+                  "observed": "UI review task Alpha — doing — due 2030-06-15 [work, urgent]",
+                  "observationId": "ui-review-snapshot-combined-filter"
+                },
+                {
+                  "operation": "dialog",
+                  "coverage": "The UI edits title, status, due date, and tags through its live edit prompts and displays the updated task.",
+                  "requirementIds": [
+                    "req-product-ui",
+                    "req-ui-api-consistency"
+                  ],
+                  "url": "http://127.0.0.1:52860/",
+                  "target": "Edit task prompts for UI review task Alpha",
+                  "expected": "UI review task Beta — done — due 2030-06-16 [work, completed]",
+                  "observed": "UI review task Beta — done — due 2030-06-16 [work, completed]",
+                  "observationId": "ui-review-snapshot-edited-task"
+                },
+                {
+                  "operation": "observe",
+                  "coverage": "The updated task remains present with its updated fields after a root-page reload, demonstrating UI/API state consistency.",
+                  "requirementIds": [
+                    "req-runtime-ui",
+                    "req-ui-api-consistency"
+                  ],
+                  "url": "http://127.0.0.1:52860/",
+                  "target": "Reloaded authenticated task list",
+                  "expected": "UI review task Beta — done — due 2030-06-16 [work, completed]",
+                  "observed": "UI review task Beta — done — due 2030-06-16 [work, completed]",
+                  "observationId": "ui-review-snapshot-reloaded-task"
+                },
+                {
+                  "operation": "click",
+                  "coverage": "The UI deletes the selected task and refreshes the displayed task list to its empty state.",
+                  "requirementIds": [
+                    "req-product-ui",
+                    "req-ui-api-consistency"
+                  ],
+                  "url": "http://127.0.0.1:52860/",
+                  "target": "Delete button for UI review task Beta",
+                  "expected": "unordered_list\n  status",
+                  "observed": "unordered_list\n  status",
+                  "observationId": "ui-review-snapshot-deleted-task"
+                },
+                {
+                  "operation": "click",
+                  "coverage": "A user can log out and validly log back into the Web UI.",
+                  "requirementIds": [
+                    "req-product-ui",
+                    "req-runtime-ui",
+                    "req-ui-api-consistency"
+                  ],
+                  "url": "http://127.0.0.1:52860/",
+                  "target": "Login button after logout with the registered credentials",
+                  "expected": "Signed in",
+                  "observed": "Signed in",
+                  "observationId": "ui-review-snapshot-relogged-in"
+                },
+                {
+                  "operation": "click",
+                  "coverage": "The login UI reports an invalid-credential outcome while retaining the unauthenticated entry surface.",
+                  "requirementIds": [
+                    "req-product-ui",
+                    "req-runtime-ui"
+                  ],
+                  "url": "http://127.0.0.1:52860/",
+                  "target": "Login button with the registered email and an incorrect password",
+                  "expected": "Invalid credentials",
+                  "observed": "Invalid credentials",
+                  "observationId": "ui-review-snapshot-invalid-login-feedback"
+                }
+              ],
+              "caseId": "todo",
+              "attempt": 0,
+              "sourceFingerprint": "70344e78644e33f2faa4e3368a7152515e127736bfd48d2b013228e55ddc26b9",
+              "dataDirectory": "/private/tmp/depa-codument-e2e-hw66Uc/home/tmp/app-state/ui-0",
+              "leaseId": "7f21fe53-7816-4cfe-a4a1-dfb3efe2a4bd",
+              "scopePlan": {
+                "requirements": [
+                  {
+                    "id": "req-product-api",
+                    "channel": "api",
+                    "source": "request.md",
+                    "quote": "实现一个多用户 Todo 应用，支持注册登录、任务 CRUD、`todo | doing | done` 状态、截止日期、标签与筛选。",
+                    "reason": "The product-level domain obligation is split here as the API state and operations scope; the detailed HTTP contract defines its testable routes."
+                  },
+                  {
+                    "id": "req-product-ui",
+                    "channel": "ui",
+                    "source": "request.md",
+                    "quote": "交付形态包含后端 REST API 与前端 Web 页面。",
+                    "reason": "This requires a frontend Web surface, without inventing a control for each API operation."
+                  },
+                  {
+                    "id": "req-runtime-ui",
+                    "channel": "ui",
+                    "source": "acceptance.md",
+                    "quote": "`GET /health` → 200; `GET /` → functional HTML UI using the real API.",
+                    "reason": "The root route must present a functional HTML interface. The real-API relationship is separately scoped as cross-boundary."
+                  },
+                  {
+                    "id": "req-ui-api-consistency",
+                    "channel": "cross-boundary",
+                    "source": "acceptance.md",
+                    "quote": "`GET /health` → 200; `GET /` → functional HTML UI using the real API.",
+                    "reason": "This is the explicit UI/API relationship: UI state and behavior must use the application's real API rather than disconnected or mock state."
+                  },
+                  {
+                    "id": "req-runtime-health",
+                    "channel": "api",
+                    "source": "acceptance.md",
+                    "quote": "`GET /health` → 200; `GET /` → functional HTML UI using the real API.",
+                    "reason": "The health endpoint has a concrete HTTP success contract."
+                  },
+                  {
+                    "id": "req-api-conventions",
+                    "channel": "api",
+                    "source": "acceptance.md",
+                    "quote": "All bodies and API responses are JSON; errors are non-2xx. Entity responses are unwrapped objects; lists are arrays. IDs are strings. Authorization is `Bearer <token>`.",
+                    "reason": "Shared API representation, error, identifier, and authorization conventions."
+                  },
+                  {
+                    "id": "req-authentication",
+                    "channel": "api",
+                    "source": "acceptance.md",
+                    "quote": "`POST /api/register {email,password}` → 201 `{id,token}`; duplicate email → 409.\n- `POST /api/login {email,password}` → 200 `{token}`; invalid credentials → 401.",
+                    "reason": "Registration and login success responses plus their explicit negative cases."
+                  },
+                  {
+                    "id": "req-create-task",
+                    "channel": "api",
+                    "source": "acceptance.md",
+                    "quote": "`POST /api/tasks {title,status?,dueDate?,tags?}` → 201 task `{id,title,status,dueDate,tags}`; default status `todo`.",
+                    "reason": "Task creation, returned shape, and default-state guarantee."
+                  },
+                  {
+                    "id": "req-list-filter-tasks",
+                    "channel": "api",
+                    "source": "acceptance.md",
+                    "quote": "`GET /api/tasks` → only the authenticated user's tasks. Optional `status`, `tag`, `dueBefore` filters combine; dueBefore is inclusive ISO date comparison.",
+                    "reason": "Collection ownership and combined filtering, including inclusive date semantics."
+                  },
+                  {
+                    "id": "req-read-task-ownership",
+                    "channel": "api",
+                    "source": "acceptance.md",
+                    "quote": "`GET /api/tasks/:id` → task; another user's task → 403 or 404.",
+                    "reason": "Individual task retrieval and cross-user read denial."
+                  },
+                  {
+                    "id": "req-update-task-validation",
+                    "channel": "api",
+                    "source": "acceptance.md",
+                    "quote": "`PATCH /api/tasks/:id {title?,status?,dueDate?,tags?}` → updated task. Status allowed only `todo|doing|done`; invalid → 400.",
+                    "reason": "Task mutation, allowed status domain, and invalid-status response."
+                  },
+                  {
+                    "id": "req-delete-task",
+                    "channel": "api",
+                    "source": "acceptance.md",
+                    "quote": "`DELETE /api/tasks/:id` → 200 or 204; deleted task → 404.",
+                    "reason": "Deletion success and subsequent absence."
+                  },
+                  {
+                    "id": "req-api-security",
+                    "channel": "api",
+                    "source": "acceptance.md",
+                    "quote": "Missing authentication → 401. No cross-user reads or mutations. Do not return password hashes or plaintext passwords.",
+                    "reason": "Global authentication, tenant isolation (including mutation), and credential non-disclosure requirements."
+                  },
+                  {
+                    "id": "req-run-command",
+                    "channel": "artifact",
+                    "source": "acceptance.md",
+                    "quote": "`e2e-server.json`: `{ \"command\": [\"bun\", \"run\", \"start\"] }` (or another executable argv array). The command starts the actual application, binds `127.0.0.1`, reads `PORT`, and uses an initially empty per-run data store. It must remain running until terminated.",
+                    "reason": "Delivery/runtime artifact requirement, checked separately from browser review."
+                  },
+                  {
+                    "id": "req-quality-scripts",
+                    "channel": "artifact",
+                    "source": "acceptance.md",
+                    "quote": "Provide package scripts `test`, `typecheck`, and `build` that really check the application.",
+                    "reason": "Required verification scripts are delivery artifacts."
+                  },
+                  {
+                    "id": "req-modeling-engineering-knowledge",
+                    "channel": "artifact",
+                    "source": "request.md",
+                    "quote": "领域状态、写入边界、后端组件和前端路由需要通过 Modeling delta 表达；项目运行、扩展和排障约束需要通过 Engineering delta 表达。",
+                    "reason": "The requested architecture and operational knowledge must be expressed as specified artifacts, separately from UI/API acceptance."
+                  },
+                  {
+                    "id": "req-track-workflow-preservation",
+                    "channel": "artifact",
+                    "source": "acceptance.md",
+                    "quote": "Express the original required Modeling planes and Engineering knowledge in the Track. Do not replace gap-loop, hooks or independent verification with this HTTP interface.",
+                    "reason": "Track knowledge and workflow evidence must preserve the named process obligations."
+                  }
+                ],
+                "setup": []
+              },
+              "preparation": {
+                "sourceDigests": {
+                  "request.md": "dff5b78a74db4caea25e505a435311e7d442468b8725c9e4dcd5957af22e93ee",
+                  "acceptance.md": "ee3a82e8d6dca7974237059945d116bf6cb39b881fd2f1f7669dfd6c915f222e"
+                },
+                "log": "/private/tmp/depa-codument-e2e-hw66Uc/logs/ui-acceptance-0-preparation.jsonl"
+              }
+            }
+          }
+        },
+        {
+          "caseId": "blog",
+          "source": "/private/tmp/depa-codument-e2e-DC1eur",
+          "candidate": "/private/tmp/depa-codument-e2e-DC1eur/bin/depa-codument",
+          "candidateSha256": "372fe0befcf0717277199b5417fd6f0af00446b3d06a0d69a1f3409144b0cf61",
+          "state": "passed",
+          "log": "/private/tmp/depa-codument-e2e-batch-7baUFB/blog.log",
+          "pid": 5398,
+          "root": "/private/tmp/depa-codument-e2e-eXfiFW",
+          "exitCode": 0,
+          "result": {
+            "status": "passed",
+            "kind": "ui-reverification",
+            "root": "/private/tmp/depa-codument-e2e-eXfiFW",
+            "sourceRunRoot": "/private/tmp/depa-codument-e2e-DC1eur",
+            "receipt": {
+              "browser": "ego-browser",
+              "session": "3",
+              "status": "passed",
+              "findings": [],
+              "actions": [
+                {
+                  "operation": "observe",
+                  "requirementIds": [
+                    "req-root-html",
+                    "req-reader-and-workbench"
+                  ],
+                  "coverage": "Reader and workbench UI are delivered at the application root.",
+                  "url": "http://127.0.0.1:54881/",
+                  "target": "root page",
+                  "expected": "Public reader and local author/editor workbench.",
+                  "observed": "Public reader and local author/editor workbench.",
+                  "observationId": "ui-review-002"
+                },
+                {
+                  "operation": "click",
+                  "requirementIds": [
+                    "req-reader-and-workbench"
+                  ],
+                  "coverage": "An author can create and revise a draft in the workbench.",
+                  "url": "http://127.0.0.1:54881/",
+                  "target": "Create draft and Update my draft controls",
+                  "expected": "Draft updated: 73aa93d9-f2db-42f9-af31-b1c35dab2d0a",
+                  "observed": "Draft updated: 73aa93d9-f2db-42f9-af31-b1c35dab2d0a",
+                  "observationId": "ui-review-019"
+                },
+                {
+                  "operation": "click",
+                  "requirementIds": [
+                    "req-reader-and-workbench"
+                  ],
+                  "coverage": "The workbench visibly enforces the author/editor publication boundary.",
+                  "url": "http://127.0.0.1:54881/",
+                  "target": "Publish control while signed in as author",
+                  "expected": "editors only",
+                  "observed": "editors only",
+                  "observationId": "ui-review-022"
+                },
+                {
+                  "operation": "click",
+                  "requirementIds": [
+                    "req-reader-and-workbench"
+                  ],
+                  "coverage": "An editor can publish a workbench post and the reader projects it.",
+                  "url": "http://127.0.0.1:54881/",
+                  "target": "Publish control while signed in as editor",
+                  "expected": "Post published",
+                  "observed": "Post published",
+                  "observationId": "ui-review-029"
+                },
+                {
+                  "operation": "click",
+                  "requirementIds": [
+                    "req-reader-and-workbench"
+                  ],
+                  "coverage": "A reader can open a published article and see its content and metadata.",
+                  "url": "http://127.0.0.1:54881/posts/73aa93d9-f2db-42f9-af31-b1c35dab2d0a",
+                  "target": "published article link",
+                  "expected": "Observability Field Guide Revised",
+                  "observed": "Observability Field Guide Revised",
+                  "observationId": "ui-review-031"
+                },
+                {
+                  "operation": "click",
+                  "requirementIds": [
+                    "req-reader-and-workbench"
+                  ],
+                  "coverage": "A submitted comment is held for editorial approval before public projection.",
+                  "url": "http://127.0.0.1:54881/posts/73aa93d9-f2db-42f9-af31-b1c35dab2d0a",
+                  "target": "Submit comment control",
+                  "expected": "Comment submitted for editorial approval: 9ab76edb-bec2-4801-9802-856d3da9464a",
+                  "observed": "Comment submitted for editorial approval: 9ab76edb-bec2-4801-9802-856d3da9464a",
+                  "observationId": "ui-review-034"
+                },
+                {
+                  "operation": "click",
+                  "requirementIds": [
+                    "req-reader-and-workbench"
+                  ],
+                  "coverage": "An editor can approve a pending comment and readers then see it as approved.",
+                  "url": "http://127.0.0.1:54881/posts/73aa93d9-f2db-42f9-af31-b1c35dab2d0a",
+                  "target": "Approve comment control then published article",
+                  "expected": "Clear and useful review notes.",
+                  "observed": "Clear and useful review notes.",
+                  "observationId": "ui-review-046"
+                },
+                {
+                  "operation": "click",
+                  "requirementIds": [
+                    "req-reader-and-workbench"
+                  ],
+                  "coverage": "Reader tag and category filters retain matching published content.",
+                  "url": "http://127.0.0.1:54881/",
+                  "target": "Apply filters with systems and engineering",
+                  "expected": "engineering · systems, testing",
+                  "observed": "engineering · systems, testing",
+                  "observationId": "ui-review-052"
+                },
+                {
+                  "operation": "click",
+                  "requirementIds": [
+                    "req-reader-and-workbench"
+                  ],
+                  "coverage": "An editor can unpublish a post and it is no longer projected in the reader.",
+                  "url": "http://127.0.0.1:54881/",
+                  "target": "Unpublish control while signed in as editor",
+                  "expected": "Post unpublished",
+                  "observed": "Post unpublished",
+                  "observationId": "ui-review-060"
+                },
+                {
+                  "operation": "observe",
+                  "requirementIds": [
+                    "req-reader-and-workbench"
+                  ],
+                  "coverage": "The reader excludes the offline post after unpublication.",
+                  "url": "http://127.0.0.1:54881/",
+                  "target": "published article listing after unpublish",
+                  "expected": "No published posts match.",
+                  "observed": "No published posts match.",
+                  "observationId": "ui-review-060"
+                }
+              ],
+              "caseId": "blog",
+              "attempt": 0,
+              "sourceFingerprint": "bcca14fd6d61f1c1bf7671985ad20c404f95bc3f962f07ab3d963382696e4b9e",
+              "dataDirectory": "/private/tmp/depa-codument-e2e-eXfiFW/home/tmp/app-state/ui-0",
+              "leaseId": "7de72e6c-b2e8-426d-86f0-1eb9ce5c3f59",
+              "scopePlan": {
+                "requirements": [
+                  {
+                    "id": "req-product-content-workflow",
+                    "channel": "api",
+                    "source": "request.md",
+                    "quote": "实现一个多作者内容平台，支持作者与编辑角色、文章草稿/发布/下线状态机、标签分类、评论和评论审核。",
+                    "reason": "The acceptance document supplies the concrete REST contracts for these roles, lifecycle states, metadata, and comment moderation; this is an API-scoped product capability."
+                  },
+                  {
+                    "id": "req-reader-and-workbench",
+                    "channel": "ui",
+                    "source": "request.md",
+                    "quote": "交付形态包含后端 REST API、前端阅读页面和编辑工作台。",
+                    "reason": "This explicitly requires generic reader and editor-workbench UI surfaces. The REST portion is covered by the route contracts below; no specific UI control is implied."
+                  },
+                  {
+                    "id": "req-server-entrypoints",
+                    "channel": "artifact",
+                    "source": "acceptance.md",
+                    "quote": "`e2e-server.json` declares `{ \"command\": [\"bun\", \"run\", \"start\"] }` or equivalent argv; server uses PORT on 127.0.0.1.",
+                    "reason": "A launch/configuration artifact is required."
+                  },
+                  {
+                    "id": "req-health-endpoint",
+                    "channel": "api",
+                    "source": "acceptance.md",
+                    "quote": "GET /health is 200",
+                    "reason": "This is an explicit HTTP endpoint status contract."
+                  },
+                  {
+                    "id": "req-root-html",
+                    "channel": "ui",
+                    "source": "acceptance.md",
+                    "quote": "GET / is real HTML.",
+                    "reason": "The root must deliver an actual UI document."
+                  },
+                  {
+                    "id": "req-auth-registration",
+                    "channel": "api",
+                    "source": "acceptance.md",
+                    "quote": "- POST /api/register {email,password,role:\"author\"|\"editor\"} → 201 {id,token}; self-selected roles are acceptable only for this local demonstration, document production provisioning.",
+                    "reason": "Defines registration, authentication token issuance, permitted local roles, and the production-provisioning documentation obligation."
+                  },
+                  {
+                    "id": "req-author-post-writing",
+                    "channel": "api",
+                    "source": "acceptance.md",
+                    "quote": "- POST /api/posts {title,body,tags:[string],category:string} as author → 201 {id,title,body,tags,category,status:\"draft\"}.",
+                    "reason": "Defines author post creation, returned fields, and initial draft state."
+                  },
+                  {
+                    "id": "req-post-owner-editing",
+                    "channel": "api",
+                    "source": "acceptance.md",
+                    "quote": "- PATCH /api/posts/:id {title?,body?,tags?,category?} as owner → 200 updated post. Other authors cannot mutate.",
+                    "reason": "Defines partial post editing and the negative authorization case for another author."
+                  },
+                  {
+                    "id": "req-editor-publication-lifecycle",
+                    "channel": "api",
+                    "source": "acceptance.md",
+                    "quote": "- POST /api/posts/:id/publish as editor → 200 status published. Authors cannot publish (403).\n- POST /api/posts/:id/unpublish as editor → 200 status offline.",
+                    "reason": "Adjacent lifecycle transitions are one API scope, including the author-denied publish case."
+                  },
+                  {
+                    "id": "req-public-post-projection",
+                    "channel": "api",
+                    "source": "acceptance.md",
+                    "quote": "- GET /api/public/posts → published posts only; optional tag/category filters. GET /api/public/posts/:id → published post or 404. No private drafts leak.",
+                    "reason": "Defines public collection/detail visibility, optional filters, 404 behavior, and the no-draft-leak negative case."
+                  },
+                  {
+                    "id": "req-comment-submission",
+                    "channel": "api",
+                    "source": "acceptance.md",
+                    "quote": "- POST /api/posts/:id/comments {body} as logged-in user → 201 {id,body,status:\"pending\"}.",
+                    "reason": "Defines authenticated comment creation and its pending state."
+                  },
+                  {
+                    "id": "req-comment-moderation-and-projection",
+                    "channel": "api",
+                    "source": "acceptance.md",
+                    "quote": "- POST /api/comments/:id/approve as editor → 200 status approved; author denied 403.\n- GET /api/public/posts/:id/comments → approved comments only.",
+                    "reason": "Adjacent moderation and public-projection contracts form one API scope, including the author-denied negative case."
+                  },
+                  {
+                    "id": "req-delivery-scripts-and-checks",
+                    "channel": "artifact",
+                    "source": "acceptance.md",
+                    "quote": "Provide working test/typecheck/build scripts; preserve Modeling/Engineering and product checks.",
+                    "reason": "These are delivery workflow and knowledge/check artifacts, assessed separately from UI and API behavior."
+                  }
+                ],
+                "setup": [
+                  {
+                    "id": "setup-register-local-roles",
+                    "requirementId": "req-auth-registration",
+                    "method": "POST",
+                    "pathTemplate": "/api/register",
+                    "source": "acceptance.md",
+                    "quote": "- POST /api/register {email,password,role:\"author\"|\"editor\"} → 201 {id,token}; self-selected roles are acceptable only for this local demonstration, document production provisioning.",
+                    "reason": "Creates only the author and editor accounts needed to authenticate later independent checks; it does not create acceptance outcomes."
+                  }
+                ]
+              },
+              "preparation": {
+                "sourceDigests": {
+                  "request.md": "f45efa6dc82dd3d989cdacc6831482faa8385f26a965ccd53927b98db73f03a2",
+                  "acceptance.md": "98bcde045b468331f8fd78507e7ded2e5ec8e3d2c38a805aa5b1202b1b0f824b"
+                },
+                "log": "/private/tmp/depa-codument-e2e-eXfiFW/logs/ui-acceptance-0-preparation.jsonl"
+              }
+            }
+          }
+        },
+        {
+          "caseId": "ecommerce",
+          "source": "/private/tmp/depa-codument-e2e-2L0ERN",
+          "candidate": "/private/tmp/depa-codument-e2e-2L0ERN/bin/depa-codument",
+          "candidateSha256": "372fe0befcf0717277199b5417fd6f0af00446b3d06a0d69a1f3409144b0cf61",
+          "state": "passed",
+          "log": "/private/tmp/depa-codument-e2e-batch-7baUFB/ecommerce.log",
+          "pid": 11485,
+          "root": "/private/tmp/depa-codument-e2e-6LuHIb",
+          "exitCode": 0,
+          "result": {
+            "status": "passed",
+            "kind": "ui-reverification",
+            "root": "/private/tmp/depa-codument-e2e-6LuHIb",
+            "sourceRunRoot": "/private/tmp/depa-codument-e2e-2L0ERN",
+            "receipt": {
+              "browser": "ego-browser",
+              "session": "3",
+              "status": "passed",
+              "findings": [],
+              "actions": [
+                {
+                  "operation": "observe",
+                  "requirementIds": [
+                    "req-ui-storefront"
+                  ],
+                  "coverage": "Storefront exposes a browsable catalog with product availability and purchase controls.",
+                  "url": "http://127.0.0.1:56955/",
+                  "target": "Products catalog",
+                  "expected": "Canvas Tote — $18.00 (12 available)",
+                  "observed": "Canvas Tote — $18.00 (12 available)",
+                  "observationId": "ui-review-002"
+                },
+                {
+                  "operation": "fill",
+                  "requirementIds": [
+                    "req-ui-storefront"
+                  ],
+                  "coverage": "A shopper can register and enter an authenticated storefront session.",
+                  "url": "http://127.0.0.1:56955/",
+                  "target": "Registration email and password fields followed by Register",
+                  "expected": "Signed in as ui.reviewer.20261003@example.test",
+                  "observed": "Signed in as ui.reviewer.20261003@example.test",
+                  "observationId": "ui-review-006"
+                },
+                {
+                  "operation": "observe",
+                  "requirementIds": [
+                    "req-ui-storefront"
+                  ],
+                  "coverage": "The storefront accurately represents an authenticated empty cart and does not dispatch checkout from it.",
+                  "url": "http://127.0.0.1:56955/",
+                  "target": "Authenticated empty Cart",
+                  "expected": "Your cart is empty.",
+                  "observed": "Your cart is empty.",
+                  "observationId": "ui-review-008"
+                },
+                {
+                  "operation": "click",
+                  "requirementIds": [
+                    "req-ui-storefront"
+                  ],
+                  "coverage": "A signed-in shopper can add a catalog item to the cart.",
+                  "url": "http://127.0.0.1:56955/",
+                  "target": "Canvas Tote Add button",
+                  "expected": "demo-canvas-tote × 1",
+                  "observed": "demo-canvas-tote × 1",
+                  "observationId": "ui-review-010"
+                },
+                {
+                  "operation": "click",
+                  "requirementIds": [
+                    "req-ui-storefront"
+                  ],
+                  "coverage": "A signed-in shopper can place the displayed cart as an order and receives a pending order total.",
+                  "url": "http://127.0.0.1:56955/",
+                  "target": "Place order button for Canvas Tote cart",
+                  "expected": "Order 048dda0d-3671-49e3-9e0a-f2c805d836f5 is pending; total $18.00",
+                  "observed": "Order 048dda0d-3671-49e3-9e0a-f2c805d836f5 is pending; total $18.00",
+                  "observationId": "ui-review-012"
+                }
+              ],
+              "uncovered": [
+                "API-only scope was not asserted in the browser: SKU/coupon provisioning, cart ownership API contract, reservation/idempotency/insufficient-stock behavior, asynchronous payment and duplicate protection, cancellation, order access control, and runtime/artifact knowledge obligations.",
+                "No UI controls for payment, cancellation, coupon application, order retrieval, or authorization testing were exposed in the live storefront; the requirements do not explicitly allocate those API capabilities to storefront controls."
+              ],
+              "caseId": "ecommerce",
+              "attempt": 0,
+              "sourceFingerprint": "9ff779bda81bd45eac5d2a0aa484b810623c03d3be7fbc1c3730e08d28a8c751",
+              "dataDirectory": "/private/tmp/depa-codument-e2e-6LuHIb/home/tmp/app-state/ui-0",
+              "leaseId": "c8ce3d96-3752-401e-a3d8-a42e3c274d37",
+              "scopePlan": {
+                "requirements": [
+                  {
+                    "id": "req-api-product-scope",
+                    "channel": "api",
+                    "source": "request.md",
+                    "quote": "实现一个 B2C 下单子系统，支持商品 SKU、购物车、库存预留与扣减、订单生命周期、支付、优惠券和金额派生。",
+                    "reason": "This broad API product scope is made testable by the explicit REST contracts in acceptance.md; those contracts below allocate its concrete behaviors without assuming a UI control for each API feature."
+                  },
+                  {
+                    "id": "req-artifact-domain-knowledge",
+                    "channel": "artifact",
+                    "source": "request.md",
+                    "quote": "系统需要明确订单与库存的事实源、跨边界消息、金额派生规则和失败恢复路径。",
+                    "reason": "This is an architecture/knowledge obligation, not a UI or UI/API-state-consistency requirement; the asynchronous order-payment contract gives its operational context."
+                  },
+                  {
+                    "id": "req-ui-storefront",
+                    "channel": "ui",
+                    "source": "acceptance.md",
+                    "quote": "Deliver the original product including actual asynchronous message processing and storefront UI.",
+                    "reason": "Explicitly requires a storefront UI, but does not allocate a particular API feature to a particular control."
+                  },
+                  {
+                    "id": "req-artifact-runtime-entrypoint",
+                    "channel": "artifact",
+                    "source": "acceptance.md",
+                    "quote": "`e2e-server.json` declares the real app command argv, reads PORT, binds 127.0.0.1. GET /health→200; GET /→real HTML. JSON objects unwrapped and collections arrays. Auth Bearer token; IDs strings. Business errors non-2xx. Demo SKU/coupon provisioning below is local test/admin setup; document production security.",
+                    "reason": "Runtime, response-shape, and production-security documentation evidence are checked as artifacts; its API-format clauses govern the route contracts below."
+                  },
+                  {
+                    "id": "req-api-register-sku-coupon",
+                    "channel": "api",
+                    "source": "acceptance.md",
+                    "quote": "- POST /api/register {email,password} → 201 {id,token}.\n- POST /api/skus {name,priceCents,stock} → 201 {id,name,priceCents,stock,reserved:0}.\n- GET /api/skus/:id → current {stock,reserved,...}; stock is on-hand, reserved is outstanding reservations, available=stock-reserved.\n- POST /api/coupons {code,discountCents} → 201 coupon.",
+                    "reason": "Adjacent setup/catalog route contracts and their inventory-state semantics are one API scope."
+                  },
+                  {
+                    "id": "req-api-cart-ownership",
+                    "channel": "api",
+                    "source": "acceptance.md",
+                    "quote": "- POST /api/cart/items {skuId,quantity} with token → 200; GET /api/cart → {items:[{skuId,quantity}]} owned by user.",
+                    "reason": "Defines authenticated cart mutation and user-owned cart retrieval."
+                  },
+                  {
+                    "id": "req-api-order-reservation-idempotency",
+                    "channel": "api",
+                    "source": "acceptance.md",
+                    "quote": "- POST /api/orders {couponCode?,idempotencyKey} with token → 201 {id,totalCents,status:\"pending\"}; atomically reserve current cart and clear it. Repeat same idempotencyKey returns same order, no second stock reservation. Insufficient available stock→409.",
+                    "reason": "The order endpoint contract includes cents-derived total, atomic cart/reservation effects, idempotency, and the distinct insufficient-stock negative case."
+                  },
+                  {
+                    "id": "req-api-payment-async-idempotency",
+                    "channel": "api",
+                    "source": "acceptance.md",
+                    "quote": "- POST /api/orders/:id/pay {paymentId} with owner token → 200; durable asynchronous message processing eventually sets status paid, decrements on-hand stock and releases reservation. Duplicate paymentId must not double-deduct. Failures must be recoverable; explain and test.",
+                    "reason": "This is an API contract despite eventual state changes; it includes async durability, inventory effects, duplicate-payment protection, and recoverability evidence. It does not explicitly require a UI/API consistency assertion."
+                  },
+                  {
+                    "id": "req-api-order-cancellation-negative",
+                    "channel": "api",
+                    "source": "acceptance.md",
+                    "quote": "- POST /api/orders/:id/cancel with owner token → 200; pending order cancellation releases reservation, no stock deduction. Cannot cancel paid order (409).",
+                    "reason": "Defines cancellation state effects and the paid-order rejection case."
+                  },
+                  {
+                    "id": "req-api-order-access-control",
+                    "channel": "api",
+                    "source": "acceptance.md",
+                    "quote": "- GET /api/orders/:id with owner token → current order; foreign user forbidden 403/404.",
+                    "reason": "Defines owner retrieval and the foreign-user authorization negative case."
+                  },
+                  {
+                    "id": "req-artifact-tests-build-knowledge",
+                    "channel": "artifact",
+                    "source": "acceptance.md",
+                    "quote": "Provide genuine test/typecheck/build scripts and Model/Engineering knowledge. Do not replace asynchronous business effects with synchronous test-only success.",
+                    "reason": "Requires test/build and engineering/model knowledge evidence, plus protection against test-only synchronous substitution; these are artifact checks rather than UI checks."
+                  }
+                ],
+                "setup": []
+              },
+              "preparation": {
+                "sourceDigests": {
+                  "request.md": "e6938e56485cfab7bc1258205ab667e0cb4201290cef709e620606940d114c54",
+                  "acceptance.md": "f226f9ab5a907587a0ed8195dd6e2fd1e26f48bf2fa3ca3f32eb2be40d4bb781"
+                },
+                "log": "/private/tmp/depa-codument-e2e-6LuHIb/logs/ui-acceptance-0-preparation.jsonl"
+              }
+            }
+          }
+        }
+      ],
+      "updatedAt": "2026-10-03T18:00:58.058Z"
+    }
+  ],
+  "rows": [
+    {
+      "root": "/private/tmp/depa-codument-e2e-sQoe5c",
+      "caseId": "todo",
+      "sourceRunRoot": "/private/tmp/depa-codument-e2e-cq3qL4",
+      "harnessSha256": "b7ec64ae0da7945bcd102490a770146df9068ab5d101bbaeb3a1d57eb59d299c",
+      "status": "infrastructure-failed",
+      "failureClass": "protocol-cost",
+      "error": "Error: Missing UI requirement coverage from admitted scope plan",
+      "sourceUnchanged": true,
+      "historicalStatus": "infrastructure-failed",
+      "candidateSha256": "372fe0befcf0717277199b5417fd6f0af00446b3d06a0d69a1f3409144b0cf61",
+      "scopeCounts": {
+        "cross-boundary": 5,
+        "api": 10
+      },
+      "setupSealed": true,
+      "actions": 0,
+      "browserRequests": 53,
+      "recoverableErrors": 2,
+      "uncertainEffects": 0,
+      "protocolRepairRounds": 1,
+      "modelContexts": [
+        {
+          "file": "/private/tmp/depa-codument-e2e-sQoe5c/home/.codex/sessions/2026/10/03/rollout-2026-10-03T19-38-12-01a102a1-5a79-77d3-941b-609662aa96d4.jsonl",
+          "model": "gpt-5.6-terra",
+          "effort": "medium"
+        },
+        {
+          "file": "/private/tmp/depa-codument-e2e-sQoe5c/home/.codex/sessions/2026/10/03/rollout-2026-10-03T19-40-42-01a102a3-a737-7083-850d-e3ba658cc204.jsonl",
+          "model": "gpt-5.6-terra",
+          "effort": "medium"
+        },
+        {
+          "file": "/private/tmp/depa-codument-e2e-sQoe5c/home/.codex/sessions/2026/10/03/rollout-2026-10-03T19-47-31-01a102a9-e857-7283-9b1f-bb8e94afb864.jsonl",
+          "model": "gpt-5.6-terra",
+          "effort": "medium"
+        }
+      ]
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-Kd8Nhb",
+      "caseId": "blog",
+      "sourceRunRoot": "/private/tmp/depa-codument-e2e-DC1eur",
+      "harnessSha256": "b7ec64ae0da7945bcd102490a770146df9068ab5d101bbaeb3a1d57eb59d299c",
+      "status": "infrastructure-failed",
+      "failureClass": "infrastructure",
+      "error": "Error: Native browser timeout; outcome uncertain, session fenced: Error: page.fill failed: element is not an input, textarea, or contenteditable element",
+      "sourceUnchanged": true,
+      "historicalStatus": "infrastructure-failed",
+      "candidateSha256": "372fe0befcf0717277199b5417fd6f0af00446b3d06a0d69a1f3409144b0cf61",
+      "scopeCounts": {
+        "cross-boundary": 5,
+        "api": 10
+      },
+      "setupSealed": true,
+      "actions": 0,
+      "browserRequests": 58,
+      "recoverableErrors": 1,
+      "uncertainEffects": 4,
+      "protocolRepairRounds": 0,
+      "modelContexts": [
+        {
+          "file": "/private/tmp/depa-codument-e2e-Kd8Nhb/home/.codex/sessions/2026/10/03/rollout-2026-10-03T19-49-32-01a102ab-b922-7382-baf0-0cdb6a6a370a.jsonl",
+          "model": "gpt-5.6-terra",
+          "effort": "medium"
+        },
+        {
+          "file": "/private/tmp/depa-codument-e2e-Kd8Nhb/home/.codex/sessions/2026/10/03/rollout-2026-10-03T19-50-52-01a102ac-f7d3-7563-9a6b-25d2bbba289c.jsonl",
+          "model": "gpt-5.6-terra",
+          "effort": "medium"
+        }
+      ]
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-0tb86m",
+      "caseId": "ecommerce",
+      "sourceRunRoot": "/private/tmp/depa-codument-e2e-2L0ERN",
+      "harnessSha256": "b7ec64ae0da7945bcd102490a770146df9068ab5d101bbaeb3a1d57eb59d299c",
+      "status": "failed",
+      "failureClass": "business",
+      "error": "Error: Browser acceptance failed: [\"\\\"Order d0c21c82-9c7e-418d-9ff4-b687d20b40b0 is pending; total $25.99\\\" — After a successful shopper checkout, the full-page storefront leaves the order pending and exposes no payment/local-simulator action, cancellation action, or order-detail control. Consequently the storefront cannot complete the required payment and order-lifecycle workflow or surface the eventual paid state.\"]",
+      "sourceUnchanged": true,
+      "historicalStatus": "infrastructure-failed",
+      "candidateSha256": "372fe0befcf0717277199b5417fd6f0af00446b3d06a0d69a1f3409144b0cf61",
+      "scopeCounts": {
+        "cross-boundary": 5,
+        "api": 9
+      },
+      "setupSealed": true,
+      "actions": 0,
+      "browserRequests": 13,
+      "recoverableErrors": 0,
+      "uncertainEffects": 0,
+      "protocolRepairRounds": 0,
+      "modelContexts": [
+        {
+          "file": "/private/tmp/depa-codument-e2e-0tb86m/home/.codex/sessions/2026/10/03/rollout-2026-10-03T19-54-00-01a102af-d1ee-7830-8343-fb0bbaf0cc8c.jsonl",
+          "model": "gpt-5.6-terra",
+          "effort": "medium"
+        },
+        {
+          "file": "/private/tmp/depa-codument-e2e-0tb86m/home/.codex/sessions/2026/10/03/rollout-2026-10-03T19-55-34-01a102b1-4498-7d71-8f95-56ba380f2a1e.jsonl",
+          "model": "gpt-5.6-terra",
+          "effort": "medium"
+        }
+      ]
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-b0KLdQ",
+      "caseId": "todo",
+      "sourceRunRoot": "/private/tmp/depa-codument-e2e-cq3qL4",
+      "harnessSha256": "798f7e63c50f06328ea6537afc9e6037413dbcece9d9d8c57efe3ccd72ccf177",
+      "status": "infrastructure-failed",
+      "failureClass": "scope-unresolved",
+      "error": "Error: Requirement scope remains unspecified; not a business defect",
+      "sourceUnchanged": true,
+      "historicalStatus": "infrastructure-failed",
+      "candidateSha256": "372fe0befcf0717277199b5417fd6f0af00446b3d06a0d69a1f3409144b0cf61",
+      "scopeCounts": {
+        "unspecified": 1,
+        "api": 10,
+        "ui": 1,
+        "cross-boundary": 1,
+        "artifact": 8
+      },
+      "setupSealed": true,
+      "actions": 0,
+      "browserRequests": 37,
+      "recoverableErrors": 1,
+      "uncertainEffects": 0,
+      "protocolRepairRounds": 0,
+      "modelContexts": [
+        {
+          "file": "/private/tmp/depa-codument-e2e-b0KLdQ/home/.codex/sessions/2026/10/03/rollout-2026-10-03T20-01-22-01a102b6-8e9e-7981-86a6-ee6f0a0fffe9.jsonl",
+          "model": "gpt-5.6-terra",
+          "effort": "medium"
+        },
+        {
+          "file": "/private/tmp/depa-codument-e2e-b0KLdQ/home/.codex/sessions/2026/10/03/rollout-2026-10-03T20-02-15-01a102b7-64cd-73f0-ac2b-24664c09e4ab.jsonl",
+          "model": "gpt-5.6-terra",
+          "effort": "medium"
+        }
+      ]
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-HX3cnR",
+      "caseId": "blog",
+      "sourceRunRoot": "/private/tmp/depa-codument-e2e-DC1eur",
+      "harnessSha256": "798f7e63c50f06328ea6537afc9e6037413dbcece9d9d8c57efe3ccd72ccf177",
+      "status": "infrastructure-failed",
+      "failureClass": "setup-failed",
+      "error": "Error: Scenario preparation failed before UI grading: Error: Agent ui-scenario-0 failed: exit=124; see /private/tmp/depa-codument-e2e-HX3cnR/logs/ui-scenario-0.jsonl",
+      "sourceUnchanged": true,
+      "historicalStatus": "infrastructure-failed",
+      "candidateSha256": "372fe0befcf0717277199b5417fd6f0af00446b3d06a0d69a1f3409144b0cf61",
+      "scopeCounts": {},
+      "setupSealed": false,
+      "actions": 0,
+      "browserRequests": 0,
+      "recoverableErrors": 0,
+      "uncertainEffects": 0,
+      "protocolRepairRounds": 0,
+      "modelContexts": [
+        {
+          "file": "/private/tmp/depa-codument-e2e-HX3cnR/home/.codex/sessions/2026/10/03/rollout-2026-10-03T20-07-16-01a102bb-f563-77f2-9088-88ad40fb6e3c.jsonl",
+          "model": "gpt-5.6-terra",
+          "effort": "medium"
+        }
+      ]
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-IfPEI3",
+      "caseId": "ecommerce",
+      "sourceRunRoot": "/private/tmp/depa-codument-e2e-2L0ERN",
+      "harnessSha256": "798f7e63c50f06328ea6537afc9e6037413dbcece9d9d8c57efe3ccd72ccf177",
+      "status": "infrastructure-failed",
+      "failureClass": "setup-failed",
+      "error": "Error: Scenario preparation failed before UI grading: Error: Agent ui-scenario-0 failed: exit=124; see /private/tmp/depa-codument-e2e-IfPEI3/logs/ui-scenario-0.jsonl",
+      "sourceUnchanged": true,
+      "historicalStatus": "infrastructure-failed",
+      "candidateSha256": "372fe0befcf0717277199b5417fd6f0af00446b3d06a0d69a1f3409144b0cf61",
+      "scopeCounts": {},
+      "setupSealed": false,
+      "actions": 0,
+      "browserRequests": 0,
+      "recoverableErrors": 0,
+      "uncertainEffects": 0,
+      "protocolRepairRounds": 0,
+      "modelContexts": [
+        {
+          "file": "/private/tmp/depa-codument-e2e-IfPEI3/home/.codex/sessions/2026/10/03/rollout-2026-10-03T20-10-44-01a102bf-23a7-7e63-9bc5-a77b490e162f.jsonl",
+          "model": "gpt-5.6-terra",
+          "effort": "medium"
+        }
+      ]
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-xlaauc",
+      "caseId": "todo",
+      "sourceRunRoot": "/private/tmp/depa-codument-e2e-cq3qL4",
+      "harnessSha256": "d008fe0e16b2d6a17936f234a5fe1a6c497ddcdbe6bf5edac913f92853cfcc4a",
+      "status": "infrastructure-failed",
+      "failureClass": "scope-unresolved",
+      "error": "Error: Missing UI requirement coverage from admitted scope plan; not repairable by receipt formatting",
+      "sourceUnchanged": true,
+      "historicalStatus": "infrastructure-failed",
+      "candidateSha256": "372fe0befcf0717277199b5417fd6f0af00446b3d06a0d69a1f3409144b0cf61",
+      "scopeCounts": {
+        "api": 11,
+        "cross-boundary": 1,
+        "artifact": 3
+      },
+      "setupSealed": true,
+      "actions": 0,
+      "browserRequests": 45,
+      "recoverableErrors": 1,
+      "uncertainEffects": 0,
+      "protocolRepairRounds": 0,
+      "modelContexts": [
+        {
+          "file": "/private/tmp/depa-codument-e2e-xlaauc/home/.codex/sessions/2026/10/03/rollout-2026-10-03T20-18-53-01a102c6-9981-7b41-8186-78770de6c839.jsonl",
+          "model": "gpt-5.6-terra",
+          "effort": "medium"
+        },
+        {
+          "file": "/private/tmp/depa-codument-e2e-xlaauc/home/.codex/sessions/2026/10/03/rollout-2026-10-03T20-20-18-01a102c7-eaea-7061-a638-accb95457754.jsonl",
+          "model": "gpt-5.6-terra",
+          "effort": "medium"
+        }
+      ]
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-1O5t6J",
+      "caseId": "blog",
+      "sourceRunRoot": "/private/tmp/depa-codument-e2e-DC1eur",
+      "harnessSha256": "d008fe0e16b2d6a17936f234a5fe1a6c497ddcdbe6bf5edac913f92853cfcc4a",
+      "status": "infrastructure-failed",
+      "failureClass": "scope-unresolved",
+      "error": "Error: Missing UI requirement coverage from admitted scope plan; not repairable by receipt formatting",
+      "sourceUnchanged": true,
+      "historicalStatus": "infrastructure-failed",
+      "candidateSha256": "372fe0befcf0717277199b5417fd6f0af00446b3d06a0d69a1f3409144b0cf61",
+      "scopeCounts": {
+        "api": 10,
+        "ui": 2,
+        "artifact": 4
+      },
+      "setupSealed": true,
+      "actions": 0,
+      "browserRequests": 47,
+      "recoverableErrors": 0,
+      "uncertainEffects": 0,
+      "protocolRepairRounds": 0,
+      "modelContexts": [
+        {
+          "file": "/private/tmp/depa-codument-e2e-1O5t6J/home/.codex/sessions/2026/10/03/rollout-2026-10-03T20-25-41-01a102cc-d2d0-7841-9359-4a83ceecc42d.jsonl",
+          "model": "gpt-5.6-terra",
+          "effort": "medium"
+        },
+        {
+          "file": "/private/tmp/depa-codument-e2e-1O5t6J/home/.codex/sessions/2026/10/03/rollout-2026-10-03T20-27-13-01a102ce-3f07-7212-979a-6c12511ec67a.jsonl",
+          "model": "gpt-5.6-terra",
+          "effort": "medium"
+        }
+      ]
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-AjdBoR",
+      "caseId": "ecommerce",
+      "sourceRunRoot": "/private/tmp/depa-codument-e2e-2L0ERN",
+      "harnessSha256": "d008fe0e16b2d6a17936f234a5fe1a6c497ddcdbe6bf5edac913f92853cfcc4a",
+      "status": "infrastructure-failed",
+      "failureClass": "scope-unresolved",
+      "error": "Error: Missing UI requirement coverage from admitted scope plan; not repairable by receipt formatting",
+      "sourceUnchanged": true,
+      "historicalStatus": "infrastructure-failed",
+      "candidateSha256": "372fe0befcf0717277199b5417fd6f0af00446b3d06a0d69a1f3409144b0cf61",
+      "scopeCounts": {
+        "api": 9,
+        "ui": 2,
+        "artifact": 4
+      },
+      "setupSealed": true,
+      "actions": 0,
+      "browserRequests": 10,
+      "recoverableErrors": 0,
+      "uncertainEffects": 0,
+      "protocolRepairRounds": 0,
+      "modelContexts": [
+        {
+          "file": "/private/tmp/depa-codument-e2e-AjdBoR/home/.codex/sessions/2026/10/03/rollout-2026-10-03T20-31-49-01a102d2-6fc3-73e3-96d5-fe43bd7cf1c2.jsonl",
+          "model": "gpt-5.6-terra",
+          "effort": "medium"
+        },
+        {
+          "file": "/private/tmp/depa-codument-e2e-AjdBoR/home/.codex/sessions/2026/10/03/rollout-2026-10-03T20-33-10-01a102d3-b24f-7b12-8295-0f9c510710de.jsonl",
+          "model": "gpt-5.6-terra",
+          "effort": "medium"
+        }
+      ]
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-hw66Uc",
+      "caseId": "todo",
+      "sourceRunRoot": "/private/tmp/depa-codument-e2e-cq3qL4",
+      "harnessSha256": "416ab3f61baaf563886f94c91fa4775e8fd64b5c06850d6a9b7f2e523e0bb5d9",
+      "status": "passed",
+      "failureClass": null,
+      "error": null,
+      "sourceUnchanged": true,
+      "historicalStatus": "infrastructure-failed",
+      "candidateSha256": "372fe0befcf0717277199b5417fd6f0af00446b3d06a0d69a1f3409144b0cf61",
+      "scopeCounts": {
+        "api": 10,
+        "ui": 2,
+        "cross-boundary": 1,
+        "artifact": 4
+      },
+      "setupSealed": true,
+      "actions": 9,
+      "browserRequests": 49,
+      "recoverableErrors": 1,
+      "uncertainEffects": 0,
+      "protocolRepairRounds": 0,
+      "modelContexts": [
+        {
+          "file": "/private/tmp/depa-codument-e2e-hw66Uc/home/.codex/sessions/2026/10/03/rollout-2026-10-03T20-40-48-01a102da-a83e-7ec1-9695-2c2f95340e3c.jsonl",
+          "model": "gpt-5.6-terra",
+          "effort": "medium"
+        },
+        {
+          "file": "/private/tmp/depa-codument-e2e-hw66Uc/home/.codex/sessions/2026/10/03/rollout-2026-10-03T20-42-45-01a102dc-75dd-7271-98e4-aba9dc795ae8.jsonl",
+          "model": "gpt-5.6-terra",
+          "effort": "medium"
+        }
+      ]
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-eXfiFW",
+      "caseId": "blog",
+      "sourceRunRoot": "/private/tmp/depa-codument-e2e-DC1eur",
+      "harnessSha256": "416ab3f61baaf563886f94c91fa4775e8fd64b5c06850d6a9b7f2e523e0bb5d9",
+      "status": "passed",
+      "failureClass": null,
+      "error": null,
+      "sourceUnchanged": true,
+      "historicalStatus": "infrastructure-failed",
+      "candidateSha256": "372fe0befcf0717277199b5417fd6f0af00446b3d06a0d69a1f3409144b0cf61",
+      "scopeCounts": {
+        "api": 9,
+        "ui": 2,
+        "artifact": 2
+      },
+      "setupSealed": true,
+      "actions": 10,
+      "browserRequests": 60,
+      "recoverableErrors": 0,
+      "uncertainEffects": 0,
+      "protocolRepairRounds": 0,
+      "modelContexts": [
+        {
+          "file": "/private/tmp/depa-codument-e2e-eXfiFW/home/.codex/sessions/2026/10/03/rollout-2026-10-03T20-48-38-01a102e1-d49b-71a1-a1fe-c33f969151b3.jsonl",
+          "model": "gpt-5.6-terra",
+          "effort": "medium"
+        },
+        {
+          "file": "/private/tmp/depa-codument-e2e-eXfiFW/home/.codex/sessions/2026/10/03/rollout-2026-10-03T20-50-55-01a102e3-f04c-74a2-ba7a-6733b9d2b44b.jsonl",
+          "model": "gpt-5.6-terra",
+          "effort": "medium"
+        }
+      ]
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-6LuHIb",
+      "caseId": "ecommerce",
+      "sourceRunRoot": "/private/tmp/depa-codument-e2e-2L0ERN",
+      "harnessSha256": "416ab3f61baaf563886f94c91fa4775e8fd64b5c06850d6a9b7f2e523e0bb5d9",
+      "status": "passed",
+      "failureClass": null,
+      "error": null,
+      "sourceUnchanged": true,
+      "historicalStatus": "infrastructure-failed",
+      "candidateSha256": "372fe0befcf0717277199b5417fd6f0af00446b3d06a0d69a1f3409144b0cf61",
+      "scopeCounts": {
+        "api": 7,
+        "artifact": 3,
+        "ui": 1
+      },
+      "setupSealed": true,
+      "actions": 5,
+      "browserRequests": 12,
+      "recoverableErrors": 1,
+      "uncertainEffects": 0,
+      "protocolRepairRounds": 0,
+      "modelContexts": [
+        {
+          "file": "/private/tmp/depa-codument-e2e-6LuHIb/home/.codex/sessions/2026/10/03/rollout-2026-10-03T20-56-33-01a102e9-1535-7fe1-baeb-48d54751c93c.jsonl",
+          "model": "gpt-5.6-terra",
+          "effort": "medium"
+        },
+        {
+          "file": "/private/tmp/depa-codument-e2e-6LuHIb/home/.codex/sessions/2026/10/03/rollout-2026-10-03T20-58-32-01a102ea-eb9e-7072-8c0d-f96ba2da3fe6.jsonl",
+          "model": "gpt-5.6-terra",
+          "effort": "medium"
+        }
+      ]
+    }
+  ],
+  "protectedAfter": {
+    "workspace": "b631c71946ecff6cba752ee096bcec1b24b195d24b9d16fddf2deb1eab3bd11f",
+    "oldBin": "0e1e11778a504fd91048841dd00a6b0914f1d0d7289c8cd693e8511283243f4d",
+    "oldBinBytes": "05206bf05959d0b10420a6cc5b5e6d2d67a5ba5cadee5f46ec1c178d69ddc3f8"
+  },
+  "protectedUnchanged": true,
+  "closedEndpoints": [
+    "http://127.0.0.1:53182",
+    "http://127.0.0.1:53036",
+    "http://127.0.0.1:53757",
+    "http://127.0.0.1:56021",
+    "http://127.0.0.1:55876",
+    "http://127.0.0.1:56347",
+    "http://127.0.0.1:57175",
+    "http://127.0.0.1:57009",
+    "http://127.0.0.1:57633",
+    "http://127.0.0.1:59286",
+    "http://127.0.0.1:59088",
+    "http://127.0.0.1:59500",
+    "http://127.0.0.1:60828",
+    "http://127.0.0.1:60657",
+    "http://127.0.0.1:61766",
+    "http://127.0.0.1:61582",
+    "http://127.0.0.1:63710",
+    "http://127.0.0.1:63502",
+    "http://127.0.0.1:64053",
+    "http://127.0.0.1:65242",
+    "http://127.0.0.1:65410",
+    "http://127.0.0.1:49381",
+    "http://127.0.0.1:50610",
+    "http://127.0.0.1:50956",
+    "http://127.0.0.1:50449",
+    "http://127.0.0.1:52865",
+    "http://127.0.0.1:53504",
+    "http://127.0.0.1:52690",
+    "http://127.0.0.1:54884",
+    "http://127.0.0.1:54720",
+    "http://127.0.0.1:55396",
+    "http://127.0.0.1:57008",
+    "http://127.0.0.1:57734",
+    "http://127.0.0.1:56778"
+  ],
+  "report": {
+    "runs": [
+      {
+        "root": "/private/tmp/depa-codument-e2e-sQoe5c",
+        "kind": "ui-reverification",
+        "sourceRunRoot": "/private/tmp/depa-codument-e2e-cq3qL4",
+        "caseId": "todo",
+        "status": "infrastructure-failed",
+        "rawStatus": "infrastructure-failed",
+        "terminalPolicy": null,
+        "resumed": false,
+        "firstPass": null,
+        "elapsedMs": null,
+        "harness": {
+          "initialSha256": "b7ec64ae0da7945bcd102490a770146df9068ab5d101bbaeb3a1d57eb59d299c",
+          "acceptancePolicy": "fresh-agent-semantic-v1",
+          "resumes": []
+        },
+        "workflowPolicy": null,
+        "gateCoverage": {
+          "immutableRequirements": false,
+          "observedModels": true,
+          "uiReceipts": [
+            "ui-receipt-0.json"
+          ],
+          "baseline": "recorded"
+        },
+        "usage": {
+          "input": 2020755,
+          "cached": 1895168,
+          "output": 22978
+        },
+        "sessionAccounting": {
+          "usage": {
+            "input": 2020755,
+            "cached": 1895168,
+            "output": 22978
+          },
+          "responseCount": 77,
+          "sessionCount": 3,
+          "sessionsWithUsage": 3,
+          "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+        },
+        "topLevelUsage": {
+          "input": 2020755,
+          "cached": 1895168,
+          "output": 22978
+        },
+        "topLevelUsageComplete": true,
+        "usageEstimated": false,
+        "outputTokensUnavailable": false,
+        "moneyCost": null
+      },
+      {
+        "root": "/private/tmp/depa-codument-e2e-Kd8Nhb",
+        "kind": "ui-reverification",
+        "sourceRunRoot": "/private/tmp/depa-codument-e2e-DC1eur",
+        "caseId": "blog",
+        "status": "infrastructure-failed",
+        "rawStatus": "infrastructure-failed",
+        "terminalPolicy": null,
+        "resumed": false,
+        "firstPass": null,
+        "elapsedMs": null,
+        "harness": {
+          "initialSha256": "b7ec64ae0da7945bcd102490a770146df9068ab5d101bbaeb3a1d57eb59d299c",
+          "acceptancePolicy": "fresh-agent-semantic-v1",
+          "resumes": []
+        },
+        "workflowPolicy": null,
+        "gateCoverage": {
+          "immutableRequirements": false,
+          "observedModels": true,
+          "uiReceipts": [
+            "ui-receipt-0.json"
+          ],
+          "baseline": "recorded"
+        },
+        "usage": {
+          "input": 709691,
+          "cached": 653056,
+          "output": 8915
+        },
+        "sessionAccounting": {
+          "usage": {
+            "input": 709691,
+            "cached": 653056,
+            "output": 8915
+          },
+          "responseCount": 29,
+          "sessionCount": 2,
+          "sessionsWithUsage": 2,
+          "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+        },
+        "topLevelUsage": {
+          "input": 709691,
+          "cached": 653056,
+          "output": 8915
+        },
+        "topLevelUsageComplete": true,
+        "usageEstimated": false,
+        "outputTokensUnavailable": false,
+        "moneyCost": null
+      },
+      {
+        "root": "/private/tmp/depa-codument-e2e-0tb86m",
+        "kind": "ui-reverification",
+        "sourceRunRoot": "/private/tmp/depa-codument-e2e-2L0ERN",
+        "caseId": "ecommerce",
+        "status": "failed",
+        "rawStatus": "failed",
+        "terminalPolicy": null,
+        "resumed": false,
+        "firstPass": null,
+        "elapsedMs": null,
+        "harness": {
+          "initialSha256": "b7ec64ae0da7945bcd102490a770146df9068ab5d101bbaeb3a1d57eb59d299c",
+          "acceptancePolicy": "fresh-agent-semantic-v1",
+          "resumes": []
+        },
+        "workflowPolicy": null,
+        "gateCoverage": {
+          "immutableRequirements": false,
+          "observedModels": true,
+          "uiReceipts": [
+            "ui-receipt-0.json"
+          ],
+          "baseline": "recorded"
+        },
+        "usage": {
+          "input": 702564,
+          "cached": 640256,
+          "output": 8468
+        },
+        "sessionAccounting": {
+          "usage": {
+            "input": 702564,
+            "cached": 640256,
+            "output": 8468
+          },
+          "responseCount": 27,
+          "sessionCount": 2,
+          "sessionsWithUsage": 2,
+          "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+        },
+        "topLevelUsage": {
+          "input": 702564,
+          "cached": 640256,
+          "output": 8468
+        },
+        "topLevelUsageComplete": true,
+        "usageEstimated": false,
+        "outputTokensUnavailable": false,
+        "moneyCost": null
+      },
+      {
+        "root": "/private/tmp/depa-codument-e2e-b0KLdQ",
+        "kind": "ui-reverification",
+        "sourceRunRoot": "/private/tmp/depa-codument-e2e-cq3qL4",
+        "caseId": "todo",
+        "status": "infrastructure-failed",
+        "rawStatus": "infrastructure-failed",
+        "terminalPolicy": null,
+        "resumed": false,
+        "firstPass": null,
+        "elapsedMs": null,
+        "harness": {
+          "initialSha256": "798f7e63c50f06328ea6537afc9e6037413dbcece9d9d8c57efe3ccd72ccf177",
+          "acceptancePolicy": "fresh-agent-semantic-v1",
+          "resumes": []
+        },
+        "workflowPolicy": null,
+        "gateCoverage": {
+          "immutableRequirements": false,
+          "observedModels": true,
+          "uiReceipts": [
+            "ui-receipt-0.json"
+          ],
+          "baseline": "recorded"
+        },
+        "usage": {
+          "input": 1397429,
+          "cached": 1325824,
+          "output": 12622
+        },
+        "sessionAccounting": {
+          "usage": {
+            "input": 1397429,
+            "cached": 1325824,
+            "output": 12622
+          },
+          "responseCount": 53,
+          "sessionCount": 2,
+          "sessionsWithUsage": 2,
+          "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+        },
+        "topLevelUsage": {
+          "input": 1397429,
+          "cached": 1325824,
+          "output": 12622
+        },
+        "topLevelUsageComplete": true,
+        "usageEstimated": false,
+        "outputTokensUnavailable": false,
+        "moneyCost": null
+      },
+      {
+        "root": "/private/tmp/depa-codument-e2e-HX3cnR",
+        "kind": "ui-reverification",
+        "sourceRunRoot": "/private/tmp/depa-codument-e2e-DC1eur",
+        "caseId": "blog",
+        "status": "infrastructure-failed",
+        "rawStatus": "infrastructure-failed",
+        "terminalPolicy": null,
+        "resumed": false,
+        "firstPass": null,
+        "elapsedMs": null,
+        "harness": {
+          "initialSha256": "798f7e63c50f06328ea6537afc9e6037413dbcece9d9d8c57efe3ccd72ccf177",
+          "acceptancePolicy": "fresh-agent-semantic-v1",
+          "resumes": []
+        },
+        "workflowPolicy": null,
+        "gateCoverage": {
+          "immutableRequirements": false,
+          "observedModels": true,
+          "uiReceipts": [
+            "ui-receipt-0.json"
+          ],
+          "baseline": "recorded"
+        },
+        "usage": {
+          "input": 184473,
+          "cached": 166400,
+          "output": 7100
+        },
+        "sessionAccounting": {
+          "usage": {
+            "input": 184473,
+            "cached": 166400,
+            "output": 7100
+          },
+          "responseCount": 10,
+          "sessionCount": 1,
+          "sessionsWithUsage": 1,
+          "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+        },
+        "topLevelUsage": null,
+        "topLevelUsageComplete": false,
+        "usageEstimated": false,
+        "outputTokensUnavailable": false,
+        "moneyCost": null
+      },
+      {
+        "root": "/private/tmp/depa-codument-e2e-IfPEI3",
+        "kind": "ui-reverification",
+        "sourceRunRoot": "/private/tmp/depa-codument-e2e-2L0ERN",
+        "caseId": "ecommerce",
+        "status": "infrastructure-failed",
+        "rawStatus": "infrastructure-failed",
+        "terminalPolicy": null,
+        "resumed": false,
+        "firstPass": null,
+        "elapsedMs": null,
+        "harness": {
+          "initialSha256": "798f7e63c50f06328ea6537afc9e6037413dbcece9d9d8c57efe3ccd72ccf177",
+          "acceptancePolicy": "fresh-agent-semantic-v1",
+          "resumes": []
+        },
+        "workflowPolicy": null,
+        "gateCoverage": {
+          "immutableRequirements": false,
+          "observedModels": true,
+          "uiReceipts": [
+            "ui-receipt-0.json"
+          ],
+          "baseline": "recorded"
+        },
+        "usage": {
+          "input": 165903,
+          "cached": 148224,
+          "output": 8540
+        },
+        "sessionAccounting": {
+          "usage": {
+            "input": 165903,
+            "cached": 148224,
+            "output": 8540
+          },
+          "responseCount": 9,
+          "sessionCount": 1,
+          "sessionsWithUsage": 1,
+          "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+        },
+        "topLevelUsage": null,
+        "topLevelUsageComplete": false,
+        "usageEstimated": false,
+        "outputTokensUnavailable": false,
+        "moneyCost": null
+      },
+      {
+        "root": "/private/tmp/depa-codument-e2e-xlaauc",
+        "kind": "ui-reverification",
+        "sourceRunRoot": "/private/tmp/depa-codument-e2e-cq3qL4",
+        "caseId": "todo",
+        "status": "infrastructure-failed",
+        "rawStatus": "infrastructure-failed",
+        "terminalPolicy": null,
+        "resumed": false,
+        "firstPass": null,
+        "elapsedMs": null,
+        "harness": {
+          "initialSha256": "d008fe0e16b2d6a17936f234a5fe1a6c497ddcdbe6bf5edac913f92853cfcc4a",
+          "acceptancePolicy": "fresh-agent-semantic-v1",
+          "resumes": []
+        },
+        "workflowPolicy": null,
+        "gateCoverage": {
+          "immutableRequirements": false,
+          "observedModels": true,
+          "uiReceipts": [
+            "ui-receipt-0.json"
+          ],
+          "baseline": "recorded"
+        },
+        "usage": {
+          "input": 1664901,
+          "cached": 1576448,
+          "output": 13607
+        },
+        "sessionAccounting": {
+          "usage": {
+            "input": 1664901,
+            "cached": 1576448,
+            "output": 13607
+          },
+          "responseCount": 62,
+          "sessionCount": 2,
+          "sessionsWithUsage": 2,
+          "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+        },
+        "topLevelUsage": {
+          "input": 1664901,
+          "cached": 1576448,
+          "output": 13607
+        },
+        "topLevelUsageComplete": true,
+        "usageEstimated": false,
+        "outputTokensUnavailable": false,
+        "moneyCost": null
+      },
+      {
+        "root": "/private/tmp/depa-codument-e2e-1O5t6J",
+        "kind": "ui-reverification",
+        "sourceRunRoot": "/private/tmp/depa-codument-e2e-DC1eur",
+        "caseId": "blog",
+        "status": "infrastructure-failed",
+        "rawStatus": "infrastructure-failed",
+        "terminalPolicy": null,
+        "resumed": false,
+        "firstPass": null,
+        "elapsedMs": null,
+        "harness": {
+          "initialSha256": "d008fe0e16b2d6a17936f234a5fe1a6c497ddcdbe6bf5edac913f92853cfcc4a",
+          "acceptancePolicy": "fresh-agent-semantic-v1",
+          "resumes": []
+        },
+        "workflowPolicy": null,
+        "gateCoverage": {
+          "immutableRequirements": false,
+          "observedModels": true,
+          "uiReceipts": [
+            "ui-receipt-0.json"
+          ],
+          "baseline": "recorded"
+        },
+        "usage": {
+          "input": 1182042,
+          "cached": 1103360,
+          "output": 12691
+        },
+        "sessionAccounting": {
+          "usage": {
+            "input": 1182042,
+            "cached": 1103360,
+            "output": 12691
+          },
+          "responseCount": 46,
+          "sessionCount": 2,
+          "sessionsWithUsage": 2,
+          "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+        },
+        "topLevelUsage": {
+          "input": 1182042,
+          "cached": 1103360,
+          "output": 12691
+        },
+        "topLevelUsageComplete": true,
+        "usageEstimated": false,
+        "outputTokensUnavailable": false,
+        "moneyCost": null
+      },
+      {
+        "root": "/private/tmp/depa-codument-e2e-AjdBoR",
+        "kind": "ui-reverification",
+        "sourceRunRoot": "/private/tmp/depa-codument-e2e-2L0ERN",
+        "caseId": "ecommerce",
+        "status": "infrastructure-failed",
+        "rawStatus": "infrastructure-failed",
+        "terminalPolicy": null,
+        "resumed": false,
+        "firstPass": null,
+        "elapsedMs": null,
+        "harness": {
+          "initialSha256": "d008fe0e16b2d6a17936f234a5fe1a6c497ddcdbe6bf5edac913f92853cfcc4a",
+          "acceptancePolicy": "fresh-agent-semantic-v1",
+          "resumes": []
+        },
+        "workflowPolicy": null,
+        "gateCoverage": {
+          "immutableRequirements": false,
+          "observedModels": true,
+          "uiReceipts": [
+            "ui-receipt-0.json"
+          ],
+          "baseline": "recorded"
+        },
+        "usage": {
+          "input": 508558,
+          "cached": 467200,
+          "output": 7277
+        },
+        "sessionAccounting": {
+          "usage": {
+            "input": 508558,
+            "cached": 467200,
+            "output": 7277
+          },
+          "responseCount": 23,
+          "sessionCount": 2,
+          "sessionsWithUsage": 2,
+          "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+        },
+        "topLevelUsage": {
+          "input": 508558,
+          "cached": 467200,
+          "output": 7277
+        },
+        "topLevelUsageComplete": true,
+        "usageEstimated": false,
+        "outputTokensUnavailable": false,
+        "moneyCost": null
+      },
+      {
+        "root": "/private/tmp/depa-codument-e2e-hw66Uc",
+        "kind": "ui-reverification",
+        "sourceRunRoot": "/private/tmp/depa-codument-e2e-cq3qL4",
+        "caseId": "todo",
+        "status": "passed",
+        "rawStatus": "passed",
+        "terminalPolicy": null,
+        "resumed": false,
+        "firstPass": null,
+        "elapsedMs": null,
+        "harness": {
+          "initialSha256": "416ab3f61baaf563886f94c91fa4775e8fd64b5c06850d6a9b7f2e523e0bb5d9",
+          "acceptancePolicy": "fresh-agent-semantic-v1",
+          "resumes": []
+        },
+        "workflowPolicy": null,
+        "gateCoverage": {
+          "immutableRequirements": false,
+          "observedModels": true,
+          "uiReceipts": [
+            "ui-receipt-0.json"
+          ],
+          "baseline": "recorded"
+        },
+        "usage": {
+          "input": 1594238,
+          "cached": 1519616,
+          "output": 16801
+        },
+        "sessionAccounting": {
+          "usage": {
+            "input": 1594238,
+            "cached": 1519616,
+            "output": 16801
+          },
+          "responseCount": 64,
+          "sessionCount": 2,
+          "sessionsWithUsage": 2,
+          "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+        },
+        "topLevelUsage": {
+          "input": 1594238,
+          "cached": 1519616,
+          "output": 16801
+        },
+        "topLevelUsageComplete": true,
+        "usageEstimated": false,
+        "outputTokensUnavailable": false,
+        "moneyCost": null
+      },
+      {
+        "root": "/private/tmp/depa-codument-e2e-eXfiFW",
+        "kind": "ui-reverification",
+        "sourceRunRoot": "/private/tmp/depa-codument-e2e-DC1eur",
+        "caseId": "blog",
+        "status": "passed",
+        "rawStatus": "passed",
+        "terminalPolicy": null,
+        "resumed": false,
+        "firstPass": null,
+        "elapsedMs": null,
+        "harness": {
+          "initialSha256": "416ab3f61baaf563886f94c91fa4775e8fd64b5c06850d6a9b7f2e523e0bb5d9",
+          "acceptancePolicy": "fresh-agent-semantic-v1",
+          "resumes": []
+        },
+        "workflowPolicy": null,
+        "gateCoverage": {
+          "immutableRequirements": false,
+          "observedModels": true,
+          "uiReceipts": [
+            "ui-receipt-0.json"
+          ],
+          "baseline": "recorded"
+        },
+        "usage": {
+          "input": 1499387,
+          "cached": 1422336,
+          "output": 14766
+        },
+        "sessionAccounting": {
+          "usage": {
+            "input": 1499387,
+            "cached": 1422336,
+            "output": 14766
+          },
+          "responseCount": 56,
+          "sessionCount": 2,
+          "sessionsWithUsage": 2,
+          "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+        },
+        "topLevelUsage": {
+          "input": 1499387,
+          "cached": 1422336,
+          "output": 14766
+        },
+        "topLevelUsageComplete": true,
+        "usageEstimated": false,
+        "outputTokensUnavailable": false,
+        "moneyCost": null
+      },
+      {
+        "root": "/private/tmp/depa-codument-e2e-6LuHIb",
+        "kind": "ui-reverification",
+        "sourceRunRoot": "/private/tmp/depa-codument-e2e-2L0ERN",
+        "caseId": "ecommerce",
+        "status": "passed",
+        "rawStatus": "passed",
+        "terminalPolicy": null,
+        "resumed": false,
+        "firstPass": null,
+        "elapsedMs": null,
+        "harness": {
+          "initialSha256": "416ab3f61baaf563886f94c91fa4775e8fd64b5c06850d6a9b7f2e523e0bb5d9",
+          "acceptancePolicy": "fresh-agent-semantic-v1",
+          "resumes": []
+        },
+        "workflowPolicy": null,
+        "gateCoverage": {
+          "immutableRequirements": false,
+          "observedModels": true,
+          "uiReceipts": [
+            "ui-receipt-0.json"
+          ],
+          "baseline": "recorded"
+        },
+        "usage": {
+          "input": 571787,
+          "cached": 530176,
+          "output": 10565
+        },
+        "sessionAccounting": {
+          "usage": {
+            "input": 571787,
+            "cached": 530176,
+            "output": 10565
+          },
+          "responseCount": 29,
+          "sessionCount": 2,
+          "sessionsWithUsage": 2,
+          "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+        },
+        "topLevelUsage": {
+          "input": 571787,
+          "cached": 530176,
+          "output": 10565
+        },
+        "topLevelUsageComplete": true,
+        "usageEstimated": false,
+        "outputTokensUnavailable": false,
+        "moneyCost": null
+      }
+    ],
+    "denominator": 0,
+    "excludedInfrastructureOrIncomplete": 0,
+    "uiReverifications": [
+      {
+        "root": "/private/tmp/depa-codument-e2e-sQoe5c",
+        "sourceRunRoot": "/private/tmp/depa-codument-e2e-cq3qL4",
+        "caseId": "todo",
+        "status": "infrastructure-failed",
+        "gateCoverage": {
+          "immutableRequirements": false,
+          "observedModels": true,
+          "uiReceipts": [
+            "ui-receipt-0.json"
+          ],
+          "baseline": "recorded"
+        }
+      },
+      {
+        "root": "/private/tmp/depa-codument-e2e-Kd8Nhb",
+        "sourceRunRoot": "/private/tmp/depa-codument-e2e-DC1eur",
+        "caseId": "blog",
+        "status": "infrastructure-failed",
+        "gateCoverage": {
+          "immutableRequirements": false,
+          "observedModels": true,
+          "uiReceipts": [
+            "ui-receipt-0.json"
+          ],
+          "baseline": "recorded"
+        }
+      },
+      {
+        "root": "/private/tmp/depa-codument-e2e-0tb86m",
+        "sourceRunRoot": "/private/tmp/depa-codument-e2e-2L0ERN",
+        "caseId": "ecommerce",
+        "status": "failed",
+        "gateCoverage": {
+          "immutableRequirements": false,
+          "observedModels": true,
+          "uiReceipts": [
+            "ui-receipt-0.json"
+          ],
+          "baseline": "recorded"
+        }
+      },
+      {
+        "root": "/private/tmp/depa-codument-e2e-b0KLdQ",
+        "sourceRunRoot": "/private/tmp/depa-codument-e2e-cq3qL4",
+        "caseId": "todo",
+        "status": "infrastructure-failed",
+        "gateCoverage": {
+          "immutableRequirements": false,
+          "observedModels": true,
+          "uiReceipts": [
+            "ui-receipt-0.json"
+          ],
+          "baseline": "recorded"
+        }
+      },
+      {
+        "root": "/private/tmp/depa-codument-e2e-HX3cnR",
+        "sourceRunRoot": "/private/tmp/depa-codument-e2e-DC1eur",
+        "caseId": "blog",
+        "status": "infrastructure-failed",
+        "gateCoverage": {
+          "immutableRequirements": false,
+          "observedModels": true,
+          "uiReceipts": [
+            "ui-receipt-0.json"
+          ],
+          "baseline": "recorded"
+        }
+      },
+      {
+        "root": "/private/tmp/depa-codument-e2e-IfPEI3",
+        "sourceRunRoot": "/private/tmp/depa-codument-e2e-2L0ERN",
+        "caseId": "ecommerce",
+        "status": "infrastructure-failed",
+        "gateCoverage": {
+          "immutableRequirements": false,
+          "observedModels": true,
+          "uiReceipts": [
+            "ui-receipt-0.json"
+          ],
+          "baseline": "recorded"
+        }
+      },
+      {
+        "root": "/private/tmp/depa-codument-e2e-xlaauc",
+        "sourceRunRoot": "/private/tmp/depa-codument-e2e-cq3qL4",
+        "caseId": "todo",
+        "status": "infrastructure-failed",
+        "gateCoverage": {
+          "immutableRequirements": false,
+          "observedModels": true,
+          "uiReceipts": [
+            "ui-receipt-0.json"
+          ],
+          "baseline": "recorded"
+        }
+      },
+      {
+        "root": "/private/tmp/depa-codument-e2e-1O5t6J",
+        "sourceRunRoot": "/private/tmp/depa-codument-e2e-DC1eur",
+        "caseId": "blog",
+        "status": "infrastructure-failed",
+        "gateCoverage": {
+          "immutableRequirements": false,
+          "observedModels": true,
+          "uiReceipts": [
+            "ui-receipt-0.json"
+          ],
+          "baseline": "recorded"
+        }
+      },
+      {
+        "root": "/private/tmp/depa-codument-e2e-AjdBoR",
+        "sourceRunRoot": "/private/tmp/depa-codument-e2e-2L0ERN",
+        "caseId": "ecommerce",
+        "status": "infrastructure-failed",
+        "gateCoverage": {
+          "immutableRequirements": false,
+          "observedModels": true,
+          "uiReceipts": [
+            "ui-receipt-0.json"
+          ],
+          "baseline": "recorded"
+        }
+      },
+      {
+        "root": "/private/tmp/depa-codument-e2e-hw66Uc",
+        "sourceRunRoot": "/private/tmp/depa-codument-e2e-cq3qL4",
+        "caseId": "todo",
+        "status": "passed",
+        "gateCoverage": {
+          "immutableRequirements": false,
+          "observedModels": true,
+          "uiReceipts": [
+            "ui-receipt-0.json"
+          ],
+          "baseline": "recorded"
+        }
+      },
+      {
+        "root": "/private/tmp/depa-codument-e2e-eXfiFW",
+        "sourceRunRoot": "/private/tmp/depa-codument-e2e-DC1eur",
+        "caseId": "blog",
+        "status": "passed",
+        "gateCoverage": {
+          "immutableRequirements": false,
+          "observedModels": true,
+          "uiReceipts": [
+            "ui-receipt-0.json"
+          ],
+          "baseline": "recorded"
+        }
+      },
+      {
+        "root": "/private/tmp/depa-codument-e2e-6LuHIb",
+        "sourceRunRoot": "/private/tmp/depa-codument-e2e-2L0ERN",
+        "caseId": "ecommerce",
+        "status": "passed",
+        "gateCoverage": {
+          "immutableRequirements": false,
+          "observedModels": true,
+          "uiReceipts": [
+            "ui-receipt-0.json"
+          ],
+          "baseline": "recorded"
+        }
+      }
+    ],
+    "byCase": [
+      {
+        "caseId": "todo",
+        "runs": 4,
+        "denominator": 0,
+        "firstPassRate": null,
+        "correctedPassRate": null,
+        "knownUsage": {
+          "input": 6677323,
+          "cached": 6317056,
+          "output": 66008
+        },
+        "knownUsageIsEstimated": false,
+        "outputTokensUnavailable": false,
+        "unknownUsageRuns": 0,
+        "includesExcludedTrialCosts": true
+      },
+      {
+        "caseId": "blog",
+        "runs": 4,
+        "denominator": 0,
+        "firstPassRate": null,
+        "correctedPassRate": null,
+        "knownUsage": {
+          "input": 3575593,
+          "cached": 3345152,
+          "output": 43472
+        },
+        "knownUsageIsEstimated": false,
+        "outputTokensUnavailable": false,
+        "unknownUsageRuns": 0,
+        "includesExcludedTrialCosts": true
+      },
+      {
+        "caseId": "ecommerce",
+        "runs": 4,
+        "denominator": 0,
+        "firstPassRate": null,
+        "correctedPassRate": null,
+        "knownUsage": {
+          "input": 1948812,
+          "cached": 1785856,
+          "output": 34850
+        },
+        "knownUsageIsEstimated": false,
+        "outputTokensUnavailable": false,
+        "unknownUsageRuns": 0,
+        "includesExcludedTrialCosts": true
+      }
+    ],
+    "firstPassRate": null,
+    "correctedPassRate": null,
+    "usageIsEstimated": false,
+    "outputTokensUnavailable": false,
+    "warning": "Small-sample observed rates, not population guarantees. Null is unknown, never zero. Different or unrecorded workflow policies are not equal-strength cost comparisons.No API-price estimate is presented as a ChatGPT account bill."
+  }
+}

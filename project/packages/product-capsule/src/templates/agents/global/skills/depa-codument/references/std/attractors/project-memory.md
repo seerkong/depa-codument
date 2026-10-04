@@ -41,9 +41,8 @@ codument/memory/<category>/YYYY-MM/YYYY-MM-DD-HHmm-slug/
 
 ## 复发即固化（与 knowledge-tiers 阶梯衔接）
 
-`memory/` 里**同一类问题反复出现**时，不要停在 prose 记忆——按 [knowledge-tiers.md](./knowledge-tiers.md) §5 再向上固化为可复用方法：`references/std/methods/` 规程 / `references/std/operations/` / `attractor-profile` check / `operation-hook` / validation 守卫（按项目误报容忍度调优）。
+`memory/` 里**同一类问题反复出现**时，不要停在 prose 记忆——按 [knowledge-tiers.md](./knowledge-tiers.md) §3–4 的晋升与授权边界，固化为项目 SOP/profile/hook 或进入通用 `references/std/methods/` / `operations/` 源码维护流程；validation 守卫按项目误报容忍度调优。
 
 ## 复查
 
 归档前检查该 track 是否产出耐久的 lessons/incidents/patterns/summaries。**没有就不要造记忆条目。**
-

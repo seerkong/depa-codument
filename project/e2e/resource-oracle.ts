@@ -1,15 +1,42 @@
 import assert from 'node:assert/strict';
-import { lifecycleSourceCodec, readStableNodeId } from 'depa-codument-domain-logic';
+import { indexXnlRegistry, inspectLifecycleIdentity, isDataElement, lifecycleSourceCodec, readStableNodeId } from 'depa-codument-domain-logic';
+import type { ProductProfileId } from './product-profile';
 
 type Element = ReturnType<typeof lifecycleSourceCodec.inspect>['root'];
+/** Observe the selected version's envelope; never migrate the tested product. */
+export function resourceIdentity(source: string, kind: 'track'|'mission', product: ProductProfileId = 'current') {
+  if (product === 'current') return inspectLifecycleIdentity(source,kind);
+  const registry=indexXnlRegistry(new Map([['resource.xnl',source]]),{registryName:'e2e-legacy-envelope'}, {shouldIndex:()=>false});
+  const nodes=registry.files.get('resource.xnl')??[];
+  const root=nodes[0];
+  const tag=kind==='track'?'Track':'Mission';
+  assert.ok(registry.ready && nodes.length===1 && isDataElement(root) && root.tag===tag,
+    'Legacy lifecycle requires exactly one unambiguous root');
+  const id=readStableNodeId(root);
+  assert.ok(id,'Legacy lifecycle requires a stable root ID');
+  assert.equal(root.metadata.apiVersion,'codument.tech/v1alpha1','Unsupported legacy lifecycle API');
+  assert.equal(String(root.metadata.version),'1','Unsupported legacy lifecycle version');
+  assert.ok(!('envelopeVersion' in root.metadata) && !('specVersion' in root.metadata),'Mixed lifecycle envelopes');
+  return {id,root};
+}
 /** Reuse the public syntax codec, but keep acceptance decisions in this oracle. */
-export function resourceRoot(source: string, kind: 'track'|'mission') {
+export function resourceRoot(source: string, kind: 'track'|'mission', product: ProductProfileId = 'current') {
+  if(product==='legacy') {
+    const {root}=resourceIdentity(source,kind,product);
+    // Full root/task validity belongs to the selected binary's strict validator.
+    for(const field of ['gap_round','revision']) {
+      const value=root.attributes?.[field];
+      assert.ok(value===undefined || typeof value==='number' && Number.isSafeInteger(value) && value>=0,
+        `Invalid legacy lifecycle ${field}`);
+    }
+    return root;
+  }
   return lifecycleSourceCodec.inspect(source,kind).root;
 }
 
 /** A dated archive directory is a location, not the authored resource identity. */
-export function trackValidationSelection(relativeDirectory: string, source: string) {
-  const root = resourceRoot(source,'track');
+export function trackValidationSelection(relativeDirectory: string, source: string, product: ProductProfileId = 'current') {
+  const root = resourceRoot(source,'track',product);
   const id = readStableNodeId(root);
   assert.ok(id, 'Track identity missing');
   const match = /^codument\/tracks\/(active|pending|archived)\/(.+)$/.exec(relativeDirectory);
@@ -27,8 +54,8 @@ function elements(value: unknown): Element[] {
 }
 
 /** CLI-owned round state and the terminal report override a model's delivered claim. */
-export function exhaustedGapReason(source: string, kind: 'track'|'mission', reports: readonly string[]): string | undefined {
-  const root=resourceRoot(source,kind);
+export function exhaustedGapReason(source: string, kind: 'track'|'mission', reports: readonly string[], product: ProductProfileId = 'current'): string | undefined {
+  const root=resourceRoot(source,kind,product);
   const round=root.attributes?.gap_round;
   if (!Number.isInteger(round) || Number(round)<1) return;
   const blockers=elements(root).filter(node=>node.tag==='GapLoop' && node.attributes?.on_exhausted==='block'
@@ -42,9 +69,9 @@ export function exhaustedGapReason(source: string, kind: 'track'|'mission', repo
   if (blockers.length>1 || verdicts.length>1) return 'Harness unsupported: multiple exhausted GapLoop scopes need scope-bound terminal evidence; mixed or missing reports cannot be called a business block or PASS';
   return `${kind} ${readStableNodeId(root)}: gap_round=${round} reached configured on_exhausted=block; terminal round verdict=${verdicts.join(',') || 'missing/ambiguous'}. No automatic outer retry is allowed.`;
 }
-export function assertNestedSelection(rootSources: string[], childSources: string[]) {
-  const roots=rootSources.map(s=>resourceRoot(s,'mission'));
-  const children=childSources.map(s=>resourceRoot(s,'mission'));
+export function assertNestedSelection(rootSources: string[], childSources: string[], product: ProductProfileId = 'current') {
+  const roots=rootSources.map(s=>resourceRoot(s,'mission',product));
+  const children=childSources.map(s=>resourceRoot(s,'mission',product));
   const root=roots.find(r=>elements(r).some(e=>e.tag==='MissionLink'));
   assert.ok(root,'Missing root Mission');
   assert.equal(root.attributes?.status,'completed','Root delivery must be completed');

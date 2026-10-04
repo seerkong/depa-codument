@@ -11,9 +11,9 @@ spec:
 
 执行位置保持目标项目；@/ 表示项目根。references/std/、operations/、references/ 相对全局 depa-codument Skill（默认 ~/.agents/skills/depa-codument，CODUMENT_HOME 可覆盖 home）；裸 config/、tracks/ 等相对项目 codument/。以下是当前 Agent 要执行的指导，不是已经完成的业务结果。
 
-# skill: codument-verify（独立验证 · fresh-subagent 实跑）
+# verify（独立验证 · fresh-subagent 实跑）
 
-以**独立验证模式**确认 track 的实现真正达成目标：fresh-spawn 一个独立子代理，**实际运行**应用/测试、复现验收用例，对照 `Acceptance`/`Gate` 从目标倒推，逐条给 PASS/FAIL + 证据，落 `track://reports/verify-report.md`。**只判定不修复**；有 FAIL 则列差距并建议回 `implement`/`gap-loop`。
+以**独立验证模式**确认 track 的实现真正达成目标：fresh-spawn 一个独立子代理，**实际运行**应用/测试、复现验收用例，对照 `Acceptance`/`Gate` 从目标倒推，逐条给 PASS/FAIL + 证据，落 `track://reports/verify-report.md`。**只判定不修复**；有 FAIL 则列差距及依据，按失效原因交正确 owner。
 
 > 程序化流程使用 ` ```text ` + `@delimiter: --` 的流程标记块。当前 Track authority 是 `track.xnl`；legacy 输入先交给 `depa-codument upgrade-resource`，verify 不教授迁移写法。
 
@@ -22,6 +22,8 @@ spec:
 ## 0. 角色与定位
 
 父层协调者负责选择范围并派发；收到明确fresh verifier任务的子代理已经是本操作的独立执行者，自行读取本正文和适用引用，直接执行目标倒推、实跑及报告，不再次spawn verifier。父层的evidence plan是检查起点，不是只能运行所列命令的限制。
+
+验证选择遵循 `references/std/methods/workflow.md` 的“目标—观察—行动”：独立重建目标与观察覆盖，不仅换会话重跑同一套派生测试。
 
 你是 Codument 规范驱动开发框架的**独立验证代理**。职责是：
 
@@ -70,16 +72,18 @@ spec:
 
 ### 3.1 Goal-Backward（目标倒推）
 
-1. 从 `track.xnl` 提取目标 task 的 `Acceptance`（验收标准），以及所属 phase 的 `Gate`（阶段门控）。
-   先按输入引用对照本 scope 的原始需求和批准取舍；整 Track 验收须覆盖已批准 Track 范围内的全部原始硬要求，不把其它 Track 或未选 backlog 强加到本次交付。原文明确要求保留的测试/接口/文件名要核对实际收集或可达结果，不能因 Acceptance 未写就略过；对照缺口列 FAIL，而不是以已有测试全绿放行。
+1. 先按输入引用从本 scope 的原始需求、批准取舍和适用吸引子重建目标，再从 `track.xnl` 提取目标 task 的 `Acceptance` 与所属 phase 的 `Gate`，核对它们的覆盖；不以实现者的解释或自带测试定义目标。
+   整 Track 验收须覆盖已批准 Track 范围内的全部原始硬要求，不把其它 Track 或未选 backlog 强加到本次交付。原文明确要求保留的测试/接口/文件名要核对实际收集或可达结果，不能因 Acceptance 未写就略过；对照缺口列 FAIL，而不是以已有测试全绿放行。模糊描述存在多个合理解释时记录未决与所缺决策，不把 reviewer 偏好当已确认合同，也不悄悄取消要求；未闭合的目标不能报 PASS。
 2. 按 criterion 逐条反推：
    - 需要哪些代码/配置/文件存在。
    - 需要哪些行为可达；按 `references/std/protocols/context-loading.md` 的契约示例规则核对原始输入形状，不以预填字段的fixture替代；当前声明的资源/权限边界须有允许与拒绝的行为证据。
-   - 需要哪些测试或证据支持。
+   - 需要哪些测试或其它观察支持：沿承诺的合法消费入口观察真实结果及适用的状态/边界/时序不变量，检查已有测试是否共享实现的错误假设；按具体风险补证据，不强制某种领域、工具或全套测试方法。
 
 ### 3.2 三级验证
 
 对每个目标 task 执行以下三层验证：
+
+它们用于发现空壳或未接入等遗漏，不是充分验收条件；每层仍须按该目标的实际语义与约束取证，单个成功路径不证明所有承诺。
 
 1. **Exists（存在性）**
    - 文件是否存在。
@@ -142,11 +146,11 @@ verify 的核心是**派发 fresh-subagent 实际运行**——不是父代理�
 ---- /?report
 ---- #switch ?conclude on="是否存在 FAIL"
 ------ #case ?allpass when="全部 PASS"
--------- #return ?ok value="PASS：报告可进归档（codument-archive-track）"
+-------- #return ?ok value="PASS：报告可进归档（depa-codument archive-track）"
 -------- /?ok
 ------ /?allpass
 ------ #case ?hasfail when="存在 FAIL"
--------- #return ?back value="FAIL：列差距，建议回 codument-impl-track 修实现 / codument-gap-loop 做目标对比修复"
+-------- #return ?back value="FAIL：列差距及被否定的前提；实现缺陷交 implement/gap-loop，目标冲突交规划/决策，观测或交付故障交其 owner"
 -------- /?back
 ------ /?hasfail
 ---- /?conclude
@@ -157,7 +161,7 @@ verify 的核心是**派发 fresh-subagent 实际运行**——不是父代理�
 
 **证据复用：** “逐项判定”不等于“逐项重复执行”。fresh verifier 对每条唯一命令使用一次 `--fresh`，不消费实现阶段回执；随后在本次报告的多个目标下引用该次结果。只有目标需要不同输入、状态或复现路径时才新增执行。
 
-**只判定不修复：** verify 子代理发现 FAIL 时记录差距即可，**不得**在本流程内修改实现（修复属于 `implement`/`gap-loop` 的职责）。
+**只判定不修复：** verify 子代理发现 FAIL 时记录差距及被否定的前提，**不得**在本流程内修改实现。实现缺陷交 `implement`/`gap-loop`；目标/authority 冲突交规划或决策 owner；工具、环境或交付协议问题交其 owner，不仅因观测失败就建议业务修复。原报告和 receipt 保留，失效只追加原因与替代引用；缺少充分证据不得报 PASS。
 
 ---
 
@@ -188,10 +192,10 @@ Summary:
 - 通过：<n>
 - 失败：<n>
 - 结论：PASS | FAIL
-- 下一步：全 PASS → codument-archive-track；有 FAIL → codument-impl-track / codument-gap-loop
+- 下一步：全 PASS → depa-codument archive-track；有 FAIL → 按原因交实现/规划决策/观测交付 owner
 ```
 
-> 全 PASS 才可进归档；有 FAIL 则列差距并建议回 `implement`（补实现）或 `gap-loop`（目标对比纠偏修复）。报告/状态对照失败时不轻易判 PASS。
+> 全 PASS 才可进归档；有 FAIL 则保留原 finding 并交正确 owner，不默认业务重试。报告/状态对照失败时不轻易判 PASS。
 
 ---
 

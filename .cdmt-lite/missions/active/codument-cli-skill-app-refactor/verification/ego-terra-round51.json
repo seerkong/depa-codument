@@ -1,0 +1,383 @@
+{
+  "runs": [
+    {
+      "root": "/private/tmp/depa-codument-e2e-cq3qL4",
+      "kind": "business-trial",
+      "sourceRunRoot": null,
+      "caseId": "todo",
+      "status": "infrastructure-failed",
+      "rawStatus": "infrastructure-failed",
+      "terminalPolicy": null,
+      "resumed": false,
+      "firstPass": false,
+      "elapsedMs": 4223951,
+      "harness": {
+        "initialSha256": "166b0a5940c1c85be3a3b7ec19219441d02749938bc25ddf19b300bd96088656",
+        "acceptancePolicy": null,
+        "resumes": []
+      },
+      "workflowPolicy": {
+        "version": 2,
+        "commitMode": "manual",
+        "scope": "final-first-level-task-group",
+        "event": "phase:after",
+        "independentVerify": true,
+        "unselectedBacklog": "declare-only",
+        "hooks": {
+          "GapLoop": {
+            "enabled": false,
+            "attributes": {
+              "max_rounds": 5,
+              "on_exhausted": "block",
+              "verify_round": false
+            }
+          },
+          "AttractorCheck": {
+            "enabled": false,
+            "attributes": {
+              "use": "coding"
+            }
+          },
+          "HumanConfirm": {
+            "enabled": false,
+            "attributes": {}
+          }
+        }
+      },
+      "gateCoverage": {
+        "immutableRequirements": true,
+        "observedModels": false,
+        "uiReceipts": [
+          "ui-receipt-0.json"
+        ],
+        "baseline": "recorded"
+      },
+      "usage": {
+        "input": 6651215,
+        "cached": 6305280,
+        "output": 67157
+      },
+      "sessionAccounting": {
+        "usage": {
+          "input": 6651215,
+          "cached": 6305280,
+          "output": 67157
+        },
+        "responseCount": 159,
+        "sessionCount": 6,
+        "sessionsWithUsage": 6,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+      },
+      "topLevelUsage": {
+        "input": 5500735,
+        "cached": 5249536,
+        "output": 40044
+      },
+      "topLevelUsageComplete": true,
+      "usageEstimated": false,
+      "outputTokensUnavailable": false,
+      "moneyCost": null
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-oPNVNT",
+      "kind": "ui-reverification",
+      "sourceRunRoot": "/private/tmp/depa-codument-e2e-cq3qL4",
+      "caseId": "todo",
+      "status": "infrastructure-failed",
+      "rawStatus": "infrastructure-failed",
+      "terminalPolicy": null,
+      "resumed": false,
+      "firstPass": null,
+      "elapsedMs": null,
+      "harness": {
+        "initialSha256": "17fdc3f6c820ccda3aa1742a82345b8a5d31a6ac49c24d2af45f0e0eb5322a57",
+        "acceptancePolicy": "fresh-agent-semantic-v1",
+        "resumes": []
+      },
+      "workflowPolicy": null,
+      "gateCoverage": {
+        "immutableRequirements": false,
+        "observedModels": false,
+        "uiReceipts": [
+          "ui-receipt-0.json"
+        ],
+        "baseline": "recorded"
+      },
+      "usage": null,
+      "sessionAccounting": {
+        "usage": null,
+        "responseCount": 0,
+        "sessionCount": 0,
+        "sessionsWithUsage": 0,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+      },
+      "topLevelUsage": null,
+      "topLevelUsageComplete": false,
+      "usageEstimated": false,
+      "outputTokensUnavailable": false,
+      "moneyCost": null
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-2AdalS",
+      "kind": "ui-reverification",
+      "sourceRunRoot": "/private/tmp/depa-codument-e2e-cq3qL4",
+      "caseId": "todo",
+      "status": "infrastructure-failed",
+      "rawStatus": "infrastructure-failed",
+      "terminalPolicy": null,
+      "resumed": false,
+      "firstPass": null,
+      "elapsedMs": null,
+      "harness": {
+        "initialSha256": "8a9efa1ed70886eebe751ebdf4674cc02db8f079edbe0cfce91c9450c108f391",
+        "acceptancePolicy": "fresh-agent-semantic-v1",
+        "resumes": []
+      },
+      "workflowPolicy": null,
+      "gateCoverage": {
+        "immutableRequirements": false,
+        "observedModels": false,
+        "uiReceipts": [
+          "ui-receipt-0.json"
+        ],
+        "baseline": "recorded"
+      },
+      "usage": {
+        "input": 285231,
+        "cached": 259840,
+        "output": 4383
+      },
+      "sessionAccounting": {
+        "usage": {
+          "input": 285231,
+          "cached": 259840,
+          "output": 4383
+        },
+        "responseCount": 13,
+        "sessionCount": 1,
+        "sessionsWithUsage": 1,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+      },
+      "topLevelUsage": {
+        "input": 285231,
+        "cached": 259840,
+        "output": 4383
+      },
+      "topLevelUsageComplete": true,
+      "usageEstimated": false,
+      "outputTokensUnavailable": false,
+      "moneyCost": null
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-3tM5z7",
+      "kind": "ui-reverification",
+      "sourceRunRoot": "/private/tmp/depa-codument-e2e-cq3qL4",
+      "caseId": "todo",
+      "status": "infrastructure-failed",
+      "rawStatus": "infrastructure-failed",
+      "terminalPolicy": null,
+      "resumed": false,
+      "firstPass": null,
+      "elapsedMs": null,
+      "harness": {
+        "initialSha256": "59106753338578a582b1d54d67e7348c3632c85230fbe98e492a9f16e31b2d0d",
+        "acceptancePolicy": "fresh-agent-semantic-v1",
+        "resumes": []
+      },
+      "workflowPolicy": null,
+      "gateCoverage": {
+        "immutableRequirements": false,
+        "observedModels": false,
+        "uiReceipts": [
+          "ui-receipt-0.json"
+        ],
+        "baseline": "recorded"
+      },
+      "usage": {
+        "input": 2100236,
+        "cached": 2018560,
+        "output": 11894
+      },
+      "sessionAccounting": {
+        "usage": {
+          "input": 2100236,
+          "cached": 2018560,
+          "output": 11894
+        },
+        "responseCount": 43,
+        "sessionCount": 1,
+        "sessionsWithUsage": 1,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+      },
+      "topLevelUsage": {
+        "input": 2100236,
+        "cached": 2018560,
+        "output": 11894
+      },
+      "topLevelUsageComplete": true,
+      "usageEstimated": false,
+      "outputTokensUnavailable": false,
+      "moneyCost": null
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-tgK08E",
+      "kind": "ui-reverification",
+      "sourceRunRoot": "/private/tmp/depa-codument-e2e-cq3qL4",
+      "caseId": "todo",
+      "status": "infrastructure-failed",
+      "rawStatus": "infrastructure-failed",
+      "terminalPolicy": null,
+      "resumed": false,
+      "firstPass": null,
+      "elapsedMs": null,
+      "harness": {
+        "initialSha256": "0240ba9c1b20ad490f886e5958a9ff5adc41b60a81e5a14d509dfd7b08ff3551",
+        "acceptancePolicy": "fresh-agent-semantic-v1",
+        "resumes": []
+      },
+      "workflowPolicy": null,
+      "gateCoverage": {
+        "immutableRequirements": false,
+        "observedModels": false,
+        "uiReceipts": [
+          "ui-receipt-0.json"
+        ],
+        "baseline": "recorded"
+      },
+      "usage": {
+        "input": 481281,
+        "cached": 450560,
+        "output": 4341
+      },
+      "sessionAccounting": {
+        "usage": {
+          "input": 481281,
+          "cached": 450560,
+          "output": 4341
+        },
+        "responseCount": 20,
+        "sessionCount": 1,
+        "sessionsWithUsage": 1,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+      },
+      "topLevelUsage": {
+        "input": 481281,
+        "cached": 450560,
+        "output": 4341
+      },
+      "topLevelUsageComplete": true,
+      "usageEstimated": false,
+      "outputTokensUnavailable": false,
+      "moneyCost": null
+    }
+  ],
+  "denominator": 0,
+  "excludedInfrastructureOrIncomplete": 1,
+  "uiReverifications": [
+    {
+      "root": "/private/tmp/depa-codument-e2e-oPNVNT",
+      "sourceRunRoot": "/private/tmp/depa-codument-e2e-cq3qL4",
+      "caseId": "todo",
+      "status": "infrastructure-failed",
+      "gateCoverage": {
+        "immutableRequirements": false,
+        "observedModels": false,
+        "uiReceipts": [
+          "ui-receipt-0.json"
+        ],
+        "baseline": "recorded"
+      }
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-2AdalS",
+      "sourceRunRoot": "/private/tmp/depa-codument-e2e-cq3qL4",
+      "caseId": "todo",
+      "status": "infrastructure-failed",
+      "gateCoverage": {
+        "immutableRequirements": false,
+        "observedModels": false,
+        "uiReceipts": [
+          "ui-receipt-0.json"
+        ],
+        "baseline": "recorded"
+      }
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-3tM5z7",
+      "sourceRunRoot": "/private/tmp/depa-codument-e2e-cq3qL4",
+      "caseId": "todo",
+      "status": "infrastructure-failed",
+      "gateCoverage": {
+        "immutableRequirements": false,
+        "observedModels": false,
+        "uiReceipts": [
+          "ui-receipt-0.json"
+        ],
+        "baseline": "recorded"
+      }
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-tgK08E",
+      "sourceRunRoot": "/private/tmp/depa-codument-e2e-cq3qL4",
+      "caseId": "todo",
+      "status": "infrastructure-failed",
+      "gateCoverage": {
+        "immutableRequirements": false,
+        "observedModels": false,
+        "uiReceipts": [
+          "ui-receipt-0.json"
+        ],
+        "baseline": "recorded"
+      }
+    }
+  ],
+  "byCase": [
+    {
+      "caseId": "todo",
+      "runs": 5,
+      "denominator": 0,
+      "firstPassRate": null,
+      "correctedPassRate": null,
+      "knownUsage": {
+        "input": 9517963,
+        "cached": 9034240,
+        "output": 87775
+      },
+      "knownUsageIsEstimated": false,
+      "outputTokensUnavailable": false,
+      "unknownUsageRuns": 1,
+      "includesExcludedTrialCosts": true
+    }
+  ],
+  "firstPassRate": null,
+  "correctedPassRate": null,
+  "usageIsEstimated": false,
+  "outputTokensUnavailable": false,
+  "warning": "Small-sample observed rates, not population guarantees. Null is unknown, never zero. Different or unrecorded workflow policies are not equal-strength cost comparisons.No API-price estimate is presented as a ChatGPT account bill.",
+  "round": 51,
+  "observation": {
+    "noOpenCliEdits": true,
+    "noGeneratedSourceEdits": true,
+    "noGlobalInstall": true,
+    "taskSpace": 1,
+    "fixtureRoot": "/private/tmp/depa-codument-e2e-NjCGV5",
+    "fixtureResult": "passed",
+    "lastReverificationRoot": "/private/tmp/depa-codument-e2e-tgK08E",
+    "lastReverificationResult": "infrastructure-failed",
+    "reason": "Chained prompt message was lost across CLI invocations; page observation timed out. Same-invocation events recovery passed the fixed fixture.",
+    "protocolReplay": {
+      "root": "/private/tmp/depa-codument-e2e-3tM5z7",
+      "admittedStatus": "failed",
+      "historicalResultUnchanged": true,
+      "notProductDefectProof": true
+    },
+    "regression": {
+      "tests": 67,
+      "failed": 0,
+      "assertions": 369,
+      "typecheck": 0,
+      "lint": 0
+    },
+    "sourceFingerprint": "70344e78644e33f2faa4e3368a7152515e127736bfd48d2b013228e55ddc26b9"
+  }
+}

@@ -129,7 +129,7 @@
 1. **查重**：在 `codument/tracks/{pending,active,archived}/` 查重；若提议短名与任一生命周期目录中的 track 重复，停止并建议换名。
 2. **生成 Track ID**：小写英文 + 中横线的简短描述，**动词开头**（`add-`、`update-`、`remove-`、`refactor-`），如 `add-user-auth`、`fix-login-bug`。**不含日期**（日期只在归档时加）；若已被占用，追加 `-2`、`-3`。
 3. **按 severity 处理 ID 歧义**：`auto` 模式直接采用生成的 track-id，并把命名依据写入 `analysis/findings.md`。其他模式只有在命名确实会改变范围或与现有 id 难以区分时，才把它作为一个 ready decision 加入当前拓扑 batch；不得为单独确认 id 打断其他独立问题。命名依据不是决策节点，不得为它单独创建 `analysis/decision-tree.xnl`。
-4. **用 CLI 建版本化骨架**：普通规划运行 `codument track create <track_id> --stage pending`；由 `codument-impl-mission` 以 `QuestionSeverity=auto` 调用时运行 `codument track create <track_id> --stage active`。CLI 只接收 ID 与 stage，生成当前 Kind `envelopeVersion` / `specVersion` 对应的 `track.xnl`、`proposal.md`、`design.md`，拒绝覆盖已有目录且不创建空 `decisions.xnl`。后续路径一律使用 CLI receipt 的 `directory`；Mission 调用方再运行 `codument mission bind-track`。**禁止**整文件手写或 Write `.xnl`、XML 闭合 `</Given>`、把 `</?>` 写成 `?</?>`，或用 perl/sed/strings 改字节。骨架建好后运行 `codument schema track`（决策时再 `schema decision`），对照 Kind spec 对 scaffold 原地编辑。
+4. **用 CLI 建版本化骨架**：普通规划运行 `codument track create <track_id> --stage pending`；由 `codument-impl-mission` 以 `QuestionSeverity=auto` 调用时运行 `codument track create <track_id> --stage active`。CLI 只接收 ID 与 stage，生成当前 Kind `envelopeVersion` / `specVersion` 对应的 `track.xnl`、`proposal.md`、`design.md`，拒绝覆盖已有目录且不创建空 `decisions.xnl`。后续路径一律使用 CLI receipt 的 `directory`；Mission 调用方再运行 `codument mission bind-track`。**禁止**整文件手写或 Write `.xnl`、XML 闭合 `</Given>`，或用 perl/sed/strings 改字节。骨架建好后运行 `codument schema track`（决策时再 `schema decision`），对照 Kind spec 对 scaffold 原地编辑。
 5. **建 `analysis/`（外部记忆）**：建 `analysis/findings.md` 与 `analysis/knowledge.md`。
    - **硬规则：仅缺失时创建，绝不覆盖已有内容**——目录已存在则不删不重写；文件已存在则绝不改写（哪怕你觉得不完整），不存在才按模板创建。
    - 按 planning-with-files 把关键结论写入文件作为外部记忆，**避免长对话或多轮工具调用丢失重要信息**；内容必须与本 track 相关、避免泛化；不引用 `.` 开头隐藏目录。
@@ -224,7 +224,7 @@
 **决策记录（decisions.xnl）：**
 
 1. 首次出现真实 decision 时运行 `codument decisions create <track-dir>/decisions.xnl <decision-id>`；普通新决策默认回写根文件，嵌套节点使用 `--parent`。只有明确需要 owner/topic 分片时才写入递归 `decisions/**/*.xnl`。长期项目决策按 stable id 合并进长期 registry。
-2. **填写 decisions.xnl**：先梳理待决策 forest 并标 `P0`/`P1`/`P2`，把问题、候选选项、当前建议写入。嵌套 `<decision>` 表示需要先解决父问题的细化；跨分支前置条件用 `depends_on = ["decision-id"]`，不要滥用 `blocks`。**禁止**整文件抄写 `.xnl`、XML 闭合 `</question>` / `</Given>`、把 `</?>` 写成 `?</?>`，或用 perl/sed/strings 改字节。`proposal.md` / `design.md` 仍可手写 Markdown。create 之后运行 `codument schema decision`，按 pending/accepted 槽位对 scaffold 原地编辑；不要从片段复制 `#id` / envelope。
+2. **填写 decisions.xnl**：先梳理待决策 forest 并标 `P0`/`P1`/`P2`，把问题、候选选项、当前建议写入。嵌套 `<decision>` 表示需要先解决父问题的细化；跨分支前置条件用 `depends_on = ["decision-id"]`，不要滥用 `blocks`。**禁止**整文件抄写 `.xnl`、XML 闭合 `</question>` / `</Given>`，或用 perl/sed/strings 改字节。`proposal.md` / `design.md` 仍可手写 Markdown。create 之后运行 `codument schema decision`，按 pending/accepted 槽位对 scaffold 原地编辑；不要从片段复制 `#id` / envelope。
 3. **按拓扑批次选交互方式**：先根据 `decision-tree.md` 计算 ready set，而不是统计全部 pending 问题。
    - 从每个未阻塞根和每个依赖已解决的分支各取可用节点，按 `P0 → P1 → P2` 及稳定 id 排序；按 severity 的每轮上限形成一个 batch。即使一个根已有更多细化问题，也不得先追问它而遗漏同批其他根。
    - **环境支持多问题 ToolCall**：对该 batch 用 **ask-multi-question-closed**（有 options）或 **ask-multi-question-free**（开放题）一次性发问；每个问题仍在 `decisions.xnl` 保留条目，收到答复后回写 `<answer>` 下的 `<raw-answer>` / `<decision-text>` / `<rationale>` / `<evidence>` 以及 `status`，然后重算下一 batch。

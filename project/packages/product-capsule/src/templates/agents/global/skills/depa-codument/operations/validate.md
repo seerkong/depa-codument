@@ -11,7 +11,7 @@ spec:
 
 执行位置保持目标项目；@/ 表示项目根。references/std/、operations/、references/ 相对全局 depa-codument Skill（默认 ~/.agents/skills/depa-codument，CODUMENT_HOME 可覆盖 home）；裸 config/、tracks/ 等相对项目 codument/。以下是当前 Agent 要执行的指导，不是已经完成的业务结果。
 
-# skill: codument-validate（校验 Codument 资源）
+# validate-operation（校验 Codument 资源）
 
 校验 Track、Mission、Decision 及相关 registry。CLI 是语法、Kind 版本、结构、引用、DAG 与 hook 规则的确定性 authority；AI 只补充程序无法证明的语义审查。
 

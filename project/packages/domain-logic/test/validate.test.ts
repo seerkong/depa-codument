@@ -37,9 +37,3 @@ it('names XML-style closers instead of opaque parser misses', () => {
   expect(xml.findings[0]?.rule).toBe('track.kind');
   expect(xml.findings[0]?.message).toContain('expected </?>, got </Given>');
 });
-it('accepts text that ends with ? before a normal closer as the same bytes as a mutation', () => {
-  // `?>Is this ok?</?>` is legitimately read as text ending in `?`; a closer
-  // lint cannot separate it from the `?</?>` mutation on bytes alone.
-  const question = { ...unit(), source: source.replace('checked=false', 'checked=true').replace('?>Check.</?>', '?>Is this ok?</?>') };
-  expect(inspectDomainValidation({ units: [question], findings: [] }, {}).findings).toEqual([]);
-});

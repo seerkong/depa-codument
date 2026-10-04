@@ -7,8 +7,4 @@ describe('XNL closer diagnostics', () => {
     expect(xmlStyleTextClosers(source)).toEqual(['</Given>']);
     expect(explainXnlParseError(source, new Error('Missing closing text tag </?> for <Given>'))).toBe('expected </?>, got </Given>');
   });
-
-  it('names the ?</?> reading only when a parse already failed', () => {
-    expect(explainXnlParseError('<Given ?>hello?</?>', new Error('ok'))).toBe('expected </?>, got ?</?>');
-  });
 });

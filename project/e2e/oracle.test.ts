@@ -67,6 +67,20 @@ test('per-response usage includes interrupted and child sessions without cumulat
   expect(()=>summarize([run.root])).toThrow();
 });
 
+test('report ignores dependency symlinks but rejects symlinked receipts and counts UI turns', () => {
+  const run = createRun('/usr/bin/true', 'unit');
+  try {
+    fs.mkdirSync(path.join(run.home, 'cache'), { recursive: true });
+    fs.symlinkSync('/usr/bin/true', path.join(run.home, 'cache', 'dependency'));
+    const receipt = path.join(run.root, 'ui-acceptance-0-receipt.json');
+    writeJson(receipt, { usage: { input: 10, cached: 4, output: 2 } });
+    expect(summarize([run.root]).runs[0]!.topLevelUsage).toEqual({ input: 10, cached: 4, output: 2 });
+    fs.unlinkSync(receipt);
+    fs.symlinkSync('/usr/bin/true', receipt);
+    expect(() => summarize([run.root])).toThrow('Invalid receipt file');
+  } finally { fs.rmSync(run.root, { recursive: true, force: true }); }
+});
+
 test('observed Codex 0.150.1 usage schema remains readable (identifiers redacted)', () => {
   const run = createRun('/usr/bin/true','unit');
   const sessions = path.join(run.home,'.codex/sessions'); fs.mkdirSync(sessions);

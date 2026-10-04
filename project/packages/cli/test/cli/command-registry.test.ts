@@ -41,7 +41,6 @@ describe('codument public surface', () => {
       ['project'], ['project', 'bind'], ['project', 'bindings'], ['project', 'unbind'],
       ['list'], ['show'],
       ['validate'],
-      ['schema'],
       ['std'], ['std', 'lint'],
       ['artifact'], ['artifact', 'sync'],
       ['archive'],

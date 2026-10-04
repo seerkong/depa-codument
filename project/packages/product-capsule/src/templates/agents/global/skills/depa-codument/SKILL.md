@@ -25,7 +25,7 @@ description: >
 `references/`、`operations/` 相对本 Skill；裸 config/、backlog/、missions/、tracks/、decisions/、memory/ 相对项目 codument/。
 CLI 固定读取发行包中的同一 App；安装按 agent 复制到 skill 目录，CODUMENT_HOME 改安装 home，不扫描项目寻找全局指导。`skill://depa-codument/references/std/...` 指向本全局标准。
 
-**XNL 是磁盘真源，不可降级。** 语法与文本闭合高优先级见 [XNL 格式](references/std/spec/xnl-format.md)。不要把 track / mission / decision 改成纯文本、Markdown、JSON 或 XML，也不要整文件手写 `.xnl`。先 `depa-codument track|mission|decisions create` 建骨架，再运行 `depa-codument schema track|mission|decision` 取该 Kind 的根形状与槽位片段，对 scaffold 原地编辑。字段协议在 `references/std/spec/{track,mission}-xnl-spec.md` 与 `decision-registry.md`。
+**XNL 是磁盘真源，不可降级。** 语法与文本闭合高优先级见 [XNL 格式](references/std/spec/xnl-format.md)。不要把 track / mission / decision 改成纯文本、Markdown、JSON 或 XML，也不要整文件手写 `.xnl`。先 `depa-codument track|mission|decisions create` 建骨架，再对照 Kind spec 对 scaffold 原地编辑。字段与样例在 `references/std/spec/{track,mission}-xnl-spec.md` 与 `decision-registry.md`。
 
 先运行 `depa-codument -h`，再调用所需命令读取完整操作。旧 skill 名按需查 [映射](references/std/compat/operation-alias.md)；标准按需读 [入口](references/std/AGENTS.md)，不展开全部操作。
 `depa-codument <command> [arguments...]` 交付完整指导，由当前 Agent 执行。阅读操作时优先默认文本，避免 JSON 的 `operation.markdown` 与 `message` 重复正文；需要机器解析、参数或来源元数据时再用 `--json`，不重复读取两份正文。此选择只针对指导操作，不改变资源查询/状态写入的 JSON 用法。exit 0 不是业务完成。未知业务选项放在 `--` 后。

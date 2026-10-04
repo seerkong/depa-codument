@@ -13,7 +13,7 @@ XNL（Extensible Notation Language）
   1. 没有自定义 marker 时，闭合永远是 `</?>`，不能用 XML 风格 `</tagname>`（例如 `</Given>`、`</Description>`）。validate 会报 `expected </?>, got </Given>`。
   2. 有自定义 marker 时，opening `?marker` 与 closing `</?marker>` 必须逐字相同；禁止 `<desc ?foo>...</desc>` 这类“前半有 marker、后半回退 XML 标签名”的混合写法。
   3. 文本内容中也不要出现 `</?` 字面量（会被当成提前闭合）。
-  4. 不要把 `</?>` 写成 `?</?>`。这是差一个字符的突变，解析器常按空 marker 吞掉并“看起来写成功了”。注意它与「正文以 `?` 结尾 + 正常闭合」字节相同（`</?>` 前的 `?` 可能属于正文），所以只有解析**失败**时才由 `explainXnlParseError` 报 `expected </?>, got ?</?>`；解析通过就不按突变处理。
+  4. 正文以 `?` 结尾时，闭合仍是 `</?>`，写出的就是 `?</?>`。前面的 `?` 属于 payload。`<question ?>Which target policy applies?</?>` 与 `<question ?>Which target policy applies</?>` 是两个不同的文本节点。不要为了避开 `?</?>` 而删掉正文末尾的 `?`。
 - 无其它块时直接以 `>` 结束节点。
 
 ## 磁盘格式不得降级
@@ -25,10 +25,9 @@ XNL（Extensible Notation Language）
 ## 填写清单（agent）
 
 1. `depa-codument track create` / `mission create` / `decisions create` 拿带 `envelopeVersion` / `specVersion` / `#id` 的骨架。
-2. `depa-codument schema track|mission|decision` 打印该 Kind 的根形状与槽位片段（stdout 是 XNL，不是 JSON）。字段表见对应 Kind spec。不要从片段复制 `#id` / envelope。
-3. 对照片段对 scaffold 原地编辑。`proposal.md` / `design.md` 仍可手写 Markdown。
+2. 形状见对应 Kind spec：`references/std/spec/track-xnl-spec.md`、`mission-xnl-spec.md`、`decision-registry.md`。不要从样例复制 `#id` / envelope。
+3. 对照样例对 scaffold 原地编辑。`proposal.md` / `design.md` 仍可手写 Markdown。
 4. `depa-codument validate <id>`。看到 `expected </?>, got </Given>` 时改闭合，不要重写整文件。
-5. Track `<MaterialBundle>` 的 `domain` 只能是 `code|test|docs|artifact|memory`，`role` 只能是 `input|output`，`path` 必须是 `vfs://`。不是 `doc` / `config` / `json`，也不是已废弃的 `behavior|modeling|engineering`。
 
 ## metadata 与 attributes 的语义边界
 
@@ -64,7 +63,7 @@ XNL 的 `()` 与 `[]` 也不是随意替换的“子节点容器”：
 - serializer / archive / migration 必须保存完整 XNL AST、未知字段与 nested decision hierarchy，不得先投影为摘要 DTO 或 `decision.md` 再重建。
 - `decision://<id>` 只表达 stable identity，与 owner file、目录、archive 时间戳无关；duplicate id 必须 fail closed。
 - legacy Markdown 和 summary 只作显式兼容/迁移输入或派生视图，不参与 XNL registry merge/index。完整规则见 `references/std/spec/decision-registry.md`。
-- 可复制的 pending / accepted 槽位片段由 `depa-codument schema decision` 打印（stdout 是 XNL）。先 `depa-codument decisions create`，再对 scaffold 原地编辑；不要从片段复制 `#id` / envelope，也不要把整棵树抄进仓库。
+- 节点样例见 `references/std/spec/decision-registry.md`。先 `depa-codument decisions create`，再对 scaffold 原地编辑；不要从样例复制 `#id` / envelope，也不要把整棵树抄进仓库。
 
 ## 字面量与节点
 - `ValueLiteral` 仅包含：字符串（单双引号，支持 `\\`、`\"`、`\'`、`\n`、`\t`、`\r`）、布尔、null、数值（保留整数/浮点种类）。

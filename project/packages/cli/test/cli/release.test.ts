@@ -9,6 +9,7 @@ import {
 import { PACKAGE_NAME } from '../../src/identity';
 
 const root = path.resolve(import.meta.dir, '../../../..');
+const productVersion = JSON.parse(await fs.readFile(path.join(root, 'package.json'), 'utf8')).version;
 const legacyTemplateIdentity = ['ai', 'cli', 'multi', 'packages', 'tpl'].join('-');
 
 async function sourceFiles(directory: string): Promise<string[]> {
@@ -47,7 +48,7 @@ describe('release inventory', () => {
       const manifest = JSON.parse(await fs.readFile(path.join(root, 'packages', `runtime-darwin-${architecture}`, 'package.json'), 'utf8'));
       expect(manifest).toMatchObject({
         name: `${PACKAGE_NAME}-darwin-${architecture}`,
-        version: '0.1.0',
+        version: productVersion,
         os: ['darwin'],
         cpu: [architecture],
         bin: { 'depa-codument': 'bin/depa-codument' },
@@ -69,7 +70,7 @@ describe('release inventory', () => {
     ));
     expect(manifest).toMatchObject({
       name: `${PACKAGE_NAME}-windows-x64`,
-      version: '0.1.0',
+      version: productVersion,
       os: ['win32'],
       cpu: ['x64'],
       bin: { 'depa-codument': 'bin/depa-codument.exe' },

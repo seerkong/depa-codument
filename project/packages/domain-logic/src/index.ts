@@ -6,7 +6,6 @@ export * from './registry';
 export * from './resources';
 export * from './source-patch';
 export * from './xnl-diagnostics';
-export * from './kind-schema';
 export * from './lifecycle-source';
 export * from './lifecycle-validation';
 export * from './decisions';

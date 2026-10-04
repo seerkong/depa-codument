@@ -11,7 +11,7 @@ spec:
 
 执行位置保持目标项目；@/ 表示项目根。references/std/、operations/、references/ 相对全局 depa-codument Skill（默认 ~/.agents/skills/depa-codument，CODUMENT_HOME 可覆盖 home）；裸 config/、tracks/ 等相对项目 codument/。以下是当前 Agent 要执行的指导，不是已经完成的业务结果。
 
-# skill: codument-plan-mission（创建长周期 mission）
+# plan-mission（创建长周期 mission）
 
 为一个跨多个 track、需要较长时间自动化收敛的目标创建 **Mission**：生成 `mission.xnl`、`proposal.md`、`design.md`，并放入 `codument/missions/pending/<mission-id>/`。
 
@@ -70,7 +70,11 @@ codument/missions/pending/<mission-id>/
 
 ## 1.5 Decision-tree pass
 
-按 `references/std/protocols/decision-tree.md` 处理 severity、evidence、依赖图和当前拓扑问题批次。MissionObserver 先查证，MissionPlanner 生成 decision forest，MissionReconciler 判断父子与跨分支依赖，MissionApplier 在当前模式允许时一次询问整个 ready batch；`auto` 直接记录假设并继续。
+按 `references/std/protocols/decision-tree.md` 处理 severity、evidence、依赖图和当前拓扑问题批次。MissionObserver 先查证，MissionPlanner 生成 decision forest，MissionReconciler 判断父子与跨分支依赖，MissionApplier 在当前模式允许时一次询问整个 ready batch；`auto` 按共享安全边界记录假设或真实未决，继续无依赖的可做分支，不发例行确认。
+
+简短或模糊目标无需先补成完整规格。按 `references/std/methods/workflow.md` 的“目标—观察—行动”，在现有 proposal / design / findings 中形成当前理解、保留已确认约束与关键未知；未知不直接成为非目标，也不扩成未经授权的产品。能查证的先查证，结合现实后果与返工成本可安全回退的普通选择采用保守假设，真实取舍仍按现有 severity / decision-tree 处理，不为每个未知新建 decision。
+
+已确认行为约束属于期望态依据，包含 AI 提出后获批准的约束；Task / DAG 与技术路线是可修订假设，不能为局部通过而缩小目标。规划下一动作时，优先选择安全、成本适当且前提可信的最小观察，揭示最危险的理解或连接假设，由现有 Task / Acceptance / Schedule 承载；实施性实验须处于已授权阶段与隔离边界，不强制新阶段、探针 Track 或四个 Agent。局部观察不降低最终验收或任何已配置 hook 的轮数、fresh 与 authority。
 
 ## 2. Mission ActorSet
 
@@ -115,7 +119,7 @@ codument/missions/pending/<mission-id>/
 写 design.md：控制目标、事实源、plan vs track 区分、受控重规划、人工介入和风险；标准 actor 协议引用 Mission XNL spec，不复制定义。
 ---- /?design
 ---- #step ?xnl
-在 CLI 已生成的 mission.xnl 骨架内填写根 `{}`、Ports、ProjectRefs、ActorSets、TaskSpace、Schedule 与 Hooks；保留 scaffold 写入的 `#id`、`envelopeVersion`、`specVersion` 和 XNL 通道。先运行 `depa-codument schema mission` 取根形状与 ActorSet/TrackLink/MissionLink/Hook 槽位片段，对 scaffold 原地编辑；不要整文件 Write `.xnl`，也不要用 JSON / `perl` / `sed` 改字节。只有真实 track 生命周期任务才挂 TrackLink。
+在 CLI 已生成的 mission.xnl 骨架内填写根 `{}`、Ports、ProjectRefs、ActorSets、TaskSpace、Schedule 与 Hooks；保留 scaffold 写入的 `#id`、`envelopeVersion`、`specVersion` 和 XNL 通道。对照 `references/std/spec/mission-xnl-spec.md` 对 scaffold 原地编辑；不要整文件 Write `.xnl`，也不要用 JSON / `perl` / `sed` 改字节。只有真实 track 生命周期任务才挂 TrackLink。
 ---- /?xnl
 ---- #step ?validate
 运行 `depa-codument validate <mission-id> --strict`，校验 Mission Kind 与领域规则。
@@ -195,6 +199,5 @@ Mission '<mission-id>' 已创建：
 - codument/missions/pending/<mission-id>/proposal.md
 - codument/missions/pending/<mission-id>/design.md
 
-下一步：请使用 codument-impl-mission 直接执行该 mission。
+下一步：运行 `depa-codument impl-mission <mission-id>`，完整读取返回的操作指导后由当前 Agent 连续执行该 mission。
 ```
-

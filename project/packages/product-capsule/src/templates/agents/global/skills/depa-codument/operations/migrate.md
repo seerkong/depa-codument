@@ -11,7 +11,7 @@ spec:
 
 执行位置保持目标项目；@/ 表示项目根。references/std/、operations/、references/ 相对全局 depa-codument Skill（默认 ~/.agents/skills/depa-codument，CODUMENT_HOME 可覆盖 home）；裸 config/、tracks/ 等相对项目 codument/。以下是当前 Agent 要执行的指导，不是已经完成的业务结果。
 
-# skill: codument-migrate（自主迁移）
+# migrate-operation（自主迁移）
 
 全局安装与项目升级职责见 [升级边界](../references/migration/workspace-upgrade.md)；实际迁移步骤仍由下述 CLI 协议提供。
 

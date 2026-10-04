@@ -11,15 +11,15 @@ spec:
 
 执行位置保持目标项目；@/ 表示项目根。references/std/、operations/、references/ 相对全局 depa-codument Skill（默认 ~/.agents/skills/depa-codument，CODUMENT_HOME 可覆盖 home）；裸 config/、tracks/ 等相对项目 codument/。以下是当前 Agent 要执行的指导，不是已经完成的业务结果。
 
-# skill: codument-discuss（创建 track/mission 前的人机讨论）
+# discuss（创建 track/mission 前的人机讨论）
 
-`codument-discuss` 是 **pre-plan 对话入口**：在还没有决定要 quick、track 还是 mission 前，先读取必要上下文，然后和用户讨论目标、边界、取舍与下一步。
+`depa-codument discuss` 是 **pre-plan 对话入口**：在还没有决定要 quick、track 还是 mission 前，先读取必要上下文，然后和用户讨论目标、边界、取舍与下一步。
 
 > 关键原则：这是一次**对话**，不是一次报告生成。不要用生成文件代替和用户来回澄清。
 
 ## 0. 定位
 
-`codument-discuss`：
+`depa-codument discuss`：
 
 - 必须与用户进行讨论、提问、确认或澄清，除非用户显式要求 `QuestionSeverity=auto` / 无问答。
 - 不修改源码。
@@ -29,11 +29,11 @@ spec:
 - 不把 route、决策树、推荐命令做成固定产物文件。
 - 输出一个对话中的下一步建议：`quick | track | mission | blocked`。
 
-如果目标 track 已存在、用户要细化某个 phase，使用 `codument-maintain-track` 的 `discuss-phase` mode。
+如果目标 track 已存在、用户要细化某个 phase，使用 `depa-codument maintain-track` 的 `discuss-phase` mode。
 
 ## 1. 临时 analysis 生命周期
 
-每次触发 `codument-discuss`：
+每次触发 `depa-codument discuss`：
 
 1. 删除旧的 `codument/analysis/`。
 2. 创建新的 `codument/analysis/`。
@@ -41,7 +41,7 @@ spec:
    - `findings.md`：从代码、测试、decisions、archive、mission/track 中读到的证据。
    - `knowledge.md`：讨论中尚未稳定、仅供本轮继续推理的临时知识草稿。
 4. 不在 `codument/analysis/` 中保存聊天记录、最终推荐报告、正式决策或待创建的 proposal/design。
-5. 如果用户同意进入 `codument-plan-track` 或 `codument-plan-mission`，在开始创建前再次删除 `codument/analysis/`。
+5. 如果用户同意进入 `depa-codument plan-track` 或 `depa-codument plan-mission`，在开始创建前再次删除 `codument/analysis/`。
 
 `codument/analysis/` 是 scratch，不是 owner 真源；稳定结论应在后续 quick/track/mission 中按知识层级进入 `decisions` 或 `memory`。
 
@@ -58,6 +58,8 @@ spec:
 - 相关源码、测试、配置和文档。
 
 上下文搜集是为了提出更好的问题和建议，不是为了直接结束讨论。
+
+按 `references/std/methods/workflow.md` 的“目标—观察—行动”，先给出基于简短意图和本地证据的当前理解，区分已确认约束与关键未知。讨论只澄清影响下一步的取舍，不要求用户写完规格；未看清不等于范围外，也不授权扩展产品。调查保持只读，实施性实验交获准后的 quick/track/mission。
 
 ## 3. 对话协议
 
@@ -81,9 +83,9 @@ spec:
 
 | route | 条件 | 下一步 |
 |---|---|---|
-| `quick` | 小范围 bug、测试、局部重构、配置修正；不引入新行为契约和长期规划对象 | `codument-impl-quick` |
-| `track` | 新能力、行为变化、架构/模式调整、风险较高或需要 proposal/design | `codument-plan-track` |
-| `mission` | 跨多个 track/仓库，长期自动化，执行期需要重规划 | `codument-plan-mission` |
+| `quick` | 小范围 bug、测试、局部重构、配置修正；不引入新行为契约和长期规划对象 | `depa-codument impl-quick` |
+| `track` | 新能力、行为变化、架构/模式调整、风险较高或需要 proposal/design | `depa-codument plan-track` |
+| `mission` | 跨多个 track/仓库，长期自动化，执行期需要重规划 | `depa-codument plan-mission` |
 | `blocked` | 关键信息缺失、权限/环境不可用、用户目标冲突 | 先补证据或请求用户决策 |
 
 ## 5. 对话输出
@@ -108,4 +110,3 @@ temporary_analysis_notes:
 - `operations/plan-mission.md`
 - `operations/impl-quick.md`
 - `references/std/attractors/knowledge-tiers.md`
-

@@ -3,7 +3,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { spawn } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
-import { execute, files, sandbox, type Run } from './runtime';
+import { execute, files, sandbox, runProduct, type Run } from './runtime';
 import { assertNestedSelection } from './resource-oracle';
 import { applicationEnvironment } from './application-state';
 
@@ -34,7 +34,7 @@ export async function verifyNested(run: Run, attempt: number): Promise<string[]>
   const main = repositories[0]!, inventory = repositories[1]!;
   const rootMissions = files(path.join(main, 'codument/missions')).filter(f => f.endsWith('/mission.xnl')).map(f => fs.readFileSync(f, 'utf8'));
   const childMissions = files(path.join(inventory, 'codument/missions')).filter(f => f.endsWith('/mission.xnl')).map(f => fs.readFileSync(f, 'utf8'));
-  assertNestedSelection(rootMissions,childMissions);
+  assertNestedSelection(rootMissions,childMissions,runProduct(run).id);
   for (const text of [...rootMissions,...childMissions]) assert.ok(!text.includes(run.root), 'Absolute path leaked into Mission authority');
   await verifyNestedBindings(run, `nested-${attempt}`);
   const processes: { pid?: number; fd: number }[] = [];

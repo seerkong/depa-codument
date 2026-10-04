@@ -2,7 +2,7 @@
 
 `codument/tracks/{pending,active}/<id>/track.xnl` 是 Track 的结构、状态、调度与 hook 真源；归档后位于 `codument/tracks/archived/YYYY-MM/<timestamp>-<id>/track.xnl`。新文件必须由 `depa-codument track create <id> --stage pending|active` 生成骨架，调用方不得自行填写 `envelopeVersion` / `specVersion`。
 
-Track Kind 由产品包内置，不在 workspace 复制定义。当前资源使用 `envelopeVersion="halfcode.resource-envelope/v1"` 与 `specVersion=1`；包版本独立演进。XNL 通用语法遵循 `xnl-format.md`。槽位片段权威打印：`depa-codument schema track`（stdout 是 XNL，不要从片段复制 `#id` / envelope）。
+Track Kind 由产品包内置，不在 workspace 复制定义。当前资源使用 `envelopeVersion="halfcode.resource-envelope/v1"` 与 `specVersion=1`；包版本独立演进。XNL 通用语法遵循 `xnl-format.md`。形状以本文投影为准，不要从投影复制 `#id` / envelope。
 
 ## 1. 目录约定
 
@@ -29,7 +29,7 @@ tracks/
 
 ## 2. Canonical DSL
 
-下例是 `depa-codument track create` 生成骨架并填写语义后的完整投影，**不要复制 `#id` / envelope**。`#id`、`envelopeVersion`、`specVersion`、初始状态与时间字段由 CLI 写入；作者只保留这些 receipt 值。槽位片段以 `depa-codument schema track` 为准。
+下例是 `depa-codument track create` 生成骨架并填写语义后的完整投影，**不要复制 `#id` / envelope**。`#id`、`envelopeVersion`、`specVersion`、初始状态与时间字段由 CLI 写入；作者只保留这些 receipt 值。
 
 ```xnl
 <Track #add-csv-export envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
@@ -94,6 +94,7 @@ tracks/
 - `TaskSpace`、`Description` 等只出现一次的子域使用 `()`。
 - `[]` 只承载该集合的成员，不用于容纳 singleton 配置。
 - Task、TaskGroup、MaterialBundle、Node 等节点的普通属性放各自 `{}`；不要误放到 metadata。
+- `<MaterialBundle>` 的 `domain` 只能是 `code|test|docs|artifact|memory`，`role` 只能是 `input|output`，`path` 必须是 `vfs://`。
 - Track XNL 不使用 XML namespace，也不写 `cdt:` 前缀。`GapLoop`、`HumanConfirm`、`AttractorCheck`、`Acceptance`、`Gate` 等标签本身已由 Track Kind 定义语义。
 
 根属性：
@@ -143,6 +144,9 @@ tracks/
 
 ```xnl
 <Hooks [
+  <Hook { on = "phase:after" } (
+    <GapLoop { max_rounds = 5 on_exhausted = "block" verify_round = false }>
+  )>
   <Hook { on = "phase:after" } (
     <AttractorCheck { use = "coding" }>
   )>

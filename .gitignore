@@ -143,3 +143,5 @@ frontend/packages/react/public/**
 codument/**/analysis
 codument/**/reports
 codument/.local/
+
+.cdmt-lite/standalone/**/reports/

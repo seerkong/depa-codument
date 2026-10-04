@@ -11,7 +11,7 @@ spec:
 
 执行位置保持目标项目；@/ 表示项目根。references/std/、operations/、references/ 相对全局 depa-codument Skill（默认 ~/.agents/skills/depa-codument，CODUMENT_HOME 可覆盖 home）；裸 config/、tracks/ 等相对项目 codument/。以下是当前 Agent 要执行的指导，不是已经完成的业务结果。
 
-# skill: codument-impl-track（执行任务）
+# impl-track（执行任务）
 
 按 `track.xnl` 的 TaskSpace / Schedule / Hooks / Ports 推进已批准 Track。XNL 是状态 authority；wave、统计、续跑位置均为派生视图，不另建 index.md/state.md。
 
@@ -19,7 +19,7 @@ spec:
 
 track executor 决定状态转换，经 CLI 写回；普通叶任务按边界、文件重叠、上下文连续性、真实并行收益和运行时能力选择 local / delegated，DAG 不强制 fresh-spawn。小任务、顺序依赖、同批文件或无协作能力时优先 local。独立且可并行、大上下文或用户明确委派时可 delegated。
 
-local 与 delegated 均需 acceptance、目标命令、行为基线与 diff 证据。GapLoop、AttractorCheck、codument-verify、用户要求的独立审查仍使用 fresh context。不得拿 worker 自述、历史 receipt 或上下文摘要替代当前语义判断。
+local 与 delegated 均需 acceptance、目标命令、行为基线与 diff 证据。GapLoop、AttractorCheck、depa-codument verify、用户要求的独立审查仍使用 fresh context。不得拿 worker 自述、历史 receipt 或上下文摘要替代当前语义判断。
 
 关键 phase/wave 结论、指标、环境约束、失败归因与机制漏洞追加 `analysis/findings.md`；状态只在 XNL。当前 authoring 用无前缀 XNL、snake_case；legacy 输入先 `depa-codument upgrade-resource <path>`，review 则走 migrate，不在执行器猜版本映射。
 
@@ -53,10 +53,12 @@ candidate TrackLink 由 MissionApplier 先 `track transition <track-id> in_progr
 
 - Track 当前完整合同（已完整读取且仍有效的 context AST 可直接使用，否则读 `track.xnl`；需源注释/原文细节时再展开），以及 `proposal.md`、`design.md`（当前 Kind 必需）。不为形式重复装载同一合同的两种表示。
 - `analysis/findings.md`、`analysis/knowledge.md`（如存在）；根 `decisions.xnl` 与递归 `decisions/**/*.xnl`（如存在）。
-- `references/std/methods/tdd.md`、`references/std/methods/dag-execution.md`。
+- `references/std/methods/workflow.md` 的“目标—观察—行动”、`references/std/methods/tdd.md`、`references/std/methods/dag-execution.md`。
 - 本次实际适用的 input MaterialBundle、前置产物、代码测试、hooks/profile/attractors；按 `references/std/protocols/context-loading.md` 保留来源索引。
 
 必需文件缺失则阻断受影响任务；不能用摘要补造。读取 Track 根 `commit_mode=auto|manual`。知识与源发生变化时重读适用闭包，不因 continuation 有结论就跳过。
+
+启动或续跑时，用原始意图、已确认取舍和当前项目证据校准目标理解，区分已确认约束与实施路线假设；只把实际影响下一动作的理解、关键未知和观察依据记入已有 findings。批准的计划不能替代目标，也不能因实现困难撤掉已确认承诺。
 
 ## 3.0 续跑检测 / 中断恢复（step 0）
 
@@ -93,6 +95,8 @@ auto 模式门控成功创建 phase 检查点 commit + Git Notes（§9）；追�
 
 两种策略都读 input MaterialBundle、前置产物、Acceptance、tdd、findings、根与递归 decisions。按 TDD 实现；重构/类型/迁移先做 characterization 或等价行为冻结。由 Acceptance、MaterialBundle、proposal/design、目标模块和工作区现状推导预期改动面，逐项取证。保留用户及其它工作流改动；外部不可逆操作缺权限按 §8 协调。
 
+在当前合法 ready 任务和授权边界内，依据最新证据选择能证伪关键理解或连接假设的最小观察、隔离实验或连贯实现切片，并在行动内验证。遵循 `references/std/methods/workflow.md` 的“目标—观察—行动”；若观察否定了任务前提或切片顺序，走 §6.2.1 受控修订，不绕过 Schedule、已确认约束或配置 hook。
+
 worker 不写 track.xnl、acceptance checkmarks、findings，不创建 task/phase commit；只返回产物、真实命令、未验证项和 blocker。子流程返回不是父 mission 的停点。
 
 ### 6.2.1 Scope drift 协调（开始与收口必做）
@@ -112,8 +116,8 @@ worker 不写 track.xnl、acceptance checkmarks、findings，不创建 task/phas
 
 1. 重读当前 Acceptance、执行证据、git diff；检查范围与每条预期语义。
    按 `references/std/protocols/context-loading.md` 对照本任务适用的原始硬要求与契约示例的原样输入；明确要求保留的测试需检查实际 test collection，未被收集的必需用例不能由其它测试 exit 0 代替。
-2. 逐条把本Task Acceptance映射到可重复的行为验证命令及断言，再执行。UI能力必须触发真实用户事件并检查可见状态；HTTP能力启动真实边界并含权限/错误/状态负例；stream能力验证逐事件时序和迭代建立前、迭代中异常；跨服务能力观察两侧真实状态变化。只检查源码字符串、文件存在、编译成功或内存替身，不足以证明这些运行行为。与本任务无关的场景不强行增加；缺少相关真实验证就是证据不足，应在DONE和最终hook前补齐。
-   文件、工具或其它能力若声明资源范围/权限隔离，用隔离测试资源验证允许与越界拒绝；“安全/低风险”等承诺需落实到可检查的边界，不能由一个成功用例证明。只检查当前任务实际承诺，不扩展为通用安全审计。
+2. 逐条把本 Task 的实际承诺与 Acceptance 映射到可重复的行为验证命令及断言，再执行：从承诺的合法消费入口施加真实输入或操作序列，观察预期结果与相关状态效果，并检验适用的边界、负例、逐步效果与时序、建立/执行/结束阶段的异常和资源生命周期不变量。只检查当前任务实际承诺，不强加无关场景；一个成功路径不证明所有承诺性质。只检查源码字符串、文件存在、编译成功或内存替身，不足以证明这些运行行为；缺少相关真实验证就是证据不足，应在 DONE 和最终 hook 前补齐。
+   真实边界可在授权的隔离环境验证；模拟或替身的通过只证明其覆盖的局部性质，不能代替已承诺真实入口或运行边界的证据。若承诺资源范围/权限隔离，用隔离测试资源验证允许与越界拒绝；“安全/低风险”等承诺需落实到可检查的边界，不扩展为通用安全审计。
 3. 确认无无关运行时改动；声称行为不变须逐项核实删除/替换语句等价。worker 声称“旧问题/非我责任”时，以错误性质、HEAD 对照、独立复现、时间或 diff 归因验证。
 4. 通过才 `depa-codument track task complete <track-id> <task-id> -- <verification-command>`；CLI 执行或复用同命令且内容前提有效的成功 receipt，原子写 DONE/Acceptance。不得以 `;` 分隔失败检查与完成写入。
 5. findings 记录 receipt id/reused、命令、diff、覆盖和未验证项，继续 task:after。失败可修则保持 ACTIVE；不能继续才 `task transition ... REFUSED` 并记录 blocker。Track Task 没有 BLOCKED 状态。
@@ -134,7 +138,9 @@ phase:after GapLoop 交父层编排；子 Track 时该父层先是 Track executo
 
 ## 8.0 失败处理
 
-先在当前任务边界尝试安全修复。mission 子 Track 无法修复时记录 findings 并向 MissionApplier 返回失败类型/原因/建议，由父层重规划、换分支或真实 blocked；不默认向用户提问。
+先按 `references/std/methods/workflow.md` 的“目标—观察—行动”判断失败否定了目标解释、实现、观察前提还是交付协议，再由对应 owner 修复；观察条件不成立或证据不足时，不能自动归为业务失败并修改业务实现。复验需有新信息或前提变化，并覆盖原 finding 及受影响范围；无新依据不原样重试。失效 receipt 撤回效力并关联替代证据，保留失败历史，不删除收据或重置轮数。
+
+能在当前任务边界安全修复则继续。mission 子 Track 无法修复时记录 findings 并向 MissionApplier 返回失败类型/原因/建议，由父层重规划、换分支或真实 blocked；不默认向用户提问。
 
 独立交互需要取舍时：
 - 任务或完成验证失败：不能继续的分支写 REFUSED，记录 blocker、步骤和日志；询问修复/重试、切换策略、以 REFUSED 跳过、中止。

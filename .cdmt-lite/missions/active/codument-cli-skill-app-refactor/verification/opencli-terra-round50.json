@@ -1,0 +1,144 @@
+{
+  "runs": [
+    {
+      "root": "/private/tmp/depa-codument-e2e-cq3qL4",
+      "kind": "business-trial",
+      "sourceRunRoot": null,
+      "caseId": "todo",
+      "status": "infrastructure-failed",
+      "rawStatus": "infrastructure-failed",
+      "terminalPolicy": null,
+      "resumed": false,
+      "firstPass": false,
+      "elapsedMs": 4223951,
+      "harness": {
+        "initialSha256": "166b0a5940c1c85be3a3b7ec19219441d02749938bc25ddf19b300bd96088656",
+        "resumes": []
+      },
+      "workflowPolicy": {
+        "version": 2,
+        "commitMode": "manual",
+        "scope": "final-first-level-task-group",
+        "event": "phase:after",
+        "independentVerify": true,
+        "unselectedBacklog": "declare-only",
+        "hooks": {
+          "GapLoop": {
+            "enabled": false,
+            "attributes": {
+              "max_rounds": 5,
+              "on_exhausted": "block",
+              "verify_round": false
+            }
+          },
+          "AttractorCheck": {
+            "enabled": false,
+            "attributes": {
+              "use": "coding"
+            }
+          },
+          "HumanConfirm": {
+            "enabled": false,
+            "attributes": {}
+          }
+        }
+      },
+      "gateCoverage": {
+        "immutableRequirements": true,
+        "observedModels": false,
+        "uiReceipts": [
+          "ui-receipt-0.json"
+        ],
+        "baseline": "recorded"
+      },
+      "usage": {
+        "input": 6651215,
+        "cached": 6305280,
+        "output": 67157
+      },
+      "sessionAccounting": {
+        "usage": {
+          "input": 6651215,
+          "cached": 6305280,
+          "output": 67157
+        },
+        "responseCount": 159,
+        "sessionCount": 6,
+        "sessionsWithUsage": 6,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+      },
+      "topLevelUsage": {
+        "input": 5500735,
+        "cached": 5249536,
+        "output": 40044
+      },
+      "topLevelUsageComplete": true,
+      "usageEstimated": false,
+      "outputTokensUnavailable": false,
+      "moneyCost": null
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-hfeLZ0",
+      "kind": "business-trial",
+      "sourceRunRoot": null,
+      "caseId": "todo",
+      "status": "infrastructure-failed",
+      "rawStatus": "infrastructure-failed",
+      "terminalPolicy": null,
+      "resumed": false,
+      "firstPass": null,
+      "elapsedMs": null,
+      "harness": {
+        "initialSha256": "b9efa48123fdf9066b706c90286b2b017a90906253e36febeb90a3d969e5de79",
+        "resumes": []
+      },
+      "workflowPolicy": null,
+      "gateCoverage": {
+        "immutableRequirements": false,
+        "observedModels": false,
+        "uiReceipts": [],
+        "baseline": "recorded"
+      },
+      "usage": null,
+      "sessionAccounting": {
+        "usage": null,
+        "responseCount": 0,
+        "sessionCount": 0,
+        "sessionsWithUsage": 0,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+      },
+      "topLevelUsage": null,
+      "topLevelUsageComplete": false,
+      "usageEstimated": false,
+      "outputTokensUnavailable": false,
+      "moneyCost": null
+    }
+  ],
+  "denominator": 0,
+  "excludedInfrastructureOrIncomplete": 2,
+  "uiReverifications": [],
+  "byCase": [
+    {
+      "caseId": "todo",
+      "runs": 2,
+      "denominator": 0,
+      "firstPassRate": null,
+      "correctedPassRate": null,
+      "knownUsage": {
+        "input": 6651215,
+        "cached": 6305280,
+        "output": 67157
+      },
+      "knownUsageIsEstimated": false,
+      "outputTokensUnavailable": false,
+      "unknownUsageRuns": 1,
+      "includesExcludedTrialCosts": true
+    }
+  ],
+  "firstPassRate": null,
+  "correctedPassRate": null,
+  "usageIsEstimated": false,
+  "outputTokensUnavailable": false,
+  "warning": "Small-sample observed rates, not population guarantees. Null is unknown, never zero. Different or unrecorded workflow policies are not equal-strength cost comparisons.No API-price estimate is presented as a ChatGPT account bill."
+}
+

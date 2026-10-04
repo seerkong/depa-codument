@@ -10,6 +10,8 @@ AttractorCheck 是显式 hook 触发的方向审查：检查计划或实现是�
 - profile 引用的标准和项目 attractor；
 - 调用方指定的计划、实现、decision 与必要工程事实。
 
+独立目标理解按 [workflow 的“目标—观察—行动”](../methods/workflow.md)：读取审查范围适用的原始意图与已确认取舍，核对它们与所选 attractor 的关系，不把调用方摘要或 reviewer 偏好当目标 authority。无法澄清且影响方向判定的歧义记录为所缺输入并返回 `BLOCKED`；不擅自添加行为要求。本 hook 仍只审所选 profile 的方向，不扩成完整业务验收或另一轮 GapLoop。
+
 reviewer 只读，不修改文件、不改变 task/track/mission 状态、不向用户提问。调用方可显式授权只读检查命令；实现测试、修复和状态写回仍由调用方负责。
 
 ## Receipt

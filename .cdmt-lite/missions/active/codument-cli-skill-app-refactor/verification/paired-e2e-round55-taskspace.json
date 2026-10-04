@@ -1,0 +1,14 @@
+{
+  "round": 55,
+  "spaceId": 4,
+  "ownershipBeforeFinish": "agent",
+  "finishCalls": 1,
+  "result": {
+    "spaceId": 4,
+    "closedSpace": true,
+    "keptManagedLabels": [],
+    "closedManagedLabels": ["p1"],
+    "preservedUnmanagedCount": 0
+  },
+  "evidence": "The actual ego-browser nodejs command returned this finish result after both formal groups and the terminal evidence audit completed. No new TaskSpace or browser fallback was used."
+}

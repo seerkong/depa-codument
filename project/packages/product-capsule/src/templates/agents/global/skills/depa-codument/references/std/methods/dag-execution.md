@@ -1,6 +1,6 @@
 # Wave / DAG 调度执行（references/std/methods/dag-execution.md）
 
-> `codument-impl-track` 与 `codument-maintain-track` 的 `schedule` mode 引用。描述 `{ child_mode = "dag" }` 的层如何调度执行。
+> `depa-codument impl-track` 与 `depa-codument maintain-track` 的 `schedule` mode 引用。描述 `{ child_mode = "dag" }` 的层如何调度执行。
 
 ## 派生 wave
 
@@ -38,8 +38,7 @@ spot-check 通过后，若 CommitMode=auto 则创建 wave/任务检查点；manu
 - DAG 决定哪些节点 ready，不决定由谁执行。没有真实并行收益、任务修改同一文件、当前上下文已经充分或 runtime 不支持协作时，顺序 local 执行是正常策略。
 - 使用 delegated 策略时只传路径/引用（task id、Description、Acceptance、input/output MaterialBundle 路径、前置产物位置）；worker 不修改 `track.xnl`、acceptance、findings 或 commit。
 - delegated prompt 必须写明：完成即返回产物与证据（stop 仅限子流程边界，调用方决定是否继续）、不要开启超长会话；禁止 `git restore` / `git checkout` / `git stash`；遇到越界需求或前置成果异常时返回阻塞。
-- 若该 DAG 执行发生在 `codument-impl-mission` 的子 track / 子流程内，local/delegated worker 或局部 track 流程的返回必须交回 mission 父层，由 mission 父层继续更新状态并推进后续 ready operation。
+- 若该 DAG 执行发生在 `depa-codument impl-mission` 的子 track / 子流程内，local/delegated worker 或局部 track 流程的返回必须交回 mission 父层，由 mission 父层继续更新状态并推进后续 ready operation。
 - executor 不能盲信 delegated worker 自述。每个 wave 至少检查目标指标、行为基线测试、diff 是否符合预期；对"非我责任"类说法用错误性质、HEAD 对照或复现实验验证。
 - 非叶节点（TaskGroup）递归：先按其自身 `child_mode` 调度其直接下层。
 - 失败/抽检失败/DAG 阻塞按 `validation.md` 与失败处理协议处理（重试/跳过/中止）。
-

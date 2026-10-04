@@ -11,7 +11,7 @@ spec:
 
 执行位置保持目标项目；@/ 表示项目根。references/std/、operations/、references/ 相对全局 depa-codument Skill（默认 ~/.agents/skills/depa-codument，CODUMENT_HOME 可覆盖 home）；裸 config/、tracks/ 等相对项目 codument/。以下是当前 Agent 要执行的指导，不是已经完成的业务结果。
 
-# skill: codument-impl-mission（执行长周期 mission）
+# impl-mission（执行长周期 mission）
 
 按 `mission.xnl` 的 desired DAG 执行 mission，并通过 `MissionPlanner` / `MissionObserver` / `MissionReconciler` / `MissionApplier` 四个控制论 + DEPA actor 做反馈收敛。
 
@@ -19,7 +19,7 @@ spec:
 
 ## 控制论循环
 
-执行本 operation 前先读 `references/std/protocols/cybernetic-loop.md`。本文件只写执行期主循环、返回边界与 TrackLink 绑定；不要在这里再抄一份四要素或角色表。
+执行本 operation 前先读 `references/std/protocols/cybernetic-loop.md` 和 `references/std/methods/workflow.md` 的“目标—观察—行动”。本文件只写执行期主循环、返回边界与 TrackLink 绑定；不要在这里再抄一份四要素或角色表。
 
 ## 0. 前置
 
@@ -40,9 +40,11 @@ spec:
 
 ## 2. 主循环
 
+启动或续跑时，依据原始意图、已确认取舍、适用吸引子与 actual state 校准当前目标理解；只把实际影响下一动作的理解、关键未知和观察依据记入已有 analysis/reports。Mission DAG 与实施路线是达成目标的假设，已确认约束仍须经相应决策/变更入口修订，不因实现失败自行缩小目标。
+
 ### 2.1 连续执行边界
 
-调用 `codument-impl-mission <id>` 就是开始实现 mission，不存在仅启动后返回的模式。若 mission 位于 `pending/`，启动后必须重新读取 `active/<id>/mission.xnl` 并继续执行。
+收到执行/续跑请求后，运行 `depa-codument impl-mission <id>` 读取指导，再由当前 Agent 连续实现 mission，不能只取得指导就结束执行。CLI 返回正文不是已启动或已完成的业务收据。用户明确仅了解/检查时不启动；获准启动且 mission 位于 `pending/` 时，启动后必须重新读取 `active/<id>/mission.xnl` 并继续执行。
 
 主循环只可在以下情况返回：
 
@@ -51,7 +53,7 @@ spec:
 - mission 满足 completed gate，或状态为 `cancelled` / `superseded`。
 - 当前 invocation 已完成 10 个 linked track 生命周期，写入可续跑 checkpoint。
 
-`QuestionSeverity=auto` 必须把保守假设写入 `decisions.xnl` 或报告后继续，不得为了确认而暂停。十条 track checkpoint 只结束本次 invocation；mission 仍保持 `active`，下一次 `codument-impl-mission` 从 `mission.xnl` 续跑。
+`QuestionSeverity=auto` 按 `references/std/protocols/questioning.md` 的安全边界记录假设或真实未决，继续无依赖的可做分支，不为例行确认而暂停；不能把无安全默认的必需决策伪装成已批准假设。仅在无合法可行动作时按既有真实 `BLOCKED` 边界返回。十条 track checkpoint 只结束本次 invocation；mission 仍保持 `active`，下一次 `depa-codument impl-mission` 从 `mission.xnl` 续跑。
 
 只在**需要续跑的合法返回边界**（显式确认、真实 `BLOCKED`、十条 Track checkpoint）或 runtime 真实中断/显式 handoff 时写 continuation checkpoint。内容保持紧凑，只记录：当前目标、已完成项、下一 ready operation、真实 blocker、关键证据路径。终态不需要续跑 checkpoint；task、phase、单条 Track、回退复盘或重规划完成后不得因此停下写 checkpoint。
 
@@ -59,7 +61,7 @@ spec:
 
 每个 logical mission operation 必须有与影响相称的完成判定，但不需要生成统一回执文件、XNL 节点或任何专用数据格式：代码改动运行相关测试或静态检查；linked track 检查叶子状态与验收证据；外部操作重新读取受影响资源；分析操作确认约定证据已写入。完成判定通过且无前提、依赖、范围或目标的失效信号时，直接继续下一个 planned ready operation；判定不确定、失败或发现失效信号时，才观察受影响范围并进入 reconcile。仅在范围无法界定时才做全量观察。
 
-子流程的返回边界不得冒充 mission 主循环返回边界：`codument-impl-track`、`codument-archive-track`、`codument-verify`、`codument-gap-loop` 或 fresh 子代理返回时，只是把局部结果交还给 `MissionApplier`。若当前操作是在 mission 中处理某个子 track，子 track 的收口只约束该子流程；mission 父层读取结果、通过 CLI 更新状态、执行当前 operation 完成判定，然后继续 mission 主循环，除非命中本节列出的返回条件。
+子流程的返回边界不得冒充 mission 主循环返回边界：`depa-codument impl-track`、`depa-codument archive-track`、`depa-codument verify`、`depa-codument gap-loop` 或 fresh 子代理返回时，只是把局部结果交还给 `MissionApplier`。若当前操作是在 mission 中处理某个子 track，子 track 的收口只约束该子流程；mission 父层读取结果、通过 CLI 更新状态、执行当前 operation 完成判定，然后继续 mission 主循环，除非命中本节列出的返回条件。
 
 ### 2.1.1 Scope drift 协调（mission 语境）
 
@@ -158,7 +160,7 @@ MissionApplier 写 reports/replan-XXX.md 并更新 TaskSpace/Schedule 的语义�
 `start-mission` 是进入 continuous execution 的前置迁移，不是可单独收口的模式。完成前不得执行 mission DAG 中的任何节点；完成后必须从 active 路径重新加载并继续主循环。
 
 1. 读取 `proposal.md`、`design.md` 和 `mission.xnl`。
-2. 本次入口是 `codument-impl-mission <id>` 或用户要求实现/续跑时，视为已授权启动；用户明确要求只检查时保持 pending。
+2. 当前 Agent 已受派执行本 operation，或用户要求实现/续跑时，视为已授权启动；仅运行 `depa-codument impl-mission <id>` 取得指导不产生启动授权，用户明确要求只检查时保持 pending。
 3. 运行 `depa-codument mission transition <id> active`。CLI 验证 lifecycle、目标目录、revision 与更新时间并原子移动 authority。
 4. 从命令返回的 active 路径重新加载，然后继续主循环；启动本身不结束 invocation。
 
@@ -168,19 +170,25 @@ MissionApplier 写 reports/replan-XXX.md 并更新 TaskSpace/Schedule 的语义�
 
 ready node 来自 `mission.xnl` 顶层 `TaskGroup` DAG：所有 `<After>` 前驱已 DONE / SUPERSEDED，且节点自身未完成。进入某个 ready `TaskGroup` 后，按其内部叶子 `Task` 的 `order` 顺序执行第一个未完成 Task；除非未来显式扩展 nested DAG，否则组内 Task 不并行、不写进顶层 DAG。这个“第一个未完成 Task”只是当前 logical operation 的选择规则，不是执行后向用户返回的规则。
 
+在合法 ready frontier 内，依据当前证据选择能证伪关键理解或连接假设的安全、成本合适的观察或连贯切片；未知尚会影响操作时，先做所需观察。不得绕过已配置依赖和组内 order；若证据使既定切片或顺序失效，由 Reconciler/Planner 受控重规划后继续。
+
 常见节点类型：
 
 - 普通 leaf `Task`：做证据盘点 / 设计收敛 / track 切片；产物写 `analysis/`，稳定结论写 `design.md` 或 decisions。
-- 带 `TrackLink` 的 leaf `Task`：创建、续跑、验证或归档一个 depa-codument track；真实实现交 `codument-plan-track` / `codument-impl-track` / `codument-archive-track`。
+- 带 `TrackLink` 的 leaf `Task`：创建、续跑、验证或归档一个 depa-codument track；真实实现交 `depa-codument plan-track` / `depa-codument impl-track` / `depa-codument archive-track`。
 - 验证 leaf `Task`：独立验证 mission 成功判据。
 
 ### 4.1 操作完成判定
 
 MissionApplier 的每个 logical operation 都必须在操作内完成与影响相称的验证。完成判定可直接使用该任务已有的验收条件、相关测试、真实 track 状态、外部资源读取或约定的分析证据；不得为此新增统一回执文件或专用序列化格式。
 
+证据必须支持该 operation 的实际承诺：沿合法消费入口观察真实输入或操作序列到结果/状态效果及适用不变量；分析与计划产物检查其约定证据。局部任务成功或模拟通过不能代替已承诺真实边界的证据，可使用授权隔离环境。目标重观察及显式独立检查遵循共享方法与既有 fresh 协议，操作自验不替代它们。
+
 - 判定通过且没有前提、依赖、范围或目标的失效信号：更新普通实际态与证据后，直接继续下一个 planned ready operation。
 - 判定不确定或失败，或发现失效信号：先由 Observer 只读取受影响的文件、track、测试、资源或报告，再由 Reconciler 判断是否需要重规划、阻塞或继续。
 - 仅在影响范围不能可靠界定时，才重新做全量 actual-state observation。
+
+失败或不确定时，先判断目标解释、实现、观察前提或交付协议中什么被证伪，由对应 owner 纠偏；证据不足不自动触发业务实现修复。复验须依据新信息或前提变化并覆盖原 finding 与受影响范围，无新依据不原样重试。保留失效 receipt/报告与失败历史，撤回其效力并关联替代证据，不删除历史或重置轮数；已有返回边界和配置检查强度不变。
 
 任务开始或完成时运行 `depa-codument mission task transition <mission-id> <task-id> ACTIVE|DONE`；TaskGroup 在其子任务实际收口后用同一命令更新。CLI 负责合法状态、revision 和更新时间。
 
@@ -252,7 +260,7 @@ TrackLink 是对真实 track 生命周期的承诺，不是一个普通标签：
 - 先执行 completed gate（见 §7.1）。gate 未通过时不得更新为 `completed`。
 - 运行 `depa-codument mission transition <mission-id> completed`；CLI completion gate 校验任务终态并写入 revision/时间。
 - 写 `reports/mission-complete.md`。
-- 提示用户使用 `codument-archive-mission` 归档。
+- 提示用户使用 `depa-codument archive-mission` 归档。
 
 ### 7.1 Completed gate
 
@@ -267,4 +275,3 @@ TrackLink 是对真实 track 生命周期的承诺，不是一个普通标签：
 - `mission.xnl` XNL/Kind/领域校验有效；对每个 linked track，best-effort 运行 `depa-codument validate <track-id> --strict`。
 
 任一项失败时，不得标记 `completed`。应进入 drift / replan / blocked 分支，先修复结构偏差或向用户报告阻塞。
-

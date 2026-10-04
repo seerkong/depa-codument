@@ -11,7 +11,7 @@ spec:
 
 执行位置保持目标项目；@/ 表示项目根。references/std/、operations/、references/ 相对全局 depa-codument Skill（默认 ~/.agents/skills/depa-codument，CODUMENT_HOME 可覆盖 home）；裸 config/、tracks/ 等相对项目 codument/。以下是当前 Agent 要执行的指导，不是已经完成的业务结果。
 
-# skill: codument-gap-loop（目标差距收敛）
+# gap-loop（目标差距收敛）
 
 GapLoop 让父层编排器控制轮次，每轮由 fresh 子代理独立比较实际态与目标态、修复可处理差距并留下证据。它可以作用于 Track、某个 phase 或 Mission。
 
@@ -28,6 +28,8 @@ Track/phase scope 读取 `track.xnl`、proposal、design、Acceptance、相关�
 同时按 `references/std/protocols/context-loading.md` 读取本 scope 适用的原始需求和批准取舍；派生 Acceptance 的遗漏本身也是差距。局部 phase 检查不宣称覆盖其它 phase，也不代替最终交付的原始需求完整性核对；不因此新增或重复配置 hook。
 
 目标态来自这些 authority 的共同约束。实现、测试、reports 和 linked resource 是实际态。冲突时先报告 authority 冲突，不凭上下文猜测目标。
+
+按 `references/std/methods/workflow.md` 的“目标—观察—行动”独立重建本轮目标；已确认约束不可当路线假设删除，未决解释不可当新硬要求。选择承诺相关的真实观察，不用技术领域分类或同一套派生测试界定全部覆盖。
 
 ## 初始化
 
@@ -46,7 +48,7 @@ CLI 负责根属性、时间和 Mission revision 的一致写回。
    父层等待结果时遵循全局 `SKILL.md` 的“等待独立任务”；普通等待超时不消耗 GapLoop 轮数，也不启动重复 reviewer。
 2. 子代理读取实际文件并运行与目标相称的测试、lint、构建或资源校验。
 3. 子代理先写 issues-first 的 `reports/gap-<scope>-<round>.md`。
-4. 无差距时返回 `NO_GAP`；能在 scope 内修复时完成修复和验证后返回 `FIX_APPLIED`；需要用户决策或外部状态时返回 `BLOCKED`。
+4. 先说明 finding 证伪了什么及证据范围。无差距且证据充分时返回 `NO_GAP`；能在 scope 与授权内修复时完成修复和验证后返回 `FIX_APPLIED`；需要用户决策或外部状态时返回 `BLOCKED`。观测/环境/交付协议问题交正确 owner，不能仅凭证据缺失就改业务或报 `NO_GAP`；无新依据或条件变化不原样重试。
 5. 父层核对 report 路径和实际 diff，再决定续轮。
 
 ## 续轮
@@ -58,9 +60,11 @@ CLI 负责根属性、时间和 Mission revision 的一致写回。
 
 ### 外部验收的定向校准
 
-已耗尽且 `on_exhausted=block` 后，**不能**重置 `gap_round`、提高 `max_rounds`、抹去原报告或把普通 retry 伪装成新 GapLoop。若外部验收提供了可复现的具体 finding，父层可将 finding 的原文、来源、受影响 Track、source digest 和可复现命令写入该 Track 的 `reports/`，并只允许一次独立的“最小修复 diff → 原 finding 定向复验”。该例外的 receipt 必须绑定同一 finding digest；它不代替全量新 GapLoop，也不能放行其它未审查范围。finding 不可复现、基础设施故障或复验仍失败时保留 block，交回 controller/用户；不得把 UI receipt 超时反馈为业务实现修复。
+已耗尽且 `on_exhausted=block` 后，**不能**重置 `gap_round`、提高 `max_rounds`、抹去原报告或把普通 retry 伪装成新 GapLoop。若外部验收提供了可复现的具体 finding，父层可将 finding 的原文、来源、受影响 Track、source digest 和可复现命令写入该 Track 的 `reports/`，并只允许一次独立的“最小修复 diff → 原 finding 定向复验”。该例外的 receipt 必须绑定同一 finding digest；它不代替全量新 GapLoop，也不能放行其它未审查范围。finding 不可复现、基础设施故障或复验仍失败时保留 block，交回 controller/用户；不得仅把观测或 receipt 超时反馈为业务实现修复。
 
 轻量确认只读取上一轮报告、相关 diff 和必要验证，不重复全量分析。
+
+复验覆盖原 finding 与受影响范围，必需回归及配置检查仍执行。原失败报告/receipt 不删除；证据失效时追加原因和替代引用，不能靠移除失败证据实现收口。
 
 ## 子代理返回
 

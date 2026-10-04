@@ -1,6 +1,64 @@
 # Decision Registry 规范
 
-`codument/decisions/` 是长期承重决策的 canonical XNL registry。它保存 track / mission decision forest 中符合晋升条件的完整节点，而不是从节点投影出的 Markdown 摘要。可复制的 pending / accepted 槽位由 `depa-codument schema decision` 打印（stdout 是 XNL）；物理/merge 规则以本文为准，不要把片段整棵写入仓库。
+`codument/decisions/` 是长期承重决策的 canonical XNL registry。它保存 track / mission decision forest 中符合晋升条件的完整节点，而不是从节点投影出的 Markdown 摘要。物理/merge 规则以本文为准。节点样例见下，不要把样例整棵写入仓库，也不要复制 `#id` / envelope。
+
+## 节点样例
+
+`#id`、`envelopeVersion`、`specVersion` 由 `depa-codument decisions create` 写入。作者只保留这些 receipt 值，再对照下面的 pending / accepted 形状原地编辑。
+
+```xnl
+<decision #track.example.root envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
+  status = "pending"
+  priority = "P0"
+  blocks = ["design.md"]
+} (
+  <question ?>需要决定的问题是什么？</?>
+  <recommendation ?>当前建议是什么？</?>
+  <options { } [
+    <option { key = "A" recommended = true } (
+      <title ?>选项 A</?>
+      <description ?>选项 A 的说明。</?>
+      <tradeoff ?>选项 A 的代价。</?>
+    )>
+    <option { key = "B" } (
+      <title ?>选项 B</?>
+      <description ?>选项 B 的说明。</?>
+      <tradeoff ?>选项 B 的代价。</?>
+    )>
+  ]>
+  <answer { } (
+    <raw-answer ?>待确认。</?>
+    <decision-text ?>待确认。</?>
+    <rationale ?>待补充。</?>
+    <evidence ?>依据。</?>
+  )>
+) [
+  <decision #track.example.child {
+    status = "pending"
+    priority = "P1"
+  } (
+    <question ?>依赖父问题的细化？</?>
+  )>
+]>
+```
+
+已接受的节点保留问题与回答，不再带未决选项：
+
+```xnl
+<decision #track.example.accepted envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 {
+  priority = "P0"
+  status = "accepted"
+  blocks = ["track.xnl"]
+} (
+  <question ?>已经决定的问题？</?>
+  <answer { } (
+    <raw-answer ?>是。</?>
+    <decision-text ?>整理后的结论。</?>
+    <rationale ?>理由。</?>
+    <evidence ?>证据。</?>
+  )>
+)>
+```
 
 ## 1. Canonical 物理形态
 

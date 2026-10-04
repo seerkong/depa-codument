@@ -1,6 +1,6 @@
 {
   "name": "depa-codument-darwin-x64",
-  "version": "0.1.0",
+  "version": "0.6.0",
   "description": "DEPA-oriented Codument workflow tool for AI coding assistants standalone executable for macOS x64",
   "license": "MIT",
   "os": [

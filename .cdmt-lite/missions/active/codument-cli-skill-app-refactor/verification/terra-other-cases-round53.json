@@ -1,0 +1,871 @@
+{
+  "round": 53,
+  "status": "completed-executions-not-all-business-passed",
+  "model": "gpt-5.6-terra",
+  "effort": "medium",
+  "batch": "/private/tmp/depa-codument-e2e-batch-Pb3Wsb",
+  "candidate": "/private/tmp/depa-codument-verification-WUkXEf/depa-codument/project/dist/depa-codument-r53",
+  "candidateSha256": "372fe0befcf0717277199b5417fd6f0af00446b3d06a0d69a1f3409144b0cf61",
+  "frozenHarnessSha256": "e3125d26491a3bfd008519928acbc0641525d29b8ebe62813457cc12dd9b8a0c",
+  "repairProject": "/private/tmp/depa-codument-verification-roZYDq/depa-codument/project",
+  "repairHarnessSha256": "6701f34653a5f08593b2df364d318ace0dd91fa2351432e560f75c1f1f4329d8",
+  "workflowPolicy": {
+    "version": 2,
+    "commitMode": "manual",
+    "scope": "final-first-level-task-group",
+    "event": "phase:after",
+    "independentVerify": true,
+    "unselectedBacklog": "declare-only",
+    "hooks": {
+      "GapLoop": {
+        "enabled": false,
+        "attributes": {
+          "max_rounds": 5,
+          "on_exhausted": "block",
+          "verify_round": false
+        }
+      },
+      "AttractorCheck": {
+        "enabled": false,
+        "attributes": {
+          "use": "coding"
+        }
+      },
+      "HumanConfirm": {
+        "enabled": false,
+        "attributes": {}
+      }
+    }
+  },
+  "summary": {
+    "attemptedOriginalTrials": 4,
+    "rawFirstPass": 1,
+    "rawWholeTrialPassed": 2,
+    "rawInfrastructureFailed": 2,
+    "eligibleBusinessDenominator": 2,
+    "eligibleFirstPassRate": 0.5,
+    "eligibleCorrectedPassRate": 1,
+    "uiReverifications": 3
+  },
+  "rows": [
+    {
+      "root": "/private/tmp/depa-codument-e2e-6hHPey",
+      "kind": "business-trial",
+      "sourceRunRoot": null,
+      "caseId": "stream-pipeline-ai-agent",
+      "status": "passed",
+      "rawStatus": "passed",
+      "terminalPolicy": null,
+      "resumed": false,
+      "firstPass": true,
+      "elapsedMs": 716314,
+      "harness": {
+        "initialSha256": "e3125d26491a3bfd008519928acbc0641525d29b8ebe62813457cc12dd9b8a0c",
+        "acceptancePolicy": "fresh-agent-semantic-v1",
+        "resumes": []
+      },
+      "workflowPolicy": {
+        "version": 2,
+        "commitMode": "manual",
+        "scope": "final-first-level-task-group",
+        "event": "phase:after",
+        "independentVerify": true,
+        "unselectedBacklog": "declare-only",
+        "hooks": {
+          "GapLoop": {
+            "enabled": false,
+            "attributes": {
+              "max_rounds": 5,
+              "on_exhausted": "block",
+              "verify_round": false
+            }
+          },
+          "AttractorCheck": {
+            "enabled": false,
+            "attributes": {
+              "use": "coding"
+            }
+          },
+          "HumanConfirm": {
+            "enabled": false,
+            "attributes": {}
+          }
+        }
+      },
+      "gateCoverage": {
+        "immutableRequirements": true,
+        "observedModels": true,
+        "uiReceipts": [],
+        "baseline": "recorded"
+      },
+      "usage": {
+        "input": 3062024,
+        "cached": 2835200,
+        "output": 36719
+      },
+      "sessionAccounting": {
+        "usage": {
+          "input": 3062024,
+          "cached": 2835200,
+          "output": 36719
+        },
+        "responseCount": 74,
+        "sessionCount": 4,
+        "sessionsWithUsage": 4,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+      },
+      "topLevelUsage": {
+        "input": 2588203,
+        "cached": 2406400,
+        "output": 32192
+      },
+      "topLevelUsageComplete": true,
+      "usageEstimated": false,
+      "outputTokensUnavailable": false,
+      "moneyCost": null,
+      "attempts": [
+        {
+          "attempt": 0,
+          "status": "passed",
+          "error": null
+        }
+      ],
+      "models": {
+        "contexts": 5,
+        "models": [
+          "gpt-5.6-terra"
+        ],
+        "efforts": [
+          "medium"
+        ]
+      },
+      "resultSha256": "a943eb115c6371f8ba4b84e9249443bd53bff71c317afa7d9f0c6d97b5fafca0",
+      "native": []
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-DC1eur",
+      "kind": "business-trial",
+      "sourceRunRoot": null,
+      "caseId": "blog",
+      "status": "infrastructure-failed",
+      "rawStatus": "infrastructure-failed",
+      "terminalPolicy": null,
+      "resumed": false,
+      "firstPass": false,
+      "elapsedMs": 2511204,
+      "harness": {
+        "initialSha256": "e3125d26491a3bfd008519928acbc0641525d29b8ebe62813457cc12dd9b8a0c",
+        "acceptancePolicy": "fresh-agent-semantic-v1",
+        "resumes": []
+      },
+      "workflowPolicy": {
+        "version": 2,
+        "commitMode": "manual",
+        "scope": "final-first-level-task-group",
+        "event": "phase:after",
+        "independentVerify": true,
+        "unselectedBacklog": "declare-only",
+        "hooks": {
+          "GapLoop": {
+            "enabled": false,
+            "attributes": {
+              "max_rounds": 5,
+              "on_exhausted": "block",
+              "verify_round": false
+            }
+          },
+          "AttractorCheck": {
+            "enabled": false,
+            "attributes": {
+              "use": "coding"
+            }
+          },
+          "HumanConfirm": {
+            "enabled": false,
+            "attributes": {}
+          }
+        }
+      },
+      "gateCoverage": {
+        "immutableRequirements": true,
+        "observedModels": true,
+        "uiReceipts": [
+          "ui-receipt-1.json",
+          "ui-receipt-0.json"
+        ],
+        "baseline": "recorded"
+      },
+      "usage": {
+        "input": 9897389,
+        "cached": 9295104,
+        "output": 98317
+      },
+      "sessionAccounting": {
+        "usage": {
+          "input": 9897389,
+          "cached": 9295104,
+          "output": 98317
+        },
+        "responseCount": 277,
+        "sessionCount": 10,
+        "sessionsWithUsage": 10,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+      },
+      "topLevelUsage": {
+        "input": 7712286,
+        "cached": 7283968,
+        "output": 65607
+      },
+      "topLevelUsageComplete": true,
+      "usageEstimated": false,
+      "outputTokensUnavailable": false,
+      "moneyCost": null,
+      "attempts": [
+        {
+          "attempt": 0,
+          "status": "failed",
+          "error": "Error: Browser acceptance failed: [\"\\\"Approved comments\\\" — The signed-in public article page exposes only the approved-comments heading and no textbox or submit control for a logged-in user to create a comment. This leaves the required comment-submission workflow unusable through the delivered UI.\"]"
+        },
+        {
+          "attempt": 1,
+          "status": "infrastructure-failed",
+          "error": "Error: The persistent browser channel fenced the session after a native command-interface error with an uncertain outcome. Per the harness rules, no replay or workaround is permitted."
+        }
+      ],
+      "models": {
+        "contexts": 10,
+        "models": [
+          "gpt-5.6-terra"
+        ],
+        "efforts": [
+          "medium"
+        ]
+      },
+      "resultSha256": "25529c15f4e147e1ef24b938edba2c48f90c9141ef3822b70270dbaaf737cc47",
+      "native": [
+        {
+          "file": "ui-acceptance-1-browser-channel.jsonl",
+          "requests": 45,
+          "errors": [
+            {
+              "op": "click",
+              "error": "Native browser timeout; outcome uncertain, session fenced: TypeError: page.click options must be an object. Expected: await page.click(selector, { button?, clickCount?, delay?, position?, force?, timeout?, label? })"
+            }
+          ],
+          "dialogResponses": 0
+        },
+        {
+          "file": "ui-acceptance-0-browser-channel.jsonl",
+          "requests": 60,
+          "errors": [],
+          "dialogResponses": 0
+        }
+      ]
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-2L0ERN",
+      "kind": "business-trial",
+      "sourceRunRoot": null,
+      "caseId": "ecommerce",
+      "status": "infrastructure-failed",
+      "rawStatus": "infrastructure-failed",
+      "terminalPolicy": null,
+      "resumed": false,
+      "firstPass": false,
+      "elapsedMs": 2063463,
+      "harness": {
+        "initialSha256": "e3125d26491a3bfd008519928acbc0641525d29b8ebe62813457cc12dd9b8a0c",
+        "acceptancePolicy": "fresh-agent-semantic-v1",
+        "resumes": []
+      },
+      "workflowPolicy": {
+        "version": 2,
+        "commitMode": "manual",
+        "scope": "final-first-level-task-group",
+        "event": "phase:after",
+        "independentVerify": true,
+        "unselectedBacklog": "declare-only",
+        "hooks": {
+          "GapLoop": {
+            "enabled": false,
+            "attributes": {
+              "max_rounds": 5,
+              "on_exhausted": "block",
+              "verify_round": false
+            }
+          },
+          "AttractorCheck": {
+            "enabled": false,
+            "attributes": {
+              "use": "coding"
+            }
+          },
+          "HumanConfirm": {
+            "enabled": false,
+            "attributes": {}
+          }
+        }
+      },
+      "gateCoverage": {
+        "immutableRequirements": true,
+        "observedModels": true,
+        "uiReceipts": [
+          "ui-receipt-2.json",
+          "ui-receipt-1.json",
+          "ui-receipt-0.json"
+        ],
+        "baseline": "recorded"
+      },
+      "usage": {
+        "input": 7117437,
+        "cached": 6541568,
+        "output": 89578
+      },
+      "sessionAccounting": {
+        "usage": {
+          "input": 7117437,
+          "cached": 6541568,
+          "output": 89578
+        },
+        "responseCount": 217,
+        "sessionCount": 13,
+        "sessionsWithUsage": 13,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+      },
+      "topLevelUsage": {
+        "input": 5688214,
+        "cached": 5251840,
+        "output": 67288
+      },
+      "topLevelUsageComplete": true,
+      "usageEstimated": false,
+      "outputTokensUnavailable": false,
+      "moneyCost": null,
+      "attempts": [
+        {
+          "attempt": 0,
+          "status": "failed",
+          "error": "Error: Browser acceptance failed: [\"The native snapshot excerpt \\\"heading\\n    text \\\"Products\\\"\\n  heading\\n    text \\\"Cart\\\"\\n  text \\\"{ \\\"items\\\": [] }\\\"\\n  button [ref=148]\\n    text \\\"Place order\\\"\\\" shows that the storefront has an empty catalog and no discovered control to add any SKU to the cart. Consequently a signed-in shopper cannot perform the required cart-to-order journey through the delivered UI.\"]"
+        },
+        {
+          "attempt": 1,
+          "status": "failed",
+          "error": "Error: Browser acceptance failed: [\"\\\"text \\\"{ \\\"items\\\": [ { \\\"skuId\\\": \\\"demo-canvas-tote\\\", \\\"quantity\\\": 1 }, { \\\"skuId\\\": \\\"demo-ceramic-mug\\\", \\\"quantity\\\": 1 } ] }\\\"\\\" After a signed-in customer adds two valid, in-stock demo SKUs, the live cart shows both items but no Place order control. The control was present before adding the second SKU, so the customer cannot complete the required order-creation flow for this valid multi-item cart.\"]"
+        },
+        {
+          "attempt": 2,
+          "status": "infrastructure-failed",
+          "error": "Error: Browser findings are not quoted from page observation output"
+        }
+      ],
+      "models": {
+        "contexts": 13,
+        "models": [
+          "gpt-5.6-terra"
+        ],
+        "efforts": [
+          "medium"
+        ]
+      },
+      "resultSha256": "8fc3fa2444d702c0c738124fae2759fd187b2bafb4397e2d9f74dbb89e0fe70d",
+      "native": [
+        {
+          "file": "ui-acceptance-1-browser-channel.jsonl",
+          "requests": 12,
+          "errors": [],
+          "dialogResponses": 0
+        },
+        {
+          "file": "ui-acceptance-0-browser-channel.jsonl",
+          "requests": 11,
+          "errors": [],
+          "dialogResponses": 0
+        },
+        {
+          "file": "ui-acceptance-2-browser-channel.jsonl",
+          "requests": 11,
+          "errors": [
+            {
+              "op": "click",
+              "error": "Native browser timeout; outcome uncertain, session fenced: ElementResolutionError: page.click timed out after 3000ms: page.click failed: element is disabled"
+            }
+          ],
+          "dialogResponses": 0
+        }
+      ]
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-lbJOqz",
+      "kind": "business-trial",
+      "sourceRunRoot": null,
+      "caseId": "nested-mission-agent",
+      "status": "passed",
+      "rawStatus": "passed",
+      "terminalPolicy": null,
+      "resumed": false,
+      "firstPass": false,
+      "elapsedMs": 2449487,
+      "harness": {
+        "initialSha256": "e3125d26491a3bfd008519928acbc0641525d29b8ebe62813457cc12dd9b8a0c",
+        "acceptancePolicy": "fresh-agent-semantic-v1",
+        "resumes": []
+      },
+      "workflowPolicy": {
+        "version": 2,
+        "commitMode": "manual",
+        "scope": "final-first-level-task-group",
+        "event": "phase:after",
+        "independentVerify": true,
+        "unselectedBacklog": "declare-only",
+        "hooks": {
+          "GapLoop": {
+            "enabled": false,
+            "attributes": {
+              "max_rounds": 5,
+              "on_exhausted": "block",
+              "verify_round": false
+            }
+          },
+          "AttractorCheck": {
+            "enabled": false,
+            "attributes": {
+              "use": "coding"
+            }
+          },
+          "HumanConfirm": {
+            "enabled": false,
+            "attributes": {}
+          }
+        }
+      },
+      "gateCoverage": {
+        "immutableRequirements": true,
+        "observedModels": true,
+        "uiReceipts": [],
+        "baseline": "recorded"
+      },
+      "usage": {
+        "input": 10410226,
+        "cached": 9750784,
+        "output": 117498
+      },
+      "sessionAccounting": {
+        "usage": {
+          "input": 10410226,
+          "cached": 9750784,
+          "output": 117498
+        },
+        "responseCount": 249,
+        "sessionCount": 11,
+        "sessionsWithUsage": 11,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+      },
+      "topLevelUsage": {
+        "input": 7995077,
+        "cached": 7528192,
+        "output": 70502
+      },
+      "topLevelUsageComplete": true,
+      "usageEstimated": false,
+      "outputTokensUnavailable": false,
+      "moneyCost": null,
+      "attempts": [
+        {
+          "attempt": 0,
+          "status": "failed",
+          "error": "Error: Independent review failed: [\"Delivered automated tests do not satisfy the acceptance requirement that tests use randomized IDs/amounts and observe both repositories' live state. main-repo/test/orders.test.ts only constructs OrderService with an in-memory RecordingInventory, while inventory-repo/test/inventory.test.ts only calls inventoryFetch/Inventory in-process; neither starts the two servers, invokes the HTTP seam, or observes live state across both repositories.\"]"
+        },
+        {
+          "attempt": 1,
+          "status": "failed",
+          "error": "Error: Independent review failed: [\"Absolute workspace paths are persisted outside the local ignored bindings in main-repo/codument/tracks/active/implement-order-api/reports/verification/vr-fed70dca6e0d1922cc98.json and inventory-repo/codument/tracks/active/implement-inventory-reservations/reports/verification/vr-be6cdff9652380096d63.json. Each receipt records E2E_DATA_DIR=/private/tmp/depa-codument-e2e-lbJOqz/workspace/e2e-data, violating acceptance.md’s requirement that only the local ignored binding file stores absolute project paths.\"]"
+        },
+        {
+          "attempt": 2,
+          "status": "passed",
+          "error": null
+        }
+      ],
+      "models": {
+        "contexts": 11,
+        "models": [
+          "gpt-5.6-terra"
+        ],
+        "efforts": [
+          "medium"
+        ]
+      },
+      "resultSha256": "1f0a74deb3174b2f89b7bcdd1212c8943f467e092a4a55de214edb0076415c06",
+      "native": []
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-DhAbq9",
+      "kind": "ui-reverification",
+      "sourceRunRoot": "/private/tmp/depa-codument-e2e-DC1eur",
+      "caseId": "blog",
+      "status": "infrastructure-failed",
+      "rawStatus": "infrastructure-failed",
+      "terminalPolicy": null,
+      "resumed": false,
+      "firstPass": null,
+      "elapsedMs": null,
+      "harness": {
+        "initialSha256": "e4f9150cdae3e3670430b027f7def541e582f59086025d131f09dd045b887ae7",
+        "acceptancePolicy": "fresh-agent-semantic-v1",
+        "resumes": []
+      },
+      "workflowPolicy": null,
+      "gateCoverage": {
+        "immutableRequirements": false,
+        "observedModels": true,
+        "uiReceipts": [
+          "ui-receipt-0.json"
+        ],
+        "baseline": "recorded"
+      },
+      "usage": {
+        "input": 1908044,
+        "cached": 1831424,
+        "output": 12411
+      },
+      "sessionAccounting": {
+        "usage": {
+          "input": 1908044,
+          "cached": 1831424,
+          "output": 12411
+        },
+        "responseCount": 62,
+        "sessionCount": 1,
+        "sessionsWithUsage": 1,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+      },
+      "topLevelUsage": {
+        "input": 1908044,
+        "cached": 1831424,
+        "output": 12411
+      },
+      "topLevelUsageComplete": true,
+      "usageEstimated": false,
+      "outputTokensUnavailable": false,
+      "moneyCost": null,
+      "attempts": [],
+      "models": {
+        "contexts": 1,
+        "models": [
+          "gpt-5.6-terra"
+        ],
+        "efforts": [
+          "medium"
+        ]
+      },
+      "resultSha256": "2200324033854820a2f9b5592b85f223c7e88f3fccf3afb4233c5d54b4097da2",
+      "native": [
+        {
+          "file": "ui-acceptance-0-browser-channel.jsonl",
+          "requests": 78,
+          "errors": [],
+          "dialogResponses": 0
+        }
+      ]
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-SGz97i",
+      "kind": "ui-reverification",
+      "sourceRunRoot": "/private/tmp/depa-codument-e2e-2L0ERN",
+      "caseId": "ecommerce",
+      "status": "failed",
+      "rawStatus": "failed",
+      "terminalPolicy": null,
+      "resumed": false,
+      "firstPass": null,
+      "elapsedMs": null,
+      "harness": {
+        "initialSha256": "6701f34653a5f08593b2df364d318ace0dd91fa2351432e560f75c1f1f4329d8",
+        "acceptancePolicy": "fresh-agent-semantic-v1",
+        "resumes": []
+      },
+      "workflowPolicy": null,
+      "gateCoverage": {
+        "immutableRequirements": false,
+        "observedModels": true,
+        "uiReceipts": [
+          "ui-receipt-0.json"
+        ],
+        "baseline": "recorded"
+      },
+      "usage": {
+        "input": 471052,
+        "cached": 440320,
+        "output": 5036
+      },
+      "sessionAccounting": {
+        "usage": {
+          "input": 471052,
+          "cached": 440320,
+          "output": 5036
+        },
+        "responseCount": 20,
+        "sessionCount": 1,
+        "sessionsWithUsage": 1,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+      },
+      "topLevelUsage": {
+        "input": 471052,
+        "cached": 440320,
+        "output": 5036
+      },
+      "topLevelUsageComplete": true,
+      "usageEstimated": false,
+      "outputTokensUnavailable": false,
+      "moneyCost": null,
+      "attempts": [],
+      "models": {
+        "contexts": 1,
+        "models": [
+          "gpt-5.6-terra"
+        ],
+        "efforts": [
+          "medium"
+        ]
+      },
+      "resultSha256": "d33390f6e5a1a1cebfd13a264d69c8ad9e88235dac27076d6d064ea3082e73d4",
+      "native": [
+        {
+          "file": "ui-acceptance-0-browser-channel.jsonl",
+          "requests": 12,
+          "errors": [
+            {
+              "op": "click",
+              "error": "ElementResolutionError: page.click timed out after 3000ms: page.click failed: element is disabled"
+            }
+          ],
+          "dialogResponses": 0
+        }
+      ]
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-Nq7Zg0",
+      "kind": "ui-reverification",
+      "sourceRunRoot": "/private/tmp/depa-codument-e2e-DC1eur",
+      "caseId": "blog",
+      "status": "passed",
+      "rawStatus": "passed",
+      "terminalPolicy": null,
+      "resumed": false,
+      "firstPass": null,
+      "elapsedMs": null,
+      "harness": {
+        "initialSha256": "6701f34653a5f08593b2df364d318ace0dd91fa2351432e560f75c1f1f4329d8",
+        "acceptancePolicy": "fresh-agent-semantic-v1",
+        "resumes": []
+      },
+      "workflowPolicy": null,
+      "gateCoverage": {
+        "immutableRequirements": false,
+        "observedModels": true,
+        "uiReceipts": [
+          "ui-receipt-0.json"
+        ],
+        "baseline": "recorded"
+      },
+      "usage": {
+        "input": 596098,
+        "cached": 548352,
+        "output": 7120
+      },
+      "sessionAccounting": {
+        "usage": {
+          "input": 596098,
+          "cached": 548352,
+          "output": 7120
+        },
+        "responseCount": 22,
+        "sessionCount": 1,
+        "sessionsWithUsage": 1,
+        "scope": "observed per-response deltas across parent and child session logs, including interrupted turns; estimated provider counters excluded; not an account bill"
+      },
+      "topLevelUsage": {
+        "input": 596098,
+        "cached": 548352,
+        "output": 7120
+      },
+      "topLevelUsageComplete": true,
+      "usageEstimated": false,
+      "outputTokensUnavailable": false,
+      "moneyCost": null,
+      "attempts": [],
+      "models": {
+        "contexts": 1,
+        "models": [
+          "gpt-5.6-terra"
+        ],
+        "efforts": [
+          "medium"
+        ]
+      },
+      "resultSha256": "b5482738e96b2032f9eecd4ab67eb78ec1b13a8e24180755dd7256a4130a1e2d",
+      "native": [
+        {
+          "file": "ui-acceptance-0-browser-channel.jsonl",
+          "requests": 83,
+          "errors": [
+            {
+              "op": "goto",
+              "error": "Error: Invalid browser command"
+            },
+            {
+              "op": "click",
+              "error": "ElementResolutionError: Stale ref: @329; take a new snapshot"
+            },
+            {
+              "op": "fill",
+              "error": "ElementResolutionError: Stale ref: @327; take a new snapshot"
+            },
+            {
+              "op": "click",
+              "error": "ElementResolutionError: Stale ref: @328; take a new snapshot"
+            },
+            {
+              "op": "fill",
+              "error": "ElementResolutionError: Stale ref: @339; take a new snapshot"
+            },
+            {
+              "op": "fill",
+              "error": "ElementResolutionError: Stale ref: @340; take a new snapshot"
+            },
+            {
+              "op": "click",
+              "error": "ElementResolutionError: Stale ref: @343; take a new snapshot"
+            },
+            {
+              "op": "fill",
+              "error": "ElementResolutionError: Stale ref: @351; take a new snapshot"
+            },
+            {
+              "op": "click",
+              "error": "ElementResolutionError: Stale ref: @353; take a new snapshot"
+            }
+          ],
+          "dialogResponses": 0
+        }
+      ]
+    }
+  ],
+  "knownUsageIncludingExcludedTrialsAndExtraUI": {
+    "input": 33462270,
+    "cached": 31242752,
+    "output": 366679
+  },
+  "sourceGuards": [
+    {
+      "root": "/private/tmp/depa-codument-e2e-DC1eur",
+      "caseId": "blog",
+      "sourceFingerprint": "bcca14fd6d61f1c1bf7671985ad20c404f95bc3f962f07ab3d963382696e4b9e"
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-2L0ERN",
+      "caseId": "ecommerce",
+      "sourceFingerprint": "9ff779bda81bd45eac5d2a0aa484b810623c03d3be7fbc1c3730e08d28a8c751"
+    }
+  ],
+  "workerReleases": [
+    {
+      "root": "/private/tmp/depa-codument-e2e-DC1eur",
+      "name": "ui-acceptance-1-browser-connection.json",
+      "workerReleased": true
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-DC1eur",
+      "name": "probe-19f4c70c-a008-4013-b70a-69c4ae5ad785-browser-connection.json",
+      "workerReleased": true
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-DC1eur",
+      "name": "ui-acceptance-0-browser-connection.json",
+      "workerReleased": true
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-2L0ERN",
+      "name": "ui-acceptance-1-browser-connection.json",
+      "workerReleased": true
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-2L0ERN",
+      "name": "probe-15e3eafc-fb8a-49ff-93e0-ae8a73bc27ca-browser-connection.json",
+      "workerReleased": true
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-2L0ERN",
+      "name": "ui-acceptance-2-browser-connection.json",
+      "workerReleased": true
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-2L0ERN",
+      "name": "ui-acceptance-0-browser-connection.json",
+      "workerReleased": true
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-DhAbq9",
+      "name": "probe-aea335df-8ce0-4eb2-94d2-3170e88d2383-browser-connection.json",
+      "workerReleased": true
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-DhAbq9",
+      "name": "ui-acceptance-0-browser-connection.json",
+      "workerReleased": true
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-SGz97i",
+      "name": "probe-5a9ec7d8-bf69-422c-84ac-3961b51a657f-browser-connection.json",
+      "workerReleased": true
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-SGz97i",
+      "name": "ui-acceptance-0-browser-connection.json",
+      "workerReleased": true
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-Nq7Zg0",
+      "name": "probe-2b1a6b54-260d-4201-b6b6-954681c3b33e-browser-connection.json",
+      "workerReleased": true
+    },
+    {
+      "root": "/private/tmp/depa-codument-e2e-Nq7Zg0",
+      "name": "ui-acceptance-0-browser-connection.json",
+      "workerReleased": true
+    }
+  ],
+  "taskSpace": {
+    "spaceId": 2,
+    "closedSpace": true,
+    "keptManagedLabels": [],
+    "closedManagedLabels": [
+      "p1"
+    ],
+    "preservedUnmanagedCount": 0
+  },
+  "verification": {
+    "testsPassed": 82,
+    "testsFailed": 0,
+    "assertions": 489,
+    "typecheckExitCode": 0,
+    "lintExitCode": 0,
+    "realFixture": "/private/tmp/depa-codument-e2e-bAkeMb",
+    "realFixtureRounds": 3,
+    "workerReleased": true
+  },
+  "protectedUnchanged": {
+    "workspace": "b631c71946ecff6cba752ee096bcec1b24b195d24b9d16fddf2deb1eab3bd11f",
+    "oldBin": "0e1e11778a504fd91048841dd00a6b0914f1d0d7289c8cd693e8511283243f4d",
+    "oldBinBytes": "05206bf05959d0b10420a6cc5b5e6d2d67a5ba5cadee5f46ec1c178d69ddc3f8"
+  },
+  "limitations": [
+    "Original trial outcomes are immutable; extra UI re-verification does not reset attempts, promote originals or enter original trial rates.",
+    "Public workflow-policy v2 has IndependentVerify enabled and GapLoop/AttractorCheck/HumanConfirm disabled. Do not compare to older trials with different gates as equal-strength measurements.",
+    "Partial viewport observations cannot prove a control is absent. This was corrected only in later read-only harness versions.",
+    "Ecommerce payment/cancellation UI finding is an interpretation: acceptance specifies API endpoints but not all corresponding UI controls.",
+    "The initial empty UI datastore and API-only SKU/admin provisioning expose an arrangement boundary; catalog emptiness alone is not sufficient evidence of coding inability.",
+    "The measured token counters include parent/child sessions, failed trials and extra UI; cached tokens are a subset of input, not an additional bill. No currency or account-billing estimate.",
+    "Pre-Round52 experimental listeners 58285/58528 are outside this repaired lifecycle; no shared NodeService was killed to clean them."
+  ]
+}

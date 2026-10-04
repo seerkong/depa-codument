@@ -4,6 +4,8 @@ import * as os from 'node:os';
 import { createHash } from 'node:crypto';
 import { spawn } from 'node:child_process';
 import { resolveAgentRuntime, type AgentRuntime } from './agent-runtime';
+import { egoToolPaths, resolveEgo } from './ego-tools';
+import { productProfile, installedSkillRoot, type ProductProfile } from './product-profile';
 
 /** Default agent identity; the run's provenance records which runtime actually ran. */
 export const AGENT: AgentRuntime = resolveAgentRuntime(process.env.E2E_AGENT);
@@ -32,8 +34,11 @@ export interface Execution {
   argv: string[]; cwd: string; env: NodeJS.ProcessEnv; log: string; timeoutMs?: number; input?: string;
 }
 export interface ExecutionResult { code: number; timedOut: boolean; elapsedMs: number }
+export class ExecutionInterrupted extends Error {}
+let executionInterrupted = false;
 /** Commands are not shell strings. The process group owns all descendants. */
 export async function execute(spec: Execution): Promise<ExecutionResult> {
+  if(executionInterrupted) throw new ExecutionInterrupted('E2E controller interrupted; further executions forbidden');
   const start = Date.now();
   const out = fs.openSync(spec.log, 'wx', 0o600);
   let timedOut = false;
@@ -44,12 +49,16 @@ export async function execute(spec: Execution): Promise<ExecutionResult> {
       });
       const killGroup = () => { try { process.kill(-child.pid!, 'SIGKILL'); } catch { /* already exited */ } };
       const timeout = setTimeout(() => { timedOut = true; killGroup(); }, spec.timeoutMs ?? 120_000);
-      const interrupt = () => killGroup();
+      const interrupt = () => { executionInterrupted=true; killGroup(); };
       process.once('SIGTERM', interrupt);
       process.once('SIGINT', interrupt);
       const cleanup = () => { clearTimeout(timeout); process.off('SIGTERM', interrupt); process.off('SIGINT', interrupt); killGroup(); };
       child.on('error', error => { cleanup(); reject(error); });
-      child.on('close', code => { cleanup(); resolve({ code: timedOut ? 124 : code ?? 1, timedOut, elapsedMs: Date.now() - start }); });
+      child.on('close', code => {
+        cleanup();
+        if(executionInterrupted) reject(new ExecutionInterrupted('E2E controller interrupted; no correction allowed'));
+        else resolve({ code: timedOut ? 124 : code ?? 1, timedOut, elapsedMs: Date.now() - start });
+      });
       child.stdin!.on('error', () => { /* early child exit */ });
       child.stdin!.end(spec.input ?? '');
     });
@@ -57,24 +66,29 @@ export async function execute(spec: Execution): Promise<ExecutionResult> {
 }
 export interface Run {
   root: string; workspace: string; home: string; bin: string; env: NodeJS.ProcessEnv; readonlyWorkspace?: boolean;
+  product?: ProductProfile;
 }
-export function createRun(candidate: string, caseId: string): Run {
+export const runProduct = (run: Run) => run.product ?? productProfile();
+export const runSkillRoot = (run: Run) => installedSkillRoot(runProduct(run),run.workspace,AGENT.skillRoot(run));
+export function createRun(candidate: string, caseId: string, profileId = process.env.E2E_PRODUCT_PROFILE ?? 'current'): Run {
   if (!/^[a-z][a-z0-9-]*$/.test(caseId)) throw new Error('Invalid case ID');
   const source = fs.realpathSync(candidate);
-  if (path.basename(source) === 'codument') throw new Error('Legacy binary rejected');
+  const product = productProfile(profileId);
+  if (product.id === 'current' && path.basename(source) === 'codument') throw new Error('Legacy binary rejected');
+  if (product.id === 'legacy' && AGENT.id !== 'codex') throw new Error('Legacy comparison supports the declared Codex runtime only');
   const root = fs.realpathSync(fs.mkdtempSync('/tmp/depa-codument-e2e-'));
   fs.chmodSync(root, 0o700);
   writeJson(path.join(root, 'run-owner.json'), { caseId, createdAt: new Date().toISOString(), schema: 1 });
   const workspace = path.join(root, 'workspace');
   const home = path.join(root, 'home');
   for (const dir of ['workspace', 'bin', 'logs', 'home/.codex', 'home/cache', 'home/tmp']) fs.mkdirSync(path.join(root, dir), { recursive: true });
-  const bin = path.join(root, 'bin/depa-codument');
+  const bin = path.join(root, 'bin',product.command);
   fs.copyFileSync(source, bin); fs.chmodSync(bin, 0o755);
   // Deliberately fail old-name fallback rather than silently exercising old sessions.
-  fs.writeFileSync(path.join(root, 'bin/codument'), '#!/bin/sh\necho "E2E: legacy codument is forbidden" >&2\nexit 89\n', { mode: 0o755 });
+  fs.writeFileSync(path.join(root, 'bin',product.rejectedCommand), '#!/bin/sh\necho "E2E: other product is forbidden" >&2\nexit 89\n', { mode: 0o755 });
   const env = isolatedEnvironment(root, AGENT);
-  writeJson(path.join(root, 'provenance.json'), { source, sha256: sha(source), harnessSha256: treeHash(import.meta.dir), agent: AGENT.id, model: MODEL, effort: EFFORT, caseId });
-  return { root, workspace, home, bin, env };
+  writeJson(path.join(root, 'provenance.json'), { source, sha256: sha(source), product:product.id, harnessSha256: treeHash(import.meta.dir), acceptancePolicy: 'fresh-agent-semantic-v1', agent: AGENT.id, model: MODEL, effort: EFFORT, caseId });
+  return { root, workspace, home, bin, env, product };
 }
 function isolatedEnvironment(root: string, agent: AgentRuntime): NodeJS.ProcessEnv {
   const home = path.join(root,'home');
@@ -99,7 +113,9 @@ export function loadRun(root: string, candidate: string, caseId: string): Run {
   const observedAgent = provenance.agent ?? 'codex';
   if (observedAgent !== AGENT.id) throw new Error(`Resume agent mismatch: trial ran ${observedAgent}, current run is ${AGENT.id}`);
   if(provenance.caseId!==caseId || provenance.model!==MODEL || provenance.sha256!==sha(candidate)) throw new Error('Resume identity mismatch');
-  const bin = path.join(root,'bin/depa-codument');
+  const product = productProfile(provenance.product ?? 'current');
+  if(process.env.E2E_PRODUCT_PROFILE && process.env.E2E_PRODUCT_PROFILE!==product.id) throw new Error('Resume product profile mismatch');
+  const bin = path.join(root,'bin',product.command);
   if(sha(bin)!==provenance.sha256) throw new Error('Candidate drift');
   const reverify = provenance.kind === 'ui-reverification';
   const workspace = reverify ? provenance.sourceWorkspace : path.join(root,'workspace');
@@ -107,26 +123,39 @@ export function loadRun(root: string, candidate: string, caseId: string): Run {
     if (typeof workspace !== 'string' || !path.isAbsolute(workspace) || !fs.existsSync(workspace)) throw new Error('Invalid historical UI re-verification workspace');
     if (!/^\/(private\/)?tmp\/depa-codument-e2e-[^/]+\/workspace$/.test(fs.realpathSync(workspace))) throw new Error('Unsafe historical UI re-verification workspace');
   }
-  return { root, workspace, home:path.join(root,'home'), bin, env:isolatedEnvironment(root, AGENT), readonlyWorkspace: reverify };
+  return { root, workspace, home:path.join(root,'home'), bin, env:isolatedEnvironment(root, AGENT), readonlyWorkspace: reverify, product };
+}
+/**
+ * Browser-tool roots the acceptance agent may use. The review sandbox denies
+ * the real home, so Ego needs its explicit installation and skill roots.
+ * These paths are the Ego install and IPC roots only, not browser profiles,
+ * auth, or run-root receipt files.
+ */
+export function acceptanceToolPaths(): { read: string[]; write: string[] } {
+  return egoToolPaths();
 }
 /** macOS outer boundary also constrains verifier commands and Codex internal writes. */
-export function sandbox(run: Run, argv: string[], mode: boolean | 'setup' | 'review' = false): string[] {
+export function sandbox(run: Run, argv: string[], mode: boolean | 'setup' | 'review' | 'acceptance' = false, worker = false): string[] {
   if (process.platform !== 'darwin' || !fs.existsSync('/usr/bin/sandbox-exec')) throw new Error('Verified macOS sandbox required; no unsafe fallback');
   assertTemporary(run.root);
   const writable = [path.join(run.home, 'cache'), path.join(run.home, 'tmp')];
-  if (mode !== 'review' && !run.readonlyWorkspace) writable.push(run.workspace);
-  const agent = mode === true || mode === 'review';
+  if (mode !== 'review' && mode !== 'acceptance' && !run.readonlyWorkspace) writable.push(run.workspace);
+  const agent = mode === true || mode === 'review' || mode === 'acceptance';
   if (agent) writable.push(path.join(run.home, '.codex'));
   // eidolon keeps its own private project state (authority/locks) in a
   // workdir `.eidolon`; in read-only reviewer mode the delivered workspace is
   // not writable, so that state must live inside the isolated tmp instead.
-  if (AGENT.id === 'eidolon') writable.push(path.join(run.workspace, '.eidolon'));
+  // The acceptance agent must not gain that workspace write: it only drives
+  // browsers. Its eidolon scratch, if any, stays under isolated tmp.
+  if (AGENT.id === 'eidolon' && mode !== 'acceptance') writable.push(path.join(run.workspace, '.eidolon'));
+  if (mode === 'acceptance') writable.push(...acceptanceToolPaths().write);
   if (mode === 'setup') writable.push(run.home);
   const realHome = os.homedir();
   // Agent runtimes live under the real home but are part of the harness, not
   // workspace content; only their exact runtime roots are readable.
   const runtimePaths = ['.bun/bin', '.bun/install/global/node_modules', '.local/bin', '.local/share/uv/python'].map(p => path.join(realHome,p))
-    .concat(AGENT.sandboxReadPaths());
+    .concat(AGENT.sandboxReadPaths())
+    .concat(mode === 'acceptance' ? acceptanceToolPaths().read : []);
   // The whole agent tree and every sibling trial copy live under the same /tmp
   // parent, so isolating the real home alone is not enough: without this deny the
   // agent can read the harness source and other trials' workspaces, which both
@@ -144,9 +173,16 @@ export function sandbox(run: Run, argv: string[], mode: boolean | 'setup' | 'rev
     `(allow file-read-metadata (subpath ${JSON.stringify(realHome)}))` +
     `(allow file-read* ${runtimePaths.map(p => `(subpath ${JSON.stringify(p)})`).join(' ')})` +
     `(deny file-read* (regex ${JSON.stringify('^' + escapeForSeatbeltRegex(familyPrefix))}))` +
+    // A historical read-only workspace lives in a different owned trial. Codex
+    // must traverse its parent directory, but not read that trial's evidence/auth.
+    (run.readonlyWorkspace ? `(allow file-read-metadata (literal ${JSON.stringify(path.dirname(run.workspace))}))` : '') +
     `(allow file-read* (subpath ${JSON.stringify(run.root)}))` +
     `(allow file-read* (subpath ${JSON.stringify(run.workspace)}))` +
-    (agent ? '' : `(deny file-read* (subpath ${JSON.stringify(path.join(run.home,'.codex'))}))`);
+    (agent ? '' : `(deny file-read* (subpath ${JSON.stringify(path.join(run.home,'.codex'))}))`) +
+    // Ego's nodejs code runs in its browser-owned NodeService, not inside this
+    // CLI Seatbelt process. Reviewers must use the limited persistent channel,
+    // never arbitrary remote Node code that could bypass read-only boundaries.
+    ((mode==='acceptance' || mode==='review') && !worker ? `(deny process-exec (literal ${JSON.stringify(fs.realpathSync(resolveEgo().executable))}) (literal ${JSON.stringify(resolveEgo().executable)}))(deny file-read* (regex ${JSON.stringify('^'+escapeForSeatbeltRegex(path.join(run.root,'bin/browser-private-')))}))` : '');
   return ['/usr/bin/sandbox-exec', '-p', profile, ...argv];
 }
 /**
@@ -162,10 +198,26 @@ export async function setup(run: Run, nested = false): Promise<void> {
     fs.mkdirSync(cwd, { recursive: true });
     for (const [name, argv] of [
       ['git', ['git', '-c', 'init.templateDir=', 'init', '-q']],
-      ['init', [run.bin, ...AGENT.initArgs()]],
+      ['init', [run.bin, ...(runProduct(run).id==='legacy' ? ['init','--agent=codex'] : AGENT.initArgs())]],
     ] as const) {
       const result = await execute({ argv: sandbox(run, [...argv], 'setup'), cwd, env: run.env, log: path.join(run.root, `logs/setup-${i}-${name}.log`) });
       if (result.code) throw new Error(`Setup ${name} failed: ${result.code}`);
+    }
+    if(runProduct(run).id==='legacy') {
+      if(!fs.existsSync(path.join(cwd,'codument/std/AGENTS.md'))) throw new Error('Legacy workspace standard missing');
+      // Historical full-suite preset, before freezing the configuration.
+      for(const name of ['modeling','engineering']) {
+        const config=path.join(cwd,`codument/config/${name}.xnl`);
+        const source=fs.readFileSync(config,'utf8');
+        if(!/enabled\s*=\s*(true|false)/.test(source)) throw new Error('Legacy knowledge preset unavailable');
+        fs.writeFileSync(config,source.replace(/enabled\s*=\s*(true|false)/,'enabled = true'));
+      }
+      const skills = path.join(cwd,'.agents/skills');
+      for(const name of ['plan-track','impl-track','plan-mission','impl-mission','verify']) {
+        if(!fs.existsSync(path.join(skills,`codument-${name}/SKILL.md`))) throw new Error(`Legacy Skill missing: ${name}`);
+      }
+      writeJson(path.join(run.root,`installation-${i}.json`),{product:'legacy',skill:skills,hash:treeHash(skills),files:files(skills).length});
+      continue;
     }
     if (fs.existsSync(path.join(cwd, 'codument/std'))) throw new Error('Workspace std unexpectedly distributed');
     if (!fs.existsSync(path.join(cwd, 'codument/SKILL.md'))) throw new Error('Workspace SkillApp missing');
@@ -174,7 +226,11 @@ export async function setup(run: Run, nested = false): Promise<void> {
       if (!fs.existsSync(path.join(AGENT.skillRoot(run),match[1]!))) throw new Error('Dangling initialized global reference: '+match[1]);
     }
   }
-  const skill = AGENT.skillRoot(run);
+  const skill = runSkillRoot(run);
+  if(runProduct(run).id==='legacy') {
+    writeJson(path.join(run.root,'installation.json'),{product:'legacy',skills:repos.map(repo=>({skill:path.join(repo,'.agents/skills'),hash:treeHash(path.join(repo,'.agents/skills')),files:files(path.join(repo,'.agents/skills')).length}))});
+    return;
+  }
   if (!fs.existsSync(path.join(skill, 'references/std/compat/operation-alias.md'))) throw new Error('Global App alias missing');
   for (const retired of ['std', 'references/std/operations', 'references/std/commands', 'references/std/kernel-pointer.md']) {
     if (fs.existsSync(path.join(skill, retired))) throw new Error(`Retired global asset: ${retired}`);

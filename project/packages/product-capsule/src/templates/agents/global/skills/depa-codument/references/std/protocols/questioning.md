@@ -16,7 +16,7 @@ plan-track / plan-mission / discuss 可显式指定 questioning severity；**未
 
 | severity | 适用场景 | 问答预算 | 行为 |
 |---|---|---:|---|
-| `auto` | 高自主、无问答、批量自动化、用户明确要求不要停下来确认 | 0 轮 | 不向用户提问；track/mission 名称、默认 hook、提交模式、校验模式等都自行推断；普通假设写入 `analysis/findings.md`、`proposal.md` 或 `design.md`，真实取舍才写入 `decisions.xnl`。复杂决策前沿需要工作记忆时才创建 `analysis/decision-tree.xnl`。 |
+| `auto` | 高自主、无问答、批量自动化、用户明确要求不要停下来确认 | 0 轮 | 不发例行确认；track/mission 名称、默认 hook、提交模式、校验模式等按下述安全边界自主推断；普通假设写入 `analysis/findings.md`、`proposal.md` 或 `design.md`，真实取舍才写入 `decisions.xnl`，无安全默认则保持未决。复杂决策前沿需要工作记忆时才创建 `analysis/decision-tree.xnl`。 |
 | `light` | 默认规划 | 最多 3 轮，每轮最多 2 题 | 每轮从拓扑 ready set 选 P0 用户意图 / 不可逆取舍；能查代码/文档就不问。 |
 | `normal` | 复杂功能或架构变更 | 最多 8 轮，每轮最多 3 题 | 每轮从 ready set 问 P0/P1；每题必须给推荐答案和取舍。 |
 | `deep` | mission、跨仓库、长期架构收敛 | 最多 16 轮，每轮最多 3 题 | 允许多层细化，但每轮必须更新文件、重算拓扑 frontier，并同时覆盖可用的独立方向。 |
@@ -28,11 +28,11 @@ plan-track / plan-mission / discuss 可显式指定 questioning severity；**未
 - 用户说“仔细问 / 正常澄清” → `severity=normal`。
 - 用户说“深挖 / grill / 详细盘问 / mission 级不确定性” → `severity=deep`。
 
-`auto` 是显式无问答模式：**不得**因 track-id / mission-id 命名、proposal/design/track.xnl/mission.xnl 确认、提交模式、校验模式、方向审查范围而停下来问用户。若存在高风险假设，写入文件并选择保守默认；实现/归档阶段再用 validate、verify、gap-loop 暴露问题。
+`auto` 是显式无问答模式：**不得**因 track-id / mission-id 命名、proposal/design/track.xnl/mission.xnl 确认、提交模式、校验模式、方向审查范围而停下来问用户。按 [workflow 的“目标—观察—行动”](../methods/workflow.md) 判断默认是否安全：可查证或后果可逆的普通选择记录依据并继续；重大且无安全默认的取舍保留未决，不虚构批准或以“保守”名义替用户决定。暂不执行依赖该取舍的动作，继续其它合法 ready 分支；若无安全可行动作，按所属 operation 的 blocker/返回边界报告所缺输入，而不是新增例行确认 gate。
 
 注意：`severity=auto` 是“提问自主度”轴；`CommitMode=auto` 是“是否自动提交”轴，二者独立，不能互相推断。
 
-**执行期继承（mission/track 实现阶段）**：`light` / `normal` / `deep` 的问答预算**只作用于 plan / discuss 等规划期**。进入 `codument-impl-mission` / `codument-impl-track` 连续执行后，未决决策一律按 `auto` 语义处理（把真实取舍与保守默认写入 `decisions.xnl`，普通假设写入 `analysis/findings.md` / `design.md` 后继续；只有复杂决策前沿才按 `decision-tree.md` 创建 `analysis/decision-tree.xnl`），除非 mission.xnl / track.xnl 显式配置了确认 gate（`HumanConfirm`，或显式更高 severity 且该决策无保守默认可替代）。规划期问答预算本身不构成执行期停点。
+**执行期继承（mission/track 实现阶段）**：`light` / `normal` / `deep` 的问答预算**只作用于 plan / discuss 等规划期**。进入 `depa-codument impl-mission` / `depa-codument impl-track` 连续执行后，未决决策按上述 `auto` 安全边界处理（有依据且可安全决定的真实取舍写入 `decisions.xnl`，普通假设写入 `analysis/findings.md` / `design.md` 后继续；无安全默认的真实取舍保持未决；只有复杂决策前沿才按 `decision-tree.md` 创建 `analysis/decision-tree.xnl`），除非 mission.xnl / track.xnl 显式配置了确认 gate（`HumanConfirm`，或显式更高 severity 且该决策无保守默认可替代）。规划期问答预算本身不构成执行期停点；未决也不阻断无依赖的可做分支。
 
 ## Decision Tree Protocol
 
@@ -56,5 +56,4 @@ Decision-tree structure, storage, dependency graph, conditional activation, and 
 
 - skill 的 `<ask protocol="ask-single-question-free">…</ask>` 表示该步可能需要交互；执行时按本协议判断"是否真的需要问"。
 - 失败处理类提问（重试/跳过/中止）也走对应封闭/开放协议。
-- 若当前 severity 为 `auto`，所有 `<ask ...>` 都必须被“写入假设 + 选择保守默认”替代；只有外部系统凭证、无法继续的权限缺失、 destructive 操作授权这类硬阻塞可以停止说明，仍不发规划确认问题。
-
+- 若当前 severity 为 `auto`，所有 `<ask ...>` 按上述安全默认或未决分支处理，不发例行规划确认问题。外部凭证、权限/破坏性授权缺失，或影响目标且无安全默认的必需决策，按所属 operation 的真实 blocker 处理；不能通过假设代替授权。

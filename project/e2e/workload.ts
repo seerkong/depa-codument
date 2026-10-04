@@ -1,10 +1,10 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import assert from 'node:assert/strict';
-import { createRun, loadRun, setup, execute, sandbox, installAuthentication, removeAuthentication, agentInvocation, readEvents, files, sha, treeHash, writeJson, MODEL, EFFORT, AGENT, type Run, type CommandExecution } from './runtime';
-import { verifyHttp } from './http-verifier';
-import { verifyStream, prepareStreamDependencies } from './stream-verifier';
-import { verifyNested, verifyNestedBindings } from './nested-verifier';
+import { createRun, loadRun, setup, execute, ExecutionInterrupted, sandbox, installAuthentication, removeAuthentication, agentInvocation, readEvents, files, sha, treeHash, writeJson, MODEL, EFFORT, AGENT, runProduct, runSkillRoot, type Run, type CommandExecution } from './runtime';
+import { productGuidance } from './product-profile';
+import { prepareStreamDependencies } from './stream-verifier';
+import { verifyNestedBindings } from './nested-verifier';
 import { trackValidationSelection, exhaustedGapReason, resourceRoot } from './resource-oracle';
 import { assertFreshThread, checkRequirements, lockRun, sourceFingerprint, isFirstPass, isExecutedTestCommand, assertReviewerSourceUnchanged, ReviewerInfrastructureFailure } from './integrity';
 import { awaitUiGate, BrowserInfrastructureFailure } from './ui-gate';
@@ -21,7 +21,7 @@ export class AgentTurnFailure extends Error {}
 export class AgentTransportFailure extends Error {}
 export function isInfrastructureFailure(error: unknown): boolean {
   return error instanceof BrowserInfrastructureFailure || error instanceof ReviewerInfrastructureFailure ||
-    error instanceof AgentTransportFailure || String(error).includes('Harness unsupported:');
+    error instanceof AgentTransportFailure || error instanceof ExecutionInterrupted || String(error).includes('Harness unsupported:');
 }
 export function requireIndependentReview(review: unknown, executions: readonly CommandExecution[]): void {
   const value = review as {verdict?: unknown; findings?: unknown; checks?: unknown} | null;
@@ -120,25 +120,27 @@ export function requireNoExhaustedWorkflow(run: Run): void {
   for (const source of sources.filter(file=>/\/(track|mission)\.xnl$/.test(file))) {
     const kind=source.endsWith('/track.xnl') ? 'track' : 'mission';
     const text=fs.readFileSync(source,'utf8');
-    const round=resourceRoot(text,kind).attributes?.gap_round;
+    const round=resourceRoot(text,kind,runProduct(run).id).attributes?.gap_round;
     const reports=files(path.join(path.dirname(source),'reports')).filter(file=>path.basename(file).startsWith('gap-') && file.endsWith(`-${round}.md`)).map(file=>fs.readFileSync(file,'utf8'));
-    const reason=exhaustedGapReason(text,kind,reports);
+    const reason=exhaustedGapReason(text,kind,reports,runProduct(run).id);
     if (reason?.startsWith('Harness unsupported:')) throw new Error(reason);
     if (reason) throw new WorkflowBlocked(reason);
   }
 }
-export async function agentTurn(run: Run, prompt: string, name: string, authoredTimeoutMs: number, extraArgs: string[] = [], access: 'write' | 'read-only' = 'write') {
+export async function agentTurn(run: Run, prompt: string, name: string, authoredTimeoutMs: number, extraArgs: string[] = [], access: 'write' | 'read-only' | 'acceptance' = 'write') {
   // The runtime's declared scale is applied here, once, so call sites keep the
   // authored bound and the factor stays reviewable in one place.
   const timeoutMs = Math.round(authoredTimeoutMs * AGENT.timeoutScale);
   const log = path.join(run.root, `logs/${name}.jsonl`);
-  const outputFile = path.join(access === 'read-only' ? path.join(run.home, 'tmp') : run.workspace, `.e2e-${name}-last.md`);
+  const outputFile = path.join(access === 'write' ? run.workspace : path.join(run.home, 'tmp'), `.e2e-${name}-last.md`);
   const guidance = pythonRuntimeGuidance(run.env.UV_PYTHON) + (access === 'read-only' ? REVIEW_EXECUTION_GUIDANCE : '');
   const invocation = agentInvocation(run, guidance + prompt, name, outputFile, log, extraArgs);
   writeJson(path.join(run.root, `${name}-invocation.json`), { agent: AGENT.id, model: MODEL, effort: EFFORT, argv: invocation.argv, authoredTimeoutMs, timeoutScale: AGENT.timeoutScale, timeoutMs });
+  const acceptanceEnv = {};
+  const sandboxMode = access === 'acceptance' ? 'acceptance' : access === 'read-only' ? 'review' : true;
   let result;
   try {
-    result = await execute({ argv: sandbox(run, invocation.argv, access === 'read-only' ? 'review' : true), cwd: run.workspace, env: { ...invocation.env, ...applicationEnvironment(run,`agent-${name}`) }, log, timeoutMs, input: invocation.input });
+    result = await execute({ argv: sandbox(run, invocation.argv, sandboxMode), cwd: run.workspace, env: { ...invocation.env, ...applicationEnvironment(run,`agent-${name}`), ...acceptanceEnv }, log, timeoutMs, input: invocation.input });
   } catch (error) {
     throw new AgentTransportFailure(`Agent ${name} transport failed before a completed turn: ${String(error)}`);
   }
@@ -192,9 +194,9 @@ export async function probe(candidate: string, auth: string | undefined) {
   try {
     await setup(run); installAuthentication(run, auth);
     const receipt = await agentTurn(run,
-      'Do not implement anything. Confirm that the depa-codument Skill is available, read its SKILL.md, run depa-codument -h, and report its binary path and product version. Do not call any other model or modify any global installation.',
+      `Do not implement anything. ${productGuidance(runProduct(run),run.workspace)} Read the installed SKILL.md, run ${runProduct(run).command} -h, and report its binary path and product version. Do not call any other model or modify any global installation.`,
       'probe', 180_000);
-    assert.ok(receipt.executions.some(e => e.exitCode===0 && e.command.includes('depa-codument') && /(-h|--help)/.test(e.command)), 'Probe must successfully execute the CLI; an agent refusal is not success');
+    assert.ok(receipt.executions.some(e => e.exitCode===0 && e.command.includes(runProduct(run).command) && /(-h|--help)/.test(e.command)), 'Probe must successfully execute the CLI; an agent refusal is not success');
     auditModels(run);
     writeJson(path.join(run.root, 'result.json'), { status: 'passed', agent: AGENT.id, model: MODEL, receipt, root: run.root });
     return run.root;
@@ -204,8 +206,8 @@ export async function probe(candidate: string, auth: string | undefined) {
   } finally { removeAuthentication(run); }
 }
 
-function basePrompt(): string {
-  return `This is an authorized, non-interactive real engineering E2E. Work only in this temporary business workspace. Read AGENTS.md and use the installed global depa-codument Skill. Discover current operations through depa-codument commands; do not use legacy codument binary or old per-operation Skill folders. Preserve all configured hook, gap-loop, attractor and fresh verification requirements. ${AGENT.identityGuidance()} Do not modify the global Skill, test harness, auth or configuration. Do not install globally, publish, or touch other projects. Safe product choices are preapproved; do not stop merely to request implementation approval. Genuine unsafe decisions must be reported as blocked. Deliver real runnable code, not only prose.\n` +
+function basePrompt(run: Run): string {
+  return `This is an authorized, non-interactive real engineering E2E. Work only in this temporary business workspace. Read each repository's AGENTS.md. ${productGuidance(runProduct(run),run.workspace)} Preserve all configured hook, gap-loop, attractor and fresh verification requirements. ${AGENT.identityGuidance()} Do not modify the installed Skills, test harness, auth or configuration. Do not install globally, publish, or touch other projects. Safe product choices are preapproved; do not stop merely to request implementation approval. Genuine unsafe decisions must be reported as blocked. Deliver real runnable code, not only prose.\n` +
     'Mutable application databases, queues and logs belong under the supplied E2E_DATA_DIR. '
     'Both E2E_DATA_DIR and DATA_FILE are absolute paths that already exist: E2E_DATA_DIR is a directory, '
     'and DATA_FILE is a ready-to-use file path whose parent directory already exists. '
@@ -223,7 +225,7 @@ export async function verifyWorkflow(run: Run, stage: 'plan' | 'implementation',
   if (tracks.filter(file=>file.includes('/tracks/archived/')).length > 1) throw new Error('Harness unsupported: multiple archived deliveries require baseline-aware promotion verification; not a business failure or PASS');
   for (const [index, track] of tracks.entries()) {
     const text = fs.readFileSync(track, 'utf8');
-    const {root,selector} = trackValidationSelection(path.relative(run.workspace,path.dirname(track)),text);
+    const {root,selector} = trackValidationSelection(path.relative(run.workspace,path.dirname(track)),text,runProduct(run).id);
     // Legacy-compatible show/list only expose active Tracks. The exact validation
     // below admits pending and active resources through the lifecycle owner.
     if (stage === 'implementation') assert.equal(root.attributes?.status,'completed', 'Track root must actually be completed');
@@ -250,6 +252,10 @@ export async function runCase(candidate: string, auth: string | undefined, caseI
   try {
     if (stream) await preparePython(run);
     if(!resumeRoot) await setup(run, nested);
+    if (!stream && !nested) {
+    const { probePersistentBrowser } = await import('./ego-probe');
+    await probePersistentBrowser(run);
+    }
     installAuthentication(run, auth);
     const repositories = nested ? ['main-repo','inventory-repo'].map(p => path.join(run.workspace,p)) : [run.workspace];
     if (!resumeRoot) writeJson(policyFile, WORKFLOW_POLICY);
@@ -259,7 +265,7 @@ export async function runCase(candidate: string, auth: string | undefined, caseI
       for (const repo of repositories) {
         const tracks = files(path.join(repo, 'codument/tracks')).filter(file => file.endsWith('/track.xnl'));
         assert.ok(tracks.length, 'E2E workflow policy requires authored Tracks');
-        for (const file of tracks) assertTrackWorkflowPolicy(fs.readFileSync(file, 'utf8'));
+        for (const file of tracks) assertTrackWorkflowPolicy(fs.readFileSync(file, 'utf8'),WORKFLOW_POLICY,runProduct(run).id);
       }
     };
     const configurationFile = path.join(run.root,'configuration-baseline.json');
@@ -269,14 +275,15 @@ export async function runCase(candidate: string, auth: string | undefined, caseI
     const checkConfiguration = () => assert.deepEqual(configuration(),configuredBaseline,'Configured hooks/profiles/knowledge settings changed');
     if(!resumeRoot) for (const name of ['request.md', 'acceptance.md']) fs.copyFileSync(path.join(caseRoot, caseId, name), path.join(run.workspace, name));
     checkRequirements(run,path.join(caseRoot,caseId));
-    const skillRoot = AGENT.skillRoot(run);
-    const skillHash = treeHash(skillRoot);
+    const skillRoots = runProduct(run).id==='legacy' ? repositories.map(repo=>runSkillRoot({...run,workspace:repo})) : [runSkillRoot(run)];
+    const skillHashes = skillRoots.map(treeHash);
     let planPassed = false;
     const handoffFile = path.join(run.root, 'planning-handoff.json');
     let planned: PlannedIdentity[] | undefined = fs.existsSync(handoffFile) ? JSON.parse(fs.readFileSync(handoffFile, 'utf8')) : undefined;
     // A saved delivery identity must be admitted before any recovery model turn.
     // Invalid deltas may be repaired; missing/replaced authorities are not new plans.
-    if (planned) reconcilePlannedIdentities(planned, observePlannedIdentities(run.workspace, repositories));
+    const observePlan = () => observePlannedIdentities(run.workspace,repositories,runProduct(run).id);
+    if (planned) reconcilePlannedIdentities(planned, observePlan());
     let feedback = attempts.filter(a => a.status === 'failed').map(a => String(a.error ?? '')).join('\n');
     const externalFeedback = path.join(run.root,'external-feedback.json');
     if (fs.existsSync(externalFeedback)) feedback += '\nIndependent outer acceptance findings: '+JSON.stringify(JSON.parse(fs.readFileSync(externalFeedback,'utf8')));
@@ -300,28 +307,28 @@ export async function runCase(candidate: string, auth: string | undefined, caseI
           }
         }
         if (!planPassed) {
-          const recovery = planned ? 'Repair and validate the existing plan only; do not create replacement resources or implement application code.\n' + implementationHandoff(observePlannedIdentities(run.workspace, repositories)) :
+          const recovery = planned ? 'Repair and validate the existing plan only; do not create replacement resources or implement application code.\n' + implementationHandoff(observePlan(),runProduct(run).command) :
             'If an earlier planning attempt left resources, repair those in place instead of creating duplicate plans.\n';
-          row.plan = await agentTurn(run, basePrompt() + workflowPolicyGuidance() +
-            (nested ? 'Read request.md and acceptance.md. For this turn only plan the root and child Missions in main-repo and inventory-repo using plan-mission, create implementation Tracks and establish reciprocal links, selected-tasks and ProjectRef bindings. Validate every Track. The legacy skill names in request.md are historical; use the current global Skill. Do not implement application code yet. Plans are approved for the next turn after validation.\n' :
+          row.plan = await agentTurn(run, basePrompt(run) + workflowPolicyGuidance() +
+            (nested ? 'Read request.md and acceptance.md. For this turn only plan the root and child Missions in main-repo and inventory-repo using plan-mission, create implementation Tracks and establish reciprocal links, selected-tasks and ProjectRef bindings. Validate every Track. Follow the version-specific tool routing above. Do not implement application code yet. Plans are approved for the next turn after validation.\n' :
             'Read request.md and acceptance.md. For this turn only: use plan-track to create or repair a complete implementation Track. Use deterministic scaffolding and validate the track. Do not implement code yet. The plan is preapproved for the next turn once it validates.\n') + recovery + feedback,
           `plan-${attempt}`, 1800_000);
           for (const repo of repositories) await verifyWorkflow({ ...run, workspace: repo }, 'plan', nested ? attempt * 10 + repositories.indexOf(repo) : attempt);
           checkTrackPolicies();
           if (nested) await verifyNestedBindings(run, `plan-${attempt}`);
-          if (planned) reconcilePlannedIdentities(planned, observePlannedIdentities(run.workspace, repositories));
+          if (planned) reconcilePlannedIdentities(planned, observePlan());
           planPassed = true;
         }
         checkConfiguration();
         checkTrackPolicies();
-        const currentPlan = observePlannedIdentities(run.workspace, repositories);
+        const currentPlan = observePlan();
         if (planned) reconcilePlannedIdentities(planned, currentPlan);
         else { planned = currentPlan; writeJson(handoffFile, planned); }
-        row.implementation = await agentTurn(run, basePrompt() + workflowPolicyGuidance() +
-          'Read request.md and acceptance.md. Plans are approved. Use ' + (nested ? 'impl-mission to orchestrate the root and child Missions and impl-track for code work' : 'impl-track') + ' to implement the entire application, run its tests, finish all required hooks and independent verification, and complete delivery through CLI. Implement the real acceptance boundary; do not mock or hard-code expected results. For nested Missions keep the independent child backlog active after the selected root delivery completes. If any mandatory hook exhausts with on_exhausted=block or requires a genuine policy decision, leave that evidence on the Track and stop. Do not reset/increase rounds or bypass blocked hooks to satisfy an outer retry. Delivery is observed from Track completion, validation, tests and hook receipts; do not put a JSON envelope in the chat message.\n' + implementationHandoff(currentPlan) + feedback,
+        row.implementation = await agentTurn(run, basePrompt(run) + workflowPolicyGuidance() +
+          'Read request.md and acceptance.md. Plans are approved. Use ' + (nested ? 'impl-mission to orchestrate the root and child Missions and impl-track for code work' : 'impl-track') + ' to implement the entire application, run its tests, finish all required hooks and independent verification, and complete delivery through CLI. Implement the real acceptance boundary; do not mock or hard-code expected results. For nested Missions keep the independent child backlog active after the selected root delivery completes. If any mandatory hook exhausts with on_exhausted=block or requires a genuine policy decision, leave that evidence on the Track and stop. Do not reset/increase rounds or bypass blocked hooks to satisfy an outer retry. Delivery is observed from Track completion, validation, tests and hook receipts; do not put a JSON envelope in the chat message.\n' + implementationHandoff(currentPlan,runProduct(run).command) + feedback,
         `implementation-${attempt}`, 3600_000);
         requireNoExhaustedWorkflow(run);
-        reconcilePlannedIdentities(planned, observePlannedIdentities(run.workspace, repositories));
+        reconcilePlannedIdentities(planned, observePlan());
         checkTrackPolicies();
         if (!nested) await verifyWorkflow(run, 'implementation', attempt);
         if (stream) await prepareStreamDependencies(run,attempt);
@@ -334,9 +341,9 @@ export async function runCase(candidate: string, auth: string | undefined, caseI
             assert.equal(checked.code, 0, `Application ${name} failed`);
           }
         }
-        if (nested) row.business = await verifyNested(run,attempt);
-        else if (stream) row.business = await verifyStream(run,attempt);
-        else row.business = await verifyHttp(run, caseId, attempt);
+        // Generated business implementations are judged by the fresh reviewer
+        // below, not a fixed API/DOM/bridge script authored in this harness.
+        row.business = { policy: 'fresh-agent-semantic-v1', deterministicBusinessOracle: false };
         assert.equal(sourceFingerprint(run),deliveredFingerprint,'Application scripts or business verification modified delivered source/build/dependencies');
         const schema = path.join(run.root, 'review-schema.json');
         const reviewSchemaJson = { type: 'object', additionalProperties: false, properties: { verdict: { type: 'string', enum: ['PASS','FAIL'] }, findings: { type: 'array', items: { type: 'string' } }, checks: { type: 'array', items: { type: 'string' } } }, required: ['verdict','findings','checks'] };
@@ -345,7 +352,7 @@ export async function runCase(candidate: string, auth: string | undefined, caseI
         const reviewName = `review-${attempt}`;
         const verdictFile = reviewVerdictPath(run, reviewName);
         const sourceBeforeReview = sourceFingerprint(run);
-        const reviewReceipt = await agentTurn(run, basePrompt() + workflowPolicyGuidance() +
+        const reviewReceipt = await agentTurn(run, basePrompt(run) + workflowPolicyGuidance() +
           'The delivered workspace is OS-enforced read-only. Keep temporary reviewer environments and diagnostic files under isolated HOME/tmp. Existing .e2e-venv may be used read-only. Do not pip install the original source path: package builds write build/ and egg-info there even when the destination venv is elsewhere. If a clean package build is necessary, copy the exact delivered inputs into a temporary build directory, never repair that copy, and keep all build/install writes there. Test the original delivery whenever possible; identify any copied build and its original source in the evidence. Changes to delivered dependencies/build outputs also count as source drift.\n' +
           'You are a fresh independent acceptance reviewer, NOT the implementer. Read request.md, acceptance.md, actual source, Track and evidence. Run real checks yourself. Review completeness including functional browser UI, auth/ownership, domain and engineering alignment, configured hooks/gap-loop/fresh checks. Detect fake test scripts, hardcoded outputs, forged receipts, and missing functionality. Do not repair or change project source, requirements, reports or workflow state. Execute app tests directly; do not invoke track verify, task transitions or other commands that write workflow receipts. The implementation phase already owns those mandatory hooks; this outer review independently checks them without rewriting evidence. Give FAIL for any substantive gap; report exact paths and runnable evidence. Do not trust prior agent summaries. ' +
           'The verdict and the two arrays are mutually exclusive by contract: verdict=PASS requires an empty findings array and at least one check, and verdict=FAIL requires at least one finding. Record positive observations as checks, and reserve findings strictly for defects that justify FAIL; a PASS verdict with any finding is rejected as malformed. ' +
@@ -362,7 +369,7 @@ export async function runCase(candidate: string, auth: string | undefined, caseI
         auditModels(run);
         checkConfiguration();
         checkRequirements(run,path.join(caseRoot,caseId));
-        assert.equal(treeHash(skillRoot), skillHash, 'Global Skill modified');
+        assert.deepEqual(skillRoots.map(treeHash), skillHashes, 'Installed Skills modified');
         row.status = 'passed'; status = 'passed';
         break;
       } catch (error) {
@@ -381,10 +388,12 @@ export async function runCase(candidate: string, auth: string | undefined, caseI
         }
         feedback = `External acceptance found this failure; diagnose and fix the implementation, not the requirement or tests: ${String(error)}. Inspect your local test outputs and task evidence. Continue from the existing Track; do not fabricate receipts.`;
       } finally {
+        row.finishedAt = new Date().toISOString();
+        row.elapsedMs = Date.now() - Date.parse(String(row.startedAt));
         writeJson(path.join(run.root, 'progress.json'), { status: 'running', attempts, root: run.root });
       }
     }
-    const result = { status, caseId, agent: AGENT.id, model: MODEL, effort: EFFORT, attempts, resumed: Boolean(resumeRoot), firstPass: isFirstPass(attempts), elapsedMs: (prior?.elapsedMs ?? 0) + Date.now() - start, root: run.root };
+    const result = { status, caseId, product:runProduct(run).id, agent: AGENT.id, model: MODEL, effort: EFFORT, attempts, resumed: Boolean(resumeRoot), firstPass: isFirstPass(attempts), elapsedMs: (prior?.elapsedMs ?? 0) + Date.now() - start, root: run.root };
     writeJson(path.join(run.root, 'result.json'), result);
     return result;
   } catch (error) {

@@ -11,7 +11,7 @@ spec:
 
 执行位置保持目标项目；@/ 表示项目根。references/std/、operations/、references/ 相对全局 depa-codument Skill（默认 ~/.agents/skills/depa-codument，CODUMENT_HOME 可覆盖 home）；裸 config/、tracks/ 等相对项目 codument/。以下是当前 Agent 要执行的指导，不是已经完成的业务结果。
 
-# skill: codument-artifact-sync（制品同步）
+# artifact-sync（制品同步）
 
 同步用户指定或显式 hook 引用的一个 artifact。AI 负责选择业务内容和生成相对文件树；CLI 负责比较、冲突检测、写入与 rollback。
 
@@ -51,4 +51,3 @@ spec:
 ## 完成条件
 
 staging 内容通过语义 review，所有批准 target 的 CLI sync 成功，输出树一致，且最终报告与实际文件相符。
-

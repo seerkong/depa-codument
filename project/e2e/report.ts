@@ -1,6 +1,6 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { assertTemporary, files } from './runtime';
+import { assertTemporary } from './runtime';
 import { type Usage } from './agent-runtime';
 import { sessionUsage } from './usage';
 
@@ -22,7 +22,7 @@ export function summarize(roots: string[]) {
       result.status = 'blocked'; result.firstPass = false;
     }
     const names = fs.readdirSync(root);
-    const harness = { initialSha256:provenance?.harnessSha256 ?? null, resumes:names.filter(n=>n.startsWith('resume-provenance-')).map(readOptional) };
+    const harness = { initialSha256:provenance?.harnessSha256 ?? null, acceptancePolicy: provenance?.acceptancePolicy ?? null, resumes:names.filter(n=>n.startsWith('resume-provenance-')).map(readOptional) };
     const gateCoverage = { immutableRequirements:fs.existsSync(path.join(root,'requirements.json')), observedModels:fs.existsSync(path.join(root,'model-audit.json')), uiReceipts:names.filter(n=>/^ui-receipt-\d+\.json$/.test(n)), baseline:provenance?.harnessSha256 ? 'recorded' : 'legacy-baseline (do not infer current gates)' };
     const classification = path.join(root,'classification.json');
     if (fs.existsSync(classification)) {
@@ -32,14 +32,29 @@ export function summarize(roots: string[]) {
     }
     // The per-turn receipt is the runtime-agnostic evidence projection (the raw
     // event log path differs between codex and eidolon); aggregate it directly.
-    const receipts = files(root).filter(f => /\/(plan|implementation|review)-\d+-receipt\.json$/.test(f)).sort()
-      .map(receiptPath => JSON.parse(fs.readFileSync(receiptPath,'utf8')));
+    // Receipts are direct children of the owned run root. Do not recurse into
+    // delivered dependencies or runtime caches: their ordinary symlinks are
+    // not harness evidence and must neither break reporting nor be followed.
+    const receipts = names.filter(name => /^(plan|implementation|review|ui-acceptance|ui-scenario|ui-protocol)-\d+-receipt\.json$/.test(name)).sort()
+      .map(name => {
+        const receiptPath = path.join(root, name);
+        if (!fs.lstatSync(receiptPath).isFile()) throw new Error(`Invalid receipt file: ${receiptPath}`);
+        return JSON.parse(fs.readFileSync(receiptPath,'utf8'));
+      });
     const measured = receipts.map(r => r.usage).filter((v): v is Usage => v !== null);
     const usage = measured.length ? measured.reduce((sum,u) => ({ input:sum.input+u.input, cached:sum.cached+u.cached, output:sum.output+u.output }), { input:0,cached:0,output:0 }) : null;
     const allSessions = sessionUsage(root);
     const usageEstimated = receipts.some(r => r.usageEstimated === true);
     const outputTokensUnavailable = receipts.some(r => r.outputTokensUnavailable === true);
-    return { root, kind: result.kind ?? provenance?.kind ?? 'business-trial', sourceRunRoot: result.sourceRunRoot ?? provenance?.sourceRunRoot ?? null, caseId: result.caseId ?? provenance?.caseId, status: result.status, rawStatus, terminalPolicy, resumed: result.resumed === true, firstPass: result.firstPass ?? null, elapsedMs: result.elapsedMs ?? null, harness,workflowPolicy,gateCoverage,usage: allSessions.usage ?? usage, sessionAccounting: allSessions, topLevelUsage: usage, topLevelUsageComplete: receipts.length > 0 && measured.length === receipts.length, usageEstimated, outputTokensUnavailable, moneyCost: null };
+    const phases:Record<string,number>={};
+    for(const name of names.filter(name=>/^(plan|implementation|review|ui-acceptance|ui-scenario|ui-protocol)-\d+-receipt\.json$/.test(name))) {
+      const receipt=readOptional(name);
+      if(typeof receipt.elapsedMs==='number') {
+        const phase=name.replace(/-\d+-receipt\.json$/,'');
+        phases[phase]=(phases[phase]??0)+receipt.elapsedMs;
+      }
+    }
+    return { root, kind: result.kind ?? provenance?.kind ?? 'business-trial', product:provenance?.product ?? null, sourceRunRoot: result.sourceRunRoot ?? provenance?.sourceRunRoot ?? null, caseId: result.caseId ?? provenance?.caseId, status: result.status, rawStatus, terminalPolicy, resumed: result.resumed === true, firstPass: result.firstPass ?? null, elapsedMs: result.elapsedMs ?? null, phases, harness,workflowPolicy,gateCoverage,usage: allSessions.usage ?? usage, sessionAccounting: allSessions, topLevelUsage: usage, topLevelUsageComplete: receipts.length > 0 && measured.length === receipts.length, usageEstimated, outputTokensUnavailable, moneyCost: null };
   });
   const businessCases = new Set(['todo','blog','ecommerce','stream-pipeline-ai-agent','nested-mission-agent']);
   const business = rows.filter(r => r.kind === 'business-trial' && businessCases.has(r.caseId) && !['infrastructure-failed','harness-invalid','incomplete'].includes(r.status));

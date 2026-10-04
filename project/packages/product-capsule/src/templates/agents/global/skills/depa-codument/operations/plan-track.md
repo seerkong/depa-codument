@@ -11,11 +11,11 @@ spec:
 
 执行位置保持目标项目；@/ 表示项目根。references/std/、operations/、references/ 相对全局 depa-codument Skill（默认 ~/.agents/skills/depa-codument，CODUMENT_HOME 可覆盖 home）；裸 config/、tracks/ 等相对项目 codument/。以下是当前 Agent 要执行的指导，不是已经完成的业务结果。
 
-# skill: codument-plan-track（创建变更追踪）
+# plan-track（创建变更追踪）
 
 开始规划前，按 `references/std/protocols/context-loading.md` 确认选定原始需求已完整读取：检查长度，补齐分页或截断输出。只看前若干行不能据此制定完整 Track；原始输入对照与自包含快照规则见 §2/§3.2。
 
-为一个新功能 / Bug 修复 / 变更创建一条 **Track**：引导用户收集信息，生成提案（`proposal.md`）、设计（`design.md`）和状态真源 `track.xnl`。普通调用创建 pending Track；由 `codument-impl-mission` 以 `QuestionSeverity=auto` 调用时直接创建 active Track，后续始终使用 CLI receipt 返回的目录。
+为一个新功能 / Bug 修复 / 变更创建一条 **Track**：引导用户收集信息，生成提案（`proposal.md`）、设计（`design.md`）和状态真源 `track.xnl`。普通调用创建 pending Track；由 `depa-codument impl-mission` 以 `QuestionSeverity=auto` 调用时直接创建 active Track，后续始终使用 CLI receipt 返回的目录。
 
 > 本文以 **Markdown 为主**：程序化控制流使用流程标记块，Track 资源必须保持 XNL（见高优先级 [XNL 格式](../references/std/spec/xnl-format.md)）。禁止把 `track.xnl` / `decisions.xnl` 降级为纯文本、Markdown、JSON 或 XML。遇到 legacy authority 时先运行 `depa-codument upgrade-resource <path>`。
 
@@ -23,7 +23,7 @@ spec:
 
 ## 0. 意图、触发与产物
 
-**意图。** 为一个新功能 / 变更建 track：收集信息 → 起草提案与 `track.xnl` → 同轮收集提交模式 / 校验模式 / 方向审查 → 等待批准。**提案获批前不开始实现**——除非由 `codument-impl-mission` 以 `QuestionSeverity=auto` 调用，此时 mission 层代为批准、创建即激活（见 §3.2 调用方上下文）。
+**意图。** 为一个新功能 / 变更建 track：收集信息 → 起草提案与 `track.xnl` → 同轮收集提交模式 / 校验模式 / 方向审查 → 等待批准。**提案获批前不开始实现**——除非由 `depa-codument impl-mission` 以 `QuestionSeverity=auto` 调用，此时 mission 层代为批准、创建即激活（见 §3.2 调用方上下文）。
 
 **何时建 track（trigger）。** 下列情况建 track：
 
@@ -97,7 +97,7 @@ spec:
 
 严格按下面顺序执行。开始时直接读取与当前目标相关的项目 attractor、代码与测试，作为短项目约束上下文；这不是 fresh AttractorCheck。若 `codument/config/operation-hooks.xnl` 显式为 `plan-track:before` 配置 hook，才按 hook DSL 执行。
 
-开始时按 `references/std/protocols/decision-tree.md` 解析 severity、依赖图和当前拓扑问题批次。`auto` 模式下不提问、不等待确认，改为写入假设并选择保守默认；其他模式才按 **ask-multi-question-free** / **ask-multi-question-closed** 一次询问同批 ready 问题。
+开始时按 `references/std/protocols/decision-tree.md` 解析 severity、依赖图和当前拓扑问题批次。`auto` 不发例行确认，按共享协议的安全默认/未决依赖分支处理，不以假设替代必需决策；其他模式才按 **ask-multi-question-free** / **ask-multi-question-closed** 一次询问同批 ready 问题。
 
 ```text
 @delimiter: --
@@ -139,6 +139,10 @@ spec:
 2. **取得 Track 描述**：`{{args}}` 含描述则用之；为空时按 severity 处理：`auto` 模式从当前用户请求和上下文推断，不提问；其他模式问"请提供你想开始的变更追踪的简要描述（功能、Bug 修复、重构等）。"并等待回复（**ask-single-question-free**）。
 3. **推断类型**：分析描述判定"功能"或"其他（Bug、重构等）"，**不要**让用户分类。
 
+简短或模糊描述是正常输入。按 `references/std/methods/workflow.md` 的“目标—观察—行动”，结合原始意图、已确认选择与当前证据形成当前理解，在现有 `proposal.md` / `design.md` / findings 中保留已知约束和影响当前切片的关键未知；无需让用户先补齐完整规格，也不新增必填字段或表。未说明的事项保留为未知，不能直接写成非目标，亦不据此擅自扩成完整产品。
+
+普通选择只有在结合现实后果与返工成本判断可安全回退时，才采用保守默认并标明假设；无法查证的真实取舍沿现有 severity / decision-tree 处理。任务划分与技术路线可以修订；用户意图及已确认行为约束（含 AI 提出后获批准的约束）仍是目标依据，不能因实现困难或局部验证通过而取消，修订须走既有 decision / 变更入口。
+
 > **提问纪律**：问答 ToolCall 只用于真实澄清 / 选择 / 确认；**禁止**为测试运行环境能力发占位问题。当前没有要问的就直接往下。
 
 ### 3.2 建目录与元信息及调用方上下文（mission 连续执行）
@@ -146,7 +150,7 @@ spec:
 1. **查重**：在 `codument/tracks/{pending,active,archived}/` 查重；若提议短名与任一生命周期目录中的 track 重复，停止并建议换名。
 2. **生成 Track ID**：小写英文 + 中横线的简短描述，**动词开头**（`add-`、`update-`、`remove-`、`refactor-`），如 `add-user-auth`、`fix-login-bug`。**不含日期**（日期只在归档时加）；若已被占用，追加 `-2`、`-3`。
 3. **按 severity 处理 ID 歧义**：`auto` 模式直接采用生成的 track-id，并把命名依据写入 `analysis/findings.md`。其他模式只有在命名确实会改变范围或与现有 id 难以区分时，才把它作为一个 ready decision 加入当前拓扑 batch；不得为单独确认 id 打断其他独立问题。命名依据不是决策节点，不得为它单独创建 `analysis/decision-tree.xnl`。
-4. **用 CLI 建版本化骨架**：普通规划运行 `depa-codument track create <track_id> --stage pending`；由 `codument-impl-mission` 以 `QuestionSeverity=auto` 调用时运行 `depa-codument track create <track_id> --stage active`。CLI 只接收 ID 与 stage，生成当前 Kind `envelopeVersion` / `specVersion` 对应的 `track.xnl`、`proposal.md`、`design.md`，拒绝覆盖已有目录且不创建空 `decisions.xnl`。后续路径一律使用 CLI receipt 的 `directory`；Mission 调用方再运行 `depa-codument mission bind-track`。**禁止**整文件手写或 Write `.xnl`、XML 闭合 `</Given>`、把 `</?>` 写成 `?</?>`，或用 perl/sed/strings 改字节。骨架建好后运行 `depa-codument schema track`（决策时再 `schema decision`），对照 Kind spec 对 scaffold 原地编辑。
+4. **用 CLI 建版本化骨架**：普通规划运行 `depa-codument track create <track_id> --stage pending`；由 `depa-codument impl-mission` 以 `QuestionSeverity=auto` 调用时运行 `depa-codument track create <track_id> --stage active`。CLI 只接收 ID 与 stage，生成当前 Kind `envelopeVersion` / `specVersion` 对应的 `track.xnl`、`proposal.md`、`design.md`，拒绝覆盖已有目录且不创建空 `decisions.xnl`。后续路径一律使用 CLI receipt 的 `directory`；Mission 调用方再运行 `depa-codument mission bind-track`。**禁止**整文件手写或 Write `.xnl`、XML 闭合 `</Given>`，或用 perl/sed/strings 改字节。骨架建好后对照 `references/std/spec/track-xnl-spec.md` 对 scaffold 原地编辑。决策节点对照 `references/std/spec/decision-registry.md`。
 5. **建 `analysis/`（外部记忆）**：建 `analysis/findings.md` 与 `analysis/knowledge.md`。
    - **硬规则：仅缺失时创建，绝不覆盖已有内容**——目录已存在则不删不重写；文件已存在则绝不改写（哪怕你觉得不完整），不存在才按模板创建。
    - 按 planning-with-files 把关键结论写入文件作为外部记忆，**避免长对话或多轮工具调用丢失重要信息**；内容必须与本 track 相关、避免泛化；不引用 `.` 开头隐藏目录。
@@ -229,7 +233,7 @@ spec:
 - 若背景 / 范围 / 兼容 / 迁移 / rollout 内容较多，建 `proposal/` 子目录把子方向写入子文件，由 `proposal.md` 作为总览引用。
   - **Good**：`proposal.md` 概述目标并链接 `proposal/problem-statement.md`、`proposal/scope-and-compatibility.md`。
   - **Bad**：把 200 行兼容性分析全塞进 `proposal.md`；或引用 track 外部文档才能读懂提案。
-- **处理新决策，不做逐产物确认**：`auto` 模式不提问，直接继续，并把未确认假设保留在提案 / decision-tree；其他模式仅把提案暴露出的新增 scope / 不可逆取舍加入下一拓扑 batch，不为单独审查 proposal 阻塞规划。
+- **处理新决策，不做逐产物确认**：`auto` 模式按共享协议记录安全假设或真实未决，继续无依赖的可做分支，不为单独审查 proposal 暂停；其他模式仅把提案暴露出的新增 scope / 不可逆取舍加入下一拓扑 batch，不为逐产物确认阻塞规划。
 
 ### 3.4 方案与决策（design.md 必有，decisions.xnl 按需）
 
@@ -243,7 +247,7 @@ spec:
 **决策记录（decisions.xnl）：**
 
 1. 首次出现真实 decision 时运行 `depa-codument decisions create <track-dir>/decisions.xnl <decision-id>`；普通新决策默认回写根文件，嵌套节点使用 `--parent`。只有明确需要 owner/topic 分片时才写入递归 `decisions/**/*.xnl`。长期项目决策按 stable id 合并进长期 registry。
-2. **填写 decisions.xnl**：先梳理待决策 forest 并标 `P0`/`P1`/`P2`，把问题、候选选项、当前建议写入。嵌套 `<decision>` 表示需要先解决父问题的细化；跨分支前置条件用 `depends_on = ["decision-id"]`，不要滥用 `blocks`。**禁止**整文件抄写 `.xnl`、XML 闭合 `</question>` / `</Given>`、把 `</?>` 写成 `?</?>`，或用 perl/sed/strings 改字节。`proposal.md` / `design.md` 仍可手写 Markdown。create 之后运行 `depa-codument schema decision`，按 pending/accepted 槽位对 scaffold 原地编辑；不要从片段复制 `#id` / envelope。
+2. **填写 decisions.xnl**：先梳理待决策 forest 并标 `P0`/`P1`/`P2`，把问题、候选选项、当前建议写入。嵌套 `<decision>` 表示需要先解决父问题的细化；跨分支前置条件用 `depends_on = ["decision-id"]`，不要滥用 `blocks`。**禁止**整文件抄写 `.xnl`、XML 闭合 `</question>` / `</Given>`，或用 perl/sed/strings 改字节。`proposal.md` / `design.md` 仍可手写 Markdown。create 之后对照 `references/std/spec/decision-registry.md` 的节点样例对 scaffold 原地编辑；不要从样例复制 `#id` / envelope。
 3. **按拓扑批次选交互方式**：先根据 `decision-tree.md` 计算 ready set，而不是统计全部 pending 问题。
    - 从每个未阻塞根和每个依赖已解决的分支各取可用节点，按 `P0 → P1 → P2` 及稳定 id 排序；按 severity 的每轮上限形成一个 batch。即使一个根已有更多细化问题，也不得先追问它而遗漏同批其他根。
    - **环境支持多问题 ToolCall**：对该 batch 用 **ask-multi-question-closed**（有 options）或 **ask-multi-question-free**（开放题）一次性发问；每个问题仍在 `decisions.xnl` 保留条目，收到答复后回写 `<answer>` 下的 `<raw-answer>` / `<decision-text>` / `<rationale>` / `<evidence>` 以及 `status`，然后重算下一 batch。
@@ -282,22 +286,24 @@ spec:
 - [...]
 ```
 
-写入 `<track-dir>/design.md`。`<track-dir>` 始终取 `depa-codument track create` receipt；`auto` 模式直接继续，其他模式仅将设计新发现的、尚不能用本地证据解决的依赖选择加入下一拓扑 batch，不为单独审查 design.md 阻塞规划。
+写入 `<track-dir>/design.md`。`<track-dir>` 始终取 `depa-codument track create` receipt；`auto` 模式按共享安全边界继续，不为单独审查 design.md 暂停，也不将新发现的真实未决当已批准；其他模式仅将尚不能用本地证据解决的依赖选择加入下一拓扑 batch，不为逐产物确认阻塞规划。
 
 ### 3.5 起草 track.xnl（核心）
 
-proposal 获批后："现在我将在 CLI 已生成的当前版本 `track.xnl` 骨架内填写结构化实现计划。"读取已确认的 `proposal.md`、`design.md` 与 `workflow.md`，保留 scaffold 写入的 `envelopeVersion`、`specVersion`、`#id` 与 XNL 通道结构，严格按 `track-xnl-spec.md` 填充三轴内容。**禁止**整文件 Write `track.xnl`。运行 `depa-codument schema track` 取根形状与 TaskGroup/Schedule/Hook 槽位，对 scaffold 原地编辑。
+proposal 获批后："现在我将在 CLI 已生成的当前版本 `track.xnl` 骨架内填写结构化实现计划。"读取已确认的 `proposal.md`、`design.md` 与 `workflow.md`，保留 scaffold 写入的 `envelopeVersion`、`specVersion`、`#id` 与 XNL 通道结构，严格按 `track-xnl-spec.md` 填充三轴内容。**禁止**整文件 Write `track.xnl`。对照 `references/std/spec/track-xnl-spec.md` 对 scaffold 原地编辑。
 
 - **结构轴 `<TaskSpace>`**：工作树 + 状态。phase 是 `SubNodes []` 第一层 `<TaskGroup>`；其下可递归 `<Task>` / `<TaskGroup>`。新任务在 `{ status = "NOT_STARTED" priority = "P0|P1|P2" }`；有真实阻塞时写非空 `blocker`，auto commit 后写 `commit` 证据。singleton `Description` 放 `()`，集合 `Gate` / `Acceptance` 放 `[]`。ID 约定：phase=`P{n}`、task=`P{phase}-T{n}`、验收=`{taskId}-AC{n}`。
 - **关键**：计划结构必须遵循 `workflow.md` 的方法论（如 TDD 的"编写测试"与"实现"成对任务）。
 - **调度轴 `<Schedule>`**：见 §3.5 末尾"调度（可选）"。
 - **Hook 轴 `<Hooks>`**：见 §3.6（同轮确认后据选择写入）。
 
-最小骨架必须沿用 CLI scaffold。不要从文档复制整份 XNL；`#id`、`envelopeVersion`、`specVersion` 与时间字段均来自 CLI。槽位片段由 `depa-codument schema track` 打印。
+需要消除关键未知时，优先选择安全、成本适当、前提可信且能暴露最危险理解或连接假设的最小观察，将承诺、适用边界与拟验证方式落在现有 Task / Acceptance。规划期先查证；需要实现的实验或最小连贯切片须进入已授权实施阶段与隔离边界。不强制另建探针 Track 或阶段，局部观察不替代最终承诺验收及已配置 hook。
 
-**调度（可选）。** 默认每层依次执行。某层直接下层需并行时，在该 `TaskGroup`（或 `TaskSpace`) 的 `{}` 写 `child_mode = "dag"`，再按 `schema track` 的 Schedule 槽位写入 `<Schedule>`。
+最小骨架必须沿用 CLI scaffold。不要从文档复制整份 XNL；`#id`、`envelopeVersion`、`specVersion` 与时间字段均来自 CLI。形状以 `references/std/spec/track-xnl-spec.md` 为准。
 
-一个 `<Dag>` 只描述一个父节点的直接下层之间的边（不跨层、不跨父）；`Schedule.max_concurrent` 是正整数，`spot_check` 是 boolean。后续也可由 `codument-maintain-track` 的 `schedule` mode 补这一步。
+**调度（可选）。** 默认每层依次执行。某层直接下层需并行时，在该 `TaskGroup`（或 `TaskSpace`) 的 `{}` 写 `child_mode = "dag"`，再按 `references/std/spec/track-xnl-spec.md` §5 写入 `<Schedule>`。
+
+一个 `<Dag>` 只描述一个父节点的直接下层之间的边（不跨层、不跨父）；`Schedule.max_concurrent` 是正整数，`spot_check` 是 boolean。后续也可由 `depa-codument maintain-track` 的 `schedule` mode 补这一步。
 
 写入 CLI receipt 返回的 `<track-dir>/track.xnl`。
 
@@ -379,7 +385,7 @@ proposal 获批后："现在我将在 CLI 已生成的当前版本 `track.xnl` �
 -- /?apply
 ```
 
-挂好后对 scaffold 原地编辑对应 TaskGroup 的 `Hooks`：先运行 `depa-codument schema track` 取 Hook 槽位片段，按片段在目标 `TaskGroup` 的 `()` 内写入 `<Hooks [...]>`，保留 CLI 写入的 identity 与通道结构；不要整段抄 XNL，也不要整文件 Write，或用 JSON / `perl` / `sed` 改 `.xnl`。
+挂好后对 scaffold 原地编辑对应 TaskGroup 的 `Hooks`：按 `references/std/spec/track-xnl-spec.md` §6 在目标 `TaskGroup` 的 `()` 内写入 `<Hooks [...]>`，保留 CLI 写入的 identity 与通道结构；不要整段抄 XNL，也不要整文件 Write，或用 JSON / `perl` / `sed` 改 `.xnl`。
 
 > `verify_round` 一经在 §3.6 据用户答复（G/H，缺省取全局默认 false）确定，**本 track 所有 GapLoop 节点沿用同一设置**；后续追加 phase 时新挂的 `<GapLoop>` 也沿用同一值。它控制「首轮 `NO_GAP` 后是否再追一轮（轻量）验证轮」，运行期语义见 `gap-loop.md`。
 >
@@ -397,13 +403,13 @@ proposal 获批后："现在我将在 CLI 已生成的当前版本 `track.xnl` �
    > 状态真源：`<track-dir>/track.xnl`
    > 提交模式：<auto|manual>
    > 校验模式：<HumanConfirm|GapLoop>
-   > 你现在可以运行 `请使用 codument-impl-track skill, 实现 track: <track_id>` 开始实现。"
+   > 下一步运行 `depa-codument impl-track <track_id>`，完整读取返回的操作指导后由当前 Agent 开始实现。
 
 ---
 
 ## 4. 门控（gates）
 
-- **提案获批前不开始实现**（这是 `codument-impl-track` 的前置门控）。例外：由 `codument-impl-mission` 在 `QuestionSeverity=auto` / 连续执行模式下调用时，mission 层代为批准，track 创建即激活后即可进入 `codument-impl-track`（见 §3.2 调用方上下文）。
+- **提案获批前不开始实现**（这是 `depa-codument impl-track` 的前置门控）。例外：由 `depa-codument impl-mission` 在 `QuestionSeverity=auto` / 连续执行模式下调用时，mission 层代为批准，track 创建即激活后即可进入 `depa-codument impl-track`（见 §3.2 调用方上下文）。
 - 若 `codument/config/operation-hooks.xnl` 为 `operation name="plan-track"` 显式配置了 `plan-track:before` hook，才在规划前执行；没有 hook 时直接以项目上下文继续。命令级 hook 与 track.xnl 的节点级 `<Hook>` 同语法、不同宿主。
 
 ---
@@ -411,8 +417,8 @@ proposal 获批后："现在我将在 CLI 已生成的当前版本 `track.xnl` �
 ## 5. 引用
 
 - `references/std/spec/xnl-format.md` —— XNL 磁盘格式与闭合规则（高优先级）
-- `references/std/spec/track-xnl-spec.md` —— track.xnl 三轴规范与目录布局（§0.5）；槽位片段 `depa-codument schema track`
-- `references/std/spec/decision-registry.md` —— decision 物理/merge 规则；槽位片段 `depa-codument schema decision`
+- `references/std/spec/track-xnl-spec.md` —— track.xnl 三轴规范与目录布局（§0.5）；形状以该投影为准
+- `references/std/spec/decision-registry.md` —— decision 物理/merge 规则与节点样例
 - `references/std/protocols/questioning.md#ask-multi-question-free` / `#ask-multi-question-closed`
 - `codument/config/attractor-profiles.xnl` —— `coding`/`docs`/`memory` profile 定义
 - `codument/config/operation-hooks.xnl` —— 命令级 hook

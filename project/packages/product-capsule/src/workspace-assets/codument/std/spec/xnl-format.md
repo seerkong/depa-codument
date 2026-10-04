@@ -13,7 +13,7 @@ XNL（Extensible Notation Language）
   1. 没有自定义 marker 时，闭合永远是 `</?>`，不能用 XML 风格 `</tagname>`（例如 `</Given>`、`</Description>`）。validate 会报 `expected </?>, got </Given>`。
   2. 有自定义 marker 时，opening `?marker` 与 closing `</?marker>` 必须逐字相同；禁止 `<desc ?foo>...</desc>` 这类“前半有 marker、后半回退 XML 标签名”的混合写法。
   3. 文本内容中也不要出现 `</?` 字面量（会被当成提前闭合）。
-  4. 不要把 `</?>` 写成 `?</?>`。这是差一个字符的突变，解析器常按空 marker 吞掉并“看起来写成功了”。注意它与「正文以 `?` 结尾 + 正常闭合」字节相同（`</?>` 前的 `?` 可能属于正文），所以只有解析**失败**时才由 `explainXnlParseError` 报 `expected </?>, got ?</?>`；解析通过就不按突变处理。
+  4. 正文以 `?` 结尾时，闭合仍是 `</?>`，写出的就是 `?</?>`。前面的 `?` 属于 payload。`<question ?>Which target policy applies?</?>` 与 `<question ?>Which target policy applies</?>` 是两个不同的文本节点。不要为了避开 `?</?>` 而删掉正文末尾的 `?`。
 - 无其它块时直接以 `>` 结束节点。
 
 ## 磁盘格式不得降级

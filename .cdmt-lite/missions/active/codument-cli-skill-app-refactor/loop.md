@@ -1,15 +1,150 @@
 # Loop: Codument CLI Skill App 与可复用 Host 重构
 
 Status: active
-Round: 49
+Round: 58
 
-本轮模式：用户已授权检查点提交及依据E310自主优化。检查点ce0f2cb，author kongweixian <kong_weixian@163.com>。优先精确交接、只读执行上下文和前置真实行为验证；代码在原仓库，测试/构建在/tmp副本。Round45七个终态试次及限额保持，新候选使用fresh trials；不安装global或升级原dogfood。
+本轮模式：Round58用户明确恢复harness修复、最新构建/全局新bin与完整Skill安装、五case新版真实E2E。原仓修harness/必要发行一致性，测试/build/模型只在/tmp；不改旧codument、原codument/、浏览器源码、需求或生成应用。Terra/medium串行，原公开policy/三attempt预算，保留所有失败。按当前图连续推进，不恢复Round55已结束driver；历史ce0f2cb检查点保持。
 
 期望态：[MISSION.md](MISSION.md)。证据：[evidence.md](evidence.md)。本图是唯一执行计划/状态投影；名称为人机交接主标识。
 
 > 固定纪律（勿删）：节点完成 ≠ 回合结束。更新本文件后，同一回合继续取下一个「当前可做」节点；停点只认：验收全过 / 硬中断（工具·宿主·用户强制）/ 卡住（缺输入、不可逆选择）。不因「做了一段」而回头汇报。
 
 ## Work graph
+
+### Round55基础设施失败的证据修复
+
+- Status: done
+- After: 旧Skill执行入口与资产引用收敛（不重跑测试）
+- Covers: 期望-16, 约束-29, 约束-4, 约束-24, 约束-25
+- Scope: harness建议交付/浏览器错误分类及对应负例、自有fixture；不改生成App/业务需求/OpenCLI/Ego。
+- Verify: preflight；/tmp窄回归、bun run check与同TaskSpace自有ui-probe，必要真实只读历史复验另列；未知超时/晚到副作用/假proposal仍拒绝。
+- Done when: 缺proposal不能因代理FileChange自述假成功；确切派发前拒绝不错误锁死观察，真正不确定仍不重放；窄及最宽相关回归、实际fixture过线，原件保护。
+- Evidence: E430–E431；726测试/类型/lint通过，自有真实三轮fixture通过，已补严格诊断与建议传输守卫。原日志/失败fixture保留，真实业务效果由后继节点观察。
+
+### 最新版构建与定向全局覆盖安装
+
+- Status: done
+- After: Round55基础设施失败的证据修复
+- Covers: 期望-16, 期望-15, 约束-29, 约束-9, 约束-17, 约束-18, 约束-20
+- Scope: /tmp真实release/build/隔离安装校验；只定向更新.local/bin/depa-codument的实际安装及三个agent同名global App，备份可恢复。必要工程版本一致性修改可在原仓实施，不touch旧codument。
+- Verify: 候选--version/-h/完整14operation与App字节/安装闭包，原codument及旧bin前后digest；全局新bin与验证候选一致、无demo/旧正文入口。
+- Done when: 最新完整编译产物与匹配global App真实可用，旧bin/workspace/非目标安装保持；不以构建成功替代安装核验。
+- Evidence: E431；0.6.0全局新bin与/tmp候选SHA相同、三个完整46文件App与正本相同；旧bin与原codument/指纹不变，runtime及Skill分别有可恢复备份。
+
+### Round58新版五case完整效果观测
+
+- Status: done
+- After: 最新版构建与定向全局覆盖安装
+- Covers: 期望-16, 期望-10, 期望-14, 期望-15, 约束-29, 约束-21, 约束-24
+- Scope: todo→stream-pipeline-ai-agent→blog→ecommerce→nested-mission-agent各一fresh完整试次；Terra/medium，/tmp同冻结CLI/Skill/harness，三attempt。不重跑旧组、不手工修App或重置历史。
+- Verify: 真模型probe/review协议校准、五终态全部parent/child模型/usage/phase结果与生命周期审计、原需求/policy/hash保持；Round55历史对照明确版本/harness差异。
+- Done when: 五完整流程均达真实终态并准确报告（FAIL/infra也是终态，不预设全PASS），所有失败成本可查；自有端点/auth释放、TaskSpace成功闭包或真实停机交接，旧bin/workspace保护。
+- Evidence: E440–E441；latest-e2e-round58.md/.json及/tmp两份原始审计。五正式终态4/5最终、2/5首次；42模型上下文、需求/policy/CLI/Skill/旧原件与生命周期核验过线，正式所有成本保留。Space5由agent owner finish一次且resolve；没有重新生成/旧版新组/购买额度或假PASS。
+
+### Round58观察到的浏览器参数前置拒绝补闭包
+
+- Status: done
+- After: Round55基础设施失败的证据修复
+- Covers: 期望-16, 约束-29, 约束-24, 约束-25
+- Scope: 新epoch仅在原仓修通用selectOption派发前拒绝/空值参数与对应测试；新/tmp副本验证。不热改CKnlv2的冻结harness、不修或再生成Todo、不改原终态。
+- Safety closure: E437静态证据要求收紧未知TypeError，不再从异常类名推断输入未派发；只保留完整已知SDK参数拒绝正例，late/after-dispatch优先及任意mutation异常fence负例。原仓/R58b同步后重跑窄/宽，原正式batch不变。
+- Verify: SDK签名/真实native诊断；严格positive与late/after-dispatch/未知negative；窄/宽回归、自有fixture；完整batch结束后对Todo最终交付做独立只读UI复验，所有额外模型成本另列。
+- Done when: 不存在的单个option只允许再观察和改正参数，不被当作未知输入效果；合法空字符串不被人为禁止，真timeout仍fence。所有fixture真实通过、原formal结果保留、只读复验正式终态与保护可追溯。
+- Evidence: E437–E441；39窄/732宽、类型/lint、R58b O6wcE0及qoSE4C各三轮真实fixture通过，缺option/合法空值与未知TypeError/late/after-dispatch负例过线。Todo独立只读正式业务FAIL非infra；静态源及原生JS确认URLSearchParams赋普通属性导致空query，未改App。追加源/旧结果/模型/成本/auth/端点保护审计exit0，不改变formal分母。
+
+### 旧Skill执行入口与资产引用收敛（不重跑测试）
+
+- Status: done
+- After: 通用意图收敛提示词迭代（不重跑测试）
+- Covers: 期望-15, 约束-28, 约束-4, 约束-17, 约束-18
+- Scope: 当前global App的14份operation正文、共享方法/协议/引用、Host安装指南及资产一致性测试；description/compat与资源身份不改，旧源码/workspace/global不写。
+- Verify: mission preflight；git diff --check；旧名/退役路径与引用闭包静态核对；frontmatter/manifest/兼容入口digest基线比对；测试代码只审不执行。
+- Outcome: 动态CommandOperation为当前调用方式；旧名只作历史发现，正文及引用路径符合实际App结构，多agent与项目资产边界一致，无第二清单。
+- Done when: 正本实物及静态闭包审阅过线、测试守卫源码已补，保护基线和检查语义保持；不把测试未运行或旧E2E当成功率改善，记录当前测试/安装延后边界。
+- Evidence: E429；25份global Markdown实物（含1个退役壳）清理、资产守卫源码补齐并静态审阅。14份frontmatter及manifest/SKILL/compat的4份全文基线不变，42处本地链接闭合、标题与command一致。测试/模型/E2E/build/install全部未执行，整体mission仍active。
+
+### 通用意图收敛提示词迭代（不重跑测试）
+
+- Status: done
+- After: 新旧完整E2E同问题对照
+- Covers: 期望-14, 期望-4, 约束-27, 约束-4, 约束-8
+- Scope: global SkillApp正本的workflow、规划/实现/verify/gap-loop及必要共享引用Markdown；不改旧副本或重构业务/公共包，不构建安装或测试。
+- Verify: cdmt-mission-lite结构preflight；git diff --check；选定原文/链接与独立只读语义审查（非测试执行）。
+- Outcome: 以现有方法为单一owner补强当前理解、关键未知、安全观察、承诺驱动验证、真正独立目标重建及失败反馈；保留全部configured检查与authority。
+- Done when: 文本实物和引用闭包复核通过、既有用户编辑保留，记录仅静态验证与未测试/未安装的边界；不宣称提升成功率或完成更宽mission。
+- Evidence: E428；15份global SkillApp Markdown正本迭代完成，workflow为共享方法owner；preflight、diff/新增引用核对与独立静态复核通过。auto安全默认与真实未决边界、AttractorCheck方向范围冲突已闭合；未运行项目测试/E2E、build或安装，效果待后续授权验证。
+
+### 新旧完整E2E同问题对照
+
+- Status: done
+- After: Round54验收协议与动态场景闭包
+- Covers: 期望-13, 约束-26, 约束-25, 约束-16, 约束-24
+- Scope: 原件只改project/e2e、旧e2e入口和mission；两个CLI源码/Skill版本只在/tmp冻结build，不安装global、不改OpenCLI/Ego、不重写历史。各五fresh完整试次，非只读复验。
+- Verify: /tmp同harness bun test e2e/typecheck/lint，两版build/smoke，Terra/medium串行十个完整试次，comparison数据/模型/需求/policy/释放/保护检查。
+- Done when: 同版本matched installer/operation adapter正常、workflow事实及统一fresh业务/UI验收均执行；十个正式终态及全失败成本/阶段时间可查，无人为产品修复或结果重置；小样本与产品语义差异明确。
+- Evidence: E411–E426；verification/paired-e2e-round55.md/.json、paired-e2e-round55-findings.md及TaskSpace记录。十正式终态，两组各4/5最终、1/5首次，infra与无效pilot成本分列；SHA兼容差异明示，并非严格同字节A/B。当前测试目标完成，整体mission仍active/未归档。
+
+### Round54验收协议与动态场景闭包
+
+- Status: done
+- After: Round53其他四case与独立只读复验
+- Covers: 期望-12, 约束-25, 约束-24, 约束-16, 约束-21
+- Scope: 仅original project/e2e源码及本mission；所有运行在/tmp隔离副本，既有Todo/Blog/Ecommerce冻结源码只读；不新生成、不安装global、不改OpenCLI/Ego、不重置历史。
+- Verify: /tmp副本bun test e2e、typecheck/lint、smoke、自有fixture校准，随后fresh Terra已有三App只读复验，检查源与原件指纹及worker释放。
+- Done when: 原需求驱动scope计划与有限API准备，准备和业务观察分离；参数/谓词未满足/动作前拒绝与未知副作用分类；原生观察引用、范围准入和一次仅格式修正正确且完整controller roundtrip通过。正式业务FAIL是有效验收终态，不要求修交付App。
+- Evidence: E406–E410；verification/terra-protocol-round54.md/.json。最终98项相关回归、类型/lint、无模型smoke/fixture及三App正式只读UI PASS；宽检查705pass/1个既有发行失败，整体mission不完成/不归档。
+
+### 浏览器命令参数与timeout分类纠偏
+
+- Status: done
+- After: none
+- Covers: 期望-10, 约束-24, 约束-21, 约束-16
+- Scope: 只改original project/e2e及独立修复验证副本；不热改正在执行的WUkXEf冻结harness，不修改Blog应用/历史result或OpenCLI/Ego。
+- Verify: Invalid options零effect/recover、disabled actionability恢复、full_page发现与真实timeout fence负例；最宽harness/typecheck/lint；同TaskSpace2真实fixture和Blog/Ecommerce独立只读UI复验。
+- Done when: 可选options必须JSON object，无效输入不发Page调用；TypeError的文档timeout字段和确切disabled动作前拒绝不能造成uncertain fence；真deadline/provider timeout及late-effect标志仍禁重放。默认full_page不漏视口外控件，prompt/admission/controller共享收据格式真源；修复后真实只读复验保留独立正式收据及原infra成本。这里验收的是协议闭包，业务FAIL不自动要求修改交付App。
+- Evidence: E398–E405；最新roZYDq82pass/0fail/489assertions、类型/lint通过，真实fixture三轮+release通过。SGz97i正式业务FAIL且disabled错误恢复，Nq7Zg0正式UI PASS，83次请求/13条观察、stale ref可恢复；原源指纹保持。13个endpoint释放、TaskSpace2finish一次。旧DC1eur/2L0ERN/DhAbq9 infra保留，原四试次的冻结harness未变；不声称所有未知浏览器/App均已保证。
+
+### Round53其他四case与独立只读复验
+
+- Status: done
+- After: Ego Lite 自主UI验收恢复, 浏览器命令参数与timeout分类纠偏
+- Covers: 期望-10, 约束-21, 约束-16, 约束-24
+- Verify: verification/terra-other-cases-round53.md/.json核对四原试次终态与独立复验、42模型上下文、源保护和生命周期证据；历史命令见E395–E405。
+- Scope: 本轮用户选择stream/blog/ecommerce/nested四个fresh真实试次与必要只读UI复验；Terra/medium、initial+2外层纠偏，不跑Todo或额外完整重复试次，不人工改App/global。
+- Done when: 四个原试次都真实terminal，首次/纠偏/infra及所有失败成本保留；必要只读复验另存合法receipt、身份/原source guards通过；不可拿追加UI PASS改写原试次。运行测试的目标不等于把全部业务App修到PASS。
+- Evidence: E395–E405；verification/terra-other-cases-round53.md和.json。原全链PASS2/4、首次1/4、infra2/4；Nested第三次PASS且parent completed/child active backlog保留。追加Blog正式UI PASS、Ecommerce正式UI FAIL；42个实际Terra/medium上下文核验，原workspace/旧bin指纹不变。全部本轮执行和协议验收已完成，整体Mission仍active。
+
+### Ego Lite 自主UI验收恢复
+
+- Status: done
+- After: none
+- Covers: 期望-10, 约束-24, 约束-21, 约束-16
+- Verify: harness测试与同sandbox固定fixture预检；已交付Todo独立只读fresh Terra UI复验
+- Scope: 只改harness，不改OpenCLI或生成应用；TaskSpace1复用，不新增空间回避故障
+- Done when: 自主页面操作有真实输出证据，基础设施故障正确分类，无硬编码业务脚本；复验真实终态可追溯。
+- Round52: 用户要求深入修复，不再把一次CDP超时当作整体不可推进。建立harness拥有的持久Ego连接和串行typed-command入口；浏览器原生事件为观察authority，业务计划与判定仍由fresh Terra负责。先并发/链式dialog/超时/伪证据负例与真实fixture，再已有Todo独立只读复验；只改project/e2e，不改浏览器工具、应用/global。
+- Evidence: E392–E394；verification/ego-persistent-terra-round52.json。Fq8mwC真实fresh Terra正常产出业务failed而非infra；最新源码YoHKIY三轮真实fixture通过并释放，owner异常退出watchdog通过，74项相关回归/类型/lint通过。仅此恢复节点完成，不表示业务应用PASS或整个mission完成。
+
+### OpenCLI 单工具验收闭包
+
+- Status: superseded
+- After: none
+- Covers: 期望-10, 约束-21, 约束-16, 约束-24
+- Verify: `bun test e2e`；同 acceptance sandbox 的 OpenCLI browser probe
+- Outcome: E387 的旧预检只证明命令返回成功，不能证明点击实际生效，done声明撤回。E388加强为提交后可见结果核验；真实预检正确失败关闭。Ego/Chrome fallback移除、沙箱、trace admission与cleanup保留。
+- Done when: 默认 agent 只调用 OpenCLI；真实连接预检失败在模型调用前退出；观察必须源于实际工具输出。
+
+### Terra 串行重测与真实报告
+
+- Status: pending
+- After: Round53其他四case与独立只读复验
+- Resume: Ego同sandbox真实交互闭包完成；不重复生成已交付Todo，先完成独立只读UI复验。
+- Current scope: Round53用户重新明确授权其他case真实E2E，覆盖Round52只读范围。启动stream→blog→ecommerce→nested四个fresh试次，使用新隔离snapshot构建候选；Terra/medium，最多3 attempts，不重置历史预算，不跑Todo或旧试次，不手工改生成应用。先smoke/相关回归/真实browser preflight，然后串行batch；每个终态继续下一case，infra不当业务纠偏。
+- Round53 outcome: 当前选择已由专门done节点闭包。这里原来的更宽todo/关键重复/等强比较Verify清单保留为后续，不因其中有待办就擅自运行；激活前需确定公开hook策略、API/UI与动态场景数据准备边界及新的重复预算。不得复用原试次重置纠偏额度或为提升率修已交付App。
+- Recovery: 恢复时先读本轮suite-status与各run result/progress/owner PID，不重新启动仍活跃case。候选/来源、TaskSpace ID、batch路径待snapshot与build真实产生后记录到Next；长命令前持久化。所有终态报告区分首次/纠偏/infra/模型usage。
+- Covers: 期望-10, 约束-21, 约束-16
+- Verify: tmp project 副本构建候选；smoke、todo、stream、blog、ecommerce、nested、独立 todo/stream 重复；report
+- Done when: 所有试次保留终态、首次/纠偏率与真实 usage；基础设施阻断如实记录。
 
 ### 本地资源详情路径与 XNL VFS 投影
 
@@ -600,6 +735,47 @@ Round: 49
 
 ## Actual state
 
+- E441本轮终态：用户所选Round58修复→build/global覆盖→五真实试次→新参数校准/只读Todo→独立审计/报告全部闭包。formal4/5最终、2/5首次、161.62分钟；Todo额外正式业务FAIL由原生观察及未修改源码确认（URLSearchParams普通属性导致空query）。旧bin/workspace/global App保护再次过线；Space5 finish一次resolve，全部自有端点/auth释放。latest-e2e-round58.md/.json已落盘且与原始数据逐项验证。整体mission仍active，不因这一子目标完成声称全部重构已验收。
+
+- E440补充恢复锚点：R58b Todo只读复验已进入 /private/tmp/depa-codument-e2e-qoSE4C，tool75977仍执行；源是原Todo6RHPUl/workspace，sourceFingerprint453eca9fc60c9ea63666d1ceefb610b74fe8b94ca501752a4d705c69f5997c83。新origin59222/Space5，native fixture已过线，勿再启动复验或创建新空间。
+
+- E440：CKnlv2/tool7533已完成，Nested首次PASS；五正式4/5最终、2/5首次、Todo原infra，161.62分钟；observer审计42模型/全部身份保护/auth与11worker/4UI服务释放通过。R58b新真实fixture O6wcE0三轮passed。仍欠Todo独立只读UI终态/追加审计与唯一Space5 finish，不可提前勾done。
+
+- E439：Ecommerce wrDe62纠偏后全链PASS（49.53分钟/2attempt、UI正式PASS）；当前最后Nested fwEKS5。正式四项terminal，三PASS/一infra，其中仅Blog首次外层PASS；不先推全五结论。原仓R58b参数安全闭包39/732通过，仍欠实际fixture/只读复验。
+
+- E438：未知TypeError精确安全分类已在原仓/R58b实现；39窄/732宽、类型/lint通过，最终新harness hash b89fb6…；正式R58a hash保持3ac3d4…。真实新增fixture/只读Todo复验尚欠，参数节点保持active；五case仍继续tool7533。
+
+- E436：Blog AgLN3A首次全链PASS（22.89分钟/1attempt、正式原生UI PASS）。当前Ecommerce wrDe62，接着Nested；前三正式结果为Todo infra/Stream纠偏PASS/Blog首次PASS。冻结batch与全局新bin一致，新增参数修复的真实fixture仍待batch结束，不跨Page并发。
+
+- E435：独立R58b窄35/宽728回归与build已过线，原仓/R58b e2e hash12ceff…，产品候选仍等于已安装0.6.0；真实新增fixture/只读Todo复验待完整batch结束串行。正式CKnlv2仍冻结R58a：Todo infra（45.17分钟/2attempt），Stream PASS（25.63分钟/2attempt），Blog AgLN3A进行中；未重生成或改写历史。
+
+- E434：Todo6RHPUl正式terminal infrastructure-failed，45.17分钟/2attempt；初始业务FAIL已由生成代理修复inline脚本，二次外review通过；UI使用错误option all触发确切ElementResolutionError且未派发，被旧classifier误fence。原batch继续Stream GmC9IB，不能热改其冻结harness；新epoch只补通用参数/SDK拒绝闭包，最终Todo另列只读复验不改原统计。
+
+- E433：Todo6RHPUl attempt0外层review通过、真实UI正式FAIL（注册/登录界面未改变）。结构化建议交付/native/controller准入成功，未出现missing proposal；implementation-1正在按原业务预算自行修复。四项尚未开始，当前不能报告完整成功率。
+
+- E432：726回归/类型/lint、自有三轮真实ui-probe、无模型smoke、真实Terra model/review probe全部通过；最新0.6.0已定向安装，保护旧bin与原workspace。五case新batch CKnlv2正在执行，不是已通过；CLI SHA688dca…/harness SHA3ac3d4…/TaskSpace5，其他子状态看suite-status。
+
+- Round58起始：Round55新版Blog原生日志为ElementResolutionError: page.fill timed out after 3000ms: page.fill failed: <aside> intercepts pointer events，当前classifier将其标uncertain并全通道fence。旧Todo日志报告FileChange创建指定proposal且最终叙述FAIL，但harness实际未取得该文件。普通缺proposal/真实超时不能伪造PASS；需要可靠有类型的建议交付及确切前置错误校准。当前新bin为.local/share/depa-codument-local/runtime-darwin-arm64/bin/depa-codument的软链接；旧bin指向原dist/codument，绝不覆盖。三个global App版本不同，本轮将更新同名目标。
+
+- Round57 E429最新：盘点的旧调用/标题、废弃路径与Codex-only安装指引已在global正本修正；description和compat旧名保留。46份现存App资产的42处本地链接闭合，14份标题对齐spec.command；14份frontmatter和manifest/SKILL/两compat全文digest均未变。无引用的update-sop壳合并进迁移指南后删除，Git可恢复。新增资产测试和9条负例只写源码/静态审阅，没有运行；本节点文本交付done，不安装或宣称运行效果提升。
+
+- Round56 E428最新：已按E427分析迭代15份global SkillApp Markdown正本，共享workflow串联规划/实现/verify/GapLoop与方向审查。静态重观察发现auto摘要可能遮蔽真实未决边界，已修正文档引用及操作摘要；独立定向复核NO_GAP。无项目测试/模型/E2E/build/install，旧冻结证据不作为新提示词效果证明；本轮节点done，整体mission仍active。
+- Round55 E426最新：mmZCxb/2396/exec31748已completed退出，旧Nested 8UuQfJ三attempt正式PASS28.10min；两组十项全部terminal，各4/5最终、1/5首次。聚合最终保护/需求/policy/模型/Skill/释放审计通过，TaskSpace4已finish一次关闭不可复用；指标与解读见verification/paired-e2e-round55*。总成本下降与共同通过子集变慢均披露；原global/codument未变、无手工修App。当前用户测试目标done，整体重构仍active，最宽发行断言失败及其它节点不冒称完成。
+- Round55 E419最新：mmZCxb/2396/exec31748仍live；旧Todo infra37.65min、旧stream UXwrsM首次PASS17.14min，Blog 560au2开始；旧Ecommerce/Nested未运行。旧正式2终态1PASS/1infra，未执行项unknown；current五项4/5保持。最终报告不能按当前部分组比较整体提升/下降。
+- Round55最新E417：mmZCxb/2396/exec31748仍live；正式旧Todo aW595i infra终态（37.65min、三attempt，知识映射/DELETE204外部finding均由模型修过，最终UI proposal缺失；未准入的认证UI FAIL不改判）。旧stream UXwrsM plan0进行，其余三项待串行。新五项原有效结果不变，旧pilot成本分列。aggregate-paired-round55.ts待全部终态只读执行；不要启动第二driver或修改active frozen harness。
+- Round55 formal legacy live：batch /private/tmp/depa-codument-e2e-batch-mmZCxb，driver2396/exec31748，首项Todo aW595i。TGxL0Q最终harness已验证；current有效五项来自SCYYhp仍保留，legacy五项仅新batch正式结果。恢复先检查mmZCxb/suite-status与PID并wait31748，不再调用启动命令；TaskSpace4继续复用，五项terminal前不finish。
+- Round55 E415恢复：SCYYhp driver86536及legacy runner82826/后续模型进程均已停止；suite-status的running为被中断后未刷新的投影，不能续wait或重复启动。current五项有效正式结果保持；legacy Todo iFiRLX是harness-invalid pilot（误用新版封套migration gate），不是旧版业务失败。interruption-observation.json核验driver死亡、临时auth清除、保护未变；pilot全部9.11min及usage单列保留。修复仅harness版本reader及SIGTERM禁止派生纠偏，原两candidate不变。最终TGxL0Q副本10定向测试/69断言通过，最宽check进行中，旧五项正式试次仍待运行。
+- Round55 live入口：batch /private/tmp/depa-codument-e2e-batch-SCYYhp，driverPID86536，exec27862。current五项terminal：Todo qD39h4首次外层PASS（18.70min）、stream 4V3XIf一次纠偏PASS（21.96min）、Blog L6Eq7T正式infra（37.12min，UI fill aside遮挡timeout/fence）、Ecommerce TzOmpZ两次纠偏PASS（32.18min）、Nested VYDrYT两次纠偏PASS（34.21min）。current全试次4/5、首次1/5、含失败总144.17min。legacy Todo iFiRLX已启动，其余legacy四项未运行。唯一TaskSpace4/p1。冻结Wo6WDr、harness7cdf5392…、两candidate372fe0…/cb8163…不改；真实新生成，不是历史复验。不要重复启动driver。最终observer verification/observe-paired-round55.ts仅在batch terminal后运行。
+- Round55预检E411：最终Wo6WDr/manifest4f931c…；共享harness7cdf5392…，current0.6.0 compiled372fe0…，legacy0.5.4 release bba44a1 compiledcb8163…。两smoke0modelPASS；全check708pass/1个既有release失败，类型/全lint通过。唯一TaskSpace4 agent ownership。准备启动十试次串行driver，未跑任何新生成case，不用H5YeNd中间副本。
+- Round55起始：用户新授权五case两版fresh完整对照。旧src保留但ce0f2cb有历史修改，因此基线选真实0.5.4 release commit bba44a1而非不明旧global。两版package+锁对旧依赖一致，root node_modules compiler0.2.8存在。当前harness hardcode新global Skill/std退役/CLI名字，必须先显式产品adapter与负例，不能直接跑旧版伪造劣化。尚无新模型运行；TaskSpace3已关闭不可用。
+
+- Round54最终E410：四批全部terminal；最终TCfQTo/7baUFB的Todo hw66Uc、Blog eXfiFW、Ecommerce 6LuHIb均正式只读UI PASS，无protocol repair/uncertain effects。98pass/0fail/587assertions，类型/e2e lint/smoke通过；全量705pass/1个既有release版本硬编码失败，未修改该发行文件。报告terra-protocol-round54.md/.json保留全部旧失败与成本，23个实际Terra/medium上下文、34个端点已释放、auth移除、原source/历史result/candidate/global保护不变。TaskSpace3已finish一次成功，不可复用。当前修复范围闭包完成，不宣称完整编码100%或整个mission完成。
+
+- Round53用户授权其他四case新试次；观察当前无e2e runner或Codex exec活跃。原TaskSpace1已finish不能复用。先更新harness并preflight，通过后建立新测试任务唯一TaskSpace；不为故障新建替代space。
+- Round53预检实际：完整snapshot WUkXEf，源manifest71021a09…，原codument/与旧bin指纹不变。副本升级仅review-required（0变更/226unchanged），不当成功升级；当前CLI候选dist/depa-codument-r53真实build144资源。74pass/0fail/411assertions，typecheck/lint过线；smoke bhCblZ十项全过；新任务唯一Ego TaskSpace2/p1，MPxfMx真实persistent fixture三轮+释放通过，无模型使用。将执行持久batch driver，CLI/Skill/harness冻结，不混用A9TGIb旧候选。
+
+- Round52终态（E394）：持久通道修复真实dialog跨调用丢失、并发操作、uncertain timeout重放和native证据准入问题。Fq8mwC使用Terra/medium，在原cq3qL4只读源上完成55次请求及四段edit prompt，正式业务failed：Log out后仍显示Signed in。最新源码fixture三轮和异常owner watchdog释放通过；74pass/0fail，类型/lint通过。源码指纹保持，未改任何应用、OpenCLI/Ego/global。TaskSpace1成功finish一次关闭p1；修复前两个实验listener仍可连接，新通道不管理旧listener，不杀共享NodeService。
+
 - Round46（XNL 作者面专项收口，E386）：用户会话 `f76ab893` 昨日被打断，三个问题未答；本轮先补答再续做。（1）确认 `?</?>` 独立 lint 拆除方向正确（字节不可判定，只保留解析失败提示），三处文档/实现一致；（2）需求第 2 条 SKILL.md 高优引用已核实落地；（3）清除 products 层中文残留（workspace SKILL/install 仍宣称维护已退役的 behavior/modeling/engineering），根因是 abandoned-domain 守卫 ASCII-only 且只扫 codument/std/**；（4）clone `Cannot find module` 缺口**不是产品缺陷**——`bun.lock` 所钉制品本含 `./clone`，是 node_modules/bun store 陈旧（Sep 6 < lock Sep 13），按 lock 起本地制品 registry 并清 store 后重装即复原。当前 `bun run check` = 670 pass / 0 fail / exit 0，`tsc` 0 error（原 11），lint 0。回滚点 592be14 / e3e6a46 / b8093bd。
 
 - Round45：用户确认执行真实E2E六步。旧runner调用旧bin/Skill、隔离不足、score不以失败退出，不能直接复用。开始project/e2e新runner；旧源/global保护不变。
@@ -633,6 +809,16 @@ Round: 49
 
 ## Last action
 
+- E432：启动唯一新版五case串行batch，PID81387/tool7533；第一项Todo6RHPUl。review-probe真实通过、其下载重试成本单列。没有人为修App或放宽验收。
+
+- Round58：重新阅读mission/control-loop、DEPA事实边界、Ego完整Skill与Round55原始失败日志；读取当前harness/安装布局，更新授权与三节点。尚未改业务源码、创建浏览器任务或启动模型，先preflight。
+ - E430：preflight通过、harness修复及41项窄回归过线。新独立副本8fKHQp已生成，唯一TaskSpace5 ownership agent/p1。最宽check在tool session68575；原workspace/旧bin保护通过。当前未启动真实模型/全局安装。
+
+- Round57 E429：preflight后清理14份operation及其共享引用/Host安装文档，合并退役update-sop；补资产一致性守卫源码并按simplify做局部可读性审阅。重新从用户需求、MISSION与AT1–AT3观察实际资产及diff，旧名只出现在description/compat，CLI指导与Agent执行/授权边界分开；静态引用和身份核对通过。未运行测试/build/install，也未改真实codument/、全局bin/Skill或其它dirty改动。
+
+- Round56 E428：先通过mission preflight，再并行修改规划/实现提示词、由父层维护共享方法与验证/反馈引用。主审与独立只读复核纠正auto默认/未决及AttractorCheck目标重建/范围表达；最终diff与引用闭包无残留问题，仅静态交付，不运行项目测试或安装。
+- E425–E426：旧Nested末轮独立复验通过，十项正式终态合并；只读重观察需求/policy/candidate/hash/实际Terra身份/完整父子token、原保护与19endpoint/6origin释放/11Skill根保持，TaskSpace4关闭一次。报告含逐项/阶段/总成本、共同通过事后子集、infra/pilot及历史收据删除限制；未人为修App或安装global。
+- Round55：旧版真实pending Track由自身0.5.4 strict validator通过，但共享harness新版reader误拒；显式停止自己的driver/runner/模型组，未杀共享浏览器服务。新增legacy envelope及中断负例；TGxL0Q最终副本验证，既有新版五项不改判/不重跑。可选同字节额外新版五项问题未获新授权，默认保留有效新版组，只补旧版五项，报告明确harness SHA差异及普通新版分支不变。
 - E364–E366：以 eidolon/deepseek-iqingwa 完成首轮真实试次与摩擦取证。**harness 侧四项缺陷已修复并在生产中验证**：E360 传输故障分类（`x11VDp` 中 socket 断开正确记为 `infrastructure-failed`，仅消耗 1 attempt 而非派生纠偏）、E361 沙箱隔离（按族拒绝 `/tmp/depa-codument-*` 并重开本 run 根；真实沙箱正负例 + 回归用例；plan-0 harness 读取由 31 次归零）、E362 交付 reason 契约、E363 封套错误分类（implementation 归业务、reviewer 归 infrastructure）。同策略前后对照：plan-0 由 1239s/121 命令/8.66M prompt 降至 620s/33 命令/3.08M，−50%/−73%/−64%（各 1 次样本，token 为 estimated，仅同 provider 相对比较）。
 - 业务面：todo 三轮 implementation 后真实交付并通过 22/22 测试、typecheck、build 与三条 workflow 门，但 `verifyHttp` 因应用把绝对 `DATA_FILE` 二次拼接（`/state//state/store.json` → `SQLITE_CANTOPEN`）而启动失败；已复现定位，属**真实产品缺陷**（E366），计为业务失败。六步中 stream/blog/ecommerce/nested 与重复用例尚未观测。
 - 摩擦报告：`~/.depa-si/codex/reports/e2e-eidolon-friction-2026-09-13.md`（含 TrialIdentity、7 条 finding 分类、修复效果对照、不可推出的结论）。原件指纹与旧 global 未变。
@@ -640,11 +826,74 @@ Round: 49
 
 ## Next
 
+- E441当前停点审计：本轮用户明确选定的验收全部完成，当前授权分支无待做动作；不启动下面的历史Next/旧版重跑/额外完整样本或应用修复，不归档整体mission。后续更广的重复样本、Todo应用/产品质量优化、npm发行/真实dogfood升级需新的具体方向，不能从本轮“查看真实效果”扩展推导授权。再次恢复先读最新用户要求与这两份报告，不重启已结束7533/75977、不重开已finish的Space5。
+
+- 只读复验恢复：先读qoSE4C/result.json，未terminal且tool75977活跃则只等待。terminal后运行 observe-supplement-round58.ts /private/tmp/depa-codument-e2e-batch-CKnlv2 /private/tmp/depa-codument-verification-ayFIAU/depa-codument/project /private/tmp/depa-codument-e2e-O6wcE0 /private/tmp/depa-codument-e2e-qoSE4C；若真实infra未闭合不得假PASS。此后finish Space5一次，完成本轮报告/Acceptance，保留原formal4/5与历史成本。
+
+- E440现在执行：在R58b ayFIAU以 E2E_AGENT=codex E2E_EGO_SPACE_ID=5 PATH含实际Bun，运行 bun e2e/run.ts ui-reverify /private/tmp/depa-codument-e2e-6RHPUl --bin=/private/tmp/depa-codument-verification-ayFIAU/depa-codument/project/dist/depa-codument。新根/工具session输出后记录，恢复只等待活跃session，不重生成或改原root。终态后observe-supplement-round58.ts参数=batchCKnlv2、R58b project、probeO6wcE0、实际复验root；核验source/result不变、模型/额外usage/worker/auth。然后owner通过Ego taskSpace(5)并finish({keep:[]})一次，观察resolve后最终报告与本轮Acceptance；整体mission不因本轮测试完成就归档。
+
+- E439恢复：tool7533/CKnlv2正在Nested fwEKS5，读取suite-status/result后等待，不重复driver/模型。全部五终态后：PATH=/Users/kongweixian/.bun/bin:$PATH E2E_AGENT=codex E2E_EGO_SPACE_ID=5 bun e2e/run.ts ui-probe --bin=/private/tmp/depa-codument-verification-ayFIAU/depa-codument/project/dist/depa-codument（cwd同R58b）；通过再同环境执行ui-reverify /private/tmp/depa-codument-e2e-6RHPUl，两个真实根与结果产生后追加证据、成本单列。然后observe-latest-round58审计正式五项，核验追加根的源保护/model/worker/auth，最后finish Space5一次。未到停点。
+
+- E438恢复：不要再重跑已过39/732基线；tool7533的Ecommerce/Nested未终态则继续等待。五终态后从R58b ayFIAU使用Space5串行ui-probe及Todo6RHPUl ui-reverify，成本独立；新harness hash应为b89fb6…。随后observer报告与保护/worker/auth核验、finish Space5一次。
+
+- E437当前可做：通过preflight后补精确TypeError分类/负例并同步独立R58b，重跑窄及bun run check，记录新harness hash；同时tool7533仍推进Ecommerce/Nested，不启动第二browser owner。随后按E436完成串行真实fixture/只读复验/审计闭包。
+
+- E436恢复：tool7533/CKnlv2正在Ecommerce wrDe62→Nested，等待不重启。完整终态后执行R58b的ui-probe及Todo只读ui-reverify，再独立observer审计五项/额外成本与端点、auth、全局/原件保护，最后finish Space5一次。正式业务FAIL/infra不改历史；不把两个PASS当作全部任务完成。
+
+- E435恢复：继续等待tool7533/CKnlv2的Blog→Ecommerce→Nested，先读suite-status/result不重复启动。全部五终态后，使用R58b ayFIAU在唯一Space5串行运行新增真实fixture与Todo6RHPUl独立只读UI复验（成本另列）；随后observe-latest-round58审计/报告，最后finish Space5一次。当前未满足可停止条件。
+
+- E434恢复：tool7533/batchCKnlv2仍运行，当前Stream GmC9IB；Space5唯一。新原仓harness参数修复后独立R58b snapshot/窄宽验证，自有browser fixture只在当前无UI case或整个batch结束后串行执行；Todo只读复验必须等batch结束避免同Page并发。未到TaskSpace finish停点，不重生成/重置attempt。
+
+- E432恢复：读取 /private/tmp/depa-codument-e2e-batch-CKnlv2/suite-status.json及各result/progress/logs；tool7533若仍运行只等待，不新建driver。当前Todo6RHPUl。完毕后审计所有模型/成本/attempt/UI收据、释放endpoint/auth/TaskSpace5并以Round55历史对照出报告。未到可停止条件，不因第一项结束就返回。
+
+- E431当前：TaskSpace5仍agent-owned；最终候选8fKHQp/project/dist/depa-codument SHA688dca…，已定向安装。review-probe8lnc8V/tool96203仍在执行，先读结果不重复启动；随后latest-e2e-round58.ts串行五case并即时持久化batch root/PID。实际失败不人工修App，缺证据不能PASS；未知场景/协议仍失败关闭。
+
+- Round58当前：先preflight，再核实Ego确切派发前错误和Codex结构化输出机制，修harness及负例；完整独立副本窄/宽检查、build与一个新的Ego TaskSpace自有fixture过线后定向安装最新新bin/App，再同冻结候选串行五case。快照/候选/space/driver PID/日志产生后持久化；不执行下面历史启动命令。
+ - E430恢复入口：/private/tmp/depa-codument-verification-8fKHQp/depa-codument/project；TaskSpace5（仅一次创建，待finish）；候选将为project/dist/depa-codument。先读取68575检查结果，再build/smoke/ui-probe，随后版本/完整App核验与定向全局安装；五case driver待创建。不得复用/覆盖Round55结果。
+
+- Round57当前停点：本次确认的文本/资产检查源码修改及静态验收已交付。用户明确先不重跑测试，当前不build/install或扩大实施；整体mission保持active，不能归档或把未运行测试报PASS。若后续获准验证，应从最新正本建立/tmp隔离候选，先执行资产一致性回归及相关宽检查，再另行验证模型效果；不复用Round55结果当新版本改善，不执行以下历史启动命令或恢复已结束driver。
+
+- Round56当前停点：当前授权的提示词迭代与静态验收已闭合，用户明确先不重跑测试；不执行以下历史命令，不启动新的模型/E2E、build、安装或更宽实施。后续如获授权，须从更新后的正本建立新的隔离候选，再验证效果，不能复用Round55旧结果宣称改善。整体mission保持active，未决节点与既有发行失败不改判。
+- 以下保留历史恢复入口用于追溯，不是当前执行授权；Round55/54已闭包且TaskSpace已关闭，不复用。
+- E426当前入口（覆盖以下所有历史启动/live命令）：本轮两个batch和十正式试次均已结束，TaskSpace4已关闭；不要重新run/恢复旧driver/finish第二次。向用户交付paired-e2e-round55报告及准确限制；本轮不继续生成、修业务App/产品、切global或扩大重复样本。更宽Mission仍未完成，后续行动须按用户新选择重新观察，不能把本次测试交付done当作整体归档条件。
+- Round55 live优先入口：wait exec31748/driver2396，观察mmZCxb自动旧五项串行。不热改TGxL0Q、被测App或budget；quota真实硬限制停止后剩余unknown。正式结果全部terminal后新聚合observer读取SCYYhp/interruption-observation与mmZCxb，共十个有效试次和单列pilot成本，明确harness SHA兼容差异。当前不再执行下面历史启动命令。
+- Round55当前恢复入口（覆盖以下历史live说明）：TGxL0Q check session69288；完成后两candidate无模型smoke及真实旧pilot只读policy/handoff/strict admission。通过后 E2E_AGENT=codex E2E_EGO_SPACE_ID=4 bun verification/paired-e2e-round55.ts /private/tmp/depa-codument-verification-TGxL0Q/depa-codument/project /private/tmp/depa-codument-verification-Wo6WDr/depa-codument/project/dist/depa-codument /private/tmp/depa-codument-verification-Wo6WDr/legacy-0.5.4/dist/codument legacy-only。启动前记录，启动后持久化新batch/PID/session；不要恢复SCYYhp或iFiRLX。串行旧五项formal terminal后合并两个batch有效组，pilot成本另外保留，sourceSHA差异明示；全部自有worker/auth释放、原件保护核验后finish agent-owned TaskSpace4一次。
+- Round55恢复优先：先读SCYYhp/suite-status.json和qD39h4/progress.json/日志及PID，wait exec27862（如果仍live）；不按下面历史启动命令再起进程。driver串行自动current五→legacy五；新的case/attempt只观察不人工修App。完成后comparison.json/report.json和各raw root归档到本mission分析，审计所有实际模型/token含失败、未运行项目明确unknown。
+- Round55立即动作：E2E_AGENT=codex E2E_EGO_SPACE_ID=4 bun verification/paired-e2e-round55.ts /private/tmp/depa-codument-verification-Wo6WDr/depa-codument/project /private/tmp/depa-codument-verification-Wo6WDr/depa-codument/project/dist/depa-codument /private/tmp/depa-codument-verification-Wo6WDr/legacy-0.5.4/dist/codument。启动后记录batch/PID/session，恢复只观察该driver与progress/原生日志，不重启、不改冻结harness/产品。全部terminal后核对保护、实际模型、身份/Skill、需求/policy一致、所有阶段成本，整理comparison并按Ego生命周期结束space4一次；quota/control真正阻塞则保留未运行为未知，不能叫失败或买额度。
+- Round55：先通过preflight，再改共用harness显式current/legacy产品安装和operation路由、旧e2e入口复用，补phase/版本比较报告与负例。完整copy working tree+root依赖，git archive旧release于同/tmp冻结区，两版build/smoke；通过后新建本任务唯一Ego space，记录精确snapshot/bin/hash/driver恢复入口再串行五新→五旧，不重启live runner，不热改。
+
+- Round54已收口：无运行中的driver/模型，四批不重启；TaskSpace3已关闭不可复用。后续先读E410与verification/terra-protocol-round54.md/.json。当前授权仅harness修复与已有App只读验证，不继续生成或修业务App，不覆盖旧结果。更宽mission仍未完成；发行版本不一致须在后续发行工作中明确处理，不为本轮测试绿色改动另一session的manifest。若新增真实浏览器任务，按Ego规范建立其生命周期，不复用已finish的TaskSpace1/2/3。
+
+- Round53：`bun .cdmt-lite/missions/active/codument-cli-skill-app-refactor/verification/isolated-project.ts round-53-terra-other-cases`创建独立完整副本，再build新的dist/depa-codument-r53。跑副本harness回归/typecheck/lint、smoke与真实ui-probe；全部过线后串行运行四case，保存每个run root、pid和terminal。当前不启动重复Todo、不写旧root/global，不降低policy。
+- Round53即将运行：`E2E_AGENT=codex E2E_EGO_SPACE_ID=2 bun verification/terra-other-cases-round53.ts /private/tmp/depa-codument-verification-WUkXEf/depa-codument/project /private/tmp/depa-codument-verification-WUkXEf/depa-codument/project/dist/depa-codument-r53`（driver实际位于本mission verification）；新/tmp batch root的suite-status.json是恢复投影。先stream、再blog/ecommerce、最后nested，独立业务纠偏最多2次；不改变公开policy。未产生root前不要猜路径或启动第二driver。
+- Round53已启动：batch /private/tmp/depa-codument-e2e-batch-Pb3Wsb，driverPID52440，exec47122；当前stream根/private/tmp/depa-codument-e2e-6hHPey，恢复先检查suite-status与进程，等待当前driver而非再次调用run。候选SHA372fe0be…、harnessSHAe3125d26…；本轮Ego空间2，前一空间1已关闭。
+- Round53实际E396：Stream6hHPey首次passed（attempt0、716314ms），input3062024/cached2835200/output36719。driver仍活跃，当前Blog DC1eur规划；ecommerce/nested待串行。恢复以suite-status当前row为准，不再次启动stream或Todo，不改变冻结policy或candidate。
+- Round53当前E398：Stream6hHPey已首次PASS；Blog DC1eur已terminal infra（attempt0真实缺评论UI，attempt1模型修复后参数TypeError误fence）；Ecommerce2L0ERN真实UI0缺catalog入口业务FAIL，implementation1进行；Nested待串行。原batch Pb3Wsb/exec47122继续，禁止重复driver、热改WUkXEf或重置任何预算。
+- 另一个修复snapshot3BgWtq已完成77pass/0fail/457assertions、typecheck/lint exit0；只改options判型/timeout分类及自有fixture参数拒绝恢复。等待原batch终态后在TaskSpace2实际ui-probe，然后以原候选SHA372fe0…对DC1eur独立ui-reverify（原app只读、历史infra仍保留）。不要并发抢p1、不重生成Blog；复验另存receipt/usage，最终四case加复验报告与模型身份核验。
+- E400补充：Ecommerce2L0ERN attempt2点击空cart禁用按钮触发ElementResolutionError，旧regex误fence，原trial已infra终态（3 attempts）。Terra自己的proposal另有availability finding，但不能用未准入proposal改写terminal。Ego文档默认snapshot是only_within_viewport，可能让第二轮“按钮消失”成为不完整观察；需只读复验，不提前断定原finding真/假。修复扩展到默认full_page、确切disabled pre-dispatch拒绝可恢复（仍尊重late-effect旗标），以及支持Ecommerce独立复验；最新snapshot actionability-repair待记录。不热改WUkXEf，Nested lbJOqz已plan0进行。
+- 当前可做调和：Nested lbJOqz已implementation0，harness明确跳过nested/stream的UI gate，使用独立双后端端口且不会占TaskSpace2；Ecommerce browser worker已finally释放。Nd2w5C最新81pass/0fail/482assertions、typecheck/lint exit0。可在Nested代码阶段执行同TaskSpace2无模型fixture校准，再串行两个已交付App的只读UI复验；不并发任何browser owner、不启动新的business trial、不改冻结batch。四个业务试次仍原driver串行；校准/复验另记版本与receipt，最终统一报告。
+- 最新恢复入口E401：修复snapshot wPYHlz/project，82pass/0fail/486assertions与类型/lint通过；真实bAkeMb fixture三轮+worker release全过。Blog只读复验DhAbq9已运行（exec36508，源DC1eur，sourceFingerprint bcca14fd6d61f1c1bf7671985ad20c404f95bc3f962f07ab3d963382696e4b9e，candidate仍原r53）；不得重复启动/改源。后续Ecommerce2L0ERN同harness独立复验。原batch Pb3Wsb/exec47122的Nested lbJOqz还在implementation0；最后核验所有observed Terra contexts、源指纹、原result不变、worker release与cost报告。
+- E403当前入口：DhAbq9已infra终态（79次真实UI无工具错误、proposal业务PASS，但channel提示漏operation枚举；不改历史）。共享ui-contract.ts收敛prompt/admission/controller的格式真源。roZYDq新snapshot宽回归82pass/0fail/489assertions、typecheck/lint exit0；Ecommerce只读SGz97i（exec94241，源2L0ERN，fingerprint9ff779…，原候选不变）正在验收。其后同最新版harness再BlogDC1eur只读复验，不重新生成。原batchNested lbJOqz implementation1已补live双server随机测试，fresh verify仍运行。保持原结果+每个额外复验cost，最终报告不能把旧infra覆盖成PASS。
+- Round53最终入口E405：Pb3Wsb已completed，exec47122/36508/94241/31543均terminal；不重新启动。四个原result保留：Stream首次PASS、Nestedattempt2 PASS、Blog/Ecommerce infra。roZYDq的SGz97i正式业务FAIL、Nq7Zg0正式UI PASS，DhAbq9较早infra仍保存。report已落verification/terra-other-cases-round53.md/.json；42个Terra/medium上下文、两个source guards、原保护指纹、13个worker endpoint和TaskSpace2finish核验完毕。
+- 停点自检：当前用户选定的是跑其他四case；其执行与协议验收均已真实闭包（记录业务FAIL也是测试交付，不是要求继续修App）。最新源码相关82项回归/类型/lint和真实fixture/UI复验已通过规范；不在原budget之外追加实现或调用未授权重复测试。更宽Mission/比较待办仍pending，不归档或声称全部期望完成。这是当前范围验收完成后的handoff，不是“做了一段”即停。
+- Round53新实际：Blog DC1eur attempt1因TypeError说明里timeout字段被宽regex误分session fence，以infrastructure-failed终态保留；不是实际CDP timeout。原driver已进入Ecommerce 2L0ERN（计划strict完成），继续冻结版本；当前并行只修original通用输入/分类逻辑并跑无模型测试。全部冻结cases终态后，在独立修复副本用同TaskSpace2只读复验Blog；不改原result或预算，不再生成Blog。
+
+- Round52当前范围已收敛：报告和正式receipt保持可追溯，Fq8mwC终态failed，不启动implementation correction，不重写旧trial。最新fixtureYoHKIY三轮通过且workerReleased；异常owner6vzYC4 endpoint在watchdog deadline后不可达。下一次真实浏览器任务需要按Ego规范建立任务生命周期，不能复用已finish的TaskSpace1。
+- 后续完整套件与发行仍未完成。执行边界自检：本次用户要求的深度harness修复已真实验证；用户“只分析已有E2E结果、优化框架”的范围边界排除了后继重新生成全套应用，当前历史Blog源缺失。保留mission active，不以节点完成归档，不擅自扩大为生成/业务修复/全局安装；若恢复其他旧应用专项验收，必须先定位其冻结workspace与历史provenance，不复制旧PASS结论。
+
+- Round50/51的旧Next由E394终态覆盖；详细失败、恢复与成本保留在E388–E391及历史报告。当前无运行中的模型试次，不延续已终止的session64524/75097，不恢复OpenCLI修复，不复用已finish的TaskSpace。
+
 1. Todo/Blog 的旧 result 继续是 infrastructure-failed；报告单列 historical UI re-verification，不把它们并入历史首次/纠偏通过率或伪造旧收据。不要重跑它们的模型生成阶段。
 2. 依据余下 mission 的真实测量节点，先观察既有 Stream/Nested/Ecommerce 证据与未完成兼容范围；不在本节点后擅自启动新模型 E2E。
 3. 长期兼容、历史语义 review 及完整 gates 仍未收口；不自动退役旧src、切根发行、升级真实 codument、覆盖 global 旧 bin 或发布 npm。
 
 ## Decisions and replans
+
+- D25（Round57，2026-10-04用户确认盘点）：旧Skill名称不是当前执行入口；description和compat保留历史发现，其余当前指引使用depa-codument顶层CommandOperation。当前spec.command/FQN为authority，不从文件名或删前缀推断碰撞命令，不重命名身份。仅清理global正本与补资产检查源码，测试/安装明确延后。
+
+- D24（Round56，E427分析及2026-10-04用户授权）：把模糊需求当正常输入，通用方法不以Web分类作主干。当前路线假设可随证据改，已确认约束不可擅删；按承诺选择安全观察、独立重建目标、失败修正正确owner。仅迭代提示词并静态复核，真实效果验证明确延后，不从旧E2E/安装授权推导本轮执行权限。
+
+- D23（Round54）：用户批准上一轮分析的harness修复。scope计划和动态数据准备由AI从原始文件生成，harness只做来源、租约、有限能力与证据准入。引入一次protocol-only correction，独立计成本并冻结业务判定；不启动新生成试次或产品纠偏。
 
 - D22（E284，2026-09-11）：用户纠正global是固定位置Effect加载的真正CLI SkillApp；完整文件夹直接对应Halfcode VFS资产，安装复制/升级整包替换。当前能力动态查询；SKILL按需路由references/std/compat/operation-alias.md解决历史skill映射。references/std布局与项目std清理约束见MISSION17…20。助手手写第二份操作清单、单纯换资产目录名、保留旧global定制活动文件等建议被否定；E275–E277不作为新目标完成证明。新global安装已授权但本轮只记录，旧bin/原dogfood保护不变。
 

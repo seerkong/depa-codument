@@ -3,6 +3,7 @@ import * as path from 'node:path';
 import assert from 'node:assert/strict';
 import { isDataElement, orderedElementChildren } from 'depa-codument-domain-logic';
 import { resourceRoot } from './resource-oracle';
+import type { ProductProfileId } from './product-profile';
 
 export const HOOK_KINDS = ['GapLoop', 'AttractorCheck', 'HumanConfirm'] as const;
 export type HookKind = typeof HOOK_KINDS[number];
@@ -94,8 +95,8 @@ function children(node: Element, tag?: string): Element[] {
   return orderedElementChildren(node).filter(isDataElement).filter(child => !tag || child.tag === tag);
 }
 
-export function assertTrackWorkflowPolicy(source: string, policy: WorkflowPolicy = WORKFLOW_POLICY): void {
-  const root = resourceRoot(source, 'track');
+export function assertTrackWorkflowPolicy(source: string, policy: WorkflowPolicy = WORKFLOW_POLICY, product: ProductProfileId = 'current'): void {
+  const root = resourceRoot(source, 'track',product);
   assert.equal(root.attributes?.commit_mode, policy.commitMode, 'E2E Track commit mode differs from declared policy');
   const spaces = children(root, 'TaskSpace');
   assert.equal(spaces.length, 1, 'E2E Track requires one TaskSpace');

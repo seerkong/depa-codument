@@ -18,6 +18,22 @@
 
 ## Notes
 
+- 2026-10-04 Round58授权：用户要求修复Round55新旧对比留下的测试基础设施失败，再构建/全局安装最新版depa-codument及配套global App，运行真实E2E。覆盖Round56/57“先不测试/build/install”的当前暂停，但不改写其历史证据。代码在原仓改；回归/build/模型与业务验收在/tmp副本；定向覆盖新bin及claude/codex/eidolon同名Skill，旧codument、原项目codument/和相邻Skills不升级。五个新版fresh case串行、gpt-5.6-terra/medium、原需求和公开policy、最多三attempt，与Round55历史组描述性对照；不重跑旧版或覆盖旧终态，不手工修生成App。源头库存=当前完整global App/工程版本及Round55原生失败日志；需要改造=收据交付和已证实的浏览器派发前拒绝分类、真实发行安装闭包；最终暴露=相同产品命令与SkillApp、可追溯的五case结果，无专用业务脚本、强制点击或预算重置。
+
+- 2026-10-04 Round57授权：用户确认按旧Skill残留盘点修正global SkillApp正本。当前14份CommandOperation的标题/执行入口/交接示例改为真实CLI命令，纠正废弃std/operations路径及克隆Host安装说明；description与compat历史别名保留，spec.command/FQN/manifest及检查协议不改。可补global资产一致性测试源码但不执行测试；继续遵守先不重跑测试、不build/install、不改旧src、真实codument/、全局旧bin/Skill或生成应用。独立重观察采用本会话只读静态审阅，不委派新代理、不启动业务流程。
+
+- 2026-10-04 Round56授权：用户同意按 `analysis/general-spec-convergence.md` 迭代产品文本提示词，先不要重跑测试。只改 `project/` global SkillApp 正本内的 Markdown 操作/方法/适用引用及本 mission；不改 CLI 逻辑、资源合同、harness、需求文本、已生成应用或旧 src，不构建、不安装、不运行项目测试、E2E 或被测模型会话。允许 mission 结构预检、静态差异/链接检查及只读语义复核。Round55冻结快照和历史结果仍保留，其冻结约束不阻止本轮明确授权的正本提示词迭代；旧结果不覆盖新提示词效果。
+
+- Round55授权：用户要求最新重构CLI编译产物与配套Skill重新执行五case完整E2E；将root e2e接到同一新harness，对重构前0.5.4发布提交bba44a1ac23cb8d5b2312f3cd0c9f78ddd471a8e执行相同问题。两组各五fresh试次，Terra/medium、相同需求与公开workflow-policy/阶段预算、最多3attempt；先新版再旧版，均串行/tmp隔离。旧版安装/operation路由显式适配，不按新版global App布局误拒绝。计首次/纠偏结果、基础设施失败、阶段/总耗时、全部token（含失败）；不将旧UI复验或固定业务oracle混入。未经另行授权不追加重复样本或修改被测产品。
+
+- Round54授权：按Round53分析修复验收基础设施；范围为动态场景准备、API/UI范围声明、结构化失败分类、原生观察引用与一次有界协议修正、完整契约回归。仅在/tmp副本验证，既有Todo/Blog/Ecommerce只读复验，不重新生成或修改交付App，不重置旧预算/结果，不覆盖global或改浏览器工具。模型仍为gpt-5.6-terra/medium；基础设施校准先无模型。
+
+- 2026-10-03 Round53执行记录已收口，见verification/terra-other-cases-round53.md/.json：四个原试次terminal、原PASS2/4，追加Blog只读UI PASS/Ecommerce只读UI FAIL；旧infra和成本不改写，未跑Todo/完整重复试验或手工改App。修复限harness的参数/观察/收据协议，全局及原dogfood保持。当前公开policy v2的hook开关未改；结果不能与旧不同hook强度试次直接比较。整体mission仍active，当前用户选定测试目标完成不代表全部期望已最终验收。
+
+- 2026-10-03追加授权：用户要求用gpt-5.6-terra再跑其他Halfcode改造后的E2E case。本轮启动stream-pipeline-ai-agent、blog、ecommerce、nested-mission-agent四个fresh真实试次，medium、串行、沿用当前公开workflow-policy与最多三次attempt；不重跑已复验Todo，不覆盖旧trial。此授权覆盖先前只分析已有结果/只读Todo的执行范围限制；仍不改global/OpenCLI/Ego或原dogfood。结果无论通过、业务失败或infra均保留，不为通过手工修测试应用。
+
+- 2026-10-03最新纠正：用户要求恢复Ego Lite验收，不修改任何OpenCLI代码；此前OpenCLI-only策略由此取代。harness只拥有隔离、工具就绪与证据协议；生成项目的具体操作、定位器、预期业务判断必须由fresh Terra验收代理从完整需求与实际页面推导，不写死到harness。先只读复验已有Todo，避免重新生成。
+
 - 2026-09-12真实E2E实施授权：新增期望-10及约束-21。按smoke→todo→stream-pipeline-ai-agent→blog/ecommerce→nested-mission-agent→关键用例重复运行顺序；真实Codex固定gpt-5.6-terra/medium，不发布、不改真实global。业务需求沿用旧e2e，runner及验收进入project/e2e。外层控制面仍MissionLite，测试业务workspace可实际使用产品Track/Mission。
 
 - 2026-09-11全局App纠偏见 [讨论记录](design/global-app-layout-correction.md)。本轮仅更新mission，不执行产品改造或安装。新约束17…20覆盖旧聚合方案中的生成文档、扫描发现、增量保留旧global文件和保留项目std前提。
@@ -41,6 +57,15 @@
 
 ## 期望结果
 
+- 期望-16: Round55遗漏的UI proposal和输入遮挡错误在真实harness边界得到可证伪的修复；有类型的Agent建议与harness正式收据分开，前置拒绝可重观察，未知副作用不重放。最新完整CLI/Skill构建并定向安装后，新版五case真实规划→实现→独立review/UI验收终态、首次/纠偏率、基础设施失败、阶段耗时和完整token均保留并可对照历史，不预设全PASS或以smoke冒充业务效果。
+
+- 期望-15: global指导App的当前操作正文、路由/交接与共享方法使用depa-codument真实顶层命令；旧Skill名称只用于description与compat的历史发现/映射。operations/为CommandOperation正文owner，资源元数据决定命令身份；Host初始化/升级参考与多agent及项目codument/边界一致。新增资产一致性检查能约束旧入口/退役路径/伪Skill壳而允许历史兼容区，不重造能力清单。
+
+- 期望-14: 产品提示词以通用意图—观察—行动关系指导模糊需求收敛：当前理解与已确认约束分开、关键未知不当范围外、最小安全可信观察及行动内反馈、按项目实际承诺选择验证、独立重建目标与失败归因/定向复验；不预置 Web 或其它封闭领域分类，不新增强制表、阶段、四 Agent 流程或第二份覆盖 authority。
+
+- 期望-12: 验收从原需求建立可追溯的API/UI/跨端/未明确范围计划；动态准备隔离数据且准备证据不冒充UI通过。参数/前置条件拒绝可恢复、未知副作用仍fence；收据引用原生观察，格式错误只进行一次有界协议修正，不重新执行业务或修改判定事实。完整链路能正常输出PASS、业务FAIL或有类别的基础设施/协议终态。
+- 期望-13: 重构后working tree与重构前0.5.4均以真实编译binary/版本匹配Skill在相同新harness完成五casefresh规划→实现→独立验收（HTTP case含UI）；报告同问题同模型同policy的阶段/总时间、首次/最多两次纠偏后正确性与完整token，并保留安装/协议/产品差异及所有失败证据。
+
 - 期望-10: 新版真实E2E覆盖已批准六步，模型固定Terra；独立环境/流程/业务验收、有界纠偏及复跑报告，首次和纠偏后通过率、token与耗时可追溯，不将Agent自述或smoke当业务通过。
 
 - 期望-11: Halfcode 的可复用资源 presentation 在本地 filesystem host 上，把资源详情的实际文件绝对路径暴露给 `list`/`search` 消费者；XNL `detail` 维持原文件正文且仅将已校验的 `vfs://` 引用解析为绝对路径。Codument 的长需求/验收上下文使用这些路径与输入覆盖投影，减少大文本 CLI 搬运而不删减必要原文、fresh 验证或检查轮数。
@@ -56,6 +81,17 @@
 - 期望-9: global depa-codument 是完整、可直接经公共VFS加载的CLI SkillApp资产文件夹；固定位置Effect加载，同一资源驱动help/dispatch与操作正文。安装完整复制、升级整包替换；项目升级成功后codument/仅保有项目资产。SKILL.md引导CLI动态查询及按需读取references/std/compat/operation-alias.md，不维护第二份当前能力清单。
 
 ## 约束
+
+- 约束-29: Round58原仓修改仅限harness、必要构建/发行一致性及mission；不修改业务需求、产品质量机制或既有/新生成App，不改OpenCLI/Ego源码。先在/tmp跑窄负例、宽回归与真实自有fixture校准，再使用同一冻结候选/Skill和harness跑五新版fresh case；仅新depa-codument全局安装获授权，旧codument及原codument/保持指纹。一个新TaskSpace贯穿当前任务，不复用已finish的空间；真实控制丢失不能绕过。协议失败不交business修复，所有失败/费用保留，不购买额度或npm发布。
+
+- 约束-28: Round57只改global SkillApp Markdown、相关资产一致性测试源码及本mission；保留已有dirty编辑、SKILL描述与compat映射、当前14份资源的command/FQN/envelope/spec和manifest、Hook/fresh/round/HumanConfirm语义。不改变现有能力暴露面，不机械恢复或重命名其它operation；不执行项目测试/模型/E2E/build/install或修改被测App/旧产品/公共包。只做结构preflight、diff/引用/身份静态核对，不将未执行测试算作通过。
+
+- 约束-27: 本轮仅更新 global SkillApp Markdown 正本与 mission 文档；保留用户已有编辑、已确认行为合同、CLI/XNL/资源身份及全部配置 hook/round/fresh 语义。仅做结构和静态语义检查，不重跑任何项目测试/E2E/模型试次，不构建或安装global；不将静态复核或旧测试结果算作改进效果验证，整体 mission 保持 active。
+
+- 约束-25: harness无生成App专用端点、数据或点击脚本；AI准备能力仅经租约origin、计划声明的有限HTTP接口写隔离运行数据，关闭后不可复用，不能读写源码/需求。API-only/未明确项不能冒充明确UI缺陷；未知范围不可静默计为覆盖。协议修正不能变更status、业务finding或预期、不增加浏览器动作、不重置业务预算；原生日志只由harness写，跨会话/失败观察/准备HTTP响应不能充当UI证据。
+- 约束-26: 仅测试基础设施和mission代码在原仓修改；两个产品源码/Skill快照冻结、不热改业务试次。旧版binary来源为发布commit、新版包含tracked dirty及eligible untracked；旧组只能显式选择legacy adapter，不能全局fallback、改名冒充新版本或借新CLI完成workflow。原global两bin/Skills和codument保护；一任务一个Ego TaskSpace；所有auth/owner端点释放可查。没有AI seed控制，不能把单样本差异宣称普遍因果效应。
+
+- 约束-24: 本轮 E2E UI自动化恢复Ego Lite，无直接Chrome fallback，不修改任何OpenCLI代码。fresh agent从完整需求和真实页面自主决定验收操作与语义判断，harness不能预置生成应用业务流程或DOM/API判据；确定性探针只验证harness自己的固定fixture与证据协议。工具能力在同sandbox模型前预检；工具失败不启动business correction。
 
 - 约束-21: E2E临时项目/home/session/验收证据隔离，明确固定CLI和Skill哈希、模型及配置；不复制个人配置/插件/旧Skill，不回退旧bin。不关闭产品质量机制，不由被测Agent改验收或框架源码，不将质量分数抵消失败。真实调用已授权但不购买额度；凭据不进日志。关键用例todo与stream各重复至少一次，真实失败和基础设施失败分别计数，缺usage不按0计。两次外部纠偏为默认上限，耗尽保留失败而非重置首次结果。
 
@@ -85,6 +121,18 @@
 - 约束-14: local 路径不读取 Serve record、不 health probe、不隐式 start、不依赖 HTTP Serve；必需常驻调用继续安全失败，不降级 local。策略由软件契约拥有、Server 复验，不新增万能 argv/code RPC、第二 daemon 或 placement 业务配置；不照搬 Omni 未在本项目存在的 BaaS/token 机制。
 
 ## Acceptance
+
+- [x] 期望-16、约束-29、约束-4、约束-16、约束-24、约束-25 → /tmp harness窄负例及bun run check、最新CLI release/build与smoke、同TaskSpace真实ui-probe、定向全局bin/完整App指纹与命令核验、五caseTerra完整终态/report → 原生证据支持分类/交付、未知超时不重放，真实原件/旧安装保护，首次/最终/infra/时间/token和模型身份可追溯；与历史差异明示，不宣称因果改善或整个mission完成。E430–E441，verification/latest-e2e-round58.md/.json；732宽回归/类型/lint与真实fixture、两个独立审计exit0，正式4/5最终/2/5首次、Todo追加真实业务FAIL，Space5 finish一次resolve。只完成本轮选定验收，整体mission不归档。
+
+- [x] 期望-15、约束-28、约束-4、约束-17、约束-18 → E429：mission preflight、剩余旧名/退役路径静态扫描、14份资源frontmatter与manifest/SKILL/compat基线比对、42处本地链接及角色/安装边界审阅通过。当前正文采用真实CommandOperation入口，历史别名仍可发现，资产引用闭合，configured检查保持；一致性测试及9条负例源码已补但未运行，只验收本轮文本/检查源码交付，运行验证、效果测量与安装仍延后，不覆盖整体mission验收。
+
+- [x] 期望-14、约束-27、约束-4 → E428：mission preflight、选定 Markdown diff/链接核对及独立只读语义审查通过；通用方法由 workflow 单一拥有，操作按需引用，文本不以封闭领域分类固定路由、不以未知缩减目标，配置检查保持。仅本轮提示词交付验收，无项目测试/build/install/其它源码修改；运行行为、性能与编码效果仍未验证，不覆盖整体 mission 验收。
+
+- [x] 期望-13、约束-26、约束-25、约束-16、约束-24 → E411–E426：显式版本adapter负例、104项harness回归/typecheck/lint、/tmp两binary build/smoke和十正式终态审计/report完成；两组各4/5最终、1/5首次。共用业务验收与需求/policy固定，但旧封套/中断修复导致harness SHA不同，非严格同字节A/B；无效pilot成本另列，不以单样本推因果。模型/App全部/tmp，无手工修App/global安装，infra不冒充PASS、cached不重复相加；此勾选仅当前测试目标，不覆盖整体未决验收和发行check失败。
+
+- [x] 期望-12、约束-25、约束-16、约束-24 → E406–E410：最终/tmp副本 `bun test e2e` 98/0，typecheck/lint、smoke与三轮自有fixture通过；动态准备隔离/越界/关闭/幂等负例、范围冲突、观察引用、一次协议修正与controller roundtrip，真超时禁重放；已有三App只读Terra正式UI PASS另记全部失败成本，不修改历史结果。仅本节点，宽检查仍有既有发行失败，不代表整个mission完成。
+
+- [ ] 约束-24 → `bun test e2e/ui-acceptance.test.ts e2e/ui-gate.test.ts` + `bun e2e/run.ts ui-probe --bin=<tmp-candidate>`（隔离fixture）+已有Todo只读UI复验 → Ego真实控制/观察与证据协议；无生成应用固定操作脚本、Chrome fallback、OpenCLI修改；假工具/伪观察/错误TaskSpace失败关闭。
 
 - [ ] 期望-10、约束-21 → 隔离副本中bun test e2e与bun e2e/run.ts smoke --bin=<candidate> → 无模型路径/安装/日志/错误退出/超时和伪PASS负例通过。
 - [ ] 期望-10、约束-4、约束-16、约束-21 → 隔离副本bun e2e/run.ts run <case> --bin=<candidate>及关键用例重复 → 六步真实证据，环境/流程/业务独立门、固定模型、首次/最终通过率和成本；失败不可冒报PASS。

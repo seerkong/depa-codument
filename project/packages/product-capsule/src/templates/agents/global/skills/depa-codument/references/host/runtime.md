@@ -4,13 +4,8 @@
 本文件是全局 depa-codument App 的按需 Host 参考，不是另一个独立 Skill。业务 FQN、schema、SOP、Page 和成功判据属于各 workspace skill；host 不复制业务 catalog。
 
 ## 工作区的初始化、更新
-项目初始化证据：codument/manifest.xnl 和 codument/SKILL.md；.codument/ 仅为 Host 私有状态，不能据此判断项目 App 已初始化
 
-未初始化：`depa-codument init-workspace`（如需同时初始化全局状态，使用 `depa-codument init`）
-已初始化：`depa-codument upgrade-workspace`
-查看状态：`depa-codument status`
-
-安装目标固定为 Codex `.agents/skills`，不接受安装侧 `--agent` 或 `--skills-dir`。
+项目初始化与global安装是两个边界，遵循[初始化与升级指南](../migration/workspace-upgrade.md)。项目App的初始化证据是 `codument/manifest.xnl` 与 `codument/SKILL.md`；`.codument/` 仅为Host私有状态，agent的Skill安装目录也不是项目资产根。安装/升级参数以各命令help为准，不把运行期agent scope当作只允许某一个agent安装的限制。
 
 ## Host 与 workspace skill 的职责
 
@@ -82,10 +77,10 @@ Claude Desktop 不使用 agent scope、会话枚举或跨会话 adapter。MCP Ap
 
 收到消息或用户目标命中 SOP 时：
 
-1. 把 `action` 当作精确路由键。Codex 在当前 Agent 已安装 workspace skills 的 `SKILL.md` `<sops>` catalog 中查找，并用 `SOP detail --fqn <FQN> --json` 精确读取；MCP App host 使用 `sop_get`。不得按 page 名或描述近似选择。
-2. 加载命中的 workspace skill，读取该 SOP 的 `<path>`，并遵循 reference；不得按 page 名猜 SOP，也不得要求消息携带 SOP 正文。
+1. 把 `action` 当作精确SOP FQN。Agent 用 `depa-codument SOP detail --fqn <FQN> --json` 从当前工作区App的已接纳资源catalog读取；MCP App host使用 `sop_get`。不要从Skill摘要另造catalog或按page名/描述近似选择。
+2. 完整读取命中的SOP正文及其适用reference，保持CLI给出的来源边界；不得按page名猜SOP，也不得要求消息携带SOP正文。
 3. 页面事件中的 `page` 与原始 `targetRef` 是 SOP 输入的一部分，必须原样保留。未知/重复 FQN 或输入不足时失败，不得替换 SOP 或页面实例。
-4. 按 `spec.profile` 解释正文：`freeform` 不猜 typed block；`typed-leaf` 校验六个 semantic blocks但不创建 Notebook；`typed-pipeline` 的 `<procedure format="markdown-step-graph/v1">` 是拓扑唯一 authority。新建或修改时分别完整读取 `references/freeform-sop.md`、`references/typed-leaf-sop.md`、`references/typed-pipeline-sop.md`。
+4. 按 `spec.profile` 解释正文：`freeform` 不猜 typed block；`typed-leaf` 校验六个 semantic blocks但不创建 Notebook；`typed-pipeline` 的 `<procedure format="markdown-step-graph/v1">` 是拓扑唯一 authority。新建或修改时按实际profile完整读取[freeform参考](references/freeform-sop.md)、[typed-leaf参考](references/typed-leaf-sop.md)或[typed-pipeline参考](references/typed-pipeline-sop.md)，不加载无关profile。
 5. `SOP graph --fqn <FQN>` 只是 generated Mermaid projection。拓扑变化只能编辑 SOP Step Card，不能手改 Mermaid，也不能把 Mermaid 或 Notebook 反写为 procedure。
 6. 执行 typed pipeline 前运行 `SOP notebook init --fqn <FQN> --json`，并核对 Notebook 的 exact FQN、`sopContentDigest`、`procedureFormat` 与当前 SOP；任何 mismatch 都停止推进，要求显式 migration 或 `--reset`，不得静默覆盖。
 7. Notebook 只记录已经发生的 visit、blocker 与 journal。每次进入 Step 使用单调递增 visit ID；调用 Child SOP 或其他 effect 前先写 `running`，之后只根据真实 result/receipt 写 `completed|waiting|failed|cancelled` 和稳定 evidence reference。

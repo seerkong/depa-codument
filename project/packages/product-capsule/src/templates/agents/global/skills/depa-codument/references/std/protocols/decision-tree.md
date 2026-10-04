@@ -4,7 +4,7 @@ Decision-tree is the shared planning protocol for `plan-track`, `plan-mission`, 
 
 ## Severity
 
-Use `auto`, `light`, `normal`, or `deep` as defined by `questioning.md`. `auto` asks no routine questions: inspect local evidence, choose the conservative default, and record the assumption. Other modes ask only choices that local evidence cannot resolve.
+Use `auto`, `light`, `normal`, or `deep` as defined by `questioning.md`. `auto` asks no routine questions: inspect local evidence, use an evidence-supported safe default where one exists, and record the assumption. A consequential choice without a safe default remains unresolved: do not invent approval or execute its dependent action; continue other ready work or use the operation's existing blocked/return boundary. Other modes ask only choices that local evidence cannot resolve.
 
 ## Storage
 
@@ -113,4 +113,3 @@ This is breadth-first refinement across independent directions and depth-first o
 5. Write every accepted result back to the same records, recompute the ready set, then continue the plan or ask the next batch.
 
 The XNL shape and decision record validity rules are defined by `references/std/spec/xnl-format.md`; long-term merge, indexing and URI rules are defined by `references/std/spec/decision-registry.md`. Validate them with `depa-codument decisions validate`.
-
