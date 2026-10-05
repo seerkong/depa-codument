@@ -1,6 +1,6 @@
 import { join } from 'node:path';
 import type { Blob } from 'node:buffer';
-import { createSourceResourceEffect, createEmbeddedResourceEffect } from 'halfcode-cli-lite-cli-host-support';
+import { createSourceResourceEffect, createEmbeddedResourceEffect } from 'halfcode-lite-cli-support';
 
 export const GLOBAL_APP_ROOT = 'agents/global/skills/depa-codument';
 const embeddedPrefix = 'resource/packages/product-capsule/src/templates/';

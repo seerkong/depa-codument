@@ -1,1 +1,1 @@
-export { createProfiledBrowserWebApiEffect } from 'halfcode-cli-lite-skill-app-logic/profiled-browser-web-api';
+export { createProfiledBrowserWebApiEffect } from 'halfcode-lite-skill-app-logic/profiled-browser-web-api';

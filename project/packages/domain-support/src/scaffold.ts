@@ -3,7 +3,7 @@ import * as path from 'node:path';
 import { randomUUID } from 'node:crypto';
 import { execFile } from 'node:child_process';
 import type { LifecycleSourceCodec, ScaffoldLocation, ScaffoldRequest, ScaffoldSourcePort } from 'depa-codument-domain-contract';
-import { createWorkspaceEffect } from 'halfcode-cli-lite-skill-app-support/workspace';
+import { createWorkspaceEffect } from 'halfcode-lite-skill-app-support/workspace';
 
 interface Observation { readonly location: ScaffoldLocation }
 

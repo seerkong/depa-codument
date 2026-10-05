@@ -5,7 +5,7 @@ import type { LifecycleKind, LifecycleStage, LifecycleUpdate, TrackLinkTarget } 
 import type {
   LifecycleCommitReceipt, LifecycleRef, LifecycleRepositoryPort, LifecycleSourceCodec, OwnedLifecycleSnapshot,
 } from 'depa-codument-domain-contract/operations';
-import { createWorkspaceEffect } from 'halfcode-cli-lite-skill-app-support/workspace';
+import { createWorkspaceEffect } from 'halfcode-lite-skill-app-support/workspace';
 import { observeFileLifecycle } from './lifecycle-observation';
 
 export interface FileLifecycleLocation {

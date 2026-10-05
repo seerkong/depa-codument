@@ -1,1 +1,1 @@
-export { createProfiledDatabaseCapability } from 'halfcode-cli-lite-skill-app-logic/profiled-database';
+export { createProfiledDatabaseCapability } from 'halfcode-lite-skill-app-logic/profiled-database';

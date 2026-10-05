@@ -3,7 +3,7 @@ import * as fs from 'node:fs/promises';
 import * as os from 'node:os';
 import * as path from 'node:path';
 import { createCodumentDomainCommands } from 'depa-codument-host-adapter';
-import { executeCommand, validateCommandTree, validateCommandExecutionPolicies } from 'halfcode-cli-lite-cli-host-logic';
+import { executeCommand, validateCommandTree, validateCommandExecutionPolicies } from 'halfcode-lite-cli-logic';
 import { formatCodumentDomainResult } from 'depa-codument-cli-shell';
 import { commandExecutionPolicy } from '../../src/cli/command-registry';
 import { createCliCommandRuntime } from '../../src/cli/runtime';

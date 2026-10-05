@@ -1,4 +1,4 @@
-import type { CommandResult } from 'halfcode-cli-lite-cli-host-contract';
+import type { CommandResult } from 'halfcode-lite-cli-contract';
 
 /** Original Codument emits raw domain JSON, not the generic Host result envelope. */
 export function formatCodumentDomainResult(result: CommandResult, json = false): string {

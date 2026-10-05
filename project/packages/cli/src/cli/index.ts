@@ -1,9 +1,9 @@
 #!/usr/bin/env bun
 import { BIN, DISPLAY_NAME } from '../identity';
 import { VERSION } from '../version';
-import { commandExecutionPolicy, commandHelp, dispatchCommand, resolveCommandPath, rootHelp } from './command-registry';
+import { commandExecutionPolicy, commandHelp, dispatchProductionCommand, resolveCommandPath, rootHelp } from './command-registry';
 import { renderCommandResult } from './output';
-import { createCliCommandRuntime } from './runtime';
+import { createProductionCommandRuntime } from './runtime';
 import { parsePageControlAgent } from './runtime/serve-process';
 import { resolveWorkspaceRoot } from './runtime/workspace-root';
 import { observeCodumentDomainContext } from 'depa-codument-product-capsule';
@@ -93,15 +93,15 @@ async function main(): Promise<void> {
   const policy = commandExecutionPolicy(commandArgs);
   const commandPath = resolveCommandPath(commandArgs).join(' ');
   const workspaceRoot = await resolveWorkspaceRoot({ explicit: workspaceDir });
-  let runtime: ReturnType<typeof createCliCommandRuntime> | undefined;
+  let runtime: ReturnType<typeof createProductionCommandRuntime> | undefined;
   try {
-    runtime = createCliCommandRuntime(workspaceRoot, policy, {
+    runtime = createProductionCommandRuntime(workspaceRoot, policy, {
       json,
       domainContext: policy.runtimeProfile === 'domain' ? await observeCodumentDomainContext(workspaceRoot) : undefined,
       agent: parsePageControlAgent(agent),
       serveChild: Boolean(process.env.CODUMENT_SERVER_INSTANCE_ID) && (commandPath === 'serve' || commandPath === 'serve start'),
     });
-    await dispatchCommand(commandArgs, runtime, json);
+    await dispatchProductionCommand(commandArgs, runtime, json);
   }
   catch (error) {
     if (!isCodumentDomainExecution(policy)) throw error;

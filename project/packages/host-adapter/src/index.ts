@@ -1,6 +1,6 @@
 import type { DomainOperation, DomainOwner } from 'depa-codument-domain-contract/operations';
-import type { CommandContext, CommandDefinition, CommandRun } from 'halfcode-cli-lite-cli-host-contract';
-import { createArgvSchema } from 'halfcode-cli-lite-cli-host-logic';
+import type { CommandContext, CommandDefinition, CommandRun } from 'halfcode-lite-cli-contract';
+import { createArgvSchema } from 'halfcode-lite-cli-logic';
 import { createDecisionCommands } from './decisions';
 import { createProjectCommands } from './project';
 import { createQueryCommands } from './query';

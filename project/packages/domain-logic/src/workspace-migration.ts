@@ -2,7 +2,7 @@ import { CODUMENT_RESOURCE_KINDS, type WorkspaceMigrationSnapshot, type Workspac
   type WorkspaceMigrationDefinition, type WorkspaceMigrationChange } from 'depa-codument-domain-contract';
 import { parseXnl } from 'xnl-core';
 import { isDataElement } from './registry';
-import { digestCanonical } from 'halfcode-cli-lite-skill-app-contract/resource';
+import { digestCanonical } from 'halfcode-lite-skill-app-contract/resource';
 import { planResourceMigration } from './migration';
 
 function migrationStatus(diagnostics: readonly string[], hasChanges: boolean): WorkspaceMigrationPlan['status'] {

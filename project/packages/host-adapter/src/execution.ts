@@ -1,4 +1,4 @@
-import type { CommandExecutionPolicy } from 'halfcode-cli-lite-cli-host-contract';
+import type { CommandExecutionPolicy } from 'halfcode-lite-cli-contract';
 
 /** Product-owned placement descriptors shared by registration and presentation. */
 export const CODUMENT_DOMAIN_EXECUTION = Object.freeze({

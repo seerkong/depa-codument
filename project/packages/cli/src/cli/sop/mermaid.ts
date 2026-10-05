@@ -1,1 +1,1 @@
-export * from 'halfcode-cli-lite-skill-app-logic/sop/mermaid';
+export * from 'halfcode-lite-skill-app-logic/sop/mermaid';

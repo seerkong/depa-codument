@@ -1,7 +1,7 @@
 import {
   createKindSubjectOwner, createKindSpecRevision, defineResourceContractRegistrations, digestCanonical,
   type JsonSchema, type PortableSpec,
-} from 'halfcode-cli-lite-skill-app-contract/resource';
+} from 'halfcode-lite-skill-app-contract/resource';
 import { LIFECYCLE_ROOT_STATES } from './lifecycle';
 
 const ORIGINAL_RESOURCE_KINDS = Object.freeze([

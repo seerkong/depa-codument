@@ -10,12 +10,12 @@ import type { ResourceEffect } from '../effects/resource';
 import type { WorkspaceEffect } from '../effects/workspace';
 import type { PageControlAgent, ServeProcessEffect } from '../runtime/serve-process';
 import type { EgoBrowserSupervisor } from '../runtime/ego-supervisor';
-import type { PageWorkflowCoordinator, PageAutomationCatalog } from 'halfcode-cli-lite-skill-app-contract/page-automation';
-import type { PageResourceCatalog } from 'halfcode-cli-lite-skill-app-contract/page-registry';
-import type { SiteResourceCatalog } from 'halfcode-cli-lite-skill-app-contract/site-registry';
+import type { PageWorkflowCoordinator, PageAutomationCatalog } from 'halfcode-lite-skill-app-contract/page-automation';
+import type { PageResourceCatalog } from 'halfcode-lite-skill-app-contract/page-registry';
+import type { SiteResourceCatalog } from 'halfcode-lite-skill-app-contract/site-registry';
 import type { ServeHttpEffect } from '../http/serve-effect';
 import type { LocalFunctionCatalog } from '../runtime/local-functions';
-import type { PageBuildRuntime } from 'halfcode-cli-lite-skill-app-contract/page-build';
+import type { PageBuildRuntime } from 'halfcode-lite-skill-app-contract/page-build';
 import type { WorkspaceResourceCatalog } from '../resources/workspace-resource-catalog';
 import type { BundleDefinitionCatalog } from '../resources/bundle-materializer';
 import type { ConfigurationProfileCatalog } from '../resources/profile-configuration';
@@ -69,10 +69,10 @@ export interface CommandRuntime extends CodumentDomainCommandRuntime {
 import type {
   CommandContext as HostCommandContext, CommandSchema as HostCommandSchema,
   CommandRun as HostCommandRun,
-} from 'halfcode-cli-lite-cli-host-contract';
-import { createArgvSchema as createHostArgvSchema } from 'halfcode-cli-lite-cli-host-logic';
-export type { CommandResult, CommandDoc, CommandOption } from 'halfcode-cli-lite-cli-host-contract';
-export { argvSchema } from 'halfcode-cli-lite-cli-host-logic';
+} from 'halfcode-lite-cli-contract';
+import { createArgvSchema as createHostArgvSchema } from 'halfcode-lite-cli-logic';
+export type { CommandResult, CommandDoc, CommandOption } from 'halfcode-lite-cli-contract';
+export { argvSchema } from 'halfcode-lite-cli-logic';
 export type CommandContext = HostCommandContext<CommandRuntime>;
 export type CommandSchema = HostCommandSchema<CommandRuntime>;
 export type CommandRun = HostCommandRun<CommandRuntime>;

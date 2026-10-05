@@ -38,7 +38,7 @@
     "test": "bun test test"
   },
   "dependencies": {
-    "halfcode-cli-lite-skill-app-contract": "0.1.1",
+    "halfcode-lite-skill-app-contract": "0.2.1",
     "halfcode-compiler.xnl": "0.3.0"
   },
   "engines": {

@@ -1,1 +1,1 @@
-export * from 'halfcode-cli-lite-page-builder-vue-support';
+export * from 'halfcode-lite-page-builder-vue-support';

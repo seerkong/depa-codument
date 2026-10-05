@@ -1,4 +1,4 @@
-import { createWorkspaceEffect } from 'halfcode-cli-lite-skill-app-support/workspace';
+import { createWorkspaceEffect } from 'halfcode-lite-skill-app-support/workspace';
 import * as path from 'node:path';
 import * as fs from 'node:fs/promises';
 import { execFile } from 'node:child_process';

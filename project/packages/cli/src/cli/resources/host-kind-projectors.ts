@@ -1,1 +1,1 @@
-export * from 'halfcode-cli-lite-skill-app-support/resources/host-kind-projectors';
+export * from 'halfcode-lite-skill-app-support/resources/host-kind-projectors';

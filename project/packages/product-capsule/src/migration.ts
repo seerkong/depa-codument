@@ -1,7 +1,7 @@
 import { applyResourceMigration, inspectResourceMigration, planResourceMigration, migrationAdmissionDefinition, validateResourceMigration } from 'depa-codument-domain-logic';
 import { createFileResourceMigrationPort, readResourceMigrationValidation } from 'depa-codument-domain-support';
 import { createCodumentResourceContracts } from 'depa-codument-host-adapter/resources';
-import { loadHostAuthoredSource } from 'halfcode-cli-lite-skill-app-support/resources/authored-loader';
+import { loadHostAuthoredSource } from 'halfcode-lite-skill-app-support/resources/authored-loader';
 import type { ResourceMigrationPlan, CodumentResourceMigrator } from 'depa-codument-domain-contract';
 
 /** Local bootstrap API: the new formal App need not load to migrate an old

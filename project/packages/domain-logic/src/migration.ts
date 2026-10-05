@@ -2,7 +2,7 @@ import { parseXnl, wordToString, type DataElementNode, type XnlNode } from 'xnl-
 import { CODUMENT_RESOURCE_KINDS, type CodumentResourceKind, type MigrationSource,
   type ResourceMigrationInspection, type ResourceMigrationPlan, type ResourceMigrationRuntime,
   type ResourceMigrationApplyResult, type MigrationAdmissionDefinition } from 'depa-codument-domain-contract';
-import { digestCanonical } from 'halfcode-cli-lite-skill-app-contract/resource';
+import { digestCanonical } from 'halfcode-lite-skill-app-contract/resource';
 import { isDataElement, readStableNodeId } from './registry';
 import { patchDataTreeSource, readDataForestSourceFragments } from './source-patch';
 import { convertMigrationXml, readMigrationXml } from './migration-xml';

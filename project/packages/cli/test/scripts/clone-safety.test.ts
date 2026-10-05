@@ -2,8 +2,8 @@ import {describe, expect, test} from 'bun:test';
 import * as fs from 'node:fs';
 import * as os from 'node:os';
 import * as path from 'node:path';
-import {parseCloneArgs} from 'halfcode-cli-lite-cli-host-logic/clone';
-import {createConsumerScaffold} from 'halfcode-cli-lite-cli-host-logic/clone-scaffold';
+import {parseCloneArgs} from 'halfcode-lite-cli-logic/clone';
+import {createConsumerScaffold} from 'halfcode-lite-cli-logic/clone-scaffold';
 import {cloneWorkspace, sourceRoot, sourcePolicy} from '../../../../scripts/clone';
 
 describe('clone producer safety and explicit boundaries', () => {
@@ -42,7 +42,7 @@ describe('clone producer safety and explicit boundaries', () => {
   test('scaffold rejects unresolved or source-relative public versions', () => {
     const identity = {bin: 'notes', packageName: 'notes', displayName: 'Notes', description: 'Notes CLI'};
     expect(() => createConsumerScaffold(identity, {})).toThrow('exact public version');
-    expect(() => createConsumerScaffold(identity, {'halfcode-cli-lite-cli-host-contract': 'workspace:*'})).toThrow('exact public version');
+    expect(() => createConsumerScaffold(identity, {'halfcode-lite-cli-contract': 'workspace:*'})).toThrow('exact public version');
   });
 
   test('explicit metadata rebrand preserves original bytes, lock and all semantic identities in separate receipts', async () => {

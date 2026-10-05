@@ -5,7 +5,7 @@ import { createFileLifecycleRepository, createFileVerificationRuntime, createFil
   readLocalWorkspaceBindingsSource, createCodumentContextGuard, createFileWorkspaceBindingRuntime, createFileDomainQuerySourcePort, createFileScaffoldSourcePort, createFileDomainValidationSourcePort, createFileStdDocumentationPort, createFileArtifactSyncPort, createFileArchiveSourcePort } from 'depa-codument-domain-support';
 import { createDomainOwner } from 'depa-codument-domain-capsule';
 import { createCodumentDomainCommands } from 'depa-codument-host-adapter';
-import { createCommandHost } from 'halfcode-cli-lite-cli-host-capsule';
+import { createCommandHost } from 'halfcode-lite-cli-capsule';
 import { createCodumentResourceMigrator } from './migration';
 import { createCodumentTrackMigrator } from './track-migration';
 

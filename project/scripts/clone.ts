@@ -1,9 +1,9 @@
 #!/usr/bin/env bun
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import {parseCloneArgs, cloneSnapshot} from 'halfcode-cli-lite-cli-host-logic/clone';
-import {createConsumerScaffold} from 'halfcode-cli-lite-cli-host-logic/clone-scaffold';
-import {createGitSnapshotClonePort, writeConsumerScaffold} from 'halfcode-cli-lite-cli-host-support/clone';
+import {parseCloneArgs, cloneSnapshot} from 'halfcode-lite-cli-logic/clone';
+import {createConsumerScaffold} from 'halfcode-lite-cli-logic/clone-scaffold';
+import {createGitSnapshotClonePort, writeConsumerScaffold} from 'halfcode-lite-cli-support/clone';
 
 export const sourceRoot = path.resolve(import.meta.dir, '..');
 export const sourcePolicy = {

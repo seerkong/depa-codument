@@ -1,3 +1,4 @@
+import builderManifest from 'halfcode-lite-page-builder-vue-support/package.json';
 import { expect, test } from 'bun:test';
 import { mkdtemp, readFile, readdir, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
@@ -12,7 +13,7 @@ test('native builder payload preserves the complete product bridge and pins publ
     const source = join(root, 'packages/page-builder-vue'), target = join(temporary, 'builder-vue');
     stageReleaseBuilder(source, target);
     const manifest = JSON.parse(await readFile(join(target, 'package.json'), 'utf8'));
-    expect(manifest.dependencies['halfcode-cli-lite-page-builder-vue-support']).toBe('0.1.1');
+    expect(manifest.dependencies['halfcode-lite-page-builder-vue-support']).toBe(builderManifest.version);
     expect(manifest.devDependencies).toBeUndefined();
     expect(JSON.stringify(manifest)).not.toContain('workspace:');
     for (const file of await readdir(join(source, 'src'))) {
@@ -20,7 +21,7 @@ test('native builder payload preserves the complete product bridge and pins publ
     }
     for (const platform of RELEASE_TARGETS) {
       const runtime = JSON.parse(await readFile(join(root, 'packages', platform.packageDirectory, 'package.json'), 'utf8'));
-      expect(runtime.dependencies['halfcode-cli-lite-page-builder-vue-support']).toBe('0.1.1');
+      expect(runtime.dependencies['halfcode-lite-page-builder-vue-support']).toBe(builderManifest.version);
       expect(runtime.bin).toHaveProperty(platform.binaryName.replace('.exe', ''));
     }
     const archive = join(temporary, 'bridge.tgz');

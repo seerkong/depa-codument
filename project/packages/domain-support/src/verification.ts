@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import type { VerificationRuntime } from 'depa-codument-domain-contract/lifecycle';
-import { createWorkspaceEffect } from 'halfcode-cli-lite-skill-app-support/workspace';
+import { createWorkspaceEffect } from 'halfcode-lite-skill-app-support/workspace';
 
 export interface FileVerificationSpec {
   readonly workspaceRoot: string;

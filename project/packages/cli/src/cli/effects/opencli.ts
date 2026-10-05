@@ -1,5 +1,5 @@
-export * from 'halfcode-cli-lite-browser-support/opencli';
-import { createOpenCliEffect as createProvider, type OpenCliEffectOptions, type OpenCliProviderEffect } from 'halfcode-cli-lite-browser-support/opencli';
+export * from 'halfcode-lite-browser-support/opencli';
+import { createOpenCliEffect as createProvider, type OpenCliEffectOptions, type OpenCliProviderEffect } from 'halfcode-lite-browser-support/opencli';
 import { materializeOpenCliPlugin } from './opencli-plugin';
 import { createResourceEffect } from './resource';
 export const OPENCLI_PLUGIN_SITE = 'codument-opencli';

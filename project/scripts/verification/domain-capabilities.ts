@@ -1,6 +1,6 @@
 import * as path from 'node:path';
 import * as fs from 'node:fs/promises';
-import type {CommandDefinition} from 'halfcode-cli-lite-cli-host-contract';
+import type {CommandDefinition} from 'halfcode-lite-cli-contract';
 import {COMMANDS} from '../../packages/cli/src/cli/command-registry';
 
 /** Leaf inventory transcribed from the frozen 0.5.4 observation, excluding only

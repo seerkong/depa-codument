@@ -1,5 +1,5 @@
-import { waitForShutdown as wait } from 'halfcode-cli-lite-cli-host-capsule/shutdown';
-import { createProcessShutdownSignals } from 'halfcode-cli-lite-cli-host-support/shutdown';
+import { waitForShutdown as wait } from 'halfcode-lite-cli-capsule/shutdown';
+import { createProcessShutdownSignals } from 'halfcode-lite-cli-support/shutdown';
 export function waitForShutdown(onStop?: () => void | Promise<void>): Promise<void> {
   return wait(createProcessShutdownSignals(), onStop);
 }

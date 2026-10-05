@@ -42,8 +42,8 @@ import {createFileVerificationRuntime,createFileLifecycleRepository,readXnlRegis
 import {transitionLifecycleResource,indexXnlRegistry,serializeXnlForest,mergeXnlNodes,patchLifecycleSource,createValidatedLifecycleSourceCodec,validateBehaviorTree,proposeBehaviorMutation,validateDecisionSources,readDecisionRecords,projectDecisionFrontier} from 'depa-codument-domain-logic';
 import {CODUMENT_RESOURCE_CONTRACT_REGISTRATIONS} from 'depa-codument-domain-contract/resources';
 import {CODUMENT_RESOURCE_READER_REGISTRATIONS} from 'depa-codument-domain-logic/resources';
-import {createHostResourceContractRuntime} from 'halfcode-cli-lite-skill-app-support/resources/host-resource-contracts';
-import {createWorkspaceResourceCatalog} from 'halfcode-cli-lite-skill-app-support/resources/workspace-resource-catalog';
+import {createHostResourceContractRuntime} from 'halfcode-lite-skill-app-support/resources/host-resource-contracts';
+import {createWorkspaceResourceCatalog} from 'halfcode-lite-skill-app-support/resources/workspace-resource-catalog';
 const root=path.join(process.cwd(),'workspace');
 const directory='codument/tracks/active/example',file=directory+'/track.xnl';
 await fs.mkdir(path.join(root,directory),{recursive:true});

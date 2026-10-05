@@ -1,8 +1,8 @@
-import { createServiceSupervisor } from 'halfcode-cli-lite-cli-host-capsule/service';
-import type { ServiceOutcome } from 'halfcode-cli-lite-cli-host-contract/service';
-import { isPidAlive, stopProcess, probeHttpHealth, spawnDetachedProcess, allocateTcpPort } from 'halfcode-cli-lite-cli-host-support/process';
-import { httpServiceUrl } from 'halfcode-cli-lite-cli-host-logic/service';
-export { isPidAlive } from 'halfcode-cli-lite-cli-host-support/process';
+import { createServiceSupervisor } from 'halfcode-lite-cli-capsule/service';
+import type { ServiceOutcome } from 'halfcode-lite-cli-contract/service';
+import { isPidAlive, stopProcess, probeHttpHealth, spawnDetachedProcess, allocateTcpPort } from 'halfcode-lite-cli-support/process';
+import { httpServiceUrl } from 'halfcode-lite-cli-logic/service';
+export { isPidAlive } from 'halfcode-lite-cli-support/process';
 import { fileURLToPath } from 'node:url';
 import { WORKSPACE_DIR } from '../../identity';
 import type { WorkspaceEffect } from '../effects/workspace';

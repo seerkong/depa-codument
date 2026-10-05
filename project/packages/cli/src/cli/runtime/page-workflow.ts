@@ -1,14 +1,14 @@
-import type { PageTargetPort } from 'halfcode-cli-lite-skill-app-contract/page-target';
-import type { PageObjectSelector } from 'halfcode-cli-lite-skill-app-contract/runtime-host';
-import type { PageAutomationCatalog, PageAutomationRuntime } from 'halfcode-cli-lite-skill-app-contract/page-automation';
+import type { PageTargetPort } from 'halfcode-lite-skill-app-contract/page-target';
+import type { PageObjectSelector } from 'halfcode-lite-skill-app-contract/runtime-host';
+import type { PageAutomationCatalog, PageAutomationRuntime } from 'halfcode-lite-skill-app-contract/page-automation';
 import type { CommandRuntime } from '../contracts/command';
 import type { BundleDefinitionCatalog } from '../resources/bundle-materializer';
 import { createBundleDefinitionCatalog } from '../resources/bundle-materializer';
 import { createWorkspaceResourceCatalog } from '../resources/workspace-resource-catalog';
-import { createPageAutomationCatalog as createCatalog } from 'halfcode-cli-lite-skill-app-logic/page-automation';
-import { createPageWorkflowCoordinator as createCoordinator, invokeInstalledPageObjectAction as invokeAction } from 'halfcode-cli-lite-live-host-capsule/page-automation';
-import { createPageAutomationPlatform } from 'halfcode-cli-lite-skill-app-support/page-automation-platform';
-export type * from 'halfcode-cli-lite-skill-app-contract/page-automation';
+import { createPageAutomationCatalog as createCatalog } from 'halfcode-lite-skill-app-logic/page-automation';
+import { createPageWorkflowCoordinator as createCoordinator, invokeInstalledPageObjectAction as invokeAction } from 'halfcode-lite-live-host-capsule/page-automation';
+import { createPageAutomationPlatform } from 'halfcode-lite-skill-app-support/page-automation-platform';
+export type * from 'halfcode-lite-skill-app-contract/page-automation';
 
 export function createPageAutomationCatalog(definitions: BundleDefinitionCatalog): PageAutomationCatalog;
 export function createPageAutomationCatalog(workspaceRoot: string, skillsDirs: readonly string[]): PageAutomationCatalog;

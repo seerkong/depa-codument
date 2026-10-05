@@ -1,13 +1,13 @@
-import { prepareLocalFunctionExecution as prepare } from 'halfcode-cli-lite-skill-app-logic/execution';
+import { prepareLocalFunctionExecution as prepare } from 'halfcode-lite-skill-app-logic/execution';
 import { createCodumentLiveLocalFunctionClient } from 'depa-codument-product-capsule/live-client';
-import { LocalFunctionAdmissionError, type LiveLocalFunctionInput } from 'halfcode-cli-lite-skill-app-contract/execution';
+import { LocalFunctionAdmissionError, type LiveLocalFunctionInput } from 'halfcode-lite-skill-app-contract/execution';
 import type { CommandRuntime } from '../contracts/command';
 import { canonicalWorkspaceRoot } from './ego-scope';
 import { readLiveServiceRecord, DEFAULT_PAGE_CONTROL_AGENT } from './serve-process';
 
-export { LOCAL_FUNCTION_SERVE_PATH } from 'halfcode-cli-lite-skill-app-contract/execution';
-export type { LiveLocalFunctionRequest as ServeLocalFunctionRequest } from 'halfcode-cli-lite-skill-app-contract/execution';
-export { parseLiveLocalFunctionRequest as parseServeLocalFunctionRequest } from 'halfcode-cli-lite-skill-app-logic/execution';
+export { LOCAL_FUNCTION_SERVE_PATH } from 'halfcode-lite-skill-app-contract/execution';
+export type { LiveLocalFunctionRequest as ServeLocalFunctionRequest } from 'halfcode-lite-skill-app-contract/execution';
+export { parseLiveLocalFunctionRequest as parseServeLocalFunctionRequest } from 'halfcode-lite-skill-app-logic/execution';
 
 /** Keeps the product embedding shape; admission and captured-material proof have one public implementation. */
 export async function prepareLocalFunctionExecution(runtime: CommandRuntime, fqn: string, profile?: string) {

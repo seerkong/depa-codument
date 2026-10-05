@@ -1,1 +1,1 @@
-export * from 'halfcode-cli-lite-browser-support/ego-bundle';
+export * from 'halfcode-lite-browser-support/ego-bundle';

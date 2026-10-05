@@ -1,0 +1,196 @@
+{
+  "time": "2026-10-04T18:32:04.811Z",
+  "live": 21,
+  "total": 21,
+  "results": [
+    {
+      "name": "halfcode-lite-browser-capsule",
+      "version": "0.2.1",
+      "status": 200,
+      "live": true,
+      "latest": "0.2.1",
+      "integrity": "sha512-fxj+iBSYjNvjIRKDzmypviroBInRbEvJJI/djGGEO9m+Fxf3I4ZrG7qgxelEtLIO9sTWkvU5aRBVSCQPWmQq+g==",
+      "tarball": "https://registry.npmjs.org/halfcode-lite-browser-capsule/-/halfcode-lite-browser-capsule-0.2.1.tgz"
+    },
+    {
+      "name": "halfcode-lite-browser-support",
+      "version": "0.2.1",
+      "status": 200,
+      "live": true,
+      "latest": "0.2.1",
+      "integrity": "sha512-ac/BKuHr9eBNW1GHt3/PzjLvv2svoB53jFgBA7M+j+NN8wsZx+u1w2frO+hjlEHNBCPd9BcM1z200A/hMRrG2Q==",
+      "tarball": "https://registry.npmjs.org/halfcode-lite-browser-support/-/halfcode-lite-browser-support-0.2.1.tgz"
+    },
+    {
+      "name": "halfcode-lite-cli-capsule",
+      "version": "0.2.1",
+      "status": 200,
+      "live": true,
+      "latest": "0.2.1",
+      "integrity": "sha512-QcXB5PYup4owU4V3azRPp/gJAo5Qk3pkjMzmCAjSYMH1bgI56F0TCmwffwApjrm+9Ifak+RTvKGTdz8Wiy8I1g==",
+      "tarball": "https://registry.npmjs.org/halfcode-lite-cli-capsule/-/halfcode-lite-cli-capsule-0.2.1.tgz"
+    },
+    {
+      "name": "halfcode-lite-cli-contract",
+      "version": "0.2.1",
+      "status": 200,
+      "live": true,
+      "latest": "0.2.1",
+      "integrity": "sha512-dlnnhCg+n6sXYDjyioBlJfWkU2uxEd2r20jLOBSs+Sbl+g7C2+thzb4qO18OuHpZpKJLHkxTp4RknDW7zwuQ8g==",
+      "tarball": "https://registry.npmjs.org/halfcode-lite-cli-contract/-/halfcode-lite-cli-contract-0.2.1.tgz"
+    },
+    {
+      "name": "halfcode-lite-cli-logic",
+      "version": "0.2.1",
+      "status": 200,
+      "live": true,
+      "latest": "0.2.1",
+      "integrity": "sha512-UJrsgxlnUX1j1hvoVbqu6owL1fFERYrWNnW3FA4nFFw666A678sk6wprVgSKXb2YJ1QAwl/O/+HcF1XmB4boSw==",
+      "tarball": "https://registry.npmjs.org/halfcode-lite-cli-logic/-/halfcode-lite-cli-logic-0.2.1.tgz"
+    },
+    {
+      "name": "halfcode-lite-cli-shell",
+      "version": "0.2.1",
+      "status": 200,
+      "live": true,
+      "latest": "0.2.1",
+      "integrity": "sha512-vF1jWtTg1BjgqTGIgWqzF9RHvx9v7UKAFGIi8Q0OEI+/WkCePvUMP6lw8I2ueUcWOW3uljZg2PK1y9oMUiDptA==",
+      "tarball": "https://registry.npmjs.org/halfcode-lite-cli-shell/-/halfcode-lite-cli-shell-0.2.1.tgz"
+    },
+    {
+      "name": "halfcode-lite-cli-support",
+      "version": "0.2.1",
+      "status": 200,
+      "live": true,
+      "latest": "0.2.1",
+      "integrity": "sha512-4t37cQIJblpSDHVB7ihafBLDvl7YA406m/KEdW+S/Dda/uLSjEU5rI+nkZW+ctVpU2IiWMleyyQdUicZmrJBEg==",
+      "tarball": "https://registry.npmjs.org/halfcode-lite-cli-support/-/halfcode-lite-cli-support-0.2.1.tgz"
+    },
+    {
+      "name": "halfcode-lite-http-shell",
+      "version": "0.2.1",
+      "status": 200,
+      "live": true,
+      "latest": "0.2.1",
+      "integrity": "sha512-ntGW2YGA9fpNtM6PmBT8bWJCrA54OUZ+nXPMfOCsTMjqqggBjpG2FBn3rLciB8/YLOb28UCHGyh9psZ7bQsgjA==",
+      "tarball": "https://registry.npmjs.org/halfcode-lite-http-shell/-/halfcode-lite-http-shell-0.2.1.tgz"
+    },
+    {
+      "name": "halfcode-lite-live-host-capsule",
+      "version": "0.2.1",
+      "status": 200,
+      "live": true,
+      "latest": "0.2.1",
+      "integrity": "sha512-OwxlfmPa3zpnscvG0a0YruBAZJZ+eu4HnGQNI1Q9vltx1de0RUB34oe2EcURjOdmEpwApfZ2OVWWZFyeyTFfYg==",
+      "tarball": "https://registry.npmjs.org/halfcode-lite-live-host-capsule/-/halfcode-lite-live-host-capsule-0.2.1.tgz"
+    },
+    {
+      "name": "halfcode-lite-local-function-capsule",
+      "version": "0.2.1",
+      "status": 200,
+      "live": true,
+      "latest": "0.2.1",
+      "integrity": "sha512-lXF8A18mi4yRmgp6gKRNGWKyAM9BqSosebwvk8HYzUPun9Znjc3FxFiYX6vjzG4fA3lfeNhgFiGPwI3YLDmhqA==",
+      "tarball": "https://registry.npmjs.org/halfcode-lite-local-function-capsule/-/halfcode-lite-local-function-capsule-0.2.1.tgz"
+    },
+    {
+      "name": "halfcode-lite-management-capsule",
+      "version": "0.2.1",
+      "status": 200,
+      "live": true,
+      "latest": "0.2.1",
+      "integrity": "sha512-FNRF7Cgr1m9QdHUuHPd2GwWD8xLFokMgetn087OQbWDKAzMx7ySLeMZXqgv3QjlZFNboe72mylVp/Y5BS7hPBw==",
+      "tarball": "https://registry.npmjs.org/halfcode-lite-management-capsule/-/halfcode-lite-management-capsule-0.2.1.tgz"
+    },
+    {
+      "name": "halfcode-lite-mcp-app-capsule",
+      "version": "0.2.1",
+      "status": 200,
+      "live": true,
+      "latest": "0.2.1",
+      "integrity": "sha512-q0yo1eyVaXPrZiHBlxg3dRIxMbD31DbbabDGQCG75Tl49q1lwVrDHCvq9DQLl6VIMQt1QU9AzEUoIEQKWJISTA==",
+      "tarball": "https://registry.npmjs.org/halfcode-lite-mcp-app-capsule/-/halfcode-lite-mcp-app-capsule-0.2.1.tgz"
+    },
+    {
+      "name": "halfcode-lite-page-builder-vue-support",
+      "version": "0.2.1",
+      "status": 200,
+      "live": true,
+      "latest": "0.2.1",
+      "integrity": "sha512-t9JXZju030kfUpNkEgQXjmC73ULqtIrt30RPgmd5do43H/rnTYMl7J4ZIrpT2p7vTB6WENL4pUUj4rnivgoaaQ==",
+      "tarball": "https://registry.npmjs.org/halfcode-lite-page-builder-vue-support/-/halfcode-lite-page-builder-vue-support-0.2.1.tgz"
+    },
+    {
+      "name": "halfcode-lite-page-capsule",
+      "version": "0.2.1",
+      "status": 200,
+      "live": true,
+      "latest": "0.2.1",
+      "integrity": "sha512-4JfNSX6apKt9fPfTMbnE5PyaS1+0Hu0wz6yDdue8zZvFSHXqEeIbp+K2AKEz2NyFf69BUKycge5wwixpa+IBhA==",
+      "tarball": "https://registry.npmjs.org/halfcode-lite-page-capsule/-/halfcode-lite-page-capsule-0.2.1.tgz"
+    },
+    {
+      "name": "halfcode-lite-resource-bundle-support",
+      "version": "0.2.1",
+      "status": 200,
+      "live": true,
+      "latest": "0.2.1",
+      "integrity": "sha512-PwJdIg+uIHg0mwb8nlTwSdaJq/K44eWb+twKGHibj4rtx5BB7YLdpS+F4xa/Vt4oN5yfsgHeUA6k792Cyotzbw==",
+      "tarball": "https://registry.npmjs.org/halfcode-lite-resource-bundle-support/-/halfcode-lite-resource-bundle-support-0.2.1.tgz"
+    },
+    {
+      "name": "halfcode-lite-resource-capsule",
+      "version": "0.2.1",
+      "status": 200,
+      "live": true,
+      "latest": "0.2.1",
+      "integrity": "sha512-TnjKeIPDPbn2eaMyxI6fx0+m5vPsf/8ebOCyC5SMvOH/KEPcA1Uu+dSGBsLd4oFctsD0UQkwaL3vwat9IaieOw==",
+      "tarball": "https://registry.npmjs.org/halfcode-lite-resource-capsule/-/halfcode-lite-resource-capsule-0.2.1.tgz"
+    },
+    {
+      "name": "halfcode-lite-serve-capsule",
+      "version": "0.2.1",
+      "status": 200,
+      "live": true,
+      "latest": "0.2.1",
+      "integrity": "sha512-ULafRqWS1aOJ48AP25TDf251C8upddd7x2uy4rarsp+4rgjopInHqSfqAs3svOfwuJZtPEtB+yBgfj11wjPOMA==",
+      "tarball": "https://registry.npmjs.org/halfcode-lite-serve-capsule/-/halfcode-lite-serve-capsule-0.2.1.tgz"
+    },
+    {
+      "name": "halfcode-lite-skill-app-capsule",
+      "version": "0.2.1",
+      "status": 200,
+      "live": true,
+      "latest": "0.2.1",
+      "integrity": "sha512-KvdhWYiQUFvzARILOC+swCBO1aBfJDxzHl2gUrJjCWzZp2RPE5UKkpYXxPzLy2o/UpRS83+b4Swvp4TjqGZ0Uw==",
+      "tarball": "https://registry.npmjs.org/halfcode-lite-skill-app-capsule/-/halfcode-lite-skill-app-capsule-0.2.1.tgz"
+    },
+    {
+      "name": "halfcode-lite-skill-app-contract",
+      "version": "0.2.1",
+      "status": 200,
+      "live": true,
+      "latest": "0.2.1",
+      "integrity": "sha512-lewj4llKbhAZDQfOAU04m2+/PJQdZM/OKRk58oSiVEZypixU9LkJ6GyRf1of7vAyOa9s42LyGrN7TU88MZOLkA==",
+      "tarball": "https://registry.npmjs.org/halfcode-lite-skill-app-contract/-/halfcode-lite-skill-app-contract-0.2.1.tgz"
+    },
+    {
+      "name": "halfcode-lite-skill-app-logic",
+      "version": "0.2.1",
+      "status": 200,
+      "live": true,
+      "latest": "0.2.1",
+      "integrity": "sha512-3FuHTDAMHSciPxSU9SeP/cKWsd9eIMe/MUASmfEPWr2U2ioI+SXX36KUGnir25YWGnCoFZ4udiO/MsHI4zxb/A==",
+      "tarball": "https://registry.npmjs.org/halfcode-lite-skill-app-logic/-/halfcode-lite-skill-app-logic-0.2.1.tgz"
+    },
+    {
+      "name": "halfcode-lite-skill-app-support",
+      "version": "0.2.1",
+      "status": 200,
+      "live": true,
+      "latest": "0.2.1",
+      "integrity": "sha512-r+EdSrkTRmRbwYtYDx/eLKXg1qm0YAZWztTmdYc/J24WyWraJ7Ax81fTlTVxfho06t0qSIMSxrB9uqM/64OHhg==",
+      "tarball": "https://registry.npmjs.org/halfcode-lite-skill-app-support/-/halfcode-lite-skill-app-support-0.2.1.tgz"
+    }
+  ]
+}

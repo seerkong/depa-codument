@@ -1,0 +1,313 @@
+{
+  "mode": "publish",
+  "registry": "https://registry.npmjs.com",
+  "version": "0.2.1",
+  "releaseDigest": "0bcb49e9a2cc4e3d3111fb1dda3f0b4fe6fcc7e6e0663e7f97e970f23ed59635",
+  "events": [
+    {
+      "time": "2026-10-04T18:24:16.876Z",
+      "stage": "upload-acknowledged",
+      "name": "halfcode-lite-skill-app-contract",
+      "version": "0.2.1",
+      "evidence": "npm debug 2026-10-04T18_24_12_507Z: PUT 202; exit 0; server processing notice. stage list=[]; do not re-upload."
+    },
+    {
+      "time": "2026-10-04T18:26:31.339Z",
+      "stage": "audit",
+      "count": 21,
+      "order": [
+        "halfcode-lite-skill-app-contract",
+        "halfcode-lite-cli-contract",
+        "halfcode-lite-cli-logic",
+        "halfcode-lite-skill-app-logic",
+        "halfcode-lite-skill-app-support",
+        "halfcode-lite-cli-support",
+        "halfcode-lite-browser-support",
+        "halfcode-lite-browser-capsule",
+        "halfcode-lite-cli-capsule",
+        "halfcode-lite-cli-shell",
+        "halfcode-lite-http-shell",
+        "halfcode-lite-live-host-capsule",
+        "halfcode-lite-local-function-capsule",
+        "halfcode-lite-management-capsule",
+        "halfcode-lite-mcp-app-capsule",
+        "halfcode-lite-page-builder-vue-support",
+        "halfcode-lite-page-capsule",
+        "halfcode-lite-resource-bundle-support",
+        "halfcode-lite-resource-capsule",
+        "halfcode-lite-serve-capsule",
+        "halfcode-lite-skill-app-capsule"
+      ],
+      "unpacked": "/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-publish-audit-T1PVNv"
+    },
+    {
+      "time": "2026-10-04T18:26:31.975Z",
+      "stage": "already-published",
+      "name": "halfcode-lite-skill-app-contract",
+      "version": "0.2.1",
+      "integrity": "sha512-lewj4llKbhAZDQfOAU04m2+/PJQdZM/OKRk58oSiVEZypixU9LkJ6GyRf1of7vAyOa9s42LyGrN7TU88MZOLkA=="
+    },
+    {
+      "time": "2026-10-04T18:26:35.690Z",
+      "stage": "upload-acknowledged",
+      "name": "halfcode-lite-cli-contract",
+      "version": "0.2.1"
+    },
+    {
+      "time": "2026-10-04T18:26:36.029Z",
+      "stage": "published",
+      "name": "halfcode-lite-cli-contract",
+      "version": "0.2.1",
+      "integrity": "sha512-dlnnhCg+n6sXYDjyioBlJfWkU2uxEd2r20jLOBSs+Sbl+g7C2+thzb4qO18OuHpZpKJLHkxTp4RknDW7zwuQ8g=="
+    },
+    {
+      "time": "2026-10-04T18:26:39.874Z",
+      "stage": "upload-acknowledged",
+      "name": "halfcode-lite-cli-logic",
+      "version": "0.2.1"
+    },
+    {
+      "time": "2026-10-04T18:26:40.460Z",
+      "stage": "awaiting-registry",
+      "name": "halfcode-lite-cli-logic",
+      "version": "0.2.1"
+    },
+    {
+      "time": "2026-10-04T18:26:44.492Z",
+      "stage": "upload-acknowledged",
+      "name": "halfcode-lite-skill-app-logic",
+      "version": "0.2.1"
+    },
+    {
+      "time": "2026-10-04T18:26:45.067Z",
+      "stage": "published",
+      "name": "halfcode-lite-skill-app-logic",
+      "version": "0.2.1",
+      "integrity": "sha512-3FuHTDAMHSciPxSU9SeP/cKWsd9eIMe/MUASmfEPWr2U2ioI+SXX36KUGnir25YWGnCoFZ4udiO/MsHI4zxb/A=="
+    },
+    {
+      "time": "2026-10-04T18:26:48.864Z",
+      "stage": "upload-acknowledged",
+      "name": "halfcode-lite-skill-app-support",
+      "version": "0.2.1"
+    },
+    {
+      "time": "2026-10-04T18:26:49.342Z",
+      "stage": "awaiting-registry",
+      "name": "halfcode-lite-skill-app-support",
+      "version": "0.2.1"
+    },
+    {
+      "time": "2026-10-04T18:26:53.517Z",
+      "stage": "upload-acknowledged",
+      "name": "halfcode-lite-cli-support",
+      "version": "0.2.1"
+    },
+    {
+      "time": "2026-10-04T18:26:54.020Z",
+      "stage": "published",
+      "name": "halfcode-lite-cli-support",
+      "version": "0.2.1",
+      "integrity": "sha512-4t37cQIJblpSDHVB7ihafBLDvl7YA406m/KEdW+S/Dda/uLSjEU5rI+nkZW+ctVpU2IiWMleyyQdUicZmrJBEg=="
+    },
+    {
+      "time": "2026-10-04T18:26:57.787Z",
+      "stage": "upload-acknowledged",
+      "name": "halfcode-lite-browser-support",
+      "version": "0.2.1"
+    },
+    {
+      "time": "2026-10-04T18:26:58.127Z",
+      "stage": "published",
+      "name": "halfcode-lite-browser-support",
+      "version": "0.2.1",
+      "integrity": "sha512-ac/BKuHr9eBNW1GHt3/PzjLvv2svoB53jFgBA7M+j+NN8wsZx+u1w2frO+hjlEHNBCPd9BcM1z200A/hMRrG2Q=="
+    },
+    {
+      "time": "2026-10-04T18:27:01.246Z",
+      "stage": "upload-acknowledged",
+      "name": "halfcode-lite-browser-capsule",
+      "version": "0.2.1"
+    },
+    {
+      "time": "2026-10-04T18:27:01.575Z",
+      "stage": "published",
+      "name": "halfcode-lite-browser-capsule",
+      "version": "0.2.1",
+      "integrity": "sha512-fxj+iBSYjNvjIRKDzmypviroBInRbEvJJI/djGGEO9m+Fxf3I4ZrG7qgxelEtLIO9sTWkvU5aRBVSCQPWmQq+g=="
+    },
+    {
+      "time": "2026-10-04T18:27:06.883Z",
+      "stage": "upload-acknowledged",
+      "name": "halfcode-lite-cli-capsule",
+      "version": "0.2.1"
+    },
+    {
+      "time": "2026-10-04T18:27:07.334Z",
+      "stage": "published",
+      "name": "halfcode-lite-cli-capsule",
+      "version": "0.2.1",
+      "integrity": "sha512-QcXB5PYup4owU4V3azRPp/gJAo5Qk3pkjMzmCAjSYMH1bgI56F0TCmwffwApjrm+9Ifak+RTvKGTdz8Wiy8I1g=="
+    },
+    {
+      "time": "2026-10-04T18:27:10.412Z",
+      "stage": "upload-acknowledged",
+      "name": "halfcode-lite-cli-shell",
+      "version": "0.2.1"
+    },
+    {
+      "time": "2026-10-04T18:27:10.985Z",
+      "stage": "published",
+      "name": "halfcode-lite-cli-shell",
+      "version": "0.2.1",
+      "integrity": "sha512-vF1jWtTg1BjgqTGIgWqzF9RHvx9v7UKAFGIi8Q0OEI+/WkCePvUMP6lw8I2ueUcWOW3uljZg2PK1y9oMUiDptA=="
+    },
+    {
+      "time": "2026-10-04T18:27:14.366Z",
+      "stage": "upload-acknowledged",
+      "name": "halfcode-lite-http-shell",
+      "version": "0.2.1"
+    },
+    {
+      "time": "2026-10-04T18:27:14.702Z",
+      "stage": "published",
+      "name": "halfcode-lite-http-shell",
+      "version": "0.2.1",
+      "integrity": "sha512-ntGW2YGA9fpNtM6PmBT8bWJCrA54OUZ+nXPMfOCsTMjqqggBjpG2FBn3rLciB8/YLOb28UCHGyh9psZ7bQsgjA=="
+    },
+    {
+      "time": "2026-10-04T18:27:18.399Z",
+      "stage": "upload-acknowledged",
+      "name": "halfcode-lite-live-host-capsule",
+      "version": "0.2.1"
+    },
+    {
+      "time": "2026-10-04T18:27:18.981Z",
+      "stage": "published",
+      "name": "halfcode-lite-live-host-capsule",
+      "version": "0.2.1",
+      "integrity": "sha512-OwxlfmPa3zpnscvG0a0YruBAZJZ+eu4HnGQNI1Q9vltx1de0RUB34oe2EcURjOdmEpwApfZ2OVWWZFyeyTFfYg=="
+    },
+    {
+      "time": "2026-10-04T18:27:23.177Z",
+      "stage": "upload-acknowledged",
+      "name": "halfcode-lite-local-function-capsule",
+      "version": "0.2.1"
+    },
+    {
+      "time": "2026-10-04T18:27:23.516Z",
+      "stage": "awaiting-registry",
+      "name": "halfcode-lite-local-function-capsule",
+      "version": "0.2.1"
+    },
+    {
+      "time": "2026-10-04T18:27:27.093Z",
+      "stage": "upload-acknowledged",
+      "name": "halfcode-lite-management-capsule",
+      "version": "0.2.1"
+    },
+    {
+      "time": "2026-10-04T18:27:27.411Z",
+      "stage": "published",
+      "name": "halfcode-lite-management-capsule",
+      "version": "0.2.1",
+      "integrity": "sha512-FNRF7Cgr1m9QdHUuHPd2GwWD8xLFokMgetn087OQbWDKAzMx7ySLeMZXqgv3QjlZFNboe72mylVp/Y5BS7hPBw=="
+    },
+    {
+      "time": "2026-10-04T18:27:30.918Z",
+      "stage": "upload-acknowledged",
+      "name": "halfcode-lite-mcp-app-capsule",
+      "version": "0.2.1"
+    },
+    {
+      "time": "2026-10-04T18:27:31.437Z",
+      "stage": "published",
+      "name": "halfcode-lite-mcp-app-capsule",
+      "version": "0.2.1",
+      "integrity": "sha512-q0yo1eyVaXPrZiHBlxg3dRIxMbD31DbbabDGQCG75Tl49q1lwVrDHCvq9DQLl6VIMQt1QU9AzEUoIEQKWJISTA=="
+    },
+    {
+      "time": "2026-10-04T18:27:34.828Z",
+      "stage": "upload-acknowledged",
+      "name": "halfcode-lite-page-builder-vue-support",
+      "version": "0.2.1"
+    },
+    {
+      "time": "2026-10-04T18:27:35.278Z",
+      "stage": "published",
+      "name": "halfcode-lite-page-builder-vue-support",
+      "version": "0.2.1",
+      "integrity": "sha512-t9JXZju030kfUpNkEgQXjmC73ULqtIrt30RPgmd5do43H/rnTYMl7J4ZIrpT2p7vTB6WENL4pUUj4rnivgoaaQ=="
+    },
+    {
+      "time": "2026-10-04T18:27:38.589Z",
+      "stage": "upload-acknowledged",
+      "name": "halfcode-lite-page-capsule",
+      "version": "0.2.1"
+    },
+    {
+      "time": "2026-10-04T18:27:38.924Z",
+      "stage": "published",
+      "name": "halfcode-lite-page-capsule",
+      "version": "0.2.1",
+      "integrity": "sha512-4JfNSX6apKt9fPfTMbnE5PyaS1+0Hu0wz6yDdue8zZvFSHXqEeIbp+K2AKEz2NyFf69BUKycge5wwixpa+IBhA=="
+    },
+    {
+      "time": "2026-10-04T18:27:42.040Z",
+      "stage": "upload-acknowledged",
+      "name": "halfcode-lite-resource-bundle-support",
+      "version": "0.2.1"
+    },
+    {
+      "time": "2026-10-04T18:27:42.377Z",
+      "stage": "published",
+      "name": "halfcode-lite-resource-bundle-support",
+      "version": "0.2.1",
+      "integrity": "sha512-PwJdIg+uIHg0mwb8nlTwSdaJq/K44eWb+twKGHibj4rtx5BB7YLdpS+F4xa/Vt4oN5yfsgHeUA6k792Cyotzbw=="
+    },
+    {
+      "time": "2026-10-04T18:27:45.382Z",
+      "stage": "upload-acknowledged",
+      "name": "halfcode-lite-resource-capsule",
+      "version": "0.2.1"
+    },
+    {
+      "time": "2026-10-04T18:27:45.712Z",
+      "stage": "published",
+      "name": "halfcode-lite-resource-capsule",
+      "version": "0.2.1",
+      "integrity": "sha512-TnjKeIPDPbn2eaMyxI6fx0+m5vPsf/8ebOCyC5SMvOH/KEPcA1Uu+dSGBsLd4oFctsD0UQkwaL3vwat9IaieOw=="
+    },
+    {
+      "time": "2026-10-04T18:27:49.131Z",
+      "stage": "upload-acknowledged",
+      "name": "halfcode-lite-serve-capsule",
+      "version": "0.2.1"
+    },
+    {
+      "time": "2026-10-04T18:27:49.818Z",
+      "stage": "published",
+      "name": "halfcode-lite-serve-capsule",
+      "version": "0.2.1",
+      "integrity": "sha512-ULafRqWS1aOJ48AP25TDf251C8upddd7x2uy4rarsp+4rgjopInHqSfqAs3svOfwuJZtPEtB+yBgfj11wjPOMA=="
+    },
+    {
+      "time": "2026-10-04T18:27:53.215Z",
+      "stage": "upload-acknowledged",
+      "name": "halfcode-lite-skill-app-capsule",
+      "version": "0.2.1"
+    },
+    {
+      "time": "2026-10-04T18:27:54.043Z",
+      "stage": "published",
+      "name": "halfcode-lite-skill-app-capsule",
+      "version": "0.2.1",
+      "integrity": "sha512-KvdhWYiQUFvzARILOC+swCBO1aBfJDxzHl2gUrJjCWzZp2RPE5UKkpYXxPzLy2o/UpRS83+b4Swvp4TjqGZ0Uw=="
+    },
+    {
+      "time": "2026-10-04T18:27:54.044Z",
+      "stage": "submission-complete",
+      "count": 21
+    }
+  ]
+}

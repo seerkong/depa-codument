@@ -1,7 +1,7 @@
 import type { ResourceEffect } from '../effects/resource';
 
-import { mimeType, webRelativePath } from 'halfcode-cli-lite-skill-app-logic/web-path';
-export { mimeType, webRelativePath } from 'halfcode-cli-lite-skill-app-logic/web-path';
+import { mimeType, webRelativePath } from 'halfcode-lite-skill-app-logic/web-path';
+export { mimeType, webRelativePath } from 'halfcode-lite-skill-app-logic/web-path';
 
 export async function loadWebAsset(
   resources: ResourceEffect,

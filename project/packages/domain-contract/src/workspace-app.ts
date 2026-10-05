@@ -1,6 +1,6 @@
 import type { CodumentResourceKind } from './resources';
 import type { DomainValidationFinding, DomainValidationSnapshot } from './validation';
-import type { WorkspaceResourceSnapshot } from 'halfcode-cli-lite-skill-app-contract/catalog';
+import type { WorkspaceResourceSnapshot } from 'halfcode-lite-skill-app-contract/catalog';
 
 /** Product membership policy. Host mechanics know neither this path nor these Kinds. */
 export const CODUMENT_APP_DIRECTORY = 'codument' as const;

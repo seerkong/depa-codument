@@ -1,6 +1,6 @@
 import { CODUMENT_APP_CATALOGS, CODUMENT_RESOURCE_KINDS, type WorkspaceAppInspection,
   type WorkspaceAppInspectionInput, type WorkspaceAppSourceSnapshot } from 'depa-codument-domain-contract';
-import { digestCanonical } from 'halfcode-cli-lite-skill-app-contract/resource';
+import { digestCanonical } from 'halfcode-lite-skill-app-contract/resource';
 import { inspectDomainValidation } from './validate';
 import { validateDecisionSources } from './decisions';
 import { readAttractorProfileNames } from './config';

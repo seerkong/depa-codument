@@ -1,1 +1,1 @@
-export * from 'halfcode-cli-lite-skill-app-logic/resources/schema-validator';
+export * from 'halfcode-lite-skill-app-logic/resources/schema-validator';

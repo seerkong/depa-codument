@@ -1,7 +1,7 @@
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import type {LifecycleRef, LifecycleSourceCodec, OwnedLifecycleSnapshot} from 'depa-codument-domain-contract';
-import {createWorkspaceEffect} from 'halfcode-cli-lite-skill-app-support/workspace';
+import {createWorkspaceEffect} from 'halfcode-lite-skill-app-support/workspace';
 
 /** Shared read-only discovery. The enclosing operation owns locks/revisions;
  * missing is distinct from unsafe or ambiguous input. */

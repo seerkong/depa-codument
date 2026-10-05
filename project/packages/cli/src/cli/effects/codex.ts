@@ -1,11 +1,11 @@
-import type { CodexSidecar, DesktopIpc, ManagedCodexEffect } from 'halfcode-cli-lite-cli-host-contract/codex';
-import { createCodexClient } from 'halfcode-cli-lite-cli-host-capsule/codex';
-import { createCodexSidecar } from 'halfcode-cli-lite-cli-host-support/codex';
+import type { CodexSidecar, DesktopIpc, ManagedCodexEffect } from 'halfcode-lite-cli-contract/codex';
+import { createCodexClient } from 'halfcode-lite-cli-capsule/codex';
+import { createCodexSidecar } from 'halfcode-lite-cli-support/codex';
 import { createDesktopIpc } from './codex-desktop';
 import { BIN } from '../../identity';
 import { VERSION } from '../../version';
-export type * from 'halfcode-cli-lite-cli-host-contract/codex';
-export * from 'halfcode-cli-lite-cli-host-logic/codex';
+export type * from 'halfcode-lite-cli-contract/codex';
+export * from 'halfcode-lite-cli-logic/codex';
 
 export function createCodexEffect(options: {
   desktop?: DesktopIpc | null;

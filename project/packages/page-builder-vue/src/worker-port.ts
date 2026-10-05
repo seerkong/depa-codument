@@ -1,1 +1,1 @@
-export * from 'halfcode-cli-lite-page-builder-vue-support/worker-port';
+export * from 'halfcode-lite-page-builder-vue-support/worker-port';

@@ -1,6 +1,6 @@
-export * from 'halfcode-cli-lite-skill-app-contract/resource';
+export * from 'halfcode-lite-skill-app-contract/resource';
 import { createSkillAppKindContractDescriptors as createDescriptors, defineResourceContractRegistrations,
-  type SkillAppResourceContractIdentity, type SkillAppResourceKind } from 'halfcode-cli-lite-skill-app-contract/resource';
+  type SkillAppResourceContractIdentity, type SkillAppResourceKind } from 'halfcode-lite-skill-app-contract/resource';
 
 /** Stable product semantic identity; all schemas and mechanisms belong to the public package. */
 export const SKILL_APP_RESOURCE_OWNER_PACKAGE_ID = 'depa-codument-skill-app-contract' as const;

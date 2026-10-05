@@ -24,6 +24,6 @@
     "vite": "5.4.21",
     "vue": "3.5.41",
     "depa-codument-skill-app-contract": "0.1.1",
-    "halfcode-cli-lite-page-builder-vue-support": "0.1.1"
+    "halfcode-lite-page-builder-vue-support": "0.2.1"
   }
 }

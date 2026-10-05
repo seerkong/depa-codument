@@ -1,1 +1,1 @@
-export * from 'halfcode-cli-lite-skill-app-contract/page-registry';
+export * from 'halfcode-lite-skill-app-contract/page-registry';

@@ -1,5 +1,5 @@
 import { CODUMENT_KIND_CONTRACTS, type CodumentResourceKind, type CodumentResourceView } from 'depa-codument-domain-contract/resources';
-import { defineResourceContractRegistrations, digestCanonical, type PortableSpec } from 'halfcode-cli-lite-skill-app-contract/resource';
+import { defineResourceContractRegistrations, digestCanonical, type PortableSpec } from 'halfcode-lite-skill-app-contract/resource';
 
 function frozenCopy<T>(value: T): T {
   if (!value || typeof value !== 'object') return value;

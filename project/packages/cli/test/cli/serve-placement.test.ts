@@ -4,14 +4,14 @@ import * as os from 'node:os';
 import * as path from 'node:path';
 import { commandExecutionPolicy, commandPaths, dispatchCommand } from '../../src/cli/command-registry';
 import { createCliCommandRuntime, createCommandRuntime } from '../../src/cli/runtime';
-import { localFunctionPlacement } from 'halfcode-cli-lite-skill-app-logic/local-function';
+import { localFunctionPlacement } from 'halfcode-lite-skill-app-logic/local-function';
 import { createHttpApp } from '../../src/cli/http/app';
 import { LOCAL_FUNCTION_SERVE_PATH, invokeServeLocalFunction, prepareLocalFunctionExecution } from '../../src/cli/runtime/local-function-execution';
 import { writePageControlRecord } from '../../src/cli/runtime/serve-process';
 import { skillAppKindDefinitionSource, writeBundleResources, writePageManifest, writeSkillApp, writeSop } from '../fixtures/xnl-skill-app';
 import type { CommandRuntime } from '../../src/cli/contracts/command';
 import { assertLocalBrowserBinding } from '../../src/cli/runtime/browser-execution';
-import { placementForExecutionLifetime } from 'halfcode-cli-lite-cli-host-logic';
+import { placementForExecutionLifetime } from 'halfcode-lite-cli-logic';
 
 const roots: string[] = [];
 const runtimes: CommandRuntime[] = [];

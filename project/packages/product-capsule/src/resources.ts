@@ -1,5 +1,5 @@
 import { createCodumentResourceContracts } from 'depa-codument-host-adapter/resources';
-import { createResourceHostRuntime } from 'halfcode-cli-lite-skill-app-capsule';
+import { createResourceHostRuntime } from 'halfcode-lite-skill-app-capsule';
 import { CODUMENT_AUTHORING_PACKAGE_POLICY } from './authoring-policy';
 import { installCodumentDefinitionGlobals } from './definition-globals';
 

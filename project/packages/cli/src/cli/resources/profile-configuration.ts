@@ -1,1 +1,1 @@
-export * from 'halfcode-cli-lite-skill-app-support/resources/profile-configuration';
+export * from 'halfcode-lite-skill-app-support/resources/profile-configuration';

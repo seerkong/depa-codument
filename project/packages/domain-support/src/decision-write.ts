@@ -2,7 +2,7 @@ import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import { randomUUID } from 'node:crypto';
 import type { DomainSourceSnapshot, DomainSourceWritePort } from 'depa-codument-domain-contract';
-import { createWorkspaceEffect } from 'halfcode-cli-lite-skill-app-support/workspace';
+import { createWorkspaceEffect } from 'halfcode-lite-skill-app-support/workspace';
 
 /** Single-file domain source authority. Cooperative writers share a lock; arbitrary
  * editor drift is checked before publication, not claimed to be OS-atomic CAS. */

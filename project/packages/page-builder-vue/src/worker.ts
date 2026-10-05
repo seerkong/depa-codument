@@ -1,1 +1,1 @@
-import 'halfcode-cli-lite-page-builder-vue-support/worker';
+import 'halfcode-lite-page-builder-vue-support/worker';

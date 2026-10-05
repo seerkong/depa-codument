@@ -1,5 +1,5 @@
 import { createCodumentDomainHost, type CodumentDomainBindings } from 'depa-codument-product-capsule';
-import { parseShellArgs, runCli, type ShellEffects, type ShellInvocation } from 'halfcode-cli-lite-cli-host-shell';
+import { parseShellArgs, runCli, type ShellEffects, type ShellInvocation } from 'halfcode-lite-cli-shell';
 import { formatCodumentDomainResult } from './output';
 export { formatCodumentDomainResult } from './output';
 

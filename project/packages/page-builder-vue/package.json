@@ -13,7 +13,7 @@
     "README.md"
   ],
   "dependencies": {
-    "halfcode-cli-lite-page-builder-vue-support": "0.1.1"
+    "halfcode-lite-page-builder-vue-support": "0.2.1"
   },
   "devDependencies": {
     "@module-federation/vite": "1.20.1",

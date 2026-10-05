@@ -1,7 +1,7 @@
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import {createHash} from 'node:crypto';
-import {createWorkspaceEffect} from 'halfcode-cli-lite-skill-app-support/workspace';
+import {createWorkspaceEffect} from 'halfcode-lite-skill-app-support/workspace';
 
 interface Identity {ino: number; dev: number; mode: number}
 export type ArchiveFileState = Identity & ({kind: 'directory'} | {kind: 'file'; bytes: Uint8Array; digest: string});

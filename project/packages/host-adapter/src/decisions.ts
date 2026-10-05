@@ -1,6 +1,6 @@
 import type { DecisionFinding } from 'depa-codument-domain-contract';
-import type { CommandDefinition } from 'halfcode-cli-lite-cli-host-contract';
-import { createArgvSchema } from 'halfcode-cli-lite-cli-host-logic';
+import type { CommandDefinition } from 'halfcode-lite-cli-contract';
+import { createArgvSchema } from 'halfcode-lite-cli-logic';
 import type { CodumentDomainCommandRuntime } from './index';
 import { CODUMENT_DOMAIN_EXECUTION } from './execution';
 

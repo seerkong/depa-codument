@@ -1,7 +1,23 @@
 {
-  "name": "depa-codument-cli-shell", "version": "0.6.0", "type": "module", "sideEffects": false,
+  "name": "depa-codument-cli-shell",
+  "version": "0.6.0",
+  "type": "module",
+  "sideEffects": false,
   "description": "Codument CLI boundary using the public Host shell and owned product composition",
-  "exports": { ".": "./src/index.ts" }, "files": ["src", "README.md"],
-  "dependencies": { "depa-codument-product-capsule": "0.6.0", "halfcode-cli-lite-cli-host-shell": "0.1.0", "halfcode-cli-lite-cli-host-contract": "0.1.0" },
-  "engines": { "bun": ">=1.3.0" }, "license": "MIT"
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "dependencies": {
+    "depa-codument-product-capsule": "0.6.0",
+    "halfcode-lite-cli-shell": "0.2.1",
+    "halfcode-lite-cli-contract": "0.2.1"
+  },
+  "engines": {
+    "bun": ">=1.3.0"
+  },
+  "license": "MIT"
 }

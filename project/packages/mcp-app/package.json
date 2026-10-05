@@ -12,7 +12,7 @@
     "README.md"
   ],
   "dependencies": {
-    "halfcode-cli-lite-mcp-app-capsule": "0.1.1"
+    "halfcode-lite-mcp-app-capsule": "0.2.1"
   },
   "devDependencies": {
     "@modelcontextprotocol/ext-apps": "^1.7.5",

@@ -1,7 +1,7 @@
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import type { DomainQuerySource, DomainQuerySourcePort } from 'depa-codument-domain-contract';
-import { createWorkspaceEffect } from 'halfcode-cli-lite-skill-app-support/workspace';
+import { createWorkspaceEffect } from 'halfcode-lite-skill-app-support/workspace';
 
 const COMPANIONS = ['proposal.md', 'track.xnl', 'track.xml', 'design.md', 'decisions.xnl', 'decisions.md'];
 

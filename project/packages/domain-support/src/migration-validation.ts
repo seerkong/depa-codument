@@ -1,7 +1,7 @@
 import * as fs from 'node:fs/promises';
 import { join, posix } from 'node:path';
 import type { MigrationValidationSnapshot, ResourceMigrationPlan } from 'depa-codument-domain-contract';
-import { createWorkspaceEffect } from 'halfcode-cli-lite-skill-app-support/workspace';
+import { createWorkspaceEffect } from 'halfcode-lite-skill-app-support/workspace';
 import { createFileDomainValidationSourcePort } from './validate';
 import { readXnlRegistrySources } from './registry';
 

@@ -1,7 +1,7 @@
-export * from 'halfcode-cli-lite-mcp-app-capsule';
+export * from 'halfcode-lite-mcp-app-capsule';
 import { createMcpAppServer as createServer, createMcpAppToolCatalog as createCatalog,
   createMcpAppConnection as createConnection, serveMcpApp as serve, buildMcpAppHtml as buildHtml,
-  type McpAppRuntime, type ServeMcpAppOptions } from 'halfcode-cli-lite-mcp-app-capsule';
+  type McpAppRuntime, type ServeMcpAppOptions } from 'halfcode-lite-mcp-app-capsule';
 
 export const APP_RESOURCE_URI = 'ui://codument/pages/app.html';
 function productRuntime(runtime: McpAppRuntime): McpAppRuntime {

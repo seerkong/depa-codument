@@ -1,7 +1,7 @@
-import type { CommandResult } from 'halfcode-cli-lite-cli-host-contract';
-import { formatCommandResult } from 'halfcode-cli-lite-cli-host-logic';
-import { streamOutput } from 'halfcode-cli-lite-cli-host-support';
-export { buildOutputPayload, renderFrontmatter } from 'halfcode-cli-lite-cli-host-logic';
+import type { CommandResult } from 'halfcode-lite-cli-contract';
+import { formatCommandResult } from 'halfcode-lite-cli-logic';
+import { streamOutput } from 'halfcode-lite-cli-support';
+export { buildOutputPayload, renderFrontmatter } from 'halfcode-lite-cli-logic';
 
 export interface RenderOptions { json?: boolean; }
 

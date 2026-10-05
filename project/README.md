@@ -1,6 +1,8 @@
 # Codument 新 CLI 骨架
 
-此目录承载正在迁移的 Codument 产品。公共机制通过精确版本的 `halfcode-cli-lite-*` 制品消费；领域操作、资源身份和产品装配留在 `depa-codument-*` 包。开发需要 Bun >= 1.3.0。
+此目录承载正在迁移的 Codument 产品。公共机制通过精确版本的 `halfcode-lite-*` 制品消费；领域操作、资源身份和产品装配留在 `depa-codument-*` 包。开发需要 Bun >= 1.3.0。
+
+公共库已发布到 npmjs：当前 21 个共享包固定为 `0.2.1`。五个 CLI 基础包使用 `halfcode-lite-cli-{contract,logic,support,capsule,shell}`，不再使用包名中的 `cli-host`。`bun.lock` 使用公开 registry 的 tarball 与完整性摘要，不依赖临时 localhost registry 或相邻 Halfcode 源码。可运行 `bun install --frozen-lockfile --registry=https://registry.npmjs.org` 安装。公共库发布不等于本产品二进制发布或全局安装。
 
 正式 workspace App 位于 `codument/`；`.codument/` 只保存 Host 私有状态。资源查询与领域操作在 CLI 本地执行，Page/Workflow 的长生命周期才需要 Serve。内置领域 Kind 不复制到 workspace。
 
@@ -12,15 +14,21 @@
 
 产品版本只在本目录 `package.json` 的 `version` 维护。CLI 帮助、`--version`、HTTP/MCP 元数据共享该值，独立二进制在构建时嵌入，不读取运行目录的清单。`bun run build:release` 在成功构建各平台后自动投影版本到对应发行包清单，`check:release` 校验清单与二进制一致；无需手改 `src/version.ts` 或平台包版本。私有源码包、领域/公共依赖包版本以及资源协议版本独立管理，不随产品显示版本批量修改。修改产品版本后须重新构建和安装，已安装二进制不会自动变化。仓库外层清单仍属于旧发行入口，不是新 CLI 的版本来源。
 
-公共包尚未发布时，消费验收显式指定预先准备的不可变制品目录：`CODUMENT_VERIFY_RELEASE_SET=/absolute/release-set bun run verify:mission -- consumer`。目录须包含 `release-set.json` 与内容寻址 tarballs；验证器校验摘要、普通传递安装后停止本地包源，再执行独立 Notes。`consumer --scope cli` 验五包基础闭包，`consumer --scope domain-core` 另打包当前四领域包并消费同一公共 set。测试包源只服务本地已准入制品，不代理 npm，不构成产品 Serve。缺少制品时明确 UNVERIFIED，不回退源码路径。最终 native 发行仍待后续兼容验收；Vue worker 需要 Bun >= 1.3.0，可通过 `BUN_BIN` 指定。
+需要验收尚未发布的下一批候选时，可以显式指定不可变制品目录：`CODUMENT_VERIFY_RELEASE_SET=/absolute/release-set bun run verify:mission -- consumer`。目录须包含 `release-set.json` 与内容寻址 tarballs；验证器校验摘要、普通传递安装后停止本地包源，再执行独立 Notes。`consumer --scope cli` 验五包基础闭包，`consumer --scope domain-core` 另打包当前四领域包并消费同一公共 set。测试包源只服务本地已准入制品，不代理 npm，不构成产品 Serve。缺少候选制品时明确 UNVERIFIED，不回退源码路径；日常安装使用公开 npmjs。Vue worker 需要 Bun >= 1.3.0，可通过 `BUN_BIN` 指定。
 
 参见 [使用示例](USAGE-DEMO.md)。Codex 可使用 Page 界面，Claude Desktop 可使用 MCP App；二者借用同一资源与执行能力，不拥有第二套正式数据。
 # Clone modes
 
 Original `bun.lock`/`bun.lockb` files are retained even when gitignored, with an explicit `additionalSource: original-lock` receipt entry. This exception does not collect other ignored files.
 
-`bun run clone /absolute/new-product --bin example --package example` creates a small public-package consumer (product capsule, CLI shell and resource-first `app/`), not another copy of Codument's implementation. Package prefixes may be unscoped. Public mechanisms are provided by exact `halfcode-cli-lite-*` dependencies. This generic third-product scaffold does not change Codument's formal workspace directory: that remains `codument/`.
+`bun run clone /absolute/new-product --bin example --package example` creates a small public-package consumer (product capsule, CLI shell and resource-first `app/`), not another copy of Codument's implementation. Package prefixes may be unscoped. Public mechanisms are provided by exact `halfcode-lite-*` dependencies. This generic third-product scaffold does not change Codument's formal workspace directory: that remains `codument/`.
 
 `--mode source-only` copies the explicit source allowlist with a receipt; `--mode full` copies all Git-eligible current files, including dirty tracked/eligible untracked files, tracked ignored outputs, and the original lock. Nested Git roots work. Deleted tracked paths are recorded; symlinks are retained without following them. Neither mode changes identities or installs dependencies. Non-Git input and unexpanded submodules fail explicitly. Targets must be absent or `--force`-allowed empty ordinary directories; source drift or destination conflicts abort without publishing a partial target.
 
 Optional `--rebrand-metadata --bin example --package example-product` on a snapshot is deliberately limited to root product metadata and four identity constants. Separate receipts and original changed bytes are retained; the original lock/public package identities/resource owners/FQNs/global keys are not rewritten. Package/import/native distribution mappings still require review and dependency re-resolution before building. Use scaffold for a new runnable product; no global replacement is performed.
+
+## Local npm launcher candidates
+
+`bun run pack:native /absolute/new/output` builds the current supported platform with the normal embedded-asset build, then packs the product launcher and native payload into an immutable local release set. `--target=darwin-arm64|darwin-x64|windows-x64` selects a supported build target. The launcher is the sole PATH bin; its exact-version optional dependencies select the platform payload. It never downloads a fallback on invocation. Missing optional packages fail with a reinstall diagnostic.
+
+This command does not publish to npm or modify a global installation. Non-host binaries require verification on their corresponding OS before release. The repository root remains a private workspace; distribution manifests are deterministic projections of its version and `scripts/release-targets.ts`, not a second hand-maintained product version.

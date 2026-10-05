@@ -3,7 +3,7 @@ import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { parse } from 'yaml';
-import { createWorkspaceResourceCatalog } from 'halfcode-cli-lite-skill-app-support/resources/workspace-resource-catalog';
+import { createWorkspaceResourceCatalog } from 'halfcode-lite-skill-app-support/resources/workspace-resource-catalog';
 import { CODUMENT_GLOBAL_GUIDANCE_ASSETS, CODUMENT_GLOBAL_SKILL, CODUMENT_OPERATION_ROUTES, createCodumentGuidanceOperations } from '../src/global-guidance';
 
 test('every original Skill remains discoverable and becomes an admitted CommandOperation', async () => {

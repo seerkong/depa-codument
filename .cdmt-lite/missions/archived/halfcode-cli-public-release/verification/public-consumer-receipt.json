@@ -1,0 +1,261 @@
+{
+  "root": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk",
+  "passed": true,
+  "events": [
+    {
+      "args": [
+        "npm",
+        "install",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund",
+        "--registry=https://registry.npmjs.org",
+        "--cache=/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/npm-cache"
+      ],
+      "cwd": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/npm-consumer",
+      "code": 0,
+      "expected": 0,
+      "log": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/command-0.log"
+    },
+    {
+      "args": [
+        "/Users/kongweixian/.bun/bin/bun",
+        "probe.mjs"
+      ],
+      "cwd": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/npm-consumer",
+      "code": 0,
+      "expected": 0,
+      "log": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/command-1.log"
+    },
+    {
+      "args": [
+        "/Users/kongweixian/.bun/bin/bun",
+        "install",
+        "--ignore-scripts",
+        "--registry=https://registry.npmjs.org"
+      ],
+      "cwd": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/npm-consumer/generated",
+      "code": 0,
+      "expected": 0,
+      "log": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/command-2.log"
+    },
+    {
+      "args": [
+        "/Users/kongweixian/.bun/bin/bun",
+        "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/npm-consumer/node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "--strict",
+        "--skipLibCheck",
+        "--target",
+        "ESNext",
+        "--module",
+        "ESNext",
+        "--moduleResolution",
+        "bundler",
+        "packages/product-capsule/src/index.ts"
+      ],
+      "cwd": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/npm-consumer/generated",
+      "code": 0,
+      "expected": 0,
+      "log": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/command-3.log"
+    },
+    {
+      "args": [
+        "/Users/kongweixian/.bun/bin/bun",
+        "packages/cli-shell/src/index.ts",
+        "about",
+        "--json"
+      ],
+      "cwd": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/npm-consumer/generated",
+      "code": 0,
+      "expected": 0,
+      "log": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/command-4.log"
+    },
+    {
+      "args": [
+        "/Users/kongweixian/.bun/bin/bun",
+        "packages/cli-shell/src/index.ts",
+        "Resource",
+        "validate",
+        "--json"
+      ],
+      "cwd": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/npm-consumer/generated",
+      "code": 0,
+      "expected": 0,
+      "log": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/command-5.log"
+    },
+    {
+      "args": [
+        "/Users/kongweixian/.bun/bin/bun",
+        "packages/cli-shell/src/index.ts",
+        "SOP",
+        "list",
+        "--json"
+      ],
+      "cwd": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/npm-consumer/generated",
+      "code": 0,
+      "expected": 0,
+      "log": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/command-6.log"
+    },
+    {
+      "args": [
+        "/Users/kongweixian/.bun/bin/bun",
+        "packages/cli-shell/src/index.ts",
+        "SOP",
+        "detail",
+        "--fqn",
+        "NpmNotes.SOP.Review",
+        "--json"
+      ],
+      "cwd": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/npm-consumer/generated",
+      "code": 0,
+      "expected": 0,
+      "log": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/command-7.log"
+    },
+    {
+      "args": [
+        "/Users/kongweixian/.bun/bin/bun",
+        "packages/cli-shell/src/index.ts",
+        "unknown-command"
+      ],
+      "cwd": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/npm-consumer/generated",
+      "code": 1,
+      "expected": 1,
+      "log": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/command-8.log"
+    },
+    {
+      "args": [
+        "git",
+        "init",
+        "--quiet"
+      ],
+      "cwd": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/depa-project",
+      "code": 0,
+      "expected": 0,
+      "log": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/command-9.log"
+    },
+    {
+      "args": [
+        "/Users/kongweixian/.bun/bin/bun",
+        "install",
+        "--frozen-lockfile",
+        "--ignore-scripts",
+        "--registry=https://registry.npmjs.org"
+      ],
+      "cwd": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/depa-project",
+      "code": 0,
+      "expected": 0,
+      "log": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/command-10.log"
+    },
+    {
+      "args": [
+        "/Users/kongweixian/.bun/bin/bun",
+        "run",
+        "typecheck"
+      ],
+      "cwd": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/depa-project",
+      "code": 0,
+      "expected": 0,
+      "log": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/command-11.log"
+    },
+    {
+      "args": [
+        "/Users/kongweixian/.bun/bin/bun",
+        "run",
+        "lint"
+      ],
+      "cwd": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/depa-project",
+      "code": 0,
+      "expected": 0,
+      "log": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/command-12.log"
+    },
+    {
+      "args": [
+        "/Users/kongweixian/.bun/bin/bun",
+        "run",
+        "test"
+      ],
+      "cwd": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/depa-project",
+      "code": 0,
+      "expected": 0,
+      "log": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/command-13.log"
+    },
+    {
+      "args": [
+        "/Users/kongweixian/.bun/bin/bun",
+        "run",
+        "build"
+      ],
+      "cwd": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/depa-project",
+      "code": 0,
+      "expected": 0,
+      "log": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/command-14.log"
+    },
+    {
+      "args": [
+        "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/depa-project/dist/depa-codument",
+        "--version"
+      ],
+      "cwd": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/workspace",
+      "code": 0,
+      "expected": 0,
+      "log": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/command-15.log"
+    },
+    {
+      "args": [
+        "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/depa-project/dist/depa-codument",
+        "init-workspace",
+        "--agent=codex",
+        "--json"
+      ],
+      "cwd": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/workspace",
+      "code": 0,
+      "expected": 0,
+      "log": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/command-16.log"
+    },
+    {
+      "args": [
+        "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/depa-project/dist/depa-codument",
+        "Resource",
+        "validate",
+        "--json"
+      ],
+      "cwd": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/workspace",
+      "code": 0,
+      "expected": 0,
+      "log": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/command-17.log"
+    },
+    {
+      "args": [
+        "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/depa-project/dist/depa-codument",
+        "status",
+        "--json"
+      ],
+      "cwd": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/workspace",
+      "code": 0,
+      "expected": 0,
+      "log": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/command-18.log"
+    },
+    {
+      "args": [
+        "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/depa-project/dist/depa-codument",
+        "discuss",
+        "--help"
+      ],
+      "cwd": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/workspace",
+      "code": 0,
+      "expected": 0,
+      "log": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/command-19.log"
+    },
+    {
+      "args": [
+        "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/depa-project/dist/depa-codument",
+        "unknown-command"
+      ],
+      "cwd": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/workspace",
+      "code": 1,
+      "expected": 1,
+      "log": "/private/var/folders/qh/nm2y7v2s0jn7skv5_yphcbj40000gn/T/halfcode-npm-consumers-q0SCrk/command-20.log"
+    }
+  ]
+}

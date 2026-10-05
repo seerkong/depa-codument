@@ -3,7 +3,7 @@ import * as path from 'node:path';
 import { createHash } from 'node:crypto';
 import { CODUMENT_APP_CATALOGS, type LifecycleSourceCodec, type WorkspaceAppAuthority,
   type WorkspaceAppSourcePort, type WorkspaceAppSourceSnapshot } from 'depa-codument-domain-contract';
-import { createWorkspaceEffect } from 'halfcode-cli-lite-skill-app-support/workspace';
+import { createWorkspaceEffect } from 'halfcode-lite-skill-app-support/workspace';
 import { createFileDomainValidationSourcePort } from './validate';
 import { readXnlRegistrySources } from './registry';
 

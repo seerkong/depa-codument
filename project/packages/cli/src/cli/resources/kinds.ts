@@ -1,1 +1,1 @@
-export * from 'halfcode-cli-lite-skill-app-logic/resources/kinds';
+export * from 'halfcode-lite-skill-app-logic/resources/kinds';

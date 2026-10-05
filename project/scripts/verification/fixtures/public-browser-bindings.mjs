@@ -1,10 +1,10 @@
 // Actual public providers; only their subprocess IO is replaced, never the provider implementation.
 import assert from 'node:assert/strict';
-import { createOneShotBrowserProvider } from 'halfcode-cli-lite-browser-support';
-import { resolveAdmittedExecutionPolicy, createArgvSchema } from 'halfcode-cli-lite-cli-host-logic';
-import { createCommandHost } from 'halfcode-cli-lite-cli-host-capsule';
-import { runCli } from 'halfcode-cli-lite-cli-host-shell';
-import { pathRoots } from 'halfcode-cli-lite-cli-host-support';
+import { createOneShotBrowserProvider } from 'halfcode-lite-browser-support';
+import { resolveAdmittedExecutionPolicy, createArgvSchema } from 'halfcode-lite-cli-logic';
+import { createCommandHost } from 'halfcode-lite-cli-capsule';
+import { runCli } from 'halfcode-lite-cli-shell';
+import { pathRoots } from 'halfcode-lite-cli-support';
 
 const envelope = { ok: true, status: 200, statusText: 'OK', url: 'https://notes.test', contentType: 'text/plain', text: 'notes' };
 const selections = [

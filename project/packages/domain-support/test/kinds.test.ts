@@ -4,8 +4,8 @@ import * as os from 'node:os';
 import * as path from 'node:path';
 import { CODUMENT_KIND_CONTRACTS, CODUMENT_RESOURCE_CONTRACT_REGISTRATIONS, type CodumentResourceView } from 'depa-codument-domain-contract/resources';
 import { CODUMENT_RESOURCE_READER_REGISTRATIONS } from 'depa-codument-domain-logic/resources';
-import { createHostResourceContractRuntime } from 'halfcode-cli-lite-skill-app-support/resources/host-resource-contracts';
-import { createWorkspaceResourceCatalog } from 'halfcode-cli-lite-skill-app-support/resources/workspace-resource-catalog';
+import { createHostResourceContractRuntime } from 'halfcode-lite-skill-app-support/resources/host-resource-contracts';
+import { createWorkspaceResourceCatalog } from 'halfcode-lite-skill-app-support/resources/workspace-resource-catalog';
 import originalKindContracts from './fixtures/kind-contracts.json';
 
 const metadata = 'envelopeVersion="halfcode.resource-envelope/v1" specVersion=1';

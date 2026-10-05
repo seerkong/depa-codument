@@ -1,1 +1,1 @@
-export * from 'halfcode-cli-lite-skill-app-contract/runtime-host';
+export * from 'halfcode-lite-skill-app-contract/runtime-host';

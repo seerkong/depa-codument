@@ -1,2 +1,2 @@
-export type * from 'halfcode-cli-lite-cli-host-contract';
-export { createBrowserProviderClientFetch, headerRecord, requestUrl, requestBody } from 'halfcode-cli-lite-cli-host-logic';
+export type * from 'halfcode-lite-cli-contract';
+export { createBrowserProviderClientFetch, headerRecord, requestUrl, requestBody } from 'halfcode-lite-cli-logic';

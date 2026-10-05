@@ -1,0 +1,20 @@
+{
+  "scope": "Final gap repair acceptance only; not a snapshot of task start",
+  "before": {
+    "/Users/kongweixian/.local/bin/codument": "bf07b71a3d3880f233c28fc4b0e8c2e20008d560b7a3328e78e75abc98c9de0b",
+    "/Users/kongweixian/.local/bin/depa-codument": "67f514125947a50cdc1f033e3dede8346e169e21af84945aded2c1ebc3dd5c34",
+    "/Users/kongweixian/.local/bin/halfcode-lite": null,
+    "/Users/kongweixian/.agents/skills/depa-codument": "41f53a0a353952a2901c2255183bf8f1f3f94533aefc18c003d566c6ad3a5b21",
+    "/Users/kongweixian/.codex/skills/depa-codument": null,
+    "/Users/kongweixian/.claude/skills/depa-codument": "41f53a0a353952a2901c2255183bf8f1f3f94533aefc18c003d566c6ad3a5b21"
+  },
+  "after": {
+    "/Users/kongweixian/.local/bin/codument": "bf07b71a3d3880f233c28fc4b0e8c2e20008d560b7a3328e78e75abc98c9de0b",
+    "/Users/kongweixian/.local/bin/depa-codument": "67f514125947a50cdc1f033e3dede8346e169e21af84945aded2c1ebc3dd5c34",
+    "/Users/kongweixian/.local/bin/halfcode-lite": null,
+    "/Users/kongweixian/.agents/skills/depa-codument": "41f53a0a353952a2901c2255183bf8f1f3f94533aefc18c003d566c6ad3a5b21",
+    "/Users/kongweixian/.codex/skills/depa-codument": null,
+    "/Users/kongweixian/.claude/skills/depa-codument": "41f53a0a353952a2901c2255183bf8f1f3f94533aefc18c003d566c6ad3a5b21"
+  },
+  "unchanged": true
+}

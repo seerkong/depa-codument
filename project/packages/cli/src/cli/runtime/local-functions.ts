@@ -1,12 +1,12 @@
 import type { CommandRuntime } from '../contracts/command';
 import type { BundleDefinitionCatalog } from '../resources/bundle-materializer';
 import type { HostCapabilityName, HostRuntime } from '../resources/definitions';
-import type { LocalFunctionCatalog as PublicCatalog, LocalFunctionCapabilityContext } from 'halfcode-cli-lite-skill-app-contract/local-function';
-import { createLocalFunctionCatalog as createCatalog } from 'halfcode-cli-lite-skill-app-logic/local-function';
-import { createBunLocalFunctionCapabilityBindings } from 'halfcode-cli-lite-skill-app-capsule/local-function-capabilities';
+import type { LocalFunctionCatalog as PublicCatalog, LocalFunctionCapabilityContext } from 'halfcode-lite-skill-app-contract/local-function';
+import { createLocalFunctionCatalog as createCatalog } from 'halfcode-lite-skill-app-logic/local-function';
+import { createBunLocalFunctionCapabilityBindings } from 'halfcode-lite-skill-app-capsule/local-function-capabilities';
 import type { PageWorkflowRun, PageWorkflowStartInput } from './page-workflow';
 
-export type { LocalFunctionOperation, LocalFunctionCapability, LocalFunctionJsonSchema, LocalFunctionDescriptor } from 'halfcode-cli-lite-skill-app-contract/local-function';
+export type { LocalFunctionOperation, LocalFunctionCapability, LocalFunctionJsonSchema, LocalFunctionDescriptor } from 'halfcode-lite-skill-app-contract/local-function';
 export type LocalFunctionRuntime<C extends readonly HostCapabilityName[] = readonly HostCapabilityName[]> = HostRuntime<C>;
 export type LocalFunctionCatalog = PublicCatalog<CommandRuntime>;
 export interface LocalFunctionPageWorkflowEffect {

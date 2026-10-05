@@ -30,11 +30,11 @@ export async function verifyCliConsumer(_root: string, withSkillApp = false, wit
     const registry = await openReleaseRegistry(path.resolve(release));
     let codeFirst: (() => Promise<void>) | undefined;
     const selected = [
-      ...cliRoles.map(role => 'halfcode-cli-lite-cli-host-' + role),
-      ...(withSkillApp ? ['halfcode-cli-lite-skill-app-capsule', 'halfcode-cli-lite-live-host-capsule', 'halfcode-cli-lite-http-shell'] : []),
-      ...(withBrowser ? ['halfcode-cli-lite-browser-support'] : []),
-      ...(withVue ? ['halfcode-cli-lite-page-builder-vue-support'] : []),
-      ...(withMcp ? ['halfcode-cli-lite-mcp-app-capsule'] : []),
+      ...cliRoles.map(role => 'halfcode-lite-cli-' + role),
+      ...(withSkillApp ? ['halfcode-lite-skill-app-capsule', 'halfcode-lite-live-host-capsule', 'halfcode-lite-http-shell'] : []),
+      ...(withBrowser ? ['halfcode-lite-browser-support'] : []),
+      ...(withVue ? ['halfcode-lite-page-builder-vue-support'] : []),
+      ...(withMcp ? ['halfcode-lite-mcp-app-capsule'] : []),
     ];
     const dependencies: Record<string, string> = {};
     try {
@@ -51,10 +51,10 @@ export async function verifyCliConsumer(_root: string, withSkillApp = false, wit
       if (withSkillApp) codeFirst = await prepareCodeFirstConsumer(consumer, registry.url, command);
     } finally { await registry.close(); }
     fs.writeFileSync(path.join(consumer, 'index.ts'), `
-import { createCommandHost } from 'halfcode-cli-lite-cli-host-capsule';
-import { createArgvSchema } from 'halfcode-cli-lite-cli-host-logic';
-import { runCli } from 'halfcode-cli-lite-cli-host-shell';
-import { pathRoots, streamOutput } from 'halfcode-cli-lite-cli-host-support';
+import { createCommandHost } from 'halfcode-lite-cli-capsule';
+import { createArgvSchema } from 'halfcode-lite-cli-logic';
+import { runCli } from 'halfcode-lite-cli-shell';
+import { pathRoots, streamOutput } from 'halfcode-lite-cli-support';
 const host = createCommandHost({
   identity: { bin: 'notes', displayName: 'Independent Notes', version: '1' },
   commands: [{
@@ -126,8 +126,8 @@ export function workspaceClosure(root: string, seeds: readonly string[]): string
 async function verifyPackagedService(consumer: string): Promise<void> {
   fs.writeFileSync(path.join(consumer, 'service-peer.ts'), `Bun.serve({hostname:'127.0.0.1',port:Number(process.argv[2]),fetch:()=>Response.json({ok:true,command:'notes-health',notesVersion:1})});`);
   fs.writeFileSync(path.join(consumer, 'service.ts'), `
-import {createServiceSupervisor} from 'halfcode-cli-lite-cli-host-capsule/service';
-import {spawnDetachedProcess,isPidAlive,stopProcess,probeHttpHealth,allocateTcpPort} from 'halfcode-cli-lite-cli-host-support/process';
+import {createServiceSupervisor} from 'halfcode-lite-cli-capsule/service';
+import {spawnDetachedProcess,isPidAlive,stopProcess,probeHttpHealth,allocateTcpPort} from 'halfcode-lite-cli-support/process';
 let record, launches=0;
 const owned=[];
 const supervisor=createServiceSupervisor({
@@ -160,10 +160,10 @@ async function verifyPackagedTemplates(consumer: string): Promise<void> {
   fs.writeFileSync(path.join(consumer, 'templates.ts'), `
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
-import {createSourceResourceEffect} from 'halfcode-cli-lite-cli-host-support';
-import {installTemplates,installInstructionBlocks} from 'halfcode-cli-lite-cli-host-logic/install';
-import {withFileBackup,FileBackupFailure} from 'halfcode-cli-lite-cli-host-support/file-backup';
-import {createWorkspaceEffect} from 'halfcode-cli-lite-skill-app-support/workspace';
+import {createSourceResourceEffect} from 'halfcode-lite-cli-support';
+import {installTemplates,installInstructionBlocks} from 'halfcode-lite-cli-logic/install';
+import {withFileBackup,FileBackupFailure} from 'halfcode-lite-cli-support/file-backup';
+import {createWorkspaceEffect} from 'halfcode-lite-skill-app-support/workspace';
 const root=path.join(process.cwd(),'template-source'),target=path.join(process.cwd(),'template-target');
 await fs.mkdir(path.join(root,'skills/notes'),{recursive:true});
 await fs.writeFile(path.join(root,'skills/notes/SKILL.md'),'# Notes');
@@ -203,9 +203,9 @@ createInterface({input:process.stdin}).on('line',line=>{
 });
 `);
   fs.writeFileSync(path.join(consumer, 'codex.ts'), `
-import {createCodexSidecar} from 'halfcode-cli-lite-cli-host-support/codex';
-import {createCodexClient} from 'halfcode-cli-lite-cli-host-capsule/codex';
-import {encodeIpcFrame,decodeIpcFrames} from 'halfcode-cli-lite-cli-host-support/codex-desktop';
+import {createCodexSidecar} from 'halfcode-lite-cli-support/codex';
+import {createCodexClient} from 'halfcode-lite-cli-capsule/codex';
+import {encodeIpcFrame,decodeIpcFrames} from 'halfcode-lite-cli-support/codex-desktop';
 if(decodeIpcFrames(encodeIpcFrame({name:'notes'})).messages[0].name!=='notes')throw new Error('IPC codec not packaged');
 function start(name){
   const sidecar=createCodexSidecar({command:process.execPath,args:['codex-peer.ts'],cwd:process.cwd(),clientInfo:{name,version:'1'}});
@@ -227,9 +227,9 @@ console.log(JSON.stringify({codex:true,simulatedPeer:true,realMessagesSent:false
 
 async function verifyPackagedHttp(consumer: string): Promise<void> {
   fs.writeFileSync(path.join(consumer, 'http.ts'), `
-import { startHttpHost } from 'halfcode-cli-lite-live-host-capsule';
-import { createBunHttpListener } from 'halfcode-cli-lite-cli-host-support/http';
-import { createPageChannelPlatform } from 'halfcode-cli-lite-skill-app-support/page-channels';
+import { startHttpHost } from 'halfcode-lite-live-host-capsule';
+import { createBunHttpListener } from 'halfcode-lite-cli-support/http';
+import { createPageChannelPlatform } from 'halfcode-lite-skill-app-support/page-channels';
 let released = 0;
 function start(name) {
   let channels;
@@ -276,7 +276,7 @@ async function verifyPackagedMcp(consumer: string): Promise<void> {
   fs.writeFileSync(path.join(consumer, 'mcp.ts'), `
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
-import { createMcpPageTargetStore, serveMcpApp, APP_RESOURCE_URI } from 'halfcode-cli-lite-mcp-app-capsule';
+import { createMcpPageTargetStore, serveMcpApp, APP_RESOURCE_URI } from 'halfcode-lite-mcp-app-capsule';
 const targets = createMcpPageTargetStore();
 const otherTargets = createMcpPageTargetStore();
 const runtime = {
@@ -320,11 +320,11 @@ async function verifyPackagedVue(consumer: string): Promise<void> {
   fs.writeFileSync(path.join(consumer, 'vue.ts'), `
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
-import { buildVuePage } from 'halfcode-cli-lite-page-builder-vue-support';
-import { createVuePageBuilderPort, resolveVueWorkerEntry } from 'halfcode-cli-lite-page-builder-vue-support/worker-port';
-import { PageBuildCoordinator } from 'halfcode-cli-lite-live-host-capsule/page-build';
-import { createFilePageGenerationStore } from 'halfcode-cli-lite-skill-app-support/page-generation-store';
-import { createPageBuildPlatform } from 'halfcode-cli-lite-skill-app-support/page-build-platform';
+import { buildVuePage } from 'halfcode-lite-page-builder-vue-support';
+import { createVuePageBuilderPort, resolveVueWorkerEntry } from 'halfcode-lite-page-builder-vue-support/worker-port';
+import { PageBuildCoordinator } from 'halfcode-lite-live-host-capsule/page-build';
+import { createFilePageGenerationStore } from 'halfcode-lite-skill-app-support/page-generation-store';
+import { createPageBuildPlatform } from 'halfcode-lite-skill-app-support/page-build-platform';
 const pageRoot = path.join(process.cwd(), 'vue-page');
 const request = { pageName:'notes-page', pageRoot, entry:'src/App.vue', expose:'./app', outputDirectory:path.join(process.cwd(),'vue-output') };
 const receipt = await buildVuePage(request);
@@ -362,9 +362,9 @@ async function verifyPackagedBrowser(consumer: string): Promise<void> {
   fs.writeFileSync(path.join(consumer, 'browser-modules.ts'), `
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
-import { createWebApiModuleLoader } from 'halfcode-cli-lite-browser-support/web-api';
-import { runDebugCode } from 'halfcode-cli-lite-browser-support/debug-code';
-import { resolveDiscoveredFunction, resolveModulePath } from 'halfcode-cli-lite-browser-support/registry';
+import { createWebApiModuleLoader } from 'halfcode-lite-browser-support/web-api';
+import { runDebugCode } from 'halfcode-lite-browser-support/debug-code';
+import { resolveDiscoveredFunction, resolveModulePath } from 'halfcode-lite-browser-support/registry';
 const registryRoot = path.join(process.cwd(), 'debug/skills/notes/browser-functions');
 await fs.mkdir(registryRoot, { recursive: true });
 await fs.writeFile(path.join(registryRoot, 'registry.json'), JSON.stringify({ functions: [{ fqn: 'Notes.Fetch', module: 'fetch.js' }] }));
@@ -389,7 +389,7 @@ console.log(JSON.stringify({ moduleLoader: true, registry: true, debugExports:tr
   fs.writeFileSync(path.join(consumer, 'browser.ts'), `
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
-import { materializeOpenCliPlugin, createOpenCliEffect, createEgoBrowserSupervisor } from 'halfcode-cli-lite-browser-support';
+import { materializeOpenCliPlugin, createOpenCliEffect, createEgoBrowserSupervisor } from 'halfcode-lite-browser-support';
 const directory = await materializeOpenCliPlugin({ cacheRoot: path.join(process.cwd(), 'plugin-cache') });
 const files = await fs.readdir(directory);
 if (files.length !== 5) throw new Error('Plugin closure missing');
@@ -498,16 +498,16 @@ export const resourceDefinitions = [defineLocalFunction({
 })];
 `);
   fs.writeFileSync(path.join(consumer, 'skill-app.ts'), `
-import { createResourceHostRuntime } from 'halfcode-cli-lite-skill-app-capsule';
-import { createLocalFunctionCatalog, localFunctionPlacement } from 'halfcode-cli-lite-skill-app-logic/local-function';
-import { createSqliteConnectionScope } from 'halfcode-cli-lite-skill-app-support/sqlite';
-import { createWorkspaceEffect } from 'halfcode-cli-lite-skill-app-support/workspace';
-import { createPageHostRuntime, createPageProjectionRuntime } from 'halfcode-cli-lite-live-host-capsule/pages';
-import { createPageHttpApp } from 'halfcode-cli-lite-http-shell/page-http';
-import { createPageAutomationPlatform } from 'halfcode-cli-lite-skill-app-support/page-automation-platform';
-import { createPageBuildPlatform } from 'halfcode-cli-lite-skill-app-support/page-build-platform';
-import { createFilePageGenerationStore } from 'halfcode-cli-lite-skill-app-support/page-generation-store';
-import { installResourceDefinitionGlobals } from 'halfcode-cli-lite-skill-app-support/resources/definition-globals';
+import { createResourceHostRuntime } from 'halfcode-lite-skill-app-capsule';
+import { createLocalFunctionCatalog, localFunctionPlacement } from 'halfcode-lite-skill-app-logic/local-function';
+import { createSqliteConnectionScope } from 'halfcode-lite-skill-app-support/sqlite';
+import { createWorkspaceEffect } from 'halfcode-lite-skill-app-support/workspace';
+import { createPageHostRuntime, createPageProjectionRuntime } from 'halfcode-lite-live-host-capsule/pages';
+import { createPageHttpApp } from 'halfcode-lite-http-shell/page-http';
+import { createPageAutomationPlatform } from 'halfcode-lite-skill-app-support/page-automation-platform';
+import { createPageBuildPlatform } from 'halfcode-lite-skill-app-support/page-build-platform';
+import { createFilePageGenerationStore } from 'halfcode-lite-skill-app-support/page-generation-store';
+import { installResourceDefinitionGlobals } from 'halfcode-lite-skill-app-support/resources/definition-globals';
 const host = createResourceHostRuntime({workspaceRoot: process.cwd(), sources: [{root: 'notes', scope: 'root', origin: 'notes'}], privateDirectory: '.notes'}, {
   beforeLoadDefinitions() { installResourceDefinitionGlobals({target:globalThis},{},{names:['Notes']}); },
 });

@@ -7,7 +7,7 @@ export async function prepareCodeFirstConsumer(
   origin: string,
   command: (args: string[], cwd: string) => Promise<string>,
 ): Promise<() => Promise<void>> {
-  const contract = 'halfcode-cli-lite-skill-app-contract';
+  const contract = 'halfcode-lite-skill-app-contract';
   const metadata = await (await fetch(origin + '/' + contract)).json() as {
     versions: Record<string, { version: string; dist: { integrity: string } }>;
   };
@@ -42,8 +42,8 @@ export async function prepareCodeFirstConsumer(
     fs.writeFileSync(path.join(consumer, 'code-first.ts'), `
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
-import { createResourceHostRuntime } from 'halfcode-cli-lite-skill-app-capsule';
-import { createLocalFunctionCatalog } from 'halfcode-cli-lite-skill-app-logic/local-function';
+import { createResourceHostRuntime } from 'halfcode-lite-skill-app-capsule';
+import { createLocalFunctionCatalog } from 'halfcode-lite-skill-app-logic/local-function';
 const root = path.join(process.cwd(),'code-first');
 const lockFile = path.join(root,'bun.lock');
 const lockSource = await fs.readFile(lockFile,'utf8');

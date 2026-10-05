@@ -1,12 +1,13 @@
 import { CODUMENT_RESOURCE_CONTRACT_REGISTRATIONS } from 'depa-codument-domain-contract/resources';
 import { CODUMENT_RESOURCE_READER_REGISTRATIONS } from 'depa-codument-domain-logic/resources';
-import type { HostResourceReaderIdentity } from 'halfcode-cli-lite-skill-app-contract/resource-runtime';
-import { createHostResourceContractRuntime } from 'halfcode-cli-lite-skill-app-support/resources/host-resource-contracts';
-import type { CreateHostResourceContractRuntimeOptions } from 'halfcode-cli-lite-skill-app-support/resources/host-resource-contracts';
-import { createHostReaderContracts, type HostResourceKind } from 'halfcode-cli-lite-skill-app-logic/resources/reader-contracts';
-export type { HostResourceKind, HostResolvedResourceSpec, HostKindContractDescriptor } from 'halfcode-cli-lite-skill-app-logic/resources/reader-contracts';
-export { HOST_RESOURCE_KINDS } from 'halfcode-cli-lite-skill-app-logic/resources/reader-contracts';
-export type { HostResourceContractRuntime } from 'halfcode-cli-lite-skill-app-contract/resource-runtime';
+import type { HostResourceReaderIdentity } from 'halfcode-lite-skill-app-contract/resource-runtime';
+import { SKILL_APP_RESOURCE_KINDS } from 'halfcode-lite-skill-app-contract/resource';
+import { createHostResourceContractRuntime } from 'halfcode-lite-skill-app-support/resources/host-resource-contracts';
+import type { CreateHostResourceContractRuntimeOptions } from 'halfcode-lite-skill-app-support/resources/host-resource-contracts';
+import { createHostReaderContracts, type HostResourceKind } from 'halfcode-lite-skill-app-logic/resources/reader-contracts';
+export type { HostResourceKind, HostResolvedResourceSpec, HostKindContractDescriptor } from 'halfcode-lite-skill-app-logic/resources/reader-contracts';
+export { HOST_RESOURCE_KINDS } from 'halfcode-lite-skill-app-logic/resources/reader-contracts';
+export type { HostResourceContractRuntime } from 'halfcode-lite-skill-app-contract/resource-runtime';
 
 /** Product semantic authority is stable even when its implementation package changes. */
 export const CODUMENT_HOST_READER_IDENTITY: HostResourceReaderIdentity = Object.freeze({
@@ -29,6 +30,8 @@ export type CodumentResourceContractOptions = Pick<CreateHostResourceContractRun
 /** Domain structural registrations extend one reader authority; legacy documents still require migration. */
 export function createCodumentResourceContracts(options: CodumentResourceContractOptions = {}) {
   return createHostResourceContractRuntime({ semanticIdentity: CODUMENT_HOST_READER_IDENTITY,
+    // Full inspection plus Codument domain registrations; schema readability never grants execution.
+    readableKinds: SKILL_APP_RESOURCE_KINDS,
     registrations: [CODUMENT_RESOURCE_CONTRACT_REGISTRATIONS, CODUMENT_RESOURCE_READER_REGISTRATIONS, ...(options.registrations ?? [])],
     expectedLock: options.expectedLock });
 }

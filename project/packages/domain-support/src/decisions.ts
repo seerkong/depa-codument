@@ -1,6 +1,6 @@
 import * as path from 'node:path';
 import type { DecisionSourcePort, DecisionSourceSnapshot } from 'depa-codument-domain-contract';
-import { createWorkspaceEffect } from 'halfcode-cli-lite-skill-app-support/workspace';
+import { createWorkspaceEffect } from 'halfcode-lite-skill-app-support/workspace';
 import { readXnlRegistrySources } from './registry';
 
 /** Explicit CLI target reads only. No cwd mutation, parser, or registry writes. */

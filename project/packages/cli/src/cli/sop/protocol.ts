@@ -1,1 +1,1 @@
-export * from 'halfcode-cli-lite-skill-app-logic/sop/protocol';
+export * from 'halfcode-lite-skill-app-logic/sop/protocol';

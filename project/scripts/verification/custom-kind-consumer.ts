@@ -5,13 +5,13 @@ export async function verifyCustomKindConsumer(consumer: string, command: (args:
   fs.writeFileSync(path.join(consumer, 'custom-kind.ts'), `
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
-import {createCommandHost} from 'halfcode-cli-lite-cli-host-capsule';
-import {createResourceHostRuntime} from 'halfcode-cli-lite-skill-app-capsule';
-import {createHostResourceContractRuntime} from 'halfcode-cli-lite-skill-app-support/resources/host-resource-contracts';
-import {createKindSubjectOwner,createKindSpecRevision,digestCanonical} from 'halfcode-cli-lite-skill-app-contract/resource';
-import {createArgvSchema} from 'halfcode-cli-lite-cli-host-logic';
-import {runCli} from 'halfcode-cli-lite-cli-host-shell';
-import {pathRoots} from 'halfcode-cli-lite-cli-host-support';
+import {createCommandHost} from 'halfcode-lite-cli-capsule';
+import {createResourceHostRuntime} from 'halfcode-lite-skill-app-capsule';
+import {createHostResourceContractRuntime} from 'halfcode-lite-skill-app-support/resources/host-resource-contracts';
+import {createKindSubjectOwner,createKindSpecRevision,digestCanonical} from 'halfcode-lite-skill-app-contract/resource';
+import {createArgvSchema} from 'halfcode-lite-cli-logic';
+import {runCli} from 'halfcode-lite-cli-shell';
+import {pathRoots} from 'halfcode-lite-cli-support';
 const root=path.join(process.cwd(),'custom-kind');
 await fs.mkdir(path.join(root,'entries'),{recursive:true});
 await fs.writeFile(path.join(root,'manifest.xnl'), '<SkillApp #Notes.Custom.App envelopeVersion="halfcode.resource-envelope/v1" specVersion=1 (<Catalogs [<Catalog #entries {resourceKind="Note" shape="single-file" root="vfs://./entries/"}> ]>)>');

@@ -1,8 +1,8 @@
-import type { PageRegistryOptions, PageRegistryEntry, PageAsset, PageAgentWorkflowCatalog, PageResourceCatalog } from 'halfcode-cli-lite-skill-app-contract/page-registry';
-import type { PageBuildStateProvider } from 'halfcode-cli-lite-skill-app-contract/page-build';
-import { createPageResourceCatalog as createCatalog, inspectPageRegistry, inspectPageAsset } from 'halfcode-cli-lite-skill-app-support/page-registry';
+import type { PageRegistryOptions, PageRegistryEntry, PageAsset, PageAgentWorkflowCatalog, PageResourceCatalog } from 'halfcode-lite-skill-app-contract/page-registry';
+import type { PageBuildStateProvider } from 'halfcode-lite-skill-app-contract/page-build';
+import { createPageResourceCatalog as createCatalog, inspectPageRegistry, inspectPageAsset } from 'halfcode-lite-skill-app-support/page-registry';
 import { createWorkspaceResourceCatalog, type WorkspaceResourceCatalog } from '../resources/workspace-resource-catalog';
-export type * from 'halfcode-cli-lite-skill-app-contract/page-registry';
+export type * from 'halfcode-lite-skill-app-contract/page-registry';
 
 export function createPageResourceCatalog(
   resources: WorkspaceResourceCatalog,

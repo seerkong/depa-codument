@@ -12,23 +12,23 @@ function filesAt(directory: string): string[] {
 }
 export async function verifyCliArchitecture(root: string, withSkillApp = false, withBrowser = false, withVue = false, withMcp = false, withDomainCore = false): Promise<void> {
   const errors: string[] = [];
-  const publicVersion = (name: string) => name === 'halfcode-cli-lite-skill-app-contract' ? '0.1.1' : '0.1.0';
-  const publicNames = ['cli-host-contract', 'cli-host-logic', 'cli-host-support', 'cli-host-capsule', 'cli-host-shell',
+  const publicVersion = (name: string) => name === 'halfcode-lite-skill-app-contract' ? '0.1.1' : '0.1.0';
+  const publicNames = ['cli-contract', 'cli-logic', 'cli-support', 'cli-capsule', 'cli-shell',
     'skill-app-contract', 'skill-app-logic', 'skill-app-support', 'skill-app-capsule', 'browser-support',
-    'page-builder-vue-support', 'mcp-app-capsule', 'live-host-capsule', 'http-shell'].map(name => 'halfcode-cli-lite-' + name);
+    'page-builder-vue-support', 'mcp-app-capsule', 'live-host-capsule', 'http-shell'].map(name => 'halfcode-lite-' + name);
   const domain = ['domain-contract', 'domain-logic', 'domain-support', 'domain-capsule'].map(name => 'depa-codument-' + name);
   const packages = [
-    { directory: 'domain-contract', role: 'contract', allowed: ['xnl-core', 'halfcode-cli-lite-skill-app-contract'] },
-    { directory: 'domain-logic', role: 'logic', allowed: [domain[0], 'xnl-core', 'halfcode-cli-lite-skill-app-contract'] },
-    { directory: 'domain-support', role: 'support', allowed: [domain[0], 'halfcode-cli-lite-skill-app-support'] },
+    { directory: 'domain-contract', role: 'contract', allowed: ['xnl-core', 'halfcode-lite-skill-app-contract'] },
+    { directory: 'domain-logic', role: 'logic', allowed: [domain[0], 'xnl-core', 'halfcode-lite-skill-app-contract'] },
+    { directory: 'domain-support', role: 'support', allowed: [domain[0], 'halfcode-lite-skill-app-support'] },
     { directory: 'domain-capsule', role: 'capsule', allowed: domain.slice(0, 2) },
     { directory: 'host-adapter', role: 'adapter', allowed: [...domain.slice(0, 2), ...publicNames] },
     { directory: 'product-capsule', role: 'capsule', allowed: [...domain, 'depa-codument-host-adapter', ...publicNames] },
     // Product formatting consumes the public CommandResult type; no generic implementation is copied.
-    { directory: 'cli-shell', role: 'shell', allowed: ['depa-codument-product-capsule', 'halfcode-cli-lite-cli-host-shell', 'halfcode-cli-lite-cli-host-contract'] },
-    { directory: 'skill-app-contract', role: 'contract', allowed: ['halfcode-cli-lite-skill-app-contract', 'halfcode-compiler.xnl'] },
-    { directory: 'page-builder-vue', role: 'support', name: 'depa-codument-page-builder-vue-support', allowed: ['halfcode-cli-lite-page-builder-vue-support'] },
-    { directory: 'mcp-app', role: 'capsule', name: 'depa-codument-mcp-app-capsule', allowed: ['halfcode-cli-lite-mcp-app-capsule'] },
+    { directory: 'cli-shell', role: 'shell', allowed: ['depa-codument-product-capsule', 'halfcode-lite-cli-shell', 'halfcode-lite-cli-contract'] },
+    { directory: 'skill-app-contract', role: 'contract', allowed: ['halfcode-lite-skill-app-contract', 'halfcode-compiler.xnl'] },
+    { directory: 'page-builder-vue', role: 'support', name: 'depa-codument-page-builder-vue-support', allowed: ['halfcode-lite-page-builder-vue-support'] },
+    { directory: 'mcp-app', role: 'capsule', name: 'depa-codument-mcp-app-capsule', allowed: ['halfcode-lite-mcp-app-capsule'] },
     { directory: 'cli', role: 'shell', allowed: [...publicNames, ...domain, 'depa-codument-host-adapter', 'depa-codument-product-capsule',
       'depa-codument-cli-shell', 'depa-codument-skill-app-contract', 'depa-codument-page-builder-vue-support',
       'depa-codument-mcp-app-capsule', '@modelcontextprotocol/sdk', '@module-federation/runtime', 'ajv', 'halfcode-compiler.xnl', 'hono', 'yaml'] },

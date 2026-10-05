@@ -2,7 +2,7 @@ import { BIN, DISPLAY_NAME, SKILL_DEMO, SKILLS, WORKSPACE_DIR } from '../identit
 import { readGlobalGuidanceAssets, createCodumentGuidanceOperations } from 'depa-codument-product-capsule/global-guidance';
 import { CODUMENT_AGENT_SKILL_DIRECTORIES, type CodumentInstallAgent } from 'depa-codument-product-capsule/workspace-install';
 import type { ResourceEffect } from './effects/resource';
-import { installTemplates, installInstructionBlocks } from 'halfcode-cli-lite-cli-host-logic/install';
+import { installTemplates, installInstructionBlocks } from 'halfcode-lite-cli-logic/install';
 import type { WorkspaceEffect } from './effects/workspace';
 import type { BrowserTransport } from './effects/browser-provider';
 import type { OpenCliSubtransport } from './effects/opencli';

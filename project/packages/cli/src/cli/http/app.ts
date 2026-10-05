@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import { createPageHttpApp } from 'halfcode-cli-lite-http-shell/page-http';
+import { createPageHttpApp } from 'halfcode-lite-http-shell/page-http';
 import { cors } from 'hono/cors';
 import { buildMcpAppAgentMessage, type JsonSchema } from 'depa-codument-mcp-app-capsule';
 import { BIN, DISPLAY_NAME } from '../../identity';
@@ -15,7 +15,7 @@ import {
   invokeStatus,
 } from '../app/invoke';
 import type { CommandRuntime } from '../contracts/command';
-import type { HttpInstanceIdentity } from 'halfcode-cli-lite-cli-host-contract/http';
+import type { HttpInstanceIdentity } from 'halfcode-lite-cli-contract/http';
 import { buildOutputPayload } from '../output';
 import { createInstructionHub, type InstructionHub } from './page-control';
 import { createPageInstanceHub, type PageInstanceHub } from './page-instances';
@@ -24,8 +24,8 @@ import { createPageInstanceTargetPort } from '../runtime/page-target';
 import { loadWebAsset } from './static';
 import { moduleFederationBrowserRuntime } from './federation-browser-runtime';
 import { prepareLocalFunctionExecution } from '../runtime/local-function-execution';
-import { createLocalFunctionHttpApp } from 'halfcode-cli-lite-http-shell/execution';
-import { LOCAL_FUNCTION_INSTANCE_PATH, LOCAL_FUNCTION_SERVE_PATH } from 'halfcode-cli-lite-skill-app-contract/execution';
+import { createLocalFunctionHttpApp } from 'halfcode-lite-http-shell/execution';
+import { LOCAL_FUNCTION_INSTANCE_PATH, LOCAL_FUNCTION_SERVE_PATH } from 'halfcode-lite-skill-app-contract/execution';
 import { selectCodumentLiveRecord } from 'depa-codument-product-capsule/live-client';
 import { readLiveServiceRecord } from '../runtime/serve-process';
 import { canonicalWorkspaceRoot } from '../runtime/ego-scope';

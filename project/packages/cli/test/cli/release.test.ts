@@ -1,3 +1,4 @@
+import builderManifest from 'halfcode-lite-page-builder-vue-support/package.json';
 import { describe, expect, test } from 'bun:test';
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
@@ -55,7 +56,7 @@ describe('release inventory', () => {
       });
       expect(manifest.files).toEqual(['bin/depa-codument', 'builder-vue', 'README.md']);
       expect(manifest.dependencies).toEqual({
-        'halfcode-cli-lite-page-builder-vue-support': '0.1.1',
+        'halfcode-lite-page-builder-vue-support': builderManifest.version,
         'depa-codument-skill-app-contract': '0.1.1',
         '@module-federation/runtime': '2.8.1', '@module-federation/vite': '1.20.1',
         '@vitejs/plugin-vue': '5.2.4', vite: '5.4.21', vue: '3.5.41',
@@ -77,7 +78,7 @@ describe('release inventory', () => {
     });
     expect(manifest.files).toEqual(['bin/depa-codument.exe', 'builder-vue', 'README.md']);
     expect(manifest.dependencies).toEqual({
-      'halfcode-cli-lite-page-builder-vue-support': '0.1.1',
+      'halfcode-lite-page-builder-vue-support': builderManifest.version,
       'depa-codument-skill-app-contract': '0.1.1',
       '@module-federation/runtime': '2.8.1', '@module-federation/vite': '1.20.1',
       '@vitejs/plugin-vue': '5.2.4', vite: '5.4.21', vue: '3.5.41',

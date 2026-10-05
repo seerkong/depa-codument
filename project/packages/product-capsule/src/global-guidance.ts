@@ -1,5 +1,5 @@
-import { loadCommandOperations } from 'halfcode-cli-lite-skill-app-support/command-operation';
-import { walkResourceFiles, normalizeResourcePath } from 'halfcode-cli-lite-cli-host-support';
+import { loadCommandOperations } from 'halfcode-lite-skill-app-support/command-operation';
+import { walkResourceFiles, normalizeResourcePath } from 'halfcode-lite-cli-support';
 import { createGlobalGuidanceResourceEffect, GLOBAL_APP_ROOT } from './global-guidance-resource';
 
 export { createGlobalGuidanceResourceEffect, GLOBAL_APP_ROOT };

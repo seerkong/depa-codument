@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "bun run packages/cli/src/cli/index.ts",
     "build": "bun run scripts/build.ts",
+    "pack:native": "bun run scripts/prepare-native-release.ts",
     "build:release": "bun run scripts/build-release.ts",
     "build:release:arm64": "bun run scripts/build-release.ts --arch=arm64",
     "build:release:x64": "bun run scripts/build-release.ts --arch=x64",
@@ -34,10 +35,11 @@
     "hono": "^4.13.2"
   },
   "devDependencies": {
+    "halfcode-lite-page-builder-vue-support": "0.2.1",
     "depa-codument-domain-logic": "workspace:*",
-    "halfcode-cli-lite-cli-host-contract": "0.1.0",
-    "halfcode-cli-lite-cli-host-logic": "0.1.0",
-    "halfcode-cli-lite-cli-host-support": "0.1.0",
+    "halfcode-lite-cli-contract": "0.2.1",
+    "halfcode-lite-cli-logic": "0.2.1",
+    "halfcode-lite-cli-support": "0.2.1",
     "@types/bun": "1.4.0",
     "@types/node": "26.2.0",
     "@typescript-eslint/parser": "^8.41.0",

@@ -1,3 +1,4 @@
+import builderManifest from 'halfcode-lite-page-builder-vue-support/package.json';
 import { describe, expect, test } from 'bun:test';
 import * as fs from 'node:fs/promises';
 import * as os from 'node:os';
@@ -37,7 +38,7 @@ describe('Host-owned Vue Page builder', () => {
       protocolVersion: '2', packageName: '@test/live-dashboard', generationId: 'sha256:source-generation',
       entry: 'remoteEntry.js', pages: [{ fqn: 'Test.Page.Live', route: '/' }],
       source: { descriptor: 'src/halfcode.page.ts', sourceDigest: 'sha256:source', lockDigest: 'sha256:lock' },
-      toolchain: { contractVersion: '0.1.1', builderVersion: '0.1.1', federationVersion: '1.20.1' },
+      toolchain: { contractVersion: '0.1.1', builderVersion: builderManifest.version, federationVersion: '1.20.1' },
     });
     expect(receipt.assets).toEqual(expect.arrayContaining([
       expect.objectContaining({ path: 'remoteEntry.js', digest: expect.stringMatching(/^sha256:/), kind: 'js' }),

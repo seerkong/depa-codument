@@ -1,8 +1,8 @@
 import type { CommandRuntime } from '../contracts/command';
-import type { HttpHostHandle } from 'halfcode-cli-lite-cli-host-contract/http';
-import { createBunHttpListener } from 'halfcode-cli-lite-cli-host-support/http';
-import { startHttpHost } from 'halfcode-cli-lite-live-host-capsule/http';
-import { createPageChannelPlatform } from 'halfcode-cli-lite-skill-app-support/page-channels';
+import type { HttpHostHandle } from 'halfcode-lite-cli-contract/http';
+import { createBunHttpListener } from 'halfcode-lite-cli-support/http';
+import { startHttpHost } from 'halfcode-lite-live-host-capsule/http';
+import { createPageChannelPlatform } from 'halfcode-lite-skill-app-support/page-channels';
 import { createHttpApp } from './app';
 
 export interface ServeHttpStartInput {

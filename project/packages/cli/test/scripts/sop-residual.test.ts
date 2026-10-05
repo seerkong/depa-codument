@@ -31,7 +31,7 @@ describe('canonical SOP delivery residuals', () => {
       return [...text.matchAll(legacyPattern)].map((match) => ({ file, token: match[0] }));
     });
     expect(findings).toEqual([]);
-    const publicCatalog = Bun.resolveSync('halfcode-cli-lite-skill-app-support/resources/workspace-resource-catalog', import.meta.dir);
+    const publicCatalog = Bun.resolveSync('halfcode-lite-skill-app-support/resources/workspace-resource-catalog', import.meta.dir);
     const publicSource = fs.readFileSync(publicCatalog, 'utf8');
     expect([...publicSource.matchAll(legacyPattern)].map(match => match[0])).toEqual(['ApplicationSOP']);
     expect(publicSource).toContain("has been removed; migrate the resource to kind 'SOP'.");

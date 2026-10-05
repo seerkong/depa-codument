@@ -1,6 +1,6 @@
-import { LocalFunctionAdmissionError, type LiveLocalFunctionInput, type LiveServiceRecord } from 'halfcode-cli-lite-skill-app-contract/execution';
-import { invokeLiveLocalFunctionClient } from 'halfcode-cli-lite-skill-app-logic/live-client';
-import { createFetchLiveTransport } from 'halfcode-cli-lite-skill-app-support/live-transport';
+import { LocalFunctionAdmissionError, type LiveLocalFunctionInput, type LiveServiceRecord } from 'halfcode-lite-skill-app-contract/execution';
+import { invokeLiveLocalFunctionClient } from 'halfcode-lite-skill-app-logic/live-client';
+import { createFetchLiveTransport } from 'halfcode-lite-skill-app-support/live-transport';
 
 /** The product record is scoped by its path; the public client independently probes its live identity. */
 export function selectCodumentLiveRecord(scope: Readonly<{ workspaceRoot: string; agent: string }>, value: unknown): LiveServiceRecord | undefined {

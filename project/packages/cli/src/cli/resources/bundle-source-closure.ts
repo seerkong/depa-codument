@@ -1,1 +1,1 @@
-export * from 'halfcode-cli-lite-skill-app-support/resources/bundle-source-closure';
+export * from 'halfcode-lite-skill-app-support/resources/bundle-source-closure';

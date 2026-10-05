@@ -1,1 +1,1 @@
-export * from 'halfcode-cli-lite-skill-app-contract/sop';
+export * from 'halfcode-lite-skill-app-contract/sop';

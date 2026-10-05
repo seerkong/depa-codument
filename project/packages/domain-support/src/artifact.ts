@@ -2,7 +2,7 @@ import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import { createHash, randomUUID } from 'node:crypto';
 import type { ArtifactSyncPort, ArtifactSyncSnapshot } from 'depa-codument-domain-contract';
-import { createWorkspaceEffect } from 'halfcode-cli-lite-skill-app-support/workspace';
+import { createWorkspaceEffect } from 'halfcode-lite-skill-app-support/workspace';
 
 interface FileState {bytes: Uint8Array; digest: string; mode: number; ino: number; dev: number}
 interface Observation {source: string; target: string; sources: Map<string, FileState>; targets: Map<string, FileState>}

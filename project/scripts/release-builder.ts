@@ -1,14 +1,14 @@
 import { cpSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 
-const publicBuilderName = 'halfcode-cli-lite-page-builder-vue-support';
+const publicBuilderName = 'halfcode-lite-page-builder-vue-support';
 
 /** Product distribution metadata, not another builder implementation. */
 export function stageReleaseBuilder(sourceRoot: string, destination: string): void {
   const manifest = JSON.parse(readFileSync(join(sourceRoot, 'package.json'), 'utf8'));
   const entry = Bun.resolveSync(publicBuilderName, sourceRoot);
   const publicManifest = JSON.parse(readFileSync(join(dirname(entry), '..', 'package.json'), 'utf8'));
-  if (publicManifest.name !== publicBuilderName || !/^\d+\.\d+\.\d+$/.test(publicManifest.version)) {
+  if (publicManifest.name !== publicBuilderName || !/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/.test(publicManifest.version)) {
     throw new Error('Unresolved public builder release identity');
   }
   const dependencies = { ...manifest.dependencies, [publicBuilderName]: publicManifest.version };

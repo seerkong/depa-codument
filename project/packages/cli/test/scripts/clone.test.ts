@@ -3,7 +3,7 @@ import * as fs from 'node:fs';
 import * as os from 'node:os';
 import * as path from 'node:path';
 import {cloneWorkspace, sourceRoot} from '../../../../scripts/clone';
-import type {SnapshotCloneReceipt} from 'halfcode-cli-lite-cli-host-contract/clone';
+import type {SnapshotCloneReceipt} from 'halfcode-lite-cli-contract/clone';
 
 describe('clone producer modes', () => {
   test('default produces only a public-package consumer with an unscoped product prefix', async () => {
@@ -20,10 +20,10 @@ describe('clone producer modes', () => {
       const receipt = JSON.parse(fs.readFileSync(result.receiptPath, 'utf8'));
       expect(receipt.installed).toBe(false);
       expect(receipt.identity.bin).toBe('notes');
-      expect(Object.keys(receipt.dependencies)).toHaveLength(6);
+      expect(Object.keys(receipt.dependencies)).toHaveLength(7);
       for (const [name, version] of Object.entries(receipt.dependencies)) {
-        expect(name).toStartWith('halfcode-cli-lite-');
-        expect(version).toMatch(/^\d+\.\d+\.\d+$/);
+        expect(name).toStartWith('halfcode-lite-');
+        expect(version).toMatch(/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/);
       }
       expect(fs.readFileSync(path.join(destination, 'app/manifest.xnl'), 'utf8')).toContain('#Notes.App');
       expect(fs.existsSync(path.join(destination, 'app/SKILL.md'))).toBe(true);
